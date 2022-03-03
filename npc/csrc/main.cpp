@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include "verilated.h"
-#include "verilated_vcd.h"
+#include "verilated_vcd_c.h"
 #include "Vexample.h"
 vluint64_t sim_time = 0;
 int main(int argc, char** argv) {
