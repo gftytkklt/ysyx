@@ -17,10 +17,11 @@ int main(int argc, char** argv) {
   // waveform file pointer
   VerilatedVcdC* tfp = new VerilatedVcdC;
   // parameters(do not really understand)
-  VerilatedContext* contextp = new VerilatedContext;
-  contextp->commandArgs(argc, argv);
+  //VerilatedContext* contextp = new VerilatedContext;
+  //contextp->commandArgs(argc, argv);
   // top module defination
-  Vexample* switches = new Vexample{contextp};
+  //Vexample* switches = new Vexample{contextp};
+  Vexample* switches = new Vexample;
   // input initialization
   switches->a = 0;
   switches->b = 0;
