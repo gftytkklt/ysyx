@@ -17,6 +17,8 @@ int main(int argc, char** argv) {
   // waveform file pointer
   VerilatedVcdC* tfp = new VerilatedVcdC;
   // parameters(do not really understand)
+  // this will influence sim time
+  // e.g. verilatedvcdc must be called before time 0
   //VerilatedContext* contextp = new VerilatedContext;
   //contextp->commandArgs(argc, argv);
   // top module defination
@@ -29,7 +31,7 @@ int main(int argc, char** argv) {
   switches->trace(tfp,0);
   tfp->open("switch_sim.vcd");
   // set stop conditions manually by sim time
-  while (!contextp->gotFinish() && sim_time < 50){
+  while (sim_time < 50){
 	  int a = rand() & 1;
 	  int b = rand() & 1;
 	  switches->a = a;
@@ -42,6 +44,6 @@ int main(int argc, char** argv) {
   }
   tfp->close();
   delete switches;
-  delete contextp;
+  //delete contextp;
   return 0;
 }
