@@ -4,7 +4,7 @@
 #include "verilated.h"
 #include "verilated_vcd_c.h"
 #include "Vexample.h"
-vluint64_t sim_time = 0;
+
 int main(int argc, char** argv) {
   printf("Hello, ysyx!\n");
   // declear global configuration
@@ -18,6 +18,7 @@ int main(int argc, char** argv) {
   // top module defination
   Vexample* switches = new Vexample{contextp};
   // input initialization
+  vluint64_t sim_time = 0;
   switches->a = 0;
   switches->b = 0;
   // waveform gen
