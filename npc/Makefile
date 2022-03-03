@@ -7,5 +7,5 @@ sim:
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 	verilator -Wall --cc --exe --build --trace csrc/$(CSRC).cpp vsrc/$(VSRC).v
 	./obj_dir/V$(VSRC)
-	gtkwave $(switch_sim).vcd	
+	gtkwave $(WAVEFILE).vcd	
 include ../Makefile
