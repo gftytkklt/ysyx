@@ -38,6 +38,18 @@ static int cmd_q(char *args) {
   return -1;
 }
 
+static int cmd_si(char *args) {
+  cpu_exec(1);
+  return 0;
+}
+
+static int cmd_info(char *args) {
+  return 0;
+}
+
+static int cmd_x(char *args) {
+  return 0;
+}
 static int cmd_help(char *args);
 
 static struct {
@@ -50,6 +62,9 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
 
   /* TODO: Add more commands */
+  {"si", "Single step debug", cmd_si},
+  {"info", "Print program status", cmd_info},
+  {"x", "Scan memory", cmd_x},
 
 };
 
