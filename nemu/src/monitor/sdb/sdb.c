@@ -44,7 +44,19 @@ static int cmd_si(char *args) {
 }
 
 static int cmd_info(char *args) {
-  isa_reg_display();
+  char *arg = strtok(NULL, " ");
+  if (arg == NULL) {
+    printf("usage:\ninfo r: print reg value\ninfo w: print watch points info\n");
+  }
+  else if(strcmp(arg, "r") == 0) {
+    isa_reg_display();
+  }
+  else if(strcmp(arg, "w") == 0) {
+    printf("to be finished\n");
+  }
+  else {
+    printf("undefined usage\n");
+  }
   return 0;
 }
 
