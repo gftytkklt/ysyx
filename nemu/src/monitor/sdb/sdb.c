@@ -71,8 +71,8 @@ static int cmd_x(char *args) {
   sscanf(arg, "%x", &rd_addr);
   printf("%x\n",rd_addr);
   for (int i=0;i<rd_len;i++){
-    printf("0x%x :%lx\n",rd_addr, paddr_read(rd_addr, 4));
-    rd_addr = rd_addr + 4;
+    printf("0x%x :%lx\n",rd_addr, paddr_read(rd_addr, 1));
+    rd_addr = rd_addr + 1;
   }
   return 0;
 }
