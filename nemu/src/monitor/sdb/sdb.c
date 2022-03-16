@@ -62,6 +62,7 @@ static int cmd_info(char *args) {
 }
 
 static int cmd_x(char *args) {
+  const int disp_len = 4;
   int rd_len;
   paddr_t rd_addr;
   char *arg = strtok(NULL, " ");
@@ -71,8 +72,12 @@ static int cmd_x(char *args) {
   sscanf(arg, "%x", &rd_addr);
   printf("%x\n",rd_addr);
   for (int i=0;i<rd_len;i++){
-    printf("0x%x :%02lx\n",rd_addr, paddr_read(rd_addr, 1));
-    rd_addr = rd_addr + 1;
+    printf("0x%x :",rd_addr);
+    for(int j=0;j<disp_len;j++){
+      printf("%02lx ", paddr_read(rd_addr, 1));
+      rd_addr = rd_addr + 1;
+    }
+    printf("\n");
   }
   return 0;
 }
