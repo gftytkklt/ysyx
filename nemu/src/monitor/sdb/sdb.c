@@ -3,6 +3,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "sdb.h"
+#include <memory/paddr.h>
 
 static int is_batch_mode = false;
 
@@ -60,16 +61,17 @@ static int cmd_info(char *args) {
   return 0;
 }
 
-/*static int cmd_x(char *args) {
+static int cmd_x(char *args) {
   int rd_len;
   paddr_t rd_addr;
   char *arg = strtok(NULL, " ");
-  sscanf(arg, "%d FMT_PADDR",&rd_len, &rd_addr);
+  sscanf(arg, "%d %x",&rd_len, &rd_addr);
   for (int i=0;i<rd_len;i++){
-    
+    printf("0x%x :%lx\n",rd_addr, paddr_read(rd_addr, 4));
+    rd_addr = rd_addr + 4;
   }
   return 0;
-}*/
+}
 static int cmd_help(char *args);
 
 static struct {
@@ -84,7 +86,7 @@ static struct {
   /* TODO: Add more commands */
   {"si", "Single step debug", cmd_si},
   {"info", "Print program status", cmd_info},
-  //{"x", "Scan memory", cmd_x},
+  {"x", "Scan memory", cmd_x},
 
 };
 
