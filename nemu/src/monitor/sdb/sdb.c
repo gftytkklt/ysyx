@@ -65,8 +65,8 @@ static int cmd_x(char *args) {
   int rd_len;
   paddr_t rd_addr;
   char *arg = strtok(NULL, " ");
-  sscanf(arg, "%d 0x%x",&rd_len, &rd_addr);
-  printf("%d %d\n",rd_len, rd_addr);
+  sscanf(arg, "%d %d",&rd_len, &rd_addr);
+  printf("%d %x\n",rd_len, rd_addr);
   for (int i=0;i<rd_len;i++){
     printf("0x%x :%lx\n",rd_addr, paddr_read(rd_addr, 4));
     rd_addr = rd_addr + 4;
