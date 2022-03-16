@@ -70,10 +70,10 @@ static int cmd_x(char *args) {
   arg = strtok(NULL, " ");
   sscanf(arg, "%x", &rd_addr);
   printf("%x\n",rd_addr);
-  /*for (int i=0;i<rd_len;i++){
+  for (int i=0;i<rd_len;i++){
     //printf("0x%x :%lx\n",rd_addr, paddr_read(rd_addr, 4));
     rd_addr = rd_addr + 4;
-  }*/
+  }
   return 0;
 }
 static int cmd_help(char *args);
