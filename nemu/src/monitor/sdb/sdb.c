@@ -60,9 +60,16 @@ static int cmd_info(char *args) {
   return 0;
 }
 
-static int cmd_x(char *args) {
+/*static int cmd_x(char *args) {
+  int rd_len;
+  paddr_t rd_addr;
+  char *arg = strtok(NULL, " ");
+  sscanf(arg, "%d FMT_PADDR",&rd_len, &rd_addr);
+  for (int i=0;i<rd_len;i++){
+    
+  }
   return 0;
-}
+}*/
 static int cmd_help(char *args);
 
 static struct {
@@ -77,7 +84,7 @@ static struct {
   /* TODO: Add more commands */
   {"si", "Single step debug", cmd_si},
   {"info", "Print program status", cmd_info},
-  {"x", "Scan memory", cmd_x},
+  //{"x", "Scan memory", cmd_x},
 
 };
 
