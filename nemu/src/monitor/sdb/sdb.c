@@ -63,7 +63,7 @@ static int cmd_info(char *args) {
 
 static int cmd_x(char *args) {
   int rd_len;
-  int rd_addr;
+  paddr_t rd_addr;
   char *arg = strtok(NULL, " ");
   sscanf(arg, "%d %d",&rd_len, &rd_addr);
   printf("%d %x\n",rd_len, rd_addr);
