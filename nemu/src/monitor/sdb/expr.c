@@ -91,7 +91,7 @@ static bool make_token(char *e) {
           case(TK_NUM): sscanf(substr_start, "%[0-9]s", tokens[nr_token].str);
           default: tokens->type = rules[i].token_type; nr_token++;
         }
-	printf("the %d th token is %s\n", (nr_token+1), tokens[nr_token].str);
+	printf("the %d th token is %s\n", nr_token, tokens[nr_token-1].str);
         break;
       }
     }
