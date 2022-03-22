@@ -86,11 +86,11 @@ static bool make_token(char *e) {
          * of tokens, some extra actions should be performed.
          */
 
-        /*switch (rules[i].token_type) {
-          case(" +"): break;
-          case("[0-9]+"): 
-          default: 
-        }*/
+        switch (rules[i].token_type) {
+          case(TK_NOTYPE): break;
+          case(TK_NUM): sscanf(substr_start, "%[0-9]s", tokens[nr_token].str);
+          default: tokens->type = rules[i].token_type; nr_token++;
+        }
 
         break;
       }
