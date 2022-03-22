@@ -68,7 +68,7 @@ static int cmd_x(char *args) {
   char *arg = strtok(NULL, " ");
   sscanf(arg, "%d", &rd_len);
   //printf("%d\n",rd_len);
-  arg = strtok(NULL, " ");
+  arg = strtok(NULL, "");
   /*sscanf(arg, "%x", &rd_addr);
   //printf("%x\n",rd_addr);
   for (int i=0;i<rd_len;i++){
