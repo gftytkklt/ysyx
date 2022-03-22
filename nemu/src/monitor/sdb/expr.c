@@ -91,6 +91,7 @@ static bool make_token(char *e) {
           case(TK_NUM): sscanf(substr_start, "%[0-9]s", tokens[nr_token].str);
           default: tokens[nr_token].type = rules[i].token_type; nr_token++;
         }
+        printf("%d\n", *((int*)(tokens[nr_token-1].str)));
         assert(nr_token <= 32);
         break;
       }
@@ -113,7 +114,7 @@ word_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  //TODO();
+  TODO();
 
   return 0;
 }
