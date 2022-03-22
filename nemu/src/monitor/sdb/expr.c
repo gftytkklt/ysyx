@@ -105,14 +105,14 @@ static bool make_token(char *e) {
 
   return true;
 }
-// no expr surrounded by full parentheses
+// no expr with full parentheses
 int find_mainop(int p, int q){
   int position = 0;
   int delta = 0;
   for (int i=p; i<q; i++){
     if ((tokens[i].type == TK_LP)) {delta++;}
     else if ((tokens[i].type == TK_RP)) {delta--;}
-    if ((delta == 0)&&(i!=p)) {
+    if (delta == 0) {
       if ((tokens[i].type == '+') || (tokens[i].type == '-')) {
         position = i;
       }
@@ -125,7 +125,7 @@ int find_mainop(int p, int q){
       else if((tokens[i].type == TK_LP)) {return position;}
     }
   }
-  assert((position > p) && (position < q));
+  assert((position >= p) && (position < q));
   return position;
 }
 
@@ -150,7 +150,7 @@ int eval(int p, int q) {
     sscanf(tokens[p].str, "%d", &value);
   }
   //assert "-" for inverse must appear at the beginning, and must follow expr with parentheses
-  else if (tokens[p].type == '-'){
+  /*else if (tokens[p].type == '-'){
     if (q == (p+1)) {
       sscanf(tokens[q].str, "%d", &value);
     }
@@ -158,20 +158,23 @@ int eval(int p, int q) {
       value = eval(p+1, q);
     }
     value = -value;
-  }
+  }*/
   else if (check_parentheses(p, q) == true) {
     if ((tokens[p].type == TK_LP) && (tokens[q].type == TK_RP)) {return eval(p+1, q-1);}
     else {
       int op_position, val_l, val_r;
       op_position = find_mainop(p, q);
-      printf("current main op is%d\n", op_position);
-      val_l = eval(p, (op_position - 1));
-      val_r = eval((op_position + 1), q);
-      switch (tokens[op_position].type) {
-        case('+'): return (val_l + val_r);
-        case('-'): return (val_l - val_r);
-        case('*'): return (val_l * val_r);
-        case('/'): assert(val_r != 0);return (val_l / val_r);
+      //printf("current main op is%d\n", op_position);
+      if (op_position == p) {value = eval(p+1,q),value = -value;}
+      else {
+        val_l = eval(p, (op_position - 1));
+        val_r = eval((op_position + 1), q);
+        switch (tokens[op_position].type) {
+          case('+'): return (val_l + val_r);
+          case('-'): return (val_l - val_r);
+          case('*'): return (val_l * val_r);
+          case('/'): assert(val_r != 0);return (val_l / val_r);
+        }
       }
     }
   }
