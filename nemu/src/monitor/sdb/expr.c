@@ -30,7 +30,7 @@ static struct rule {
   {"==", TK_EQ},        // equal
   {"[0-9]+", TK_NUM},
   {"\\(", TK_LP},	// left parentheses
-  {"\\(", TK_RP},	// right parentheses
+  {"\\)", TK_RP},	// right parentheses
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -50,6 +50,9 @@ void init_regex() {
     if (ret != 0) {
       regerror(ret, &re[i], error_msg, 128);
       panic("regex compilation failed: %s\n%s", error_msg, rules[i].regex);
+    }
+    else {
+      printf("%s", rules[i].regex);
     }
   }
 }
