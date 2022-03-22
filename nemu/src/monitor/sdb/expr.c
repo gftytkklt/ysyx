@@ -89,7 +89,7 @@ static bool make_token(char *e) {
         switch (rules[i].token_type) {
           case(TK_NOTYPE): break;
           case(TK_NUM): sscanf(substr_start, "%[0-9]s", tokens[nr_token].str);
-          int tmp; sscanf(tokens[nr_token].str, "%d", &tmp);printf("%d\n", tmp);
+          //int tmp; sscanf(tokens[nr_token].str, "%d", &tmp);printf("%d\n", tmp);
           default: tokens[nr_token].type = rules[i].token_type; nr_token++;
         }
         assert(nr_token <= 32);
@@ -106,7 +106,19 @@ static bool make_token(char *e) {
   return true;
 }
 
-
+int eval(int p, int q) {
+  int value;
+  if (p>q) {
+    assert(p<=q);
+  }
+  else if (p==q) {
+    assert(tokens[p].type == TK_NUM);
+    sscanf(tokens[p].str, "%d", &value);
+    
+  }
+  return value;
+}
+// nr_token indicates the number of valid token
 word_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
@@ -116,5 +128,5 @@ word_t expr(char *e, bool *success) {
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
 
-  return 0;
+  return eval(0,(nr_token-1));
 }
