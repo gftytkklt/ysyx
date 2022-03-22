@@ -105,21 +105,26 @@ static bool make_token(char *e) {
 
   return true;
 }
-
+// no expr surrounded by full parentheses
 int find_mainop(int p, int q){
   int position = 0;
-  for (int i=(p+1); i<q; i++){
-    if ((tokens[i].type == '+') || (tokens[i].type == '-')) {
-      position = i;
-    }
-    else if((tokens[i].type == '*') || (tokens[i].type == '/')) {
-      if ((position == 0) || (tokens[position].type == '*') || (tokens[position].type == '/')) {
+  int delta = 0;
+  for (int i=p; i<q; i++){
+    if ((tokens[i].type == TK_LP)) {delta++;}
+    else if ((tokens[i].type == TK_RP)) {delta--;}
+    if (delta == 0) {
+      if ((tokens[i].type == '+') || (tokens[i].type == '-')) {
         position = i;
       }
-    }
+      else if((tokens[i].type == '*') || (tokens[i].type == '/')) {
+        if ((position == 0) || (tokens[position].type == '*') || (tokens[position].type == '/')) {
+          position = i;
+        }
+      }
       //case('/'): 
-    else if((tokens[i].type == TK_LP)) {return position;}
+      else if((tokens[i].type == TK_LP)) {return position;}
     }
+  }
   assert((position > p) && (position < q));
   return position;
 }
