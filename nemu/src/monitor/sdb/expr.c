@@ -112,7 +112,7 @@ int find_mainop(int p, int q){
   for (int i=p; i<q; i++){
     if ((tokens[i].type == TK_LP)) {delta++;}
     else if ((tokens[i].type == TK_RP)) {delta--;}
-    if (delta == 0) {
+    if ((delta == 0)&&(i!=p)) {
       if ((tokens[i].type == '+') || (tokens[i].type == '-')) {
         position = i;
       }
@@ -148,6 +148,11 @@ int eval(int p, int q) {
   else if (p==q) {
     assert(tokens[p].type == TK_NUM);
     sscanf(tokens[p].str, "%d", &value);
+  }
+  else if (p==(q-1)){
+    assert(tokens[p].type == '-');
+    sscanf(tokens[p].str, "%d", &value);
+    value = -value;
   }
   else if (check_parentheses(p, q) == true) {
     if ((tokens[p].type == TK_LP) && (tokens[q].type == TK_RP)) {return eval(p+1, q-1);}
