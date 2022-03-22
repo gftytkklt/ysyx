@@ -131,6 +131,7 @@ bool check_parentheses(int p, int q) {
     else if(tokens[i].type == TK_RP){delta--;}
     assert(delta >= 0);
   }
+  printf("delta = %d\n", delta);
   return (delta == 0);
 }
 int eval(int p, int q) {
