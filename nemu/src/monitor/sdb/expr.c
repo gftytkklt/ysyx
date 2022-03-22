@@ -149,6 +149,7 @@ int eval(int p, int q) {
     else {
       int op_position, val_l, val_r;
       op_position = find_mainop(p, q);
+      printf("current main op is%d\n", op_position);
       val_l = eval(p, (op_position - 1));
       val_r = eval((op_position + 1), q);
       switch (tokens[op_position].type) {
