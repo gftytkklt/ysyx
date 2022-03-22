@@ -75,7 +75,7 @@ static bool make_token(char *e) {
       if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
-
+	//assert (substr_len < 32);
         Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
             i, rules[i].regex, position, substr_len, substr_len, substr_start);
 
@@ -88,7 +88,7 @@ static bool make_token(char *e) {
 
         switch (rules[i].token_type) {
           case(TK_NOTYPE): break;
-          case(TK_NUM): sscanf(substr_start, "%[0-9]s", tokens[nr_token].str);
+          case(TK_NUM): sscanf(substr_start, "%[0-9]s", tokens[nr_token].str);printf("%s", tokens[nr_token].str);
           default: tokens[nr_token].type = rules[i].token_type; nr_token++;
         }
         assert(nr_token <= 32);
