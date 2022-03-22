@@ -106,6 +106,33 @@ static bool make_token(char *e) {
   return true;
 }
 
+int find_mainop(int p, int q){
+  int position = 0;
+  for (int i=(p+1); i<q; i++){
+    if ((tokens[i].type == '+') || (tokens[i].type == '-')) {
+      position = i;
+    }
+    else if((tokens[i].type == '*') || (tokens[i].type == '/')) {
+      if ((position == 0) || (tokens[position].type == '*') || (tokens[position].type == '/')) {
+        position = i;
+      }
+    }
+      //case('/'): 
+    else if((tokens[i].type == TK_LP)) {return position;}
+    }
+  assert((position > p) && (position < q));
+  return position;
+}
+
+bool check_parentheses(int p, int q) {
+  int delta = 0;// LP - RP
+  for (int i=p; i<=q; i++) {
+    if(tokens[i].type == TK_LP){delta++;}
+    else if(tokens[i].type == TK_RP){delta--;}
+    assert(delta >= 0);
+  }
+  return (delta == 0);
+}
 int eval(int p, int q) {
   int value;
   if (p>q) {
@@ -114,8 +141,23 @@ int eval(int p, int q) {
   else if (p==q) {
     assert(tokens[p].type == TK_NUM);
     sscanf(tokens[p].str, "%d", &value);
-    
   }
+  else if (check_parentheses(p, q) == true) {
+    if ((tokens[p].type == TK_LP) && (tokens[q].type == TK_RP)) {return eval(p+1, q-1);}
+    else {
+      int op_position, val_l, val_r;
+      op_position = find_mainop(p, q);
+      val_l = eval(p, (op_position - 1));
+      val_r = eval((op_position + 1), q);
+      switch (tokens[op_position].type) {
+        case('+'): return (val_l + val_r);
+        case('-'): return (val_l - val_r);
+        case('*'): return (val_l * val_r);
+        case('/'): assert(val_r != 0);return (val_l / val_r);
+      }
+    }
+  }
+  assert(check_parentheses(p, q) == true);
   return value;
 }
 // nr_token indicates the number of valid token
