@@ -151,7 +151,7 @@ int eval(int p, int q) {
   }
   else if (p==(q-1)){
     assert(tokens[p].type == '-');
-    sscanf(tokens[p].str, "%d", &value);
+    sscanf(tokens[q].str, "%d", &value);
     value = -value;
   }
   else if (check_parentheses(p, q) == true) {
