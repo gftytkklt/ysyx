@@ -152,7 +152,7 @@ int eval(int p, int q) {
   //assert "-" for inverse must appear at the beginning, and must follow expr with parentheses
   else if (tokens[p].type == '-'){
     if (q == (p+1)) {
-      sscanf(tokens[p].str, "%d", &value);
+      sscanf(tokens[q].str, "%d", &value);
     }
     else {
       value = eval(p+1, q);
