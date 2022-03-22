@@ -149,9 +149,14 @@ int eval(int p, int q) {
     assert(tokens[p].type == TK_NUM);
     sscanf(tokens[p].str, "%d", &value);
   }
-  else if (p==(q-1)){
-    assert(tokens[p].type == '-');
-    sscanf(tokens[q].str, "%d", &value);
+  //assert "-" for inverse must appear at the beginning, and must follow expr with parentheses
+  else if (tokens[p].type == '-'){
+    if (q == (p+1)) {
+      sscanf(tokens[p].str, "%d", &value);
+    }
+    else {
+      value = eval(p+1, q);
+    }
     value = -value;
   }
   else if (check_parentheses(p, q) == true) {
