@@ -88,10 +88,10 @@ static bool make_token(char *e) {
 
         switch (rules[i].token_type) {
           case(TK_NOTYPE): break;
-          case(TK_NUM): sscanf(substr_start, "%[0-9]s", tokens[nr_token].str);
-          default: tokens->type = rules[i].token_type; nr_token++;
+          case(TK_NUM): printf("in tk_num\n");sscanf(substr_start, "%[0-9]s", tokens[nr_token].str);
+          default: printf("in default\n");tokens[nr_token].type = rules[i].token_type; nr_token++;
         }
-	printf("the %d th token is %s\n", nr_token, tokens[nr_token-1].str);
+	//printf("the %d th token is %s, type is %s\n", nr_token, tokens[nr_token-1].str);
         break;
       }
     }
