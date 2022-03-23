@@ -82,9 +82,9 @@ static int cmd_x(char *args) {
   bool *success = NULL;
   int result = expr(arg,success);
   printf("%d %.16x\n", result, result);
-  unsigned a,b,c;
-  a=1,b=-2;
-  c = a-b;
+  int a,b,c;
+  a=0x7fffffff,b=2;
+  c = a+b;
   printf("%d %u %x\n",c,c,c);
   return 0;
 }
