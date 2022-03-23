@@ -80,8 +80,8 @@ static int cmd_x(char *args) {
     printf("\n");
   }*/
   bool *success = NULL;
-  int result = expr(arg,success);
-  printf("%d %.16x\n", result, result);
+  unsigned int result = expr(arg,success);
+  printf("%d %x\n", result, result);
   return 0;
 }
 static int cmd_help(char *args);
