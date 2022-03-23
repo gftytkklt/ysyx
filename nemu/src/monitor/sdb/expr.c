@@ -143,8 +143,8 @@ int check_parentheses(int p, int q) {
   //printf("delta = %d\n\n", delta);
   return 1;
 }
-int eval(int p, int q) {
-  int value;
+unsigned int eval(int p, int q) {
+  unsigned int value;
   if (p>q) {
     assert(p<=q);
   }
@@ -164,7 +164,7 @@ int eval(int p, int q) {
   }*/
   else if (check_parentheses(p, q) == 0) {return eval(p+1, q-1);}
   else {
-    int op_position, val_l, val_r;
+    unsigned int op_position, val_l, val_r;
     op_position = find_mainop(p, q);
     //printf("current main op is%d\n", op_position);
     if (op_position == p) {value = eval(p+1,q);value = -value;} // unary op
