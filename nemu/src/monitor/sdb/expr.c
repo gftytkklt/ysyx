@@ -143,8 +143,8 @@ int check_parentheses(int p, int q) {
   //printf("delta = %d\n\n", delta);
   return 1;
 }
-int eval(int p, int q) {
-  int value;
+unsigned int eval(int p, int q) {
+  unsigned int value;
   if (p>q) {
     assert(p<=q);
   }

@@ -82,8 +82,6 @@ static int cmd_x(char *args) {
   bool *success = NULL;
   int result = expr(arg,success);
   printf("%d %.16x\n", result, result);
-  long int a = 0x8000000000;
-  printf("%ld %lu\n",a,a);
   return 0;
 }
 static int cmd_help(char *args);
