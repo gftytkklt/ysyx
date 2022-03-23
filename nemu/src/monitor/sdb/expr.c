@@ -125,20 +125,22 @@ int find_mainop(int p, int q){
       else if((tokens[i].type == TK_LP)) {return position;}
     }
   }
-  assert((position >= p) && (position < q));
+  assert(((position >= p) && (position < q)) || (position == 0));
   return position;
 }
-
-bool check_parentheses(int p, int q) {
+// return 0: valid expr with match parentheses
+// return 1: valid expr without match parentheses
+// assert: invalid expr, parentheses do not match
+int check_parentheses(int p, int q) {
   printf("start = %d, end = %d\n", p, q);
   int delta = 0;// LP - RP
   for (int i=p; i<=q; i++) {
     if(tokens[i].type == TK_LP){delta++;}
-    else if(tokens[i].type == TK_RP){delta--;}
+    else if(tokens[i].type == TK_RP){delta--;if(delta==0){return (i!=q);}}
     assert(delta >= 0);
   }
   printf("delta = %d\n\n", delta);
-  return (delta == 0);
+  return 1;
 }
 int eval(int p, int q) {
   int value;
@@ -159,26 +161,24 @@ int eval(int p, int q) {
     }
     value = -value;
   }*/
-  else if (check_parentheses(p, q) == true) {
-    if ((tokens[p].type == TK_LP) && (tokens[q].type == TK_RP)) {return eval(p+1, q-1);}
+  else if (check_parentheses(p, q) == 0) {return eval(p+1, q-1);}
+  else {
+    int op_position, val_l, val_r;
+    op_position = find_mainop(p, q);
+    //printf("current main op is%d\n", op_position);
+    if (op_position == p) {value = eval(p+1,q);value = -value;} // unary op
     else {
-      int op_position, val_l, val_r;
-      op_position = find_mainop(p, q);
-      //printf("current main op is%d\n", op_position);
-      if (op_position == p) {value = eval(p+1,q),value = -value;}
-      else {
-        val_l = eval(p, (op_position - 1));
-        val_r = eval((op_position + 1), q);
-        switch (tokens[op_position].type) {
-          case('+'): return (val_l + val_r);
-          case('-'): return (val_l - val_r);
-          case('*'): return (val_l * val_r);
-          case('/'): assert(val_r != 0);return (val_l / val_r);
-        }
+      val_l = eval(p, (op_position - 1));
+      val_r = eval((op_position + 1), q);
+      switch (tokens[op_position].type) {
+        case('+'): return (val_l + val_r);
+        case('-'): return (val_l - val_r);
+        case('*'): return (val_l * val_r);
+        case('/'): assert(val_r != 0);return (val_l / val_r);
       }
     }
   }
-  assert(check_parentheses(p, q) == true);
+  //assert(check_parentheses(p, q) == true);
   return value;
 }
 // nr_token indicates the number of valid token
