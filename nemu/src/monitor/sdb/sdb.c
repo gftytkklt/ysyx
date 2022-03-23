@@ -81,7 +81,7 @@ static int cmd_x(char *args) {
   }*/
   bool *success = NULL;
   int result = expr(arg,success);
-  printf("%d %x\n", result, result);
+  printf("%d %16x\n", result, result);
   return 0;
 }
 static int cmd_help(char *args);
