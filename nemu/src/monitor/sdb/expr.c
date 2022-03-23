@@ -132,7 +132,7 @@ int find_mainop(int p, int q){
 // return 1: valid expr without match parentheses
 // assert: invalid expr, parentheses do not match
 int check_parentheses(int p, int q) {
-  printf("start = %d, end = %d\n", p, q);
+  //printf("start = %d, end = %d\n", p, q);
   int delta = 0;// LP - RP
   if ((tokens[p].type != TK_LP) || (tokens[q].type != TK_RP)) {return 1;}
   for (int i=p; i<=q; i++) {
@@ -140,7 +140,7 @@ int check_parentheses(int p, int q) {
     else if(tokens[i].type == TK_RP){delta--;if(delta==0){return (i!=q);}}
     assert(delta >= 0);
   }
-  printf("delta = %d\n\n", delta);
+  //printf("delta = %d\n\n", delta);
   return 1;
 }
 int eval(int p, int q) {
@@ -191,9 +191,9 @@ word_t expr(char *e, bool *success) {
 
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
-  printf("token num = %d\n", nr_token);
-  for (int i = 0;i<nr_token;i++){printf("%d element: %d ",i, tokens[i].type);}
-  printf("\n");
+  //printf("token num = %d\n", nr_token);
+  //for (int i = 0;i<nr_token;i++){printf("%d element: %d ",i, tokens[i].type);}
+  //printf("\n");
   //return 0; 
   return eval(0,(nr_token-1));
 }
