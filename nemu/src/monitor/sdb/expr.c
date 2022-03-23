@@ -134,6 +134,7 @@ int find_mainop(int p, int q){
 int check_parentheses(int p, int q) {
   printf("start = %d, end = %d\n", p, q);
   int delta = 0;// LP - RP
+  if ((tokens[p].type != TK_LP) || (tokens[q].type != TK_RP)) {return 1;}
   for (int i=p; i<=q; i++) {
     if(tokens[i].type == TK_LP){delta++;}
     else if(tokens[i].type == TK_RP){delta--;if(delta==0){return (i!=q);}}
