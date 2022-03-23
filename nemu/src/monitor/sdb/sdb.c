@@ -83,7 +83,7 @@ static int cmd_x(char *args) {
   int result = expr(arg,success);
   printf("%d %.16x\n", result, result);
   unsigned a,b,c;
-  a=1,b=2;
+  a=1,b=-2;
   c = a-b;
   printf("%d %u %x\n",c,c,c);
   return 0;
