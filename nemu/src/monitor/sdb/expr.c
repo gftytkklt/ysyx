@@ -125,7 +125,7 @@ int find_mainop(int p, int q){
       else if((tokens[i].type == TK_LP)) {return position;}
     }
   }
-  assert(((position >= p) && (position < q)) || (position == 0));
+  assert((position >= p) && (position < q));
   return position;
 }
 // return 0: valid expr with match parentheses
