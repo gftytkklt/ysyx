@@ -164,7 +164,7 @@ unsigned int eval(int p, int q) {
   }*/
   else if (check_parentheses(p, q) == 0) {return eval(p+1, q-1);}
   else {
-    unsigned int op_position, val_l, val_r;
+    int op_position, val_l, val_r;
     op_position = find_mainop(p, q);
     //printf("current main op is%d\n", op_position);
     if (op_position == p) {value = eval(p+1,q);value = -value;} // unary op
