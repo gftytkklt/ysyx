@@ -80,7 +80,7 @@ static int cmd_x(char *args) {
     printf("\n");
   }*/
   bool *success = NULL;
-  int result = expr(arg,success);
+  unsigned int result = expr(arg,success);
   printf("%d %x\n", result, result);
   return 0;
 }
