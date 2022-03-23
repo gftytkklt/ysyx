@@ -81,7 +81,7 @@ static int cmd_x(char *args) {
   }*/
   bool *success = NULL;
   unsigned int result = expr(arg,success);
-  printf("%d %x %d\n", result, result, (0x80000000-1));
+  printf("%d %x\n", result, result);
   return 0;
 }
 static int cmd_help(char *args);
