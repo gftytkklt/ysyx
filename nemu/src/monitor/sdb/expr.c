@@ -182,6 +182,7 @@ unsigned int eval(int p, int q, bool *success) {
     }
   }
   //assert(check_parentheses(p, q) == true);
+  *success = true;
   return value;
 }
 // nr_token indicates the number of valid token
