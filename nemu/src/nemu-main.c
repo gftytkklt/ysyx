@@ -19,7 +19,7 @@ int main(int argc, char *argv[]) {
   //return is_exit_status_bad();
   // modified for test expr.c
   FILE *fp1;
-  fp1 = fopen("/home/gftyt/ysyx-workbench/nemu/src/input.txt","r");
+  fp1 = fopen("/home/gftyt/ysyx-workbench/nemu/src/input","r");
   if (fp1==NULL){puts("fopen error\n");return 0;}
   char line[1024] = {}; 
   while ((fgets (line, 1024, fp1)) != NULL)
