@@ -172,7 +172,7 @@ unsigned int eval(int p, int q, bool *success) {
     else {
       val_l = eval(p, (op_position - 1),success);
       val_r = eval((op_position + 1), q,success);
-      *success = true;
+      //*success = true;
       switch (tokens[op_position].type) {
         case('+'): return (val_l + val_r);
         case('-'): return (val_l - val_r);
