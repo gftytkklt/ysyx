@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
  {
   row++;
   //fputs (line, stdout);
-  sscanf(line, "%d %s", &result, exprs);
+  sscanf(line, "%d %s", &ref_result, exprs);
   result = expr(exprs, success);
   if (result != ref_result) {
     printf("error cal at %dth expr %s, ref = %u, cal = %u\n",row,exprs,ref_result,result);
