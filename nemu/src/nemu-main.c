@@ -22,13 +22,22 @@ int main(int argc, char *argv[]) {
   fp1 = fopen("/home/gftyt/ysyx-workbench/nemu/tools/gen-expr/build/input","r");
   if (fp1==NULL){puts("fopen error\n");return 0;}
   char line[1024] = {};
+  unsigned ref_result = 0;
   unsigned result = 0;
   char exprs[1024] = {};
+  bool *success = false;
+  int row = 0;
   while ((fgets (line, 1024, fp1)) != NULL)
  {
+  row++;
   //fputs (line, stdout);
   sscanf(line, "%d %s", &result, exprs);
-  printf("%d %s\n", result, exprs);
+  result = expr(exprs, success);
+  if (result != ref_result) {
+    printf("error cal at %dth expr %s, ref = %u, cal = %u\n",row,exprs,ref_result,result);
+  }
+  //printf("%d %s\n", result, exprs);
  }
+  printf("comp finish\n");
   return 0;
 }
