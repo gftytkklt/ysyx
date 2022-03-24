@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
   unsigned ref_result = 0;
   unsigned result = 0;
   char exprs[1024] = {};
-  bool success = false;
+  bool success;
   bool *success_p = &success;
   int row = 0;
   while ((fgets (line, 1024, fp1)) != NULL)
@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
   row++;
   //fputs (line, stdout);
   sscanf(line, "%d %s", &ref_result, exprs);
-  *success_p = false;
+  *success_p = true;
   result = expr(exprs, success_p);
   if (!(*success_p)) {printf("invalid formula %d: %s\n",row,exprs);}
   else if (result != ref_result) {
