@@ -105,7 +105,7 @@ static bool make_token(char *e) {
 
   return true;
 }
-// no expr with full parentheses
+// no expr input with full parentheses
 int find_mainop(int p, int q){
   int position = 0;
   int delta = 0;

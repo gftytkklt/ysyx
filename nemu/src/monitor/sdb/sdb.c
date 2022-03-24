@@ -82,10 +82,10 @@ static int cmd_x(char *args) {
   bool *success = NULL;
   unsigned int result = expr(arg,success);
   printf("%d %x %u\n", result, result, result);
-  const unsigned int a = 1;
+  /*const unsigned int a = 1;
   int b = -2;
   int c = 2;
-  printf("%d %x %d %x\n",(a*b/c),(a*b/c),(b/c),(b/c));
+  printf("%d %x %d %x\n",(a*b/c),(a*b/c),(b/c),(b/c));*/
   return 0;
 }
 static int cmd_help(char *args);
