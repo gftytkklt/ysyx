@@ -144,7 +144,7 @@ int check_parentheses(int p, int q) {
   //printf("delta = %d\n\n", delta);
   return 1;
 }
-unsigned int eval(int p, int q) {
+unsigned int eval(int p, int q, bool *success) {
   unsigned int value;
   if (p>q) {
     assert(p<=q);
@@ -163,20 +163,21 @@ unsigned int eval(int p, int q) {
     }
     value = -value;
   }*/
-  else if (check_parentheses(p, q) == 0) {return eval(p+1, q-1);}
+  else if (check_parentheses(p, q) == 0) {return eval(p+1, q-1, success);}
   else {
     unsigned int op_position, val_l, val_r;
     op_position = find_mainop(p, q);
     //printf("current main op is%d\n", op_position);
-    if (op_position == p) {value = eval(p+1,q);value = -value;} // unary op
+    if (op_position == p) {value = eval(p+1,q,success);value = -value;} // unary op
     else {
-      val_l = eval(p, (op_position - 1));
-      val_r = eval((op_position + 1), q);
+      val_l = eval(p, (op_position - 1),success);
+      val_r = eval((op_position + 1), q,success);
+      *success = true;
       switch (tokens[op_position].type) {
         case('+'): return (val_l + val_r);
         case('-'): return (val_l - val_r);
         case('*'): return (val_l * val_r);
-        case('/'): assert(val_r != 0);return (val_l / val_r);
+        case('/'): if(val_r != 0){return (val_l / val_r);}else{*success = false;return 0;}
       }
     }
   }
@@ -196,5 +197,5 @@ word_t expr(char *e, bool *success) {
   //for (int i = 0;i<nr_token;i++){printf("%d element: %d ",i, tokens[i].type);}
   //printf("\n");
   //return 0; 
-  return eval(0,(nr_token-1));
+  return eval(0,(nr_token-1),success);
 }

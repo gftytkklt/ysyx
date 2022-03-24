@@ -32,8 +32,10 @@ int main(int argc, char *argv[]) {
   row++;
   //fputs (line, stdout);
   sscanf(line, "%d %s", &ref_result, exprs);
+  *success = false;
   result = expr(exprs, success);
-  if (result != ref_result) {
+  if (!success) {printf("invalid formula %d: %s",row,exprs);}
+  else if (result != ref_result) {
     printf("error cal at %dth expr %s, ref = %u, cal = %u\n",row,exprs,ref_result,result);
   }
   else {printf("formula %d passed!\n",row);}

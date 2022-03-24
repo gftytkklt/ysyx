@@ -79,9 +79,10 @@ static int cmd_x(char *args) {
     }
     printf("\n");
   }*/
-  bool *success = NULL;
+  bool *success = false;
   unsigned int result = expr(arg,success);
-  printf("%d %x %u\n", result, result, result);
+  if(success){printf("%d %x %u\n", result, result, result);}
+  else{printf("invalid divide by 0\n");}
   /*const unsigned int a = 1;
   int b = -2;
   int c = 2;
