@@ -6,7 +6,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ, TK_NUM, TK_LP, TK_RP,
+  TK_NOTYPE = 256, TK_EQ, TK_NUM, TK_LP, TK_RP, TK_HEX,
 
   /* TODO: Add more token types */
 
@@ -31,7 +31,8 @@ static struct rule {
   {"[0-9]+", TK_NUM},
   {"\\(", TK_LP},	// left parentheses
   {"\\)", TK_RP},	// right parentheses
-  {"U", TK_NOTYPE},
+  {"U", TK_NOTYPE},     // unsigned label, doesn't affect cal
+  {"0x[0-9]+", TK_HEX}, // hex form data, to be finished
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -144,8 +145,8 @@ int check_parentheses(int p, int q) {
   //printf("delta = %d\n\n", delta);
   return 1;
 }
-unsigned int eval(int p, int q, bool *success) {
-  unsigned int value;
+unsigned long eval(int p, int q, bool *success) {
+  unsigned long value;
   if (p>q) {
     assert(p<=q);
   }
@@ -165,10 +166,15 @@ unsigned int eval(int p, int q, bool *success) {
   }*/
   else if (check_parentheses(p, q) == 0) {return eval(p+1, q-1, success);}
   else {
-    unsigned int op_position, val_l, val_r;
+    unsigned long op_position, val_l, val_r;
     op_position = find_mainop(p, q);
     //printf("current main op is%d\n", op_position);
-    if (op_position == p) {value = eval(p+1,q,success);value = -value;} // unary op
+    if (op_position == p) { // unary op
+      if ((tokens[op_position].type) == '-') {
+        value = eval(p+1,q,success);value = -value;
+      }
+      else if()
+    }
     else {
       val_l = eval(p, (op_position - 1),success);
       val_r = eval((op_position + 1), q,success);

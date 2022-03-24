@@ -80,8 +80,8 @@ static int cmd_x(char *args) {
     printf("\n");
   }*/
   bool *success = false;
-  unsigned int result = expr(arg,success);
-  if(success){printf("%d %x %u\n", result, result, result);}
+  unsigned long result = expr(arg,success);
+  if(success){printf("%ld %lx %lu\n", result, result, result);}
   else{printf("invalid divide by 0\n");}
   /*const unsigned int a = 1;
   int b = -2;
