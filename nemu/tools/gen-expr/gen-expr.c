@@ -13,8 +13,8 @@ static char *code_format =
 "int main() { "
 //"  const char *xyz = (\"%s\");"
 //"  printf(\"%%s\\n\", xyz);"
-"  const unsigned a = 1;"
-"  unsigned result = a*(%s); "
+//"  const unsigned a = 1;"
+"  unsigned result = %s; "
 "  printf(\"%%u\", result); "
 "  return 0; "
 "}";

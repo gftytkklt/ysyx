@@ -59,8 +59,8 @@ typedef struct token {
   int type;
   char str[32];
 } Token;
-
-static Token tokens[32] __attribute__((used)) = {};
+#define EXPR_TK_NUM 64
+static Token tokens[EXPR_TK_NUM] __attribute__((used)) = {};
 static int nr_token __attribute__((used))  = 0;
 
 static bool make_token(char *e) {
@@ -93,7 +93,7 @@ static bool make_token(char *e) {
           //int tmp; sscanf(tokens[nr_token].str, "%d", &tmp);printf("%d\n", tmp);
           default: tokens[nr_token].type = rules[i].token_type; nr_token++;
         }
-        assert(nr_token <= 32);
+        assert(nr_token <= EXPR_TK_NUM);
         break;
       }
     }
