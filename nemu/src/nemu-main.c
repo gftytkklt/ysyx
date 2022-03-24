@@ -36,6 +36,7 @@ int main(int argc, char *argv[]) {
   if (result != ref_result) {
     printf("error cal at %dth expr %s, ref = %u, cal = %u\n",row,exprs,ref_result,result);
   }
+  else {printf("formula %d passed!\n",row);}
   //printf("%d %s\n", result, exprs);
  }
   printf("comp finish\n");
