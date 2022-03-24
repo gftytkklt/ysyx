@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
   unsigned ref_result = 0;
   unsigned result = 0;
   char exprs[1024] = {};
-  bool *success = false;
+  bool *success = NULL;
   int row = 0;
   while ((fgets (line, 1024, fp1)) != NULL)
  {
