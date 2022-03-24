@@ -35,11 +35,11 @@ int main(int argc, char *argv[]) {
   sscanf(line, "%d %s", &ref_result, exprs);
   *success_p = false;
   result = expr(exprs, success_p);
-  if (!(*success_p)) {printf("invalid formula %d: %s",row,exprs);}
+  if (!(*success_p)) {printf("invalid formula %d: %s\n",row,exprs);}
   else if (result != ref_result) {
     printf("error cal at %dth expr %s, ref = %u, cal = %u\n",row,exprs,ref_result,result);
   }
-  else {printf("formula %d passed!\n",row);}
+  //else {printf("formula %d passed!\n",row);}
   //printf("%d %s\n", result, exprs);
  }
   printf("comp finish\n");
