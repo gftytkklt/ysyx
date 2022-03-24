@@ -31,6 +31,7 @@ static struct rule {
   {"[0-9]+", TK_NUM},
   {"\\(", TK_LP},	// left parentheses
   {"\\)", TK_RP},	// right parentheses
+  {"U", TK_NOTYPE},
 };
 
 #define NR_REGEX ARRLEN(rules)
