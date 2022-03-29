@@ -181,7 +181,7 @@ word_t eval(int p, int q, bool *success) {
   else {
     word_t op_position, val_l, val_r;
     op_position = find_mainop(p, q);
-    printf("current main op is%d\n", tokens[op_position].type);
+    printf("current main op is %ld\n", op_position);
     if (op_position == p) { // unary op
       value = eval(p+1,q,success);
       if ((tokens[op_position].type) == '-') {
