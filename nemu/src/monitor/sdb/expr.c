@@ -144,7 +144,7 @@ int find_mainop(int p, int q){
 // return 1: valid expr without match parentheses
 // assert: invalid expr, parentheses do not match
 int check_parentheses(int p, int q) {
-  //printf("start = %d, end = %d\n", p, q);
+  printf("start = %d, end = %d\n", p, q);
   int delta = 0;// LP - RP
   if ((tokens[p].type != TK_LP) || (tokens[q].type != TK_RP)) {return 1;}
   for (int i=p; i<=q; i++) {
@@ -181,7 +181,7 @@ word_t eval(int p, int q, bool *success) {
   else {
     word_t op_position, val_l, val_r;
     op_position = find_mainop(p, q);
-    //printf("current main op is%d\n", op_position);
+    printf("current main op is%ld\n", op_position);
     if (op_position == p) { // unary op
       value = eval(p+1,q,success);
       if ((tokens[op_position].type) == '-') {
