@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
   else if (result != ref_result) {
     printf("error cal at %dth expr %s, ref = %u, cal = %u\n",row,exprs,ref_result,result);
   }
-  unsigned long test_64 = 208915691U/2001039609U+((104932880U))*1588245785U/(1066399769U);
+  unsigned long test_64 = 208915691UL/2001039609UL+((104932880UL))*1588245785UL/(1066399769UL);
   printf("64 bit ref = %lu\n",test_64);
   //else {printf("formula %d passed!\n",row);}
   //printf("%d %s\n", result, exprs);
