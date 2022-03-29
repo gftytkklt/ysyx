@@ -162,7 +162,7 @@ word_t eval(int p, int q, bool *success) {
   }
   else if (p==q) {
     //assert(tokens[p].type == TK_NUM);
-    if (tokens[p].type == TK_NUM) {sscanf(tokens[p].str, "%ld", &value);printf("num = %lu", value);}
+    if (tokens[p].type == TK_NUM) {sscanf(tokens[p].str, "%ld", &value);printf("num = %lu\n", value);}
     else if (tokens[p].type == TK_HEX) {sscanf(tokens[p].str, "%lx", &value);}
     else if (tokens[p].type == TK_REG) {value = isa_reg_str2val(tokens[p].str, success);}
     else{assert(0);}
