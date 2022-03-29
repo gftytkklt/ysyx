@@ -75,14 +75,15 @@ static bool make_token(char *e) {
 
   nr_token = 0;
   while (e[position] != '\0') {
+    printf("%d",e[position]);
     /* Try all rules one by one. */
     for (i = 0; i < NR_REGEX; i ++) {
       if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
 	assert (substr_len <= 32);
-        Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
-            i, rules[i].regex, position, substr_len, substr_len, substr_start);
+        //Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
+            //i, rules[i].regex, position, substr_len, substr_len, substr_start);
 
         position += substr_len;
 
