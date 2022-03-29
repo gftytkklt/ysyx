@@ -6,8 +6,8 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ, TK_NUM, TK_LP, TK_RP, TK_HEX,
-
+  TK_NOTYPE = 256, TK_EQ, TK_NUM, TK_LP, TK_RP, TK_HEX, TK_REG, TK_NEQ, TK_AND,
+ 
   /* TODO: Add more token types */
 
 };
@@ -22,17 +22,19 @@ static struct rule {
    */
 
   {" +", TK_NOTYPE},    // spaces
-  {"\\+", '+'},
-  {"\\-", '-'},
-  {"\\*", '*'},
-  {"/",'/'},
-  //{"\\+", '+'},         // plus(I think this regex is matching "\"?)
+  {"\\+", '+'},		// plus
+  {"\\-", '-'},		// minus
+  {"\\*", '*'},		// multiplication
+  {"/",'/'},		// division
   {"==", TK_EQ},        // equal
-  {"[0-9]+", TK_NUM},
+  {"[0-9]+", TK_NUM},	// decimal num
   {"\\(", TK_LP},	// left parentheses
   {"\\)", TK_RP},	// right parentheses
-  {"U", TK_NOTYPE},     // unsigned label, doesn't affect cal
-  {"0x[0-9]+", TK_HEX}, // hex form data, to be finished
+  {"U", TK_NOTYPE},     // unsigned label, doesn't affect cal(for test)
+  {"0x[0-9]+", TK_HEX}, // hex num
+  {"\\$[0-9a-z]+", TK_REG}, // reg data, start with $
+  {"!=", TK_NEQ},	// non equal
+  {"&&", TK_AND},	// logical and
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -78,8 +80,8 @@ static bool make_token(char *e) {
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
 	assert (substr_len <= 32);
-        //Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
-        //    i, rules[i].regex, position, substr_len, substr_len, substr_start);
+        Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
+            i, rules[i].regex, position, substr_len, substr_len, substr_start);
 
         position += substr_len;
 
@@ -90,10 +92,12 @@ static bool make_token(char *e) {
 
         switch (rules[i].token_type) {
           case(TK_NOTYPE): break;
-          case(TK_NUM): sscanf(substr_start, "%[0-9]s", tokens[nr_token].str);
+          case(TK_NUM): sscanf(substr_start, "%[0-9]s", tokens[nr_token].str);break;
           //int tmp; sscanf(tokens[nr_token].str, "%d", &tmp);printf("%d\n", tmp);
-          default: tokens[nr_token].type = rules[i].token_type; nr_token++;
+          case(TK_HEX): sscanf(substr_start, "%*[^x]x%[0-9a-fA-F]", tokens[nr_token].str);break;
+          case(TK_REG): break;
         }
+        tokens[nr_token].type = rules[i].token_type; nr_token++;
         assert(nr_token <= EXPR_TK_NUM);
         break;
       }
@@ -145,14 +149,14 @@ int check_parentheses(int p, int q) {
   //printf("delta = %d\n\n", delta);
   return 1;
 }
-unsigned long eval(int p, int q, bool *success) {
-  unsigned long value;
+word_t eval(int p, int q, bool *success) {
+  word_t value;
   if (p>q) {
     assert(p<=q);
   }
   else if (p==q) {
     assert(tokens[p].type == TK_NUM);
-    sscanf(tokens[p].str, "%d", &value);
+    sscanf(tokens[p].str, "%ld", &value);
   }
   //assert "-" for inverse must appear at the beginning, and must follow expr with parentheses
   /*else if (tokens[p].type == '-'){
@@ -166,14 +170,17 @@ unsigned long eval(int p, int q, bool *success) {
   }*/
   else if (check_parentheses(p, q) == 0) {return eval(p+1, q-1, success);}
   else {
-    unsigned long op_position, val_l, val_r;
+    word_t op_position, val_l, val_r;
     op_position = find_mainop(p, q);
     //printf("current main op is%d\n", op_position);
     if (op_position == p) { // unary op
+      value = eval(p+1,q,success);
       if ((tokens[op_position].type) == '-') {
-        value = eval(p+1,q,success);value = -value;
+        value = -value;
       }
-      else if()
+      else if((tokens[op_position].type) == '*') {
+        value = *((word_t *)value);
+      }
     }
     else {
       val_l = eval(p, (op_position - 1),success);
