@@ -15,5 +15,12 @@ void isa_reg_display() {
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
+  char a[10];
+  sscanf(s,"%s",a);
+  for (int i=0;i<(sizeof(regs)/sizeof(char*));i++){
+    if (!strcmp(a,regs[i])){*success = true;return cpu.gpr[i];}
+  }
+  printf("invalid reg name\n");
+  *success = false;
   return 0;
 }

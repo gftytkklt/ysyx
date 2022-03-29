@@ -31,8 +31,8 @@ static struct rule {
   {"\\(", TK_LP},	// left parentheses
   {"\\)", TK_RP},	// right parentheses
   {"U", TK_NOTYPE},     // unsigned label, doesn't affect cal(for test)
-  {"0x[0-9]+", TK_HEX}, // hex num
-  {"\\$[0-9a-z]+", TK_REG}, // reg data, start with $
+  {"0x[0-9a-fA-F]+", TK_HEX}, // hex num
+  {"\\$[$0-9a-z]+", TK_REG}, // reg data, start with $
   {"!=", TK_NEQ},	// non equal
   {"&&", TK_AND},	// logical and
 };
@@ -67,12 +67,12 @@ static Token tokens[EXPR_TK_NUM] __attribute__((used)) = {};
 static int nr_token __attribute__((used))  = 0;
 
 static bool make_token(char *e) {
+  //bool success;
   int position = 0;
   int i;
   regmatch_t pmatch;
 
   nr_token = 0;
-
   while (e[position] != '\0') {
     /* Try all rules one by one. */
     for (i = 0; i < NR_REGEX; i ++) {
@@ -89,13 +89,13 @@ static bool make_token(char *e) {
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
-
+	
         switch (rules[i].token_type) {
           case(TK_NOTYPE): break;
           case(TK_NUM): sscanf(substr_start, "%[0-9]s", tokens[nr_token].str);break;
           //int tmp; sscanf(tokens[nr_token].str, "%d", &tmp);printf("%d\n", tmp);
           case(TK_HEX): sscanf(substr_start, "%*[^x]x%[0-9a-fA-F]", tokens[nr_token].str);break;
-          case(TK_REG): break;
+          case(TK_REG): sscanf(substr_start, "%*1[$]%2[$0-9a-z]", tokens[nr_token].str);break;
         }
         tokens[nr_token].type = rules[i].token_type; nr_token++;
         assert(nr_token <= EXPR_TK_NUM);
@@ -108,7 +108,6 @@ static bool make_token(char *e) {
       return false;
     }
   }
-
   return true;
 }
 // no expr input with full parentheses
@@ -155,8 +154,11 @@ word_t eval(int p, int q, bool *success) {
     assert(p<=q);
   }
   else if (p==q) {
-    assert(tokens[p].type == TK_NUM);
-    sscanf(tokens[p].str, "%ld", &value);
+    //assert(tokens[p].type == TK_NUM);
+    if (tokens[p].type == TK_NUM) {sscanf(tokens[p].str, "%ld", &value);}
+    else if (tokens[p].type == TK_HEX) {sscanf(tokens[p].str, "%lx", &value);}
+    else if (tokens[p].type == TK_REG) {value = isa_reg_str2val(tokens[p].str, success);}
+    else{assert(0);}
   }
   //assert "-" for inverse must appear at the beginning, and must follow expr with parentheses
   /*else if (tokens[p].type == '-'){
