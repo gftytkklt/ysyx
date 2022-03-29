@@ -90,13 +90,20 @@ static bool make_token(char *e) {
          * of tokens, some extra actions should be performed.
          */
 	
-        switch (rules[i].token_type) {
+        /*switch (rules[i].token_type) {
           case(TK_NOTYPE): break;
-          tokens[nr_token].type = rules[i].token_type; nr_token++;
           case(TK_NUM): sscanf(substr_start, "%[0-9]s", tokens[nr_token].str);break;
           //int tmp; sscanf(tokens[nr_token].str, "%d", &tmp);printf("%d\n", tmp);
           case(TK_HEX): sscanf(substr_start, "%*[^x]x%[0-9a-fA-F]", tokens[nr_token].str);break;
           case(TK_REG): sscanf(substr_start, "%*1[$]%2[$0-9a-z]", tokens[nr_token].str);break;
+        }
+        tokens[nr_token].type = rules[i].token_type; nr_token++;*/
+        if (rules[i].token_type == TK_NOTYPE) {break;}
+        else {
+          if(rules[i].token_type == TK_NUM) {sscanf(substr_start, "%[0-9]s", tokens[nr_token].str);}
+          else if (rules[i].token_type == TK_HEX) {sscanf(substr_start, "%*[^x]x%[0-9a-fA-F]", tokens[nr_token].str);}
+          else if (rules[i].token_type == TK_REG) {sscanf(substr_start, "%*1[$]%2[$0-9a-z]", tokens[nr_token].str);}
+          tokens[nr_token].type = rules[i].token_type; nr_token++;
         }
         assert(nr_token <= EXPR_TK_NUM);
         break;
