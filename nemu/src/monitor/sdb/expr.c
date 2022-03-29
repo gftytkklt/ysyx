@@ -149,7 +149,7 @@ int find_mainop(int p, int q){
       	  priority_level = 4;
       	}
       }
-      else if((tokens[i].type == TK_LP)) {return position;}
+      //else if((tokens[i].type == TK_LP)) {return position;}
     }
   }
   assert((position >= p) && (position < q));
