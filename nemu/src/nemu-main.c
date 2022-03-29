@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
   FILE *fp1;
   fp1 = fopen("/home/gftyt/ysyx-workbench/nemu/tools/gen-expr/build/input2","r");
   if (fp1==NULL){puts("fopen error\n");return 0;}
-  char line[1024] = {'\0'};
+  char line[1024] = {"\0"};
   unsigned ref_result = 0;
   unsigned result = 0;
   char *exprs;
