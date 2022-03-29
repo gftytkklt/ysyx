@@ -216,6 +216,9 @@ word_t eval(int p, int q, bool *success) {
         case('-'): printf("%lu - %lu = %lu\n",val_l, val_r, (val_l - val_r));return (val_l - val_r);
         case('*'): printf("%lu * %lu = %lu\n",val_l, val_r, (val_l * val_r));return (val_l * val_r);
         case('/'): if(val_r != 0){printf("%lu / %lu = %lu\n",val_l, val_r, (val_l / val_r));return (val_l / val_r);}else{*success = false;return 0;}
+        case(TK_EQ): return (val_l == val_r);
+        case(TK_NEQ): return (val_l != val_r);
+        case(TK_AND): return (val_l && val_r);
       }
     }
   }
