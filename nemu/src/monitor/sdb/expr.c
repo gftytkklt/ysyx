@@ -162,7 +162,7 @@ word_t eval(int p, int q, bool *success) {
   }
   else if (p==q) {
     //assert(tokens[p].type == TK_NUM);
-    if (tokens[p].type == TK_NUM) {sscanf(tokens[p].str, "%ld", &value);}
+    if (tokens[p].type == TK_NUM) {sscanf(tokens[p].str, "%ld", &value);printf("num = %lu", value);}
     else if (tokens[p].type == TK_HEX) {sscanf(tokens[p].str, "%lx", &value);}
     else if (tokens[p].type == TK_REG) {value = isa_reg_str2val(tokens[p].str, success);}
     else{assert(0);}
@@ -196,10 +196,10 @@ word_t eval(int p, int q, bool *success) {
       val_r = eval((op_position + 1), q,success);
       //*success = true;
       switch (tokens[op_position].type) {
-        case('+'): return (val_l + val_r);
-        case('-'): return (val_l - val_r);
-        case('*'): return (val_l * val_r);
-        case('/'): if(val_r != 0){return (val_l / val_r);}else{*success = false;return 0;}
+        case('+'): printf("%lu + %lu = %lu\n",val_l, val_r, (val_l + val_r));return (val_l + val_r);
+        case('-'): printf("%lu - %lu = %lu\n",val_l, val_r, (val_l - val_r));return (val_l - val_r);
+        case('*'): printf("%lu * %lu = %lu\n",val_l, val_r, (val_l * val_r));return (val_l * val_r);
+        case('/'): if(val_r != 0){printf("%lu / %lu = %lu\n",val_l, val_r, (val_l / val_r));return (val_l / val_r);}else{*success = false;return 0;}
       }
     }
   }
