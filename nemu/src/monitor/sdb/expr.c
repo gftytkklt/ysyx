@@ -31,6 +31,7 @@ static struct rule {
   {"\\(", TK_LP},	// left parentheses
   {"\\)", TK_RP},	// right parentheses
   {"U", TK_NOTYPE},     // unsigned label, doesn't affect cal(for test)
+  {"L", TK_NOTYPE},     // long label, doesn't affect cal(for test)
   {"0x[0-9a-fA-F]+", TK_HEX}, // hex num
   {"\\$[$0-9a-z]+", TK_REG}, // reg data, start with $
   {"!=", TK_NEQ},	// non equal
@@ -119,22 +120,36 @@ static bool make_token(char *e) {
 }
 // no expr input with full parentheses
 int find_mainop(int p, int q){
-  int position = 0;
-  int delta = 0;
+  int position = 0;// position of main_op
+  int delta = 0;// main_op possibility, only 0 is possible main_op
+  int priority_level = 0;// main_op priority, lower value for low cal priority
   for (int i=p; i<q; i++){
     if ((tokens[i].type == TK_LP)) {delta++;}
     else if ((tokens[i].type == TK_RP)) {delta--;}
     if (delta == 0) {
-      if ((tokens[i].type == '+') || (tokens[i].type == '-')) {
+      if (tokens[i].type == TK_AND) {
         position = i;
+        priority_level = 1;
+      }
+      else if ((tokens[i].type == TK_EQ) || (tokens[i].type == TK_NEQ)) {
+      	if ((priority_level == 0) || (priority_level >= 2)) {
+      	  position = i;
+      	  priority_level = 2;
+      	}
+      }
+      else if ((tokens[i].type == '+') || (tokens[i].type == '-')) {
+        if ((priority_level == 0) || (priority_level >= 3)) {
+      	  position = i;
+      	  priority_level = 3;
+      	}
       }
       else if((tokens[i].type == '*') || (tokens[i].type == '/')) {
-        if ((position == 0) || (tokens[position].type == '*') || (tokens[position].type == '/')) {
-          position = i;
-        }
+        if ((priority_level == 0) || (priority_level >= 4)) {
+      	  position = i;
+      	  priority_level = 4;
+      	}
       }
-      //case('/'): 
-      else if((tokens[i].type == TK_LP)) {return position;}
+      // else if((tokens[i].type == TK_LP)) {return position;}
     }
   }
   assert((position >= p) && (position < q));
