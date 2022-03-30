@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
   char line[1024] = {};
   unsigned ref_result = 0;
   unsigned result = 0;
-  char *exprs;
+  char exprs[1024] = {};
   bool success;
   bool *success_p = &success;
   int row = 0;
@@ -32,8 +32,8 @@ int main(int argc, char *argv[]) {
  {
   row++;
   //fputs (line, stdout);
-  sscanf(line, "%d", &ref_result);
-  exprs = &line[2];
+  sscanf(line, "%d %[^\n]", &ref_result, exprs);
+  //exprs = &line[2];
   *success_p = true;
   result = expr(exprs, success_p);
   if (!(*success_p)) {printf("invalid formula %d: %s\n",row,exprs);}

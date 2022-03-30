@@ -14,8 +14,8 @@ static char *code_format =
 //"  const char *xyz = (\"%s\");"
 //"  printf(\"%%s\\n\", xyz);"
 //"  const unsigned a = 1;"
-"  unsigned result = %s; "
-"  printf(\"%%u\", result); "
+"  unsigned long result = %s; "
+"  printf(\"%%lu\", result); "
 "  return 0; "
 "}";
 static char *p = code_buf;
@@ -48,13 +48,22 @@ enum {NUM=256, OP, LP, RP};
   }
 }*/
 static void gen(int type) {
-  if(type == NUM) {p += sprintf(p, "%uU", rand());}
+  if(type == NUM) {
+    switch (choose(3)) {
+      case 0: p += sprintf(p, "%luUL", rand()); break;
+      case 1: p += sprintf(p, "-%luUL", rand()); break;
+      case 2: p += sprintf(p, "0x%xUL", rand()); break;
+    }
+  }
   else if(type == OP) {
     switch (choose(4)) {
       case 0: p += sprintf(p, "+");break;
       case 1: p += sprintf(p, "-");break;
       case 2: p += sprintf(p, "*");break;
       case 3: p += sprintf(p, "/");break;
+      case 4: p += sprintf(p, "&&");break;
+      case 5: p += sprintf(p, "==");break;
+      case 6: p += sprintf(p, "!=");break;
     }
   }
   else if(type == LP) {p += sprintf(p, "(");}
@@ -100,7 +109,7 @@ int main(int argc, char *argv[]) {
     fp = popen("/tmp/.expr", "r");
     assert(fp != NULL);
 
-    int result;
+    unsigned long result;
     assert(fscanf(fp, "%d", &result));
     pclose(fp);
 
