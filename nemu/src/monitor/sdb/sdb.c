@@ -40,7 +40,9 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_si(char *args) {
-  cpu_exec(1);
+  char *arg = strtok(NULL, " ");
+  if (arg == NULL) {cpu_exec(1);}
+  else {int step = 0; sscanf(arg, "%u", &step);cpu_exec(step);}
   return 0;
 }
 
@@ -62,7 +64,7 @@ static int cmd_info(char *args) {
 }
 
 static int cmd_x(char *args) {
-  //const int disp_len = 4;
+  const int disp_len = 4;
   int rd_len;
   //paddr_t rd_addr;
   char *arg = strtok(NULL, " ");
@@ -82,7 +84,17 @@ static int cmd_x(char *args) {
   bool success = true;
   //bool *success_flag = &success;
   unsigned long result = expr(arg, &success);
-  if(success){printf("%ld %lx %lu\n", result, result, result);}
+  //if(success){printf("%ld %lx %lu\n", result, result, result);}
+  if(success) {
+    for (int i=0;i<rd_len;i++){
+      printf("0x%lx :",result);
+      for(int j=0;j<disp_len;j++){
+        printf("%02lx ", paddr_read(result, 1));
+        result = result + 1;
+      }
+      printf("\n");
+    }
+  }
   else{printf("invalid formula\n");}
   /*const unsigned int a = 1;
   int b = -2;
