@@ -81,7 +81,8 @@ static bool make_token(char *e) {
       if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
-	assert (substr_len <= 32);
+	//assert (substr_len <= 32);
+	if (substr_len > 32){printf("too long element!\n");return false;}
         //Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
             //i, rules[i].regex, position, substr_len, substr_len, substr_start);
 
@@ -107,7 +108,8 @@ static bool make_token(char *e) {
           else if (rules[i].token_type == TK_REG) {sscanf(substr_start, "%*1[$]%2[$0-9a-z]", tokens[nr_token].str);}
           tokens[nr_token].type = rules[i].token_type; nr_token++;
         }
-        assert(nr_token <= EXPR_TK_NUM);
+        //assert(nr_token <= EXPR_TK_NUM);
+        if (nr_token > EXPR_TK_NUM){printf("too long expr!\n");return false;}
         break;
       }
     }
@@ -153,12 +155,13 @@ int find_mainop(int p, int q){
       //else if((tokens[i].type == TK_LP)) {return position;}
     }
   }
-  assert((position >= p) && (position < q));
+  //assert((position >= p) && (position < q));
+  if ((position < p) || (position >= q)) {return 0;}
   return position;
 }
 // return 0: valid expr with match parentheses
 // return 1: valid expr without match parentheses
-// assert: invalid expr, parentheses do not match
+// return -1: invalid expr, parentheses do not match
 int check_parentheses(int p, int q) {
   //printf("start = %d, end = %d\n", p, q);
   int delta = 0;// LP - RP
@@ -166,7 +169,8 @@ int check_parentheses(int p, int q) {
   for (int i=p; i<=q; i++) {
     if(tokens[i].type == TK_LP){delta++;}
     else if(tokens[i].type == TK_RP){delta--;if(delta==0){return (i!=q);}}
-    assert(delta >= 0);
+    //assert(delta >= 0);
+    if(delta<0){return -1;}
   }
   //printf("delta = %d\n\n", delta);
   return 1;
@@ -174,14 +178,16 @@ int check_parentheses(int p, int q) {
 word_t eval(int p, int q, bool *success) {
   word_t value;
   if (p>q) {
-    assert(p<=q);
+    printf("no minus lenth expr!\n");
+    *success = false;
+    //assert(p<=q);
   }
   else if (p==q) {
     //assert(tokens[p].type == TK_NUM);
     if (tokens[p].type == TK_NUM) {sscanf(tokens[p].str, "%ld", &value);/*printf("num = %lu\n", value);*/}
     else if (tokens[p].type == TK_HEX) {sscanf(tokens[p].str, "%lx", &value);}
     else if (tokens[p].type == TK_REG) {value = isa_reg_str2val(tokens[p].str, success);}
-    else{assert(0);}
+    else{printf("unknown value type!\n");*success = false;}
   }
   //assert "-" for inverse must appear at the beginning, and must follow expr with parentheses
   /*else if (tokens[p].type == '-'){
@@ -193,12 +199,14 @@ word_t eval(int p, int q, bool *success) {
     }
     value = -value;
   }*/
+  else if (check_parentheses(p, q) == -1) {printf("parentheses not match!\n");*success = false;return 0;}
   else if (check_parentheses(p, q) == 0) {return eval(p+1, q-1, success);}
   else {
     word_t op_position, val_l, val_r;
     op_position = find_mainop(p, q);
     //printf("current main op is %ld\n", op_position);
-    if (op_position == p) { // unary op
+    if (op_position == 0) {printf("invalid op position!\n");*success = false;return 0;}
+    else if (op_position == p) { // unary op
       value = eval(p+1,q,success);
       if ((tokens[op_position].type) == '-') {
         value = -value;
@@ -215,7 +223,7 @@ word_t eval(int p, int q, bool *success) {
         case('+'): /*printf("%lu + %lu = %lu\n",val_l, val_r, (val_l + val_r));*/return (val_l + val_r);
         case('-'): /*printf("%lu - %lu = %lu\n",val_l, val_r, (val_l - val_r));*/return (val_l - val_r);
         case('*'): /*printf("%lu * %lu = %lu\n",val_l, val_r, (val_l * val_r));*/return (val_l * val_r);
-        case('/'): if(val_r != 0){/*printf("%lu / %lu = %lu\n",val_l, val_r, (val_l / val_r));*/return (val_l / val_r);}else{*success = false;return 0;}
+        case('/'): if(val_r != 0){/*printf("%lu / %lu = %lu\n",val_l, val_r, (val_l / val_r));*/return (val_l / val_r);}else{printf("can't divide by 0!\n");*success = false;return 0;}
         case(TK_EQ): return (val_l == val_r);
         case(TK_NEQ): return (val_l != val_r);
         case(TK_AND): return (val_l && val_r);
