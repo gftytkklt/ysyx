@@ -51,7 +51,7 @@ static void gen(int type) {
   if(type == NUM) {
     switch (choose(3)) {
       case 0: p += sprintf(p, "%uUL", rand()); break;
-      case 1: p += sprintf(p, "-%uUL", rand()); break;
+      case 1: p += sprintf(p, "(-%uUL)", rand()); break;
       case 2: p += sprintf(p, "0x%xUL", rand()); break;
     }
   }
