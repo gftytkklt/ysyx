@@ -80,9 +80,10 @@ static int cmd_x(char *args) {
     printf("\n");
   }*/
   bool success = false;
-  unsigned long result = expr(arg, &success);
+  bool *success_flag = &success;
+  unsigned long result = expr(arg, success_flag);
   if(success){printf("%ld %lx %lu\n", result, result, result);}
-  else{printf("invalid divide by 0\n");}
+  else{printf("invalid formula\n");}
   /*const unsigned int a = 1;
   int b = -2;
   int c = 2;
