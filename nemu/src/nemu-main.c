@@ -14,11 +14,11 @@ int main(int argc, char *argv[]) {
 #endif
 
   /* Start engine. */
-  //engine_start();
+  engine_start();
   
-  //return is_exit_status_bad();
+  return is_exit_status_bad();
   // modified for test expr.c
-  FILE *fp1;
+  /*FILE *fp1;
   fp1 = fopen("/home/gftyt/ysyx-workbench/nemu/tools/gen-expr/build/input","r");
   if (fp1==NULL){puts("fopen error\n");return 0;}
   char line[1024] = {};
@@ -46,5 +46,5 @@ int main(int argc, char *argv[]) {
   //printf("%d %s\n", result, exprs);
  }
   printf("comp finish\n");
-  return 0;
+  return 0;*/
 }
