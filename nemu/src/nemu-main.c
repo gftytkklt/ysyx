@@ -22,8 +22,8 @@ int main(int argc, char *argv[]) {
   fp1 = fopen("/home/gftyt/ysyx-workbench/nemu/tools/gen-expr/build/input","r");
   if (fp1==NULL){puts("fopen error\n");return 0;}
   char line[1024] = {};
-  unsigned ref_result = 0;
-  unsigned result = 0;
+  unsigned long ref_result = 0;
+  unsigned long result = 0;
   char exprs[1024] = {};
   bool success;
   bool *success_p = &success;
@@ -32,13 +32,13 @@ int main(int argc, char *argv[]) {
  {
   row++;
   //fputs (line, stdout);
-  sscanf(line, "%d %[^\n]", &ref_result, exprs);
+  sscanf(line, "%lu %[^\n]", &ref_result, exprs);
   //exprs = &line[2];
   *success_p = true;
   result = expr(exprs, success_p);
   if (!(*success_p)) {printf("invalid formula %d: %s\n",row,exprs);}
   else if (result != ref_result) {
-    printf("error cal at %dth expr %s, ref = %u, cal = %u\n",row,exprs,ref_result,result);
+    printf("error cal at %dth expr %s, ref = %lu, cal = %lu\n",row,exprs,ref_result,result);
   }
   //unsigned long test_64 = 208915691UL/2001039609UL+((104932880UL))*1588245785UL/(1066399769UL);
   //printf("64 bit ref = %lu\n",test_64);
