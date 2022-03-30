@@ -79,9 +79,9 @@ static int cmd_x(char *args) {
     }
     printf("\n");
   }*/
-  bool success = false;
-  bool *success_flag = &success;
-  unsigned long result = expr(arg, success_flag);
+  bool success = true;
+  //bool *success_flag = &success;
+  unsigned long result = expr(arg, &success);
   if(success){printf("%ld %lx %lu\n", result, result, result);}
   else{printf("invalid formula\n");}
   /*const unsigned int a = 1;
