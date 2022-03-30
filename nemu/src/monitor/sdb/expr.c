@@ -31,9 +31,9 @@ static struct rule {
   {"[0-9]+", TK_NUM},	// decimal num
   {"\\(", TK_LP},	// left parentheses
   {"\\)", TK_RP},	// right parentheses
-  {"U", TK_NOTYPE},     // unsigned label, doesn't affect cal(for test)
-  {"L", TK_NOTYPE},     // long label, doesn't affect cal(for test)
-  {"\\$[$0-9a-z]+", TK_REG}, // reg data, start with $
+  //{"U", TK_NOTYPE},     // unsigned label, doesn't affect cal(for test)
+  //{"L", TK_NOTYPE},     // long label, doesn't affect cal(for test)
+  {"\\$[$0-9a-z]{2}", TK_REG}, // reg data, start with $
   {"!=", TK_NEQ},	// non equal
   {"&&", TK_AND},	// logical and
 };
