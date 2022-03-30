@@ -50,13 +50,13 @@ enum {NUM=256, OP, LP, RP};
 static void gen(int type) {
   if(type == NUM) {
     switch (choose(3)) {
-      case 0: p += sprintf(p, "%luUL", rand()); break;
-      case 1: p += sprintf(p, "-%luUL", rand()); break;
+      case 0: p += sprintf(p, "%uUL", rand()); break;
+      case 1: p += sprintf(p, "-%uUL", rand()); break;
       case 2: p += sprintf(p, "0x%xUL", rand()); break;
     }
   }
   else if(type == OP) {
-    switch (choose(4)) {
+    switch (choose(7)) {
       case 0: p += sprintf(p, "+");break;
       case 1: p += sprintf(p, "-");break;
       case 2: p += sprintf(p, "*");break;
@@ -110,10 +110,10 @@ int main(int argc, char *argv[]) {
     assert(fp != NULL);
 
     unsigned long result;
-    assert(fscanf(fp, "%d", &result));
+    assert(fscanf(fp, "%lu", &result));
     pclose(fp);
 
-    printf("%u %s\n", result, buf);
+    printf("%lu %s\n", result, buf);
     //printf("%s\n", buf);
   }
   return 0;
