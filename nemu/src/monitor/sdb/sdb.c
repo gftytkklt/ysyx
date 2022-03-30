@@ -62,7 +62,14 @@ static int cmd_info(char *args) {
   }
   return 0;
 }
-
+static int cmd_p(char *args) {
+  char *arg = strtok(NULL, "");
+  bool success = true;
+  unsigned long result = expr(arg, &success);
+  if(success) {printf("result = %lu\n", result);}
+  else {printf("invalid expr\n");}
+  return 0;
+}
 static int cmd_x(char *args) {
   const int disp_len = 4;
   int rd_len;
@@ -117,7 +124,7 @@ static struct {
   {"si", "Single step debug", cmd_si},
   {"info", "Print program status", cmd_info},
   {"x", "Scan memory", cmd_x},
-
+  {"p", "Expr evaluation", cmd_p},
 };
 
 #define NR_CMD ARRLEN(cmd_table)
