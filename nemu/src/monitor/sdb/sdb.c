@@ -127,6 +127,9 @@ static int cmd_w(char *args) {
 }
 
 static int cmd_d(char *args) {
+  char *arg = strtok(NULL, " ");
+  if (arg == NULL) {return 0;}
+  else {int num = 0; sscanf(arg, "%u", &num);free_wp(num);}
   return 0;
 }
 
