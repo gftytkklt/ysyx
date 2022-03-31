@@ -90,3 +90,7 @@ bool check_wp() {
   }
   return is_changed;
 }
+
+void print_wp_info() {
+  
+}
