@@ -9,7 +9,7 @@ static int is_batch_mode = false;
 
 void init_regex();
 void init_wp_pool();
-WP *wp;
+struct watchpoint *wp;
 
 //static WP *wp_head;
 WP* new_wp();
