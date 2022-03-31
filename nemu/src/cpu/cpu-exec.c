@@ -10,7 +10,7 @@
  */
 #define MAX_INST_TO_PRINT 10
 // added for watchpoint
-//extern WP *wp;
+extern struct watchpoint *wp;
 word_t expr(char *e, bool *success);
 // added for watchpoint end
 CPU_state cpu = {};
