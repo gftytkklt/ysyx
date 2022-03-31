@@ -2,13 +2,15 @@
 
 #define NR_WP 32
 
-typedef struct watchpoint {
-  int NO;
-  struct watchpoint *next;
+//typedef struct watchpoint {
+//  int NO;
+//  struct watchpoint *next;
+//  unsigned long expr_value;
+//  char[128] expr;
 
   /* TODO: Add more members if necessary */
 
-} WP;
+//} WP;
 
 static WP wp_pool[NR_WP] = {};
 static WP dummy_head = {}, dummy_free = {};
@@ -21,6 +23,8 @@ void init_wp_pool() {
     //printf("%d\n",i);
     wp_pool[i].NO = i;
     wp_pool[i].next = (i == NR_WP - 1 ? NULL : &wp_pool[i + 1]);
+    wp_pool[i].expr_value = 0;
+    //wp_pool[i].expr_str = [];
   }
 
   // head = NULL;
@@ -33,7 +37,6 @@ void init_wp_pool() {
 }
 
 /* TODO: Implement the functionality of watchpoint */
-// occupied node from 0-N sequentially
 // fetch head of free WP list, insert it to head of occupied WP list
 WP* new_wp() {
   WP *new_node;
@@ -55,16 +58,17 @@ WP* new_wp() {
 }
 
 // add new free WP to head of free WP list
-void free_wp(WP* wp) {
+void free_wp(int n) {
   if (head->next == NULL){printf("no used watchpoint!\n");return;}
-  for (WP* wp_pt = head;wp_pt->next != NULL;wp_pt = wp_pt->next) {
-    if (wp_pt->next == wp) {
+  for (WP *wp_pt = head;wp_pt->next != NULL;wp_pt = wp_pt->next) {
+    if (wp_pt->next->NO == n) {
+      WP *wp = wp_pt->next;
       wp_pt->next = wp_pt->next->next;
       wp->next = free_->next;
       free_->next = wp;
       return;
     }
   }
-  printf("NO.%d WP not found!\n", wp->NO);
+  printf("NO.%d WP not found!\n", n);
   return;
 }

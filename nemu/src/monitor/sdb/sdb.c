@@ -9,11 +9,11 @@ static int is_batch_mode = false;
 
 void init_regex();
 void init_wp_pool();
-//struct watchpoint* wp;
+struct watchpoint *wp;
 struct watchpoint* new_wp();
-void free_wp(struct watchpoint* wp);
+void free_wp(int n);
 word_t vaddr_read(vaddr_t addr, int len);
-/* We use the `readline' library to provide more flexibility to read from stdin. */
+/* We use the readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {
   static char *line_read = NULL;
 
@@ -112,6 +112,23 @@ static int cmd_x(char *args) {
   printf("%d %x %d %x\n",(a*b/c),(a*b/c),(b/c),(b/c));*/
   return 0;
 }
+
+static int cmd_w(char *args) {
+  char *arg = strtok(NULL, "");
+  bool success = true;
+  unsigned long result = expr(arg, &success);
+  if(!success) {return 0;}
+  //struct WP *wp;
+  wp = new_wp();
+  wp->expr_value = result;
+  sscanf(arg, "%[^n]", wp->expr_str);
+  return 0;
+}
+
+static int cmd_d(char *args) {
+  return 0;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -128,6 +145,8 @@ static struct {
   {"info", "Print program status", cmd_info},
   {"x", "Scan memory", cmd_x},
   {"p", "Expr evaluation", cmd_p},
+  {"w", "Set watchpoints", cmd_w},
+  {"d", "Delete watchpoints", cmd_d},
 };
 
 #define NR_CMD ARRLEN(cmd_table)
