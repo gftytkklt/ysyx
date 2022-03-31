@@ -92,5 +92,8 @@ bool check_wp() {
 }
 
 void print_wp_info() {
-  
+  if (head->next == NULL){printf("No activated watchpoint!\n");return;}
+  for (WP *wp_pt = head->next;wp_pt != NULL;wp_pt=wp_pt->next) {
+    printf("NO: %d, name: %s, breakpoint hit: %d\n", wp_pt->NO, wp_pt->expr_str, wp_pt->triggered_time);
+  }
 }

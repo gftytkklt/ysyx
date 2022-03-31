@@ -9,6 +9,7 @@ static int is_batch_mode = false;
 
 void init_regex();
 void init_wp_pool();
+void print_wp_info();
 WP *wp;
 //extern struct watchpoint *wp;
 
@@ -61,7 +62,7 @@ static int cmd_info(char *args) {
     isa_reg_display();
   }
   else if(strcmp(arg, "w") == 0) {
-    printf("to be finished\n");
+    print_wp_info();
   }
   else {
     printf("undefined usage\n");
