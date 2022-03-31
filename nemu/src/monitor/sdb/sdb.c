@@ -122,13 +122,13 @@ static int cmd_w(char *args) {
   wp = new_wp();
   wp->expr_value = result;
   sscanf(arg, "%[^n]", wp->expr_str);
-  printf("%d %lu %s\n",wp->NO, wp->expr_value, wp->expr_str);
+  printf("watch point NO%d of %s added\n",wp->NO, wp->expr_str);
   return 0;
 }
 
 static int cmd_d(char *args) {
   char *arg = strtok(NULL, " ");
-  if (arg == NULL) {return 0;}
+  if (arg == NULL) {printf("input watchpoint number!\n");return 0;}
   else {int num = 0; sscanf(arg, "%u", &num);free_wp(num);}
   return 0;
 }
