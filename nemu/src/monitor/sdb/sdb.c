@@ -9,7 +9,7 @@ static int is_batch_mode = false;
 
 void init_regex();
 void init_wp_pool();
-//struct watchpoint;
+//struct watchpoint* wp;
 struct watchpoint* new_wp();
 void free_wp(struct watchpoint* wp);
 word_t vaddr_read(vaddr_t addr, int len);
