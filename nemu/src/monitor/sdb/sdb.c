@@ -9,7 +9,8 @@ static int is_batch_mode = false;
 
 void init_regex();
 void init_wp_pool();
-static WP *wp;
+WP *wp;
+//static WP *wp_head;
 WP* new_wp();
 void free_wp(int n);
 word_t vaddr_read(vaddr_t addr, int len);
