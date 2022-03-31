@@ -10,7 +10,7 @@ static int is_batch_mode = false;
 void init_regex();
 void init_wp_pool();
 //struct watchpoint;
-struct watchpoinnt* new_wp();
+struct watchpoint* new_wp();
 //void free_wp(struct watchpoint* wp);
 word_t vaddr_read(vaddr_t addr, int len);
 /* We use the `readline' library to provide more flexibility to read from stdin. */
