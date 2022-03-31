@@ -12,6 +12,5 @@ typedef struct watchpoint {
   char expr_str[128];
   int triggered_time;
   /* TODO: Add more members if necessary */
-
 } WP;
 #endif

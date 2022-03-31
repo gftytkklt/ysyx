@@ -29,7 +29,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
   //bool break_triggered = false;
   bool changed = check_wp();
-  if(changed){printf("1");}
+  if(changed){printf("data changed\n");nemu_state.state = NEMU_STOP;}
 }
 
 static void exec_once(Decode *s, vaddr_t pc) {
