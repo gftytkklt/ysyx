@@ -73,3 +73,20 @@ void free_wp(int n) {
   printf("NO.%d WP not found!\n", n);
   return;
 }
+//return if triggered
+bool check_wp() {
+  bool is_changed = false;
+  for(WP *wp_pt = head->next;wp_pt != NULL;wp_pt=wp_pt->next) {
+    bool success = true;
+    unsigned long new_result = expr(wp_pt->expr_str, &success);
+    if(success) {
+      if (new_result != wp_pt->expr_value) {
+        printf("value of %s changed, old: %lu, new: %lu\n", wp_pt->expr_str, wp_pt->expr_value, new_result);
+        wp_pt->expr_value = new_result;
+        (wp_pt->triggered_time)++;
+        is_changed = true;
+      }
+    }
+  }
+  return is_changed;
+}
