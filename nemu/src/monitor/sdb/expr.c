@@ -122,7 +122,7 @@ static bool make_token(char *e) {
   return true;
 }
 // no expr input with full parentheses
-int find_mainop(int p, int q){
+static int find_mainop(int p, int q){
   int position = 0;// position of main_op
   int delta = 0;// main_op possibility, only 0 is possible main_op
   int priority_level = 0;// main_op priority, lower value for low cal priority
@@ -162,7 +162,7 @@ int find_mainop(int p, int q){
 // return 0: valid expr with match parentheses
 // return 1: valid expr without match parentheses
 // return -1: invalid expr, parentheses do not match
-int check_parentheses(int p, int q) {
+static int check_parentheses(int p, int q) {
   //printf("start = %d, end = %d\n", p, q);
   int delta = 0;// LP - RP
   if ((tokens[p].type != TK_LP) || (tokens[q].type != TK_RP)) {return 1;}
@@ -175,7 +175,7 @@ int check_parentheses(int p, int q) {
   //printf("delta = %d\n\n", delta);
   return 1;
 }
-word_t eval(int p, int q, bool *success) {
+static word_t eval(int p, int q, bool *success) {
   word_t value;
   if (p>q) {
     printf("no minus lenth expr!\n");

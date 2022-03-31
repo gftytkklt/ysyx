@@ -10,7 +10,7 @@ typedef struct watchpoint {
   struct watchpoint *next;
   unsigned long expr_value;
   char expr_str[128];
-
+  int triggered_time;
   /* TODO: Add more members if necessary */
 
 } WP;
