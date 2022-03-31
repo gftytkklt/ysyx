@@ -33,7 +33,7 @@ static struct rule {
   {"\\)", TK_RP},	// right parentheses
   //{"U", TK_NOTYPE},     // unsigned label, doesn't affect cal(for test)
   //{"L", TK_NOTYPE},     // long label, doesn't affect cal(for test)
-  {"\\$[$0-9a-z]{2}", TK_REG}, // reg data, start with $
+  {"\\$[$0-9a-z]{2,3}", TK_REG}, // reg data, start with $
   {"!=", TK_NEQ},	// non equal
   {"&&", TK_AND},	// logical and
 };
@@ -105,7 +105,7 @@ static bool make_token(char *e) {
         else {
           if(rules[i].token_type == TK_NUM) {sscanf(substr_start, "%[0-9]s", tokens[nr_token].str);}
           else if (rules[i].token_type == TK_HEX) {sscanf(substr_start, "%*[^x]x%[0-9a-fA-F]", tokens[nr_token].str);}
-          else if (rules[i].token_type == TK_REG) {sscanf(substr_start, "%*1[$]%2[$0-9a-z]", tokens[nr_token].str);}
+          else if (rules[i].token_type == TK_REG) {sscanf(substr_start, "%*1[$]%3[$0-9a-z]", tokens[nr_token].str);}
           tokens[nr_token].type = rules[i].token_type; nr_token++;
         }
         //assert(nr_token <= EXPR_TK_NUM);

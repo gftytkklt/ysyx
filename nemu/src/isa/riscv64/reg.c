@@ -17,6 +17,7 @@ void isa_reg_display() {
 word_t isa_reg_str2val(const char *s, bool *success) {
   char a[10];
   sscanf(s,"%s",a);
+  if (!strcmp(a,"pc")){*success = true;return cpu.pc;}
   for (int i=0;i<(sizeof(regs)/sizeof(char*));i++){
     if (!strcmp(a,regs[i])){*success = true;return cpu.gpr[i];}
   }
