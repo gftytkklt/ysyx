@@ -120,9 +120,9 @@ static int cmd_w(char *args) {
   if(!success) {return 0;}
   //struct WP *wp;
   wp = new_wp();
-  printf("%d\n",wp->NO);
   wp->expr_value = result;
   sscanf(arg, "%[^n]", wp->expr_str);
+  printf("%d %lu %s\n",wp->NO, wp->expr_value, wp->expr_str);
   return 0;
 }
 
