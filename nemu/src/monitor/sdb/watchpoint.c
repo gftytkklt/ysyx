@@ -81,7 +81,7 @@ bool check_wp() {
     unsigned long new_result = expr(wp_pt->expr_str, &success);
     if(success) {
       if (new_result != wp_pt->expr_value) {
-        printf("value of %s changed, old: %lu, new: %lu\n", wp_pt->expr_str, wp_pt->expr_value, new_result);
+        printf("value of %s changed, old: %lx, new: %lx\n", wp_pt->expr_str, wp_pt->expr_value, new_result);
         wp_pt->expr_value = new_result;
         (wp_pt->triggered_time)++;
         is_changed = true;
