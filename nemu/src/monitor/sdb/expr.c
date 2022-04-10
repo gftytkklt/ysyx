@@ -6,8 +6,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ, TK_NUM, TK_LP, TK_RP, TK_HEX, TK_REG, TK_NEQ, TK_AND,
- 
+  TK_NOTYPE = 256, TK_EQ, TK_NUM, TK_LP, TK_RP, TK_HEX, TK_REG, TK_NEQ, TK_AND, TK_NLT, TK_NMT,
   /* TODO: Add more token types */
 
 };
@@ -36,6 +35,10 @@ static struct rule {
   {"\\$[$0-9a-z]{2,3}", TK_REG}, // reg data, start with $
   {"!=", TK_NEQ},	// non equal
   {"&&", TK_AND},	// logical and
+  {"<=", TK_NMT},
+  {">=", TK_NLT},
+  {"<", '<'},
+  {">", '>'},
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -140,16 +143,22 @@ static int find_mainop(int p, int q){
       	  priority_level = 2;
       	}
       }
-      else if ((tokens[i].type == '+') || (tokens[i].type == '-')) {
-        if ((priority_level == 0) || (priority_level >= 3)) {
+      else if ((tokens[i].type == TK_NMT) || (tokens[i].type == TK_NLT) ||(tokens[i].type == '>') || (tokens[i].type == '<')) {
+      	if ((priority_level == 0) || (priority_level >= 3)) {
       	  position = i;
       	  priority_level = 3;
       	}
       }
-      else if((tokens[i].type == '*') || (tokens[i].type == '/')) {
+      else if ((tokens[i].type == '+') || (tokens[i].type == '-')) {
         if ((priority_level == 0) || (priority_level >= 4)) {
       	  position = i;
       	  priority_level = 4;
+      	}
+      }
+      else if((tokens[i].type == '*') || (tokens[i].type == '/')) {
+        if ((priority_level == 0) || (priority_level >= 5)) {
+      	  position = i;
+      	  priority_level = 5;
       	}
       }
       //else if((tokens[i].type == TK_LP)) {return position;}
@@ -227,6 +236,10 @@ static word_t eval(int p, int q, bool *success) {
         case(TK_EQ): return (val_l == val_r);
         case(TK_NEQ): return (val_l != val_r);
         case(TK_AND): return (val_l && val_r);
+        case(TK_NLT): return (val_l >= val_r);
+        case(TK_NMT): return (val_l <= val_r);
+        case('>'): return (val_l > val_r);
+        case('<'): return (val_l < val_r);
       }
     }
   }
