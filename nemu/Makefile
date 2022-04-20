@@ -40,7 +40,7 @@ LDFLAGS += $(CFLAGS_BUILD)
 include $(NEMU_HOME)/scripts/config.mk
 
 ifdef CONFIG_TARGET_AM
-INC_PATH += $(AM_HOME)/klib/include
+#INC_PATH += $(AM_HOME)/klib/include
 include $(AM_HOME)/Makefile
 LINKAGE += $(ARCHIVES)
 else
