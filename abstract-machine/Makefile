@@ -92,6 +92,7 @@ ASFLAGS  += -MMD $(INCFLAGS)
 
 ### Paste in arch-specific configurations (e.g., from `scripts/x86_64-qemu.mk`)
 -include $(AM_HOME)/scripts/$(ARCH).mk
+-include $(NEMU_HOME)/configs/riscv64-am_defconfig
 
 ### Fall back to native gcc/binutils if there is no cross compiler
 ifeq ($(wildcard $(shell which $(CC))),)
