@@ -93,8 +93,9 @@ ASFLAGS  += -MMD $(INCFLAGS)
 ### Paste in arch-specific configurations (e.g., from `scripts/x86_64-qemu.mk`)
 #include $(NEMU_HOME)/configs/riscv64-am_defconfig
 #include riscv64-am_defconfig
--include $(AM_HOME)/scripts/$(ARCH).mk
 CONFIG_RUN_FROM_AM=y
+-include $(AM_HOME)/scripts/$(ARCH).mk
+#CONFIG_RUN_FROM_AM=y
 #include $(NEMU_HOME)/configs/riscv64-am_defconfig
 
 ### Fall back to native gcc/binutils if there is no cross compiler
