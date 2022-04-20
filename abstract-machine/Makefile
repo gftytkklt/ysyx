@@ -95,7 +95,7 @@ ASFLAGS  += -MMD $(INCFLAGS)
 #include riscv64-am_defconfig
 #CONFIG_RUN_FROM_AM=y
 #include $(AM_HOME)/am.conf
-include $(AM_HOME)/am_defconfig
+#include $(AM_HOME)/am_defconfig
 -include $(AM_HOME)/scripts/$(ARCH).mk
 #CONFIG_RUN_FROM_AM=y
 #include $(NEMU_HOME)/configs/riscv64-am_defconfig
