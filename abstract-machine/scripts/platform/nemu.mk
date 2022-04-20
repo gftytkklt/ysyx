@@ -23,6 +23,8 @@ image: $(IMAGE).elf
 	@$(OBJCOPY) -S --set-section-flags .bss=alloc,contents -O binary $(IMAGE).elf $(IMAGE).bin
 
 run: image
+#	$(NEMU_HOME)/tools/kconfig/build/conf $(silent) --defconfig=configs/riscv64-am_defconfig $(NEMU_HOME)/tools/kconfig
+#	$(NEMU_HOME)/tools/kconfig/build/conf $(silent) --syncconfig $(NEMU_HOME)/tools/kconfig
 	$(MAKE) -C $(NEMU_HOME) ISA=$(ISA) run ARGS="$(NEMUFLAGS)" IMG=$(IMAGE).bin
 
 gdb: image
