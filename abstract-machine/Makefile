@@ -93,7 +93,7 @@ ASFLAGS  += -MMD $(INCFLAGS)
 ### Paste in arch-specific configurations (e.g., from `scripts/x86_64-qemu.mk`)
 #include $(NEMU_HOME)/configs/riscv64-am_defconfig
 #include riscv64-am_defconfig
-#CONFIG_RUN_FROM_AM=y
+CONFIG_RUN_FROM_AM=y
 #include $(AM_HOME)/am.conf
 -include $(AM_HOME)/scripts/$(ARCH).mk
 #CONFIG_RUN_FROM_AM=y
