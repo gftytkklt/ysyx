@@ -27,13 +27,21 @@ int sprintf(char *out, const char *fmt, ...) {
           tmp++;
         }
         else {
-          if(val<0){val = -val;*tmp = '-';tmp++;}
+          char a[20] = "\0";// int have 10 bits at most
+          if(val<0){val = -val;*tmp = '-';tmp++;}// -2^31 will overflow
           int bit = 0;
+          int cnt = 0;// a index
           while(val!=0){
             bit = val % 10;
-            *tmp = (unsigned char) (bit+48);
-            tmp++;
+            //*tmp = (unsigned char) (bit+48);
+            //tmp++;
+            a [cnt] = (unsigned char) (bit+48);
+            cnt++;
             val = val / 10;
+          }
+          for(int cnt_rev=cnt-1;cnt_rev>=0;cnt_rev--){
+            *tmp = a[cnt_rev];
+            tmp++;
           }
         }
       }
