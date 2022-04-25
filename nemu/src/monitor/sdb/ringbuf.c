@@ -7,6 +7,7 @@ void init_ringbuf() {
   strcpy(ring[i].instlog, "empty");
   ring[i].next = &ring[i+1];
   }
+  strcpy(ring[RINGBUF_LEN-1].instlog, "empty");
   ring[RINGBUF_LEN-1].next = &ring[0];
   current_buf = ring;
 }
