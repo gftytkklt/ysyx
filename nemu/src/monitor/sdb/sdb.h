@@ -13,4 +13,11 @@ typedef struct watchpoint {
   int triggered_time;
   /* TODO: Add more members if necessary */
 } WP;
+
+
+/*#define RINGBUF_LEN 32
+typedef struct ringbuf{
+  char instlog[128];
+  struct ringbuf* next;
+} ringbuf;*/
 #endif
