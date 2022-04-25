@@ -232,4 +232,5 @@ void init_sdb() {
   init_wp_pool();
   
   /* Initialize the ringbuf. */
+  init_ringbuf();
 }
