@@ -17,7 +17,7 @@ void write_ringbuf(char *str){
 }
 void inst_hist_display() {
   for (int i=0;i<RINGBUF_LEN;i++){
-    if (current_buf == &ring[1]) {printf("--> %d",i+1);}
+    if (current_buf == &ring[i]) {printf("--> %d",i+1);}
     else {printf("    %d",i+1);}
     printf("%s\n", ring[i].instlog);
   }
