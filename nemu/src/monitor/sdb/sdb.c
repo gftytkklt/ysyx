@@ -8,14 +8,14 @@
 static int is_batch_mode = false;
 
 void init_regex();
-void init_wp_pool();
-void print_wp_info();
+//void init_wp_pool();
+//void print_wp_info();
 WP *wp;
 //extern struct watchpoint *wp;
 
 //static WP *wp_head;
-WP* new_wp();
-void free_wp(int n);
+//WP* new_wp();
+//void free_wp(int n);
 word_t vaddr_read(vaddr_t addr, int len);
 /* We use the readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {
