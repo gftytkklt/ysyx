@@ -19,12 +19,41 @@ uint64_t g_nr_guest_inst = 0;
 static uint64_t g_timer = 0; // unit: us
 static bool g_print_step = false;
 
+#define RINGBUF_LEN 32
+typedef struct ringbuf{
+  char instlog[128];
+  struct ringbuf* next;
+} ringbuf;
+
+static ringbuf ring[RINGBUF_LEN] = {};
+static ringbuf* current_buf;
+void init_ringbuf() {
+  for (int i=0;i<(RINGBUF_LEN-1);i++) {
+  strcpy(ring[i].instlog, "empty");
+  ring[i].next = &ring[i+1];
+  }
+  ring[RINGBUF_LEN-1].next = &ring[0];
+  current_buf = ring;
+}
+
+void write_ringbuf(char *str){
+  snprintf(current_buf->instlog, 128, "%s", str);
+  current_buf = current_buf->next;
+}
+void inst_hist_display() {
+  for (int i=0;i<RINGBUF_LEN;i++){
+    printf("%s\n", ring[i].instlog);
+  }
+}
+
 void device_update();
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
   if (ITRACE_COND) { log_write("%s\n", _this->logbuf); }
 #endif
+  IFDEF(CONFIG_ITRACE, puts(_this->logbuf));
+  IFDEF(CONFIG_ITRACE, write_ringbuf(_this->logbuf));
   if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
 #ifdef CONFIG_WATCHPOINT
@@ -81,7 +110,9 @@ static void statistic() {
   else Log("Finish running in less than 1 us and can not calculate the simulation frequency");
 }
 
+
 void assert_fail_msg() {
+  inst_hist_display();
   isa_reg_display();
   statistic();
 }
