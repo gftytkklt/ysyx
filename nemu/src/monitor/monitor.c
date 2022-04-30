@@ -221,15 +221,13 @@ void print_ftrace(unsigned long pc, unsigned long dnpc, unsigned inst) {
       printf("call [%s@0x%lx]\n",func_pool[i].func_name,func_pool[i].entry_addr);
     }
     else if((dnpc > func_pool[i].entry_addr) && (dnpc < func_pool[i].entry_addr + func_pool[i].func_size) && (inst==0x00008067)){
-      
       printf("%lx:%*s",pc,func_depth," ");
       printf("ret [%s]\n",func_pool[i].func_name);
       func_depth--;
     }
     else if(inst == 0x00100073){
-      
       printf("%lx:%*sebreak\n",pc,func_depth," ");
-      func_depth--;
+      //func_depth--;
       break;
       
     }
