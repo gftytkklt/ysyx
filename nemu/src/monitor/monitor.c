@@ -196,6 +196,7 @@ static void init_elf() {
         // add name to func list
         strcpy(func_pool[func_idx].func_name, buf);
       }
+      printf("%s %lx\n", func_pool[func_idx].func_name, func_pool[func_idx].entry_addr);
       func_idx++;
       if(func_idx >= FUNC_NUM) {printf("func stack overflow, add FUNC_NUM\n");break;}
     }
@@ -206,7 +207,7 @@ void print_ftrace(unsigned long pc, unsigned long dnpc, unsigned inst) {
   //unsigned long func_addr=0;
   //char func_name[128] = {'\0'};
   for(int i=0;i<func_idx;i++){  
-    printf("%s %lx\n", func_pool[func_idx].func_name,func_pool[func_idx].entry_addr);
+    //printf("%s %lx\n", func_pool[func_idx].func_name, func_pool[func_idx].entry_addr);
     if(dnpc == func_pool[func_idx].entry_addr){
       printf("%lu%*s",pc,func_depth*2," ");
       // print info & depth update
