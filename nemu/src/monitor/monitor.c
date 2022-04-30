@@ -71,7 +71,7 @@ static int parse_args(int argc, char *argv[]) {
       case 'p': sscanf(optarg, "%d", &difftest_port); break;
       case 'l': log_file = optarg; break;
       case 'd': diff_so_file = optarg; break;
-      case 'e': elf_file = optarg; printf("arg:%s\n",elf_file);break;
+      case 'e': elf_file = optarg; break;
       case 1: img_file = optarg; return optind - 1;
       default:
         printf("Usage: %s [OPTION...] IMAGE [args]\n\n", argv[0]);
@@ -119,7 +119,7 @@ static void init_elf() {
   #define FUNC 0x12// type FUNC
   
   FILE* elf_fp = fopen(elf_file,"rb");
-  Assert(elf_fp, "Can not open '%s'", elf_file);
+  Assert(elf_fp, "Can not open %s", elf_file);
   char buf[BUF_SIZE] = {'\0'};
   unsigned long shofft = 0;// section header offt
   uint16_t shlen = 0;// each section header len
