@@ -207,7 +207,7 @@ void print_ftrace(unsigned long pc, unsigned long dnpc, unsigned inst) {
   //char func_name[128] = {'\0'};
   for(int i=0;i<func_idx;i++){  
     if(dnpc == func_pool[func_idx].entry_addr){
-      printf("%*s",func_depth*2," ");
+      printf("%lu%*s",pc,func_depth*2," ");
       // print info & depth update
       switch(inst){
       	case 0x00008067: Log("ret [%s]\n",func_pool[func_idx].func_name);func_depth--;break;
