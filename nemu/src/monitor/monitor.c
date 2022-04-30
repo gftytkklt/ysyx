@@ -93,6 +93,7 @@ static int func_idx = 0;
 typedef struct elf_func{
   char func_name[BUF_SIZE];
   unsigned long entry_addr;
+  unsigned long func_size;
 }func;
 static func func_pool[FUNC_NUM] = {};
 
@@ -116,6 +117,7 @@ static void init_elf() {
   #define STNAME_OFFT 0// symtable name offt relative to strtab/symtab
   #define STINFO_OFFT 4// symtable type offt relative to strtab/symtab
   #define STADDR_OFFT 8// symtable addr offt relative to strtab/symtab
+  #define STSIZE_OFFT 16// // symtable size offt relative to strtab/symtab
   #define FUNC 0x12// type FUNC
   
   FILE* elf_fp = fopen(elf_file,"rb");
@@ -185,9 +187,13 @@ static void init_elf() {
     buf_assignment(elf_fp, (symofft+i*symentsize+STINFO_OFFT), SEEK_SET, buf, sizeof(unsigned char));
     symtype = *((unsigned char*) buf);
     if (symtype == FUNC) {
-      // get func entry addr(size may be needed too)
+      // get func entry addr
       buf_assignment(elf_fp, (symofft+i*symentsize+STADDR_OFFT), SEEK_SET, buf, sizeof(unsigned long));
       func_pool[func_idx].entry_addr = *((unsigned long*) buf);
+      // get func size
+      buf_assignment(elf_fp, (symofft+i*symentsize+STSIZE_OFFT), SEEK_SET, buf, sizeof(unsigned long));
+      func_pool[func_idx].func_size = *((unsigned long*) buf);
+      
       // get func symname
       buf_assignment(elf_fp, (symofft+i*symentsize+STNAME_OFFT), SEEK_SET, buf, sizeof(unsigned));
       symname_offt = *((unsigned*) buf);
@@ -196,7 +202,7 @@ static void init_elf() {
         // add name to func list
         strcpy(func_pool[func_idx].func_name, buf);
       }
-      printf("%d %s %lx\n",func_idx, func_pool[func_idx].func_name, func_pool[func_idx].entry_addr);
+      //printf("%d %s %lx\n",func_idx, func_pool[func_idx].func_name, func_pool[func_idx].entry_addr);
       func_idx++;
       if(func_idx >= FUNC_NUM) {printf("func stack overflow, add FUNC_NUM\n");break;}
     }
@@ -211,10 +217,10 @@ void print_ftrace(unsigned long pc, unsigned long dnpc, unsigned inst) {
     if(dnpc == func_pool[i].entry_addr){
       printf("%lx%*s",pc,func_depth*2," ");
       // print info & depth update
-      switch(inst){
-      	case 0x00008067: Log("ret [%s]\n",func_pool[i].func_name);func_depth--;break;
-      	default: Log("call [%s@0x%lx]\n",func_pool[i].func_name,func_pool[i].entry_addr);func_depth++;break;
-      }
+      printf("call [%s@0x%lx]\n",func_pool[i].func_name,func_pool[i].entry_addr);func_depth++;
+    }
+    else if((dnpc > func_pool[i].entry_addr) && (dnpc < func_pool[i].entry_addr + func_pool[i].func_size) && (inst==0x00008067)){
+      printf("ret [%s]\n",func_pool[i].func_name);func_depth--;
     }
   }
 }
