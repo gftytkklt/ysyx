@@ -196,7 +196,7 @@ static void init_elf() {
         // add name to func list
         strcpy(func_pool[func_idx].func_name, buf);
       }
-      printf("%s %lx\n", func_pool[func_idx].func_name, func_pool[func_idx].entry_addr);
+      printf("%d %s %lx\n",func_idx, func_pool[func_idx].func_name, func_pool[func_idx].entry_addr);
       func_idx++;
       if(func_idx >= FUNC_NUM) {printf("func stack overflow, add FUNC_NUM\n");break;}
     }
@@ -208,12 +208,12 @@ void print_ftrace(unsigned long pc, unsigned long dnpc, unsigned inst) {
   //char func_name[128] = {'\0'};
   for(int i=0;i<func_idx;i++){  
     //printf("%s %lx\n", func_pool[func_idx].func_name, func_pool[func_idx].entry_addr);
-    if(dnpc == func_pool[func_idx].entry_addr){
+    if(dnpc == func_pool[i].entry_addr){
       printf("%lu%*s",pc,func_depth*2," ");
       // print info & depth update
       switch(inst){
-      	case 0x00008067: Log("ret [%s]\n",func_pool[func_idx].func_name);func_depth--;break;
-      	default: Log("call [%s@0x%lu]\n",func_pool[func_idx].func_name,func_pool[func_idx].entry_addr);func_depth++;break;
+      	case 0x00008067: Log("ret [%s]\n",func_pool[i].func_name);func_depth--;break;
+      	default: Log("call [%s@0x%lu]\n",func_pool[i].func_name,func_pool[i].entry_addr);func_depth++;break;
       }
     }
   }
