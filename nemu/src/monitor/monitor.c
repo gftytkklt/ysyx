@@ -224,6 +224,9 @@ void print_ftrace(unsigned long pc, unsigned long dnpc, unsigned inst) {
       printf("%lx%*s",pc,func_depth*2," ");
       printf("ret [%s]\n",func_pool[i].func_name);
     }
+    else if(inst == 0x00100073){
+      printf("ebreak\n");
+    }
   }
 }
 #endif
