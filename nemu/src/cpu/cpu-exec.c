@@ -65,7 +65,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
   if(changed){printf("data changed\n");nemu_state.state = NEMU_STOP;}
 #endif
 #ifdef CONFIG_FTRACE
-  printf("%lx %lx %08x\n", _this->pc, dnpc, _this->isa.inst.val);
+  //printf("%lx %lx %08x\n", _this->pc, dnpc, _this->isa.inst.val);
   print_ftrace(_this->pc, dnpc, _this->isa.inst.val);
 #endif
 }
