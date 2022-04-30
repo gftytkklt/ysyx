@@ -30,6 +30,7 @@ static char *log_file = NULL;
 static char *diff_so_file = NULL;
 static char *img_file = NULL;
 static int difftest_port = 1234;
+static char *elf_file = NULL;
 
 static long load_img() {
   if (img_file == NULL) {
@@ -60,15 +61,17 @@ static int parse_args(int argc, char *argv[]) {
     {"diff"     , required_argument, NULL, 'd'},
     {"port"     , required_argument, NULL, 'p'},
     {"help"     , no_argument      , NULL, 'h'},
+    {"elf"	, required_argument, NULL, 'e'},
     {0          , 0                , NULL,  0 },
   };
   int o;
-  while ( (o = getopt_long(argc, argv, "-bhl:d:p:", table, NULL)) != -1) {
+  while ( (o = getopt_long(argc, argv, "-bhe:l:d:p:", table, NULL)) != -1) {
     switch (o) {
       case 'b': sdb_set_batch_mode(); break;
       case 'p': sscanf(optarg, "%d", &difftest_port); break;
       case 'l': log_file = optarg; break;
       case 'd': diff_so_file = optarg; break;
+      case 'e': elf_file = optarg; break;
       case 1: img_file = optarg; return optind - 1;
       default:
         printf("Usage: %s [OPTION...] IMAGE [args]\n\n", argv[0]);
@@ -76,12 +79,144 @@ static int parse_args(int argc, char *argv[]) {
         printf("\t-l,--log=FILE           output log to FILE\n");
         printf("\t-d,--diff=REF_SO        run DiffTest with reference REF_SO\n");
         printf("\t-p,--port=PORT          run DiffTest with port PORT\n");
+        printf("\t-e,--elf=ELF_FILE_SRC	  run with elf file for ftrace\n");
         printf("\n");
         exit(0);
     }
   }
   return 0;
 }
+#ifdef CONFIG_FTRACE
+#define BUF_SIZE 128
+#define FUNC_NUM 32
+static int func_idx = 0;
+typedef struct elf_func{
+  char func_name[BUF_SIZE];
+  unsigned long entry_addr;
+}func;
+static func func_pool[FUNC_NUM] = {};
+
+void buf_assignment(FILE *fp, unsigned long offset, int base, char* buf, unsigned len) {
+  fseek(fp,offset,base);
+  if(fgets(buf, len+1, fp)==NULL){printf("null pointer\n");return;}
+  
+}
+
+static void init_elf() {
+  #define SHINFO_OFFT 40 // section header info offset
+  #define SHLEN_OFFT 58 // section header len offset
+  #define SHNUM_OFFT 60 // section header num offset
+  #define SHSTRNEX_OFFT 62
+  #define SHTYPE_OFFT 4// section type addr relative to each section header
+  #define SHOFFT_OFFT 24// section offset addr relative to each section header
+  #define SHSIZE_OFFT 32// section size addr relative to each section header
+  #define SHENTSIZE_OFFT 56// section entsize addr relative to each section header
+  #define SYMTAB 0x00000002// indicate sh_type SYMTAB
+  #define STRTAB 0x00000003
+  #define STNAME_OFFT 0// symtable name offt relative to strtab/symtab
+  #define STINFO_OFFT 4// symtable type offt relative to strtab/symtab
+  #define STADDR_OFFT 8// symtable addr offt relative to strtab/symtab
+  #define FUNC 0x12// type FUNC
+  
+  FILE* elf_fp = fopen(elf_file,"rb");
+  Assert(elf_fp, "Can not open '%s'", elf_file);
+  char buf[BUF_SIZE] = {'\0'};
+  unsigned long shofft = 0;// section header offt
+  uint16_t shlen = 0;// each section header len
+  uint16_t shnum = 0;// section header num
+  uint16_t shstrndx = 0;// index of section head strtab
+  //unsigned long shstrofft = 0;// section head strtab offt
+  unsigned long strofft = 0;// strtab offt
+  unsigned long symofft = 0;// symtable offt
+  unsigned long symsize = 0;// symtable size
+  unsigned long symentsize = 0;// symtable entity size
+  
+  // get section header offset
+  buf_assignment(elf_fp, SHINFO_OFFT, SEEK_SET, buf, sizeof(unsigned long));
+  shofft = *((unsigned long*) buf);
+  // get section header size
+  buf_assignment(elf_fp, SHLEN_OFFT, SEEK_SET, buf, sizeof(uint16_t));
+  shlen = *((uint16_t*) buf);
+  // get section head num
+  buf_assignment(elf_fp, SHNUM_OFFT, SEEK_SET, buf, sizeof(uint16_t));
+  shnum = *((uint16_t*) buf);
+  // get section head strtab index
+  buf_assignment(elf_fp, SHSTRNEX_OFFT, SEEK_SET, buf, sizeof(uint16_t));
+  shstrndx = *((uint16_t*) buf);
+  
+  // find symtab offt and extract parameters
+  int i;
+  for (i=0;i<shnum;i++){
+    // get each section head type
+    buf_assignment(elf_fp, (shofft+i*shlen+SHTYPE_OFFT), SEEK_SET, buf, sizeof(uint32_t));
+    uint32_t shtype = *((uint32_t*) buf);
+    if (shtype == SYMTAB) {
+      // get symtab offset
+      buf_assignment(elf_fp, (shofft+i*shlen+SHOFFT_OFFT), SEEK_SET, buf, sizeof(unsigned long));
+      symofft = *((unsigned long*) buf);
+      // get symtab size
+      buf_assignment(elf_fp, (shofft+i*shlen+SHSIZE_OFFT), SEEK_SET, buf, sizeof(unsigned long));
+      symsize = *((unsigned long*) buf);
+      // get symtab entity size
+      buf_assignment(elf_fp, (shofft+i*shlen+SHENTSIZE_OFFT), SEEK_SET, buf, sizeof(unsigned long));
+      symentsize = *((unsigned long*) buf);
+      //break;
+    }
+    // find section head strtable
+    else if(shtype == STRTAB){
+      // get strtab offset
+      buf_assignment(elf_fp, (shofft+i*shlen+SHOFFT_OFFT), SEEK_SET, buf, sizeof(unsigned long));
+      // set value to section head strtab offt or strtab offt
+      if (i == shstrndx){
+        //shstrofft = *((unsigned long*) buf);
+        continue;
+      }
+      else {
+        strofft = *((unsigned long*) buf);
+      }
+    }
+  }
+  // extract func name and entry addr
+  unsigned long symnum = symsize / symentsize;
+  unsigned symname_offt = 0;
+  unsigned char symtype = 0;
+  for (i=0;i<symnum;i++){
+    // get symtype
+    buf_assignment(elf_fp, (symofft+i*symentsize+STINFO_OFFT), SEEK_SET, buf, sizeof(unsigned char));
+    symtype = *((unsigned char*) buf);
+    if (symtype == FUNC) {
+      // get func entry addr(size may be needed too)
+      buf_assignment(elf_fp, (symofft+i*symentsize+STADDR_OFFT), SEEK_SET, buf, sizeof(unsigned long));
+      func_pool[func_idx].entry_addr = *((unsigned long*) buf);
+      // get func symname
+      buf_assignment(elf_fp, (symofft+i*symentsize+STNAME_OFFT), SEEK_SET, buf, sizeof(unsigned));
+      symname_offt = *((unsigned*) buf);
+      if(symname_offt != 0) {
+        buf_assignment(elf_fp, (strofft+symname_offt), SEEK_SET, buf, BUF_SIZE-1);
+        // add name to func list
+        strcpy(func_pool[func_idx].func_name, buf);
+      }
+      func_idx++;
+      if(func_idx >= FUNC_NUM) {printf("func stack overflow, add FUNC_NUM\n");break;}
+    }
+  }
+}
+static int func_depth = 0;
+void print_ftrace(unsigned long pc, unsigned long dnpc, unsigned inst) {
+  //unsigned long func_addr=0;
+  //char func_name[128] = {'\0'};
+  for(int i=0;i<func_idx;i++){  
+    if(dnpc == func_pool[func_idx].entry_addr){
+      printf("%*s",func_depth*2," ");
+      // print info & depth update
+      switch(inst){
+      	case 0x00008067: Log("ret [%s]\n",func_pool[func_idx].func_name);func_depth--;break;
+      	default: Log("call [%s@0x%lu]\n",func_pool[func_idx].func_name,func_pool[func_idx].entry_addr);func_depth++;break;
+      }
+    }
+  }
+}
+#endif
 
 void init_monitor(int argc, char *argv[]) {
   /* Perform some global initialization. */
@@ -100,6 +235,9 @@ void init_monitor(int argc, char *argv[]) {
 
   /* Initialize devices. */
   IFDEF(CONFIG_DEVICE, init_device());
+  
+  /* Initialize elf*/
+  IFDEF(CONFIG_FTRACE, init_elf());
 
   /* Perform ISA dependent initialization. */
   init_isa();

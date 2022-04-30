@@ -18,6 +18,9 @@ bool check_wp();
 void write_ringbuf(char *str);
 void inst_hist_display();
 // ringbuf end
+// added for ftrace
+void print_ftrace(unsigned long pc, unsigned long dnpc, unsigned inst);
+// add for ftrace end
 CPU_state cpu = {};
 uint64_t g_nr_guest_inst = 0;
 static uint64_t g_timer = 0; // unit: us
@@ -60,6 +63,9 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
   //bool break_triggered = false;
   bool changed = check_wp();
   if(changed){printf("data changed\n");nemu_state.state = NEMU_STOP;}
+#endif
+#ifdef CONFIG_FTRACE
+  print_ftrace(_this->pc, dnpc, _this->isa.inst.val);
 #endif
 }
 
