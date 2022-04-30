@@ -209,11 +209,11 @@ void print_ftrace(unsigned long pc, unsigned long dnpc, unsigned inst) {
   for(int i=0;i<func_idx;i++){  
     //printf("%s %lx\n", func_pool[func_idx].func_name, func_pool[func_idx].entry_addr);
     if(dnpc == func_pool[i].entry_addr){
-      printf("%lu%*s",pc,func_depth*2," ");
+      printf("%lx%*s",pc,func_depth*2," ");
       // print info & depth update
       switch(inst){
       	case 0x00008067: Log("ret [%s]\n",func_pool[i].func_name);func_depth--;break;
-      	default: Log("call [%s@0x%lu]\n",func_pool[i].func_name,func_pool[i].entry_addr);func_depth++;break;
+      	default: Log("call [%s@0x%lx]\n",func_pool[i].func_name,func_pool[i].entry_addr);func_depth++;break;
       }
     }
   }
