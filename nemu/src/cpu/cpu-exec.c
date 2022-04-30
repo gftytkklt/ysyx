@@ -19,7 +19,9 @@ void write_ringbuf(char *str);
 void inst_hist_display();
 // ringbuf end
 // added for ftrace
+#ifdef CONFIG_FTRACE
 void print_ftrace(unsigned long pc, unsigned long dnpc, unsigned inst);
+#endif
 // add for ftrace end
 CPU_state cpu = {};
 uint64_t g_nr_guest_inst = 0;
