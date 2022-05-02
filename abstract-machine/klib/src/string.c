@@ -5,7 +5,12 @@
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
 size_t strlen(const char *s) {
-  panic("Not implemented");
+  //panic("Not implemented");
+  size_t i = 0;
+  while(s[i] != '\0'){
+    i++;
+  }
+  return i;
 }
 
 char *strcpy(char *dst, const char *src) {
@@ -55,14 +60,22 @@ int strcmp(const char *s1, const char *s2) {
 
 int strncmp(const char *s1, const char *s2, size_t n) {
   //panic("Not implemented");
-  for(size_t i=0;i<n;i++) {
+  if(n==0){return 0;}
+  //if((s1==NULL) || (s2==NULL)){return 0;}
+  size_t i=0;
+  while((s1[i]!='\0') || (s2[i]!='\0')) {
     if (s1[i] != s2[i]) {return (s1[i] - s2[i]);}
+    i++;
+    if(i==n){return 0;}
   }
   return 0;
 }
 
 void *memset(void *s, int c, size_t n) {
+  //in native c, n=0 still return s
   //panic("Not implemented");
+  //if(n==0){return 0;}
+  //if(s==NULL){return 0;}
   unsigned char *tmp = s;
   for (size_t i=0;i<n;i++) {
     tmp[i] = (unsigned char) c;
@@ -71,11 +84,31 @@ void *memset(void *s, int c, size_t n) {
 }
 
 void *memmove(void *dst, const void *src, size_t n) {
-  panic("Not implemented");
+  //panic("Not implemented");
+  // how to implement it without func malloc?
+  //char a;
+  //char* tmp = &a;
+  char tmp[n];
+  char *pdst = dst;
+  const char *psrc = src;
+  size_t i;
+  for(i=0;i<n;i++){
+    tmp[i]=psrc[i];
+  }
+  for(i=0;i<n;i++){
+    pdst[i]=tmp[i];
+  }
+  return dst;
 }
 
 void *memcpy(void *out, const void *in, size_t n) {
-  panic("Not implemented");
+  //panic("Not implemented");
+  char *pout=out;
+  const char *pin=in;
+  for(size_t i=0;i<n;i++){
+    pout[i] = pin[i];
+  }
+  return out;
 }
 
 int memcmp(const void *s1, const void *s2, size_t n) {
