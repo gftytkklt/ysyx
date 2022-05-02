@@ -78,7 +78,7 @@ void *memset(void *s, int c, size_t n) {
   //if(s==NULL){return 0;}
   unsigned char *tmp = s;
   for (size_t i=0;i<n;i++) {
-    tmp[i] = (unsigned char) c;
+    tmp[i] = (unsigned char) 48;
   }
   return s;
 }
