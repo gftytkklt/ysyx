@@ -15,7 +15,7 @@ word_t expr(char *e, bool *success);
 bool check_wp();
 // added for watchpoint end
 // added for ringbuf
-void write_ringbuf(char *str);
+
 void inst_hist_display();
 // ringbuf end
 // added for ftrace
@@ -77,7 +77,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   s->snpc = pc;
   isa_exec_once(s);
   cpu.pc = s->dnpc;
-#ifdef CONFIG_ITRACE
+/*#ifdef CONFIG_ITRACE
   char *p = s->logbuf;
   p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);
   int ilen = s->snpc - s->pc;
@@ -96,8 +96,9 @@ static void exec_once(Decode *s, vaddr_t pc) {
   void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
+  void write_ringbuf(char *str);
   write_ringbuf(s->logbuf);
-#endif
+#endif*/
 }
 
 static void execute(uint64_t n) {
