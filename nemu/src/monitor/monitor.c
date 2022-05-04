@@ -221,7 +221,8 @@ void print_ftrace(unsigned long pc, unsigned long dnpc, unsigned inst) {
       // print info & depth update
       printf("call [%s@0x%lx]\n",func_pool[i].func_name,func_pool[i].entry_addr);
     }
-    else if((dnpc > func_pool[i].entry_addr) && (dnpc < func_pool[i].entry_addr + func_pool[i].func_size) && (inst==0x00008067)){
+    //else if((dnpc > func_pool[i].entry_addr) && (dnpc < func_pool[i].entry_addr + func_pool[i].func_size) && (inst==0x00008067)){
+    else if((pc > func_pool[i].entry_addr) && (pc < func_pool[i].entry_addr + func_pool[i].func_size) && (inst==0x00008067)){
       printf("%lx:%*s",pc,func_depth," ");
       printf("ret [%s]\n",func_pool[i].func_name);
       func_depth--;
