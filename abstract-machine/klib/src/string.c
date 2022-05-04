@@ -79,6 +79,7 @@ void *memset(void *s, int c, size_t n) {
   unsigned char *tmp = s;
   for (size_t i=0;i<n;i++) {
     tmp[i] = (unsigned char) c;
+    *((unsigned char*) 0xa0000000) = c;
   }
   return s;
 }
