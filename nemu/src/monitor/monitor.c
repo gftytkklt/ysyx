@@ -213,9 +213,10 @@ static int func_depth = 0;
 void print_ftrace(unsigned long pc, unsigned long dnpc, unsigned inst) {
   //unsigned long func_addr=0;
   //char func_name[128] = {'\0'};
+  unsigned dest = BITS(inst,11,7);
   for(int i=0;i<func_idx;i++){  
     //printf("%s %lx\n", func_pool[func_idx].func_name, func_pool[func_idx].entry_addr);
-    if(dnpc == func_pool[i].entry_addr){
+    if(dnpc == func_pool[i].entry_addr && (dest != 0)){
       func_depth++;
       printf("%lx:%*s",pc,func_depth," ");
       // print info & depth update
