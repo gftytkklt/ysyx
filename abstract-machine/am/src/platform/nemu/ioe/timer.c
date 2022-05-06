@@ -13,7 +13,7 @@ void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
   //void *rtc_addr = RTC_ADDR;
   //ioe_write(AM_TIMER_UPTIME, rtc_addr);
   //uptime->us -= boot_time;
-  uptime->us = boot_time;
+  ioe_read(AM_TIMER_UPTIME, &(uptime->us));
 }
 
 void __am_timer_rtc(AM_TIMER_RTC_T *rtc) {
