@@ -1,13 +1,15 @@
 #include <am.h>
 #include <nemu.h>
-//static uint64_t boot_time = 0;
+static uint64_t boot_time = 0;
 //uint64_t get_time();
 void __am_timer_init() {
-  //boot_time = get_time();
+  ioe_write(AM_TIMER_UPTIME, (void*)RTC_ADDR);
+  ioe_read(AM_TIMER_UPTIME, &boot_time);
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
-  uptime->us = 0;
+  ioe_write(AM_TIMER_UPTIME, (void*)RTC_ADDR);
+  uptime->us -= boot_time;
   //(uptime->us) = get_time();
 }
 
