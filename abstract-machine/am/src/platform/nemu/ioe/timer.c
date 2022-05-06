@@ -1,6 +1,6 @@
 #include <am.h>
 #include <nemu.h>
-static uint64_t boot_time = 0;
+//static uint64_t boot_time = 0;
 //uint64_t get_time();
 void __am_timer_init() {
   //boot_time = get_time();
