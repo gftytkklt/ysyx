@@ -4,10 +4,9 @@
 #include <stdarg.h>
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
-
+static char buf[1024] = "\0";
 int printf(const char *fmt, ...) {
   //panic("Not implemented");
-  char buf[1024];
   va_list ap;
   va_start(ap, fmt);
   vsprintf(buf, fmt, ap);
