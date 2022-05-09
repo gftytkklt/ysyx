@@ -8,11 +8,11 @@ void __am_timer_init() {
   //ioe_write(AM_TIMER_UPTIME, rtc_addr);
   //ioe_read(AM_TIMER_UPTIME, &boot_time);
   
-  boot_time = (uint64_t)inl(RTC_ADDR) + (((uint64_t)inl(RTC_ADDR+4)) << 32);
+  boot_time = (((uint64_t)inl(RTC_ADDR+4)) << 32) + (uint64_t)inl(RTC_ADDR);
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
-  uint64_t current_time = (uint64_t)inl(RTC_ADDR) + (((uint64_t)inl(RTC_ADDR+4)) << 32);
+  uint64_t current_time = (((uint64_t)inl(RTC_ADDR+4)) << 32) + (uint64_t)inl(RTC_ADDR);
   
   //void *rtc_addr = RTC_ADDR;
   //ioe_write(AM_TIMER_UPTIME, rtc_addr);
