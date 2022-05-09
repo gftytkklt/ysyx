@@ -57,7 +57,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
         tmp++;
       }
       else {
-      	printf("undefined sign \%\n");
+      	//printf("undefined sign \%\n");
       	continue;
       }
       i++;
