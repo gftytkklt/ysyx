@@ -115,7 +115,7 @@ int sprintf(char *out, const char *fmt, ...) {
         tmp++;
       }
       else {
-      	printf("undefined sign \%\n");
+      	//printf("undefined sign \%\n");
       	continue;
       }
       i++;
@@ -178,7 +178,7 @@ int snprintf(char *out, size_t n, const char *fmt, ...) {
         tmp++;
       }
       else {
-      	printf("undefined sign \%\n");
+      	//printf("undefined sign \%\n");
       	continue;
       }
       i++;
@@ -239,7 +239,7 @@ int vsnprintf(char *out, size_t n, const char *fmt, va_list ap) {
         tmp++;
       }
       else {
-      	printf("undefined sign \%\n");
+      	//printf("undefined sign \%\n");
       	continue;
       }
       i++;
