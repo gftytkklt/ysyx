@@ -36,7 +36,11 @@ void *malloc(size_t size) {
 #if !(defined(__ISA_NATIVE__) && defined(__NATIVE_USE_KLIB__))
   panic("Not implemented");
 #endif
-  return NULL;
+  if(size == 0){return NULL;}
+  void *addr = heap.start;
+  if(addr + size > heap.end){return NULL;}
+  heap.start += size;
+  return addr;
 }
 
 void free(void *ptr) {
