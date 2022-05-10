@@ -45,6 +45,7 @@ char *strcat(char *dst, const char *src) {
     dst[i] = src[j];
     i++;
   }
+  dst[i] = '\0';
   return dst;
 }
 
