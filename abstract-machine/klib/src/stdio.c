@@ -117,8 +117,10 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
       }
       else if(type == CHAR){
         char *str = va_arg(ap, char*);
-        strcat(tmp, str);
-        tmp += strlen(str);
+        while(*str != '\0'){
+          *tmp = *str;
+          tmp++;str++;
+        }
         continue;
       }
     }
@@ -142,8 +144,12 @@ int sprintf(char *out, const char *fmt, ...) {
       }
       else if(type == CHAR){
         char *str = va_arg(ap, char*);
-        strcat(tmp, str);
-        tmp += strlen(str);
+        while(*str != '\0'){
+          *tmp = *str;
+          tmp++;str++;
+        }
+        //strcat(tmp, str);
+        //tmp += strlen(str);
         continue;
       }
     }
@@ -169,8 +175,10 @@ int snprintf(char *out, size_t n, const char *fmt, ...) {
       }
       else if(type == CHAR){
         char *str = va_arg(ap, char*);
-        strcat(tmp, str);
-        tmp += strlen(str);
+        while(*str != '\0'){
+          *tmp = *str;
+          tmp++;str++;
+        }
         continue;
       }
     }
