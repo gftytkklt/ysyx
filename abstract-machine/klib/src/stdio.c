@@ -133,13 +133,13 @@ int sprintf(char *out, const char *fmt, ...) {
       if(type == INTD || type == INTX){
         int val = va_arg(ap, int);
         tmp = int2str(tmp, val, width, ispad);
-        continue;
+        //continue;
       }
       else if(type == CHAR){
         char *str = va_arg(ap, char*);
         strcat(tmp, str);
         tmp += strlen(str);
-        continue;
+        //continue;
       }
     }
     *tmp = fmt[i];
