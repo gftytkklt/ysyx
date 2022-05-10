@@ -49,8 +49,12 @@ static char* int2str(char *tmp, int val, int width, bool ispad){
       memset(tmp, pad, pad_num);
       tmp += pad_num;
     }
-    strcat(tmp, a);
-    tmp += strlen(a);
+    for(int cnt_rev=cnt-1;cnt_rev>=0;cnt_rev--){
+      *tmp = a[cnt_rev];
+      tmp++;
+    }
+    //strcat(tmp, a);
+    //tmp += strlen(a);
   }
   
   return tmp;
@@ -85,7 +89,7 @@ static int print_pattern(const char *fmt, int *width, bool *ispad, int *type){
     case 's': *type = CHAR;break;
     default: *type = CHAR;return 0;// invalid format, treat it as str
   }
-  //tmp++;
+  tmp++;
   return (tmp-fmt);
 }
 
