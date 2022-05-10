@@ -70,7 +70,6 @@ static char* int2str(char *tmp, int val, int width, bool ispad){
 // return pointer at the last char of format
 static int print_pattern(const char *fmt, int *width, bool *ispad, int *type){
   const char *tmp = fmt+1;
-  //tmp ++;
   // init parameter(do not need)
   //*isdec=true;*ispad=false;*width=0;*type=CHAR;
   *ispad=false;
@@ -93,9 +92,8 @@ static int print_pattern(const char *fmt, int *width, bool *ispad, int *type){
     case 'X': *type = INTX;break;
     case 'c': *type = CHAR;break;
     case 's': *type = CHAR;break;
-    default: *type = INVALID_TYPE;return 1;// invalid format, treat it as str
+    default: *type = INVALID_TYPE;return 0;// invalid format, treat it as str
   }
-  //tmp++;
   return (tmp-fmt);
 }
 
@@ -133,13 +131,13 @@ int sprintf(char *out, const char *fmt, ...) {
       if(type == INTD || type == INTX){
         int val = va_arg(ap, int);
         tmp = int2str(tmp, val, width, ispad);
-        //continue;
+        continue;
       }
       else if(type == CHAR){
         char *str = va_arg(ap, char*);
         strcat(tmp, str);
         tmp += strlen(str);
-        //continue;
+        continue;
       }
     }
     *tmp = fmt[i];
@@ -149,6 +147,7 @@ int sprintf(char *out, const char *fmt, ...) {
   *tmp = '\0';
   return strlen(out);
 }
+
 int snprintf(char *out, size_t n, const char *fmt, ...) {
   char *tmp = out;
   va_list ap;
@@ -159,17 +158,17 @@ int snprintf(char *out, size_t n, const char *fmt, ...) {
       if(type == INTD || type == INTX){
         int val = va_arg(ap, int);
         tmp = int2str(tmp, val, width, ispad);
+        continue;
       }
       else if(type == CHAR){
         char *str = va_arg(ap, char*);
         strcat(tmp, str);
         tmp += strlen(str);
+        continue;
       }
     }
-    else {
-      *tmp = fmt[i];
-      tmp++;
-    }
+    *tmp = fmt[i];
+    tmp++;
   }
   va_end(ap);
   *tmp = '\0';
