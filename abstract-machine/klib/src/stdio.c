@@ -67,10 +67,10 @@ static char* int2str(char *tmp, int val, int width, bool ispad){
 }
 // use for format recognization only, so *fmt must equal to '%'
 // change static flags(width, ispad, is)
-// return symbol next to end of format
+// return pointer at the last char of format
 static int print_pattern(const char *fmt, int *width, bool *ispad, int *type){
-  const char *tmp = fmt;
-  tmp ++;
+  const char *tmp = fmt+1;
+  //tmp ++;
   // init parameter(do not need)
   //*isdec=true;*ispad=false;*width=0;*type=CHAR;
   *ispad=false;
@@ -93,9 +93,9 @@ static int print_pattern(const char *fmt, int *width, bool *ispad, int *type){
     case 'X': *type = INTX;break;
     case 'c': *type = CHAR;break;
     case 's': *type = CHAR;break;
-    default: *type = INVALID_TYPE;return 0;// invalid format, treat it as str
+    default: *type = INVALID_TYPE;return 1;// invalid format, treat it as str
   }
-  tmp++;
+  //tmp++;
   return (tmp-fmt);
 }
 
