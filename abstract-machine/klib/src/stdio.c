@@ -4,7 +4,7 @@
 #include <stdarg.h>
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
-//astatic char buf[1024] = "\0";
+static char buf[1024] = "\0";
 enum {CHAR, INTD, INTX, INVALID_TYPE, };
 //static bool isdec = true;
 static bool ispad = false;
@@ -97,7 +97,14 @@ static int print_pattern(const char *fmt, int *width, bool *ispad, int *type){
   return (tmp-fmt);
 }
 
-int printf(const char *fmt, ...) {return 0;}
+int printf(const char *fmt, ...) {
+  va_list ap;
+  va_start(ap, fmt);
+  vsprintf(buf, fmt, ap);
+  va_end(ap);
+  putstr(buf);
+  return strlen(buf);
+}
 int vsprintf(char *out, const char *fmt, va_list ap) {
   char *tmp = out;
   for (size_t i=0;fmt[i]!='\0';i++){
