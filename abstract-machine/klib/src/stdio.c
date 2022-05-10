@@ -112,6 +112,7 @@ int sprintf(char *out, const char *fmt, ...) {
     tmp++;
   }
   va_end(ap);
+  *tmp = '\0';
   return strlen(out);
 }
 int snprintf(char *out, size_t n, const char *fmt, ...) {return 0;}
