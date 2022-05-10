@@ -5,11 +5,18 @@
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 //astatic char buf[1024] = "\0";
-enum {CHAR, INTD, INTX, };
+enum {CHAR, INTD, INTX, INVALID_TYPE, };
 //static bool isdec = true;
 static bool ispad = false;
 static int width = 0;
 static int type = CHAR;
+
+// check if char wr out of bound, if outofbound, do nothing and return
+//static bool outofbound(char *tmp, const char input, char *end){
+//  if((end == NULL) || (tmp < end)){*tmp = input;return;}
+//  else {return;}
+//}
+
 // print int, return char * next to src int
 static char* int2str(char *tmp, int val, int width, bool ispad){
   if(val == 0){
@@ -37,7 +44,7 @@ static char* int2str(char *tmp, int val, int width, bool ispad){
       while(val!=0){
         bit = val % 16;
         if(bit < 10){a[cnt] = (unsigned char) (bit+48);}
-        else{a[cnt] = (unsigned char) (bit+51);}
+        else{a[cnt] = (unsigned char) (bit+87);}
         cnt++;
         val = (unsigned)val >> 4;
       }
@@ -56,7 +63,6 @@ static char* int2str(char *tmp, int val, int width, bool ispad){
     //strcat(tmp, a);
     //tmp += strlen(a);
   }
-  
   return tmp;
 }
 // use for format recognization only, so *fmt must equal to '%'
@@ -74,7 +80,7 @@ static int print_pattern(const char *fmt, int *width, bool *ispad, int *type){
   if(*tmp=='0'){*ispad = true;}
   // width
   int width_tmp = 0;
-  while(*tmp>'0' && *tmp<'9'){
+  while(*tmp>='0' && *tmp<='9'){
     width_tmp = width_tmp*10;
     width_tmp += (int) (*tmp-48);
     tmp++;
@@ -87,15 +93,63 @@ static int print_pattern(const char *fmt, int *width, bool *ispad, int *type){
     case 'X': *type = INTX;break;
     case 'c': *type = CHAR;break;
     case 's': *type = CHAR;break;
-    default: *type = CHAR;return 0;// invalid format, treat it as str
+    default: *type = INVALID_TYPE;return 0;// invalid format, treat it as str
   }
   tmp++;
   return (tmp-fmt);
 }
 
 int printf(const char *fmt, ...) {return 0;}
-int vsprintf(char *out, const char *fmt, va_list ap) {return 0;}
+int vsprintf(char *out, const char *fmt, va_list ap) {
+  char *tmp = out;
+  for (size_t i=0;fmt[i]!='\0';i++){
+    if (fmt[i]=='%'){
+      i += print_pattern(&fmt[i],&width,&ispad,&type);
+      if(type == INTD || type == INTX){
+        int val = va_arg(ap, int);
+        tmp = int2str(tmp, val, width, ispad);
+        continue;
+      }
+      else if(type == CHAR){
+        char *str = va_arg(ap, char*);
+        strcat(tmp, str);
+        tmp += strlen(str);
+        continue;
+      }
+    }
+    *tmp = fmt[i];
+    tmp++;
+  }
+  *tmp = '\0';
+  return strlen(out);
+}
 int sprintf(char *out, const char *fmt, ...) {
+  char *tmp = out;
+  va_list ap;
+  va_start(ap, fmt);
+  for (size_t i=0;fmt[i]!='\0';i++){
+    if (fmt[i]=='%'){
+      i += print_pattern(&fmt[i],&width,&ispad,&type);
+      if(type == INTD || type == INTX){
+        int val = va_arg(ap, int);
+        tmp = int2str(tmp, val, width, ispad);
+        continue;
+      }
+      else if(type == CHAR){
+        char *str = va_arg(ap, char*);
+        strcat(tmp, str);
+        tmp += strlen(str);
+        continue;
+      }
+    }
+    *tmp = fmt[i];
+    tmp++;
+  }
+  va_end(ap);
+  *tmp = '\0';
+  return strlen(out);
+}
+int snprintf(char *out, size_t n, const char *fmt, ...) {
   char *tmp = out;
   va_list ap;
   va_start(ap, fmt);
@@ -112,14 +166,15 @@ int sprintf(char *out, const char *fmt, ...) {
         tmp += strlen(str);
       }
     }
-    *tmp = fmt[i];
-    tmp++;
+    else {
+      *tmp = fmt[i];
+      tmp++;
+    }
   }
   va_end(ap);
   *tmp = '\0';
   return strlen(out);
 }
-int snprintf(char *out, size_t n, const char *fmt, ...) {return 0;}
 int vsnprintf(char *out, size_t n, const char *fmt, va_list ap) {return 0;}
 
 #endif
