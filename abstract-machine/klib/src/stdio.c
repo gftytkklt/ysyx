@@ -19,37 +19,40 @@ static int type = CHAR;
 
 // print int, return char * next to src int
 static char* int2str(char *tmp, int val, int width, bool ispad){
+  char a[20] = "\0";// int have 10 bits at most
+  int bit = 0;
+  int cnt = 0;// a index
   if(val == 0){
-    *tmp = (unsigned char) 48;
-    tmp++;
+    //*tmp = (unsigned char) 48;
+    //tmp++;
+    a[cnt] = (unsigned char) 48;
+    cnt++;
     }
   else {
-    char a[20] = "\0";// int have 10 bits at most
-    int bit = 0;
-    int cnt = 0;// a index
     if (type == INTD) {
     //dec case
-    if(val < 0){val = -val;*tmp = '-';tmp++;}// -2^31 will overflow
-      while(val!=0){
-        bit = val % 10;
-        //*tmp = (unsigned char) (bit+48);
-        //tmp++;
-        a[cnt] = (unsigned char) (bit+48);
-        cnt++;
-        val = val / 10;
+      if(val < 0){val = -val;*tmp = '-';tmp++;}// -2^31 will overflow
+        while(val!=0){
+          bit = val % 10;
+          //*tmp = (unsigned char) (bit+48);
+          //tmp++;
+          a[cnt] = (unsigned char) (bit+48);
+          cnt++;
+          val = val / 10;
+        }
       }
-    }
-    //hex case
-    else if(type == INTX){
-      while(val!=0){
-        bit = val % 16;
-        if(bit < 10){a[cnt] = (unsigned char) (bit+48);}
-        else{a[cnt] = (unsigned char) (bit+87);}
-        cnt++;
-        val = (unsigned)val >> 4;
+      //hex case
+      else if(type == INTX){
+        while(val!=0){
+          bit = val % 16;
+          if(bit < 10){a[cnt] = (unsigned char) (bit+48);}
+          else{a[cnt] = (unsigned char) (bit+87);}
+          cnt++;
+          val = (unsigned)val >> 4;
+        }
       }
+      else {assert(type == INTD || type == INTX);}
     }
-    else {assert(type == INTD || type == INTX);}
     if (cnt < width){
       int pad_num = width - cnt;
       char pad = ispad ? '0' : ' ';
@@ -60,9 +63,6 @@ static char* int2str(char *tmp, int val, int width, bool ispad){
       *tmp = a[cnt_rev];
       tmp++;
     }
-    //strcat(tmp, a);
-    //tmp += strlen(a);
-  }
   return tmp;
 }
 // use for format recognization only, so *fmt must equal to '%'
