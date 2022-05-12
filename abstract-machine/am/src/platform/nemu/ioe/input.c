@@ -11,5 +11,5 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
   //putch((char)x);
   //printf("%x\n",KBD_ADDR);
   kbd->keycode = x & KEYNUM_MASK;// only accept 0-256, 0x80xx is invalid
-  kbd->keydown = x | KEYDOWN_MASK;
+  kbd->keydown = x & KEYDOWN_MASK;
 }
