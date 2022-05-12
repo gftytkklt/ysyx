@@ -52,7 +52,7 @@ word_t paddr_read(paddr_t addr, int len) {
 
 void paddr_write(paddr_t addr, int len, word_t data) {
   if (likely(in_pmem(addr))) { 
-  IFDEF(CONFIG_MTRACE, Log("Get data 0x%lx from addr "FMT_PADDR"", data, addr));
+  IFDEF(CONFIG_MTRACE, Log("Write data 0x%lx to addr "FMT_PADDR"", data, addr));
   pmem_write(addr, len, data);
   return; }
   IFDEF(CONFIG_DEVICE, mmio_write(addr, len, data); return);
