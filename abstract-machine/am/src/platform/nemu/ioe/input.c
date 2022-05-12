@@ -10,5 +10,5 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
   //putch((char)x);
   //printf("%x\n",KBD_ADDR);
   //kbd->keycode = x;
-  kbd->keydown = (kbd->keycode == AM_KEY_NONE) ? 0 : 1;
+  kbd->keydown = 1;
 }
