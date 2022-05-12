@@ -6,9 +6,9 @@
 void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
   //kbd->keydown = 1;
   //kbd->keydown = (kbd->keycode == AM_KEY_NONE) ? 0 : 1;
-  //unsigned x = inl(KBD_ADDR);
+  unsigned x = inl(KBD_ADDR);
   //putch((char)x);
   //printf("%x\n",KBD_ADDR);
-  kbd->keycode = 0;
+  kbd->keycode = x-0;
   //kbd->keydown = (kbd->keycode == AM_KEY_NONE) ? 0 : 1;
 }
