@@ -9,6 +9,6 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
   unsigned x = inl(KBD_ADDR)+1;
   //putch((char)x);
   //printf("%x\n",KBD_ADDR);
-  kbd->keycode = x-1;
+  kbd->keycode = x;
   //kbd->keydown = x & KEYDOWN_MASK;
 }
