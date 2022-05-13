@@ -33,7 +33,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   else {
     int x = ctl->x;
     int y = ctl->y;
-    int *pixels = ctl->pixels;
+    int *pixels = (int *)ctl->pixels;
     int blk_w = ctl->w;
     int blk_h = ctl->h;
     int base = w*y+x;
