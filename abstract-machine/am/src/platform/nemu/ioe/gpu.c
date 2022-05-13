@@ -12,7 +12,7 @@ void __am_gpu_init() {
   //uint32_t init = 255 + (255 << 8) + (255 << 16);
   //for (i = 0; i < w * 30; i ++) outl(FB_ADDR+i, init);
   //for (i = 0; i < w * 30; i ++) fb[i] = init;
-  //outl(SYNC_ADDR, 1);
+  outl(SYNC_ADDR, 1);
 }
 
 void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
