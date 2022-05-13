@@ -29,6 +29,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   // format: row1-row2-...-rown
   // w, h: size of drawing block
   // sync: finish drawing
+  // printf("call draw\n");
   if (ctl->sync) {
     outl(SYNC_ADDR, 1);
   }
