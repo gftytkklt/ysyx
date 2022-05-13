@@ -30,25 +30,26 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   // w, h: size of drawing block
   // sync: finish drawing
   //printf("call draw\n");
+  
+  //else {
+  //printf("redraw\n");
+  int x = ctl->x;
+  int y = ctl->y;
+  int *pixels = (int *)ctl->pixels;
+  int blk_w = ctl->w;
+  int blk_h = ctl->h;
+  int base = w*y+x;
+  for (int row=0;row<blk_h;row++){
+    for(int col=0;col<blk_w;col++){
+      int index = row*blk_w+col;
+      int offset = row*w+col;
+      outl(FB_ADDR+(base+offset)*4,pixels[index]);
+    }
+  }
   if (ctl->sync) {
     //printf("sync\n");
     outl(SYNC_ADDR, 1);
   }
-  //else {
-    //printf("redraw\n");
-    int x = ctl->x;
-    int y = ctl->y;
-    int *pixels = (int *)ctl->pixels;
-    int blk_w = ctl->w;
-    int blk_h = ctl->h;
-    int base = w*y+x;
-    for (int row=0;row<blk_h;row++){
-      for(int col=0;col<blk_w;col++){
-        int index = row*blk_w+col;
-        int offset = row*w+col;
-        outl(FB_ADDR+(base+offset)*4,pixels[index]);
-      }
-    }
   //}
 }
 
