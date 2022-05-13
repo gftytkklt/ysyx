@@ -29,13 +29,13 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   // format: row1-row2-...-rown
   // w, h: size of drawing block
   // sync: finish drawing
-  printf("call draw\n");
+  //printf("call draw\n");
   if (ctl->sync) {
-    printf("sync\n");
+    //printf("sync\n");
     outl(SYNC_ADDR, 1);
   }
-  else {
-    printf("redraw\n");
+  //else {
+    //printf("redraw\n");
     int x = ctl->x;
     int y = ctl->y;
     int *pixels = (int *)ctl->pixels;
@@ -49,7 +49,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
         outl(FB_ADDR+(base+offset)*4,pixels[index]);
       }
     }
-  }
+  //}
 }
 
 void __am_gpu_status(AM_GPU_STATUS_T *status) {
