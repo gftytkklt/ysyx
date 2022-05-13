@@ -1,6 +1,6 @@
 #include <am.h>
 #include <nemu.h>
-
+#include <stdio.h>
 #define SYNC_ADDR (VGACTL_ADDR + 4)
 static int w = 0;
 static int h = 0;
@@ -29,7 +29,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   // format: row1-row2-...-rown
   // w, h: size of drawing block
   // sync: finish drawing
-  // printf("call draw\n");
+  printf("call draw\n");
   if (ctl->sync) {
     outl(SYNC_ADDR, 1);
   }

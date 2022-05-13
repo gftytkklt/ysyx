@@ -1,7 +1,7 @@
 #include <am.h>
 #include <SDL2/SDL.h>
 #include <fenv.h>
-#include <stdio.h>
+//#include <stdio.h>
 
 //#define MODE_800x600
 #ifdef MODE_800x600
@@ -56,7 +56,7 @@ void __am_gpu_status(AM_GPU_STATUS_T *stat) {
 }
 
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
-  printf("call draw\n");
+  //printf("call draw\n");
   int x = ctl->x, y = ctl->y, w = ctl->w, h = ctl->h;
   if (w == 0 || h == 0) return;
   feclearexcept(-1);
