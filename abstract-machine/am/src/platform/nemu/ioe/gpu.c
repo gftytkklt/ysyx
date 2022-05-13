@@ -31,9 +31,11 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   // sync: finish drawing
   printf("call draw\n");
   if (ctl->sync) {
+    printf("sync\n");
     outl(SYNC_ADDR, 1);
   }
   else {
+    printf("redraw\n");
     int x = ctl->x;
     int y = ctl->y;
     int *pixels = (int *)ctl->pixels;
