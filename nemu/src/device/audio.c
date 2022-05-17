@@ -74,7 +74,7 @@ void init_audio() {
 
   sbuf = (uint8_t *)new_space(CONFIG_SB_SIZE);
   add_mmio_map("audio-sbuf", CONFIG_SB_ADDR, sbuf, CONFIG_SB_SIZE, NULL);
-  while(!audio_base[4]);// wait until __am_audio_init done
+  //while(!audio_base[4]);// wait until __am_audio_init done
   SDL_audio_init();
   //memset(audio_base, 0, CONFIG_SB_SIZE);
 }
