@@ -89,7 +89,7 @@ static int parse_args(int argc, char *argv[]) {
 }
 #ifdef CONFIG_FTRACE
 #define BUF_SIZE 128
-#define FUNC_NUM 32
+#define FUNC_NUM 128
 static int func_idx = 0;
 typedef struct elf_func{
   char func_name[BUF_SIZE];
@@ -223,7 +223,7 @@ void print_ftrace(unsigned long pc, unsigned long dnpc, unsigned inst) {
       printf("call [%s@0x%lx]\n",func_pool[i].func_name,func_pool[i].entry_addr);
     }
     //else if((dnpc > func_pool[i].entry_addr) && (dnpc < func_pool[i].entry_addr + func_pool[i].func_size) && (inst==0x00008067)){
-    else if((pc > func_pool[i].entry_addr) && (pc <= func_pool[i].entry_addr + func_pool[i].func_size) && (inst==0x00008067)){
+    else if((pc > func_pool[i].entry_addr) && (pc < func_pool[i].entry_addr + func_pool[i].func_size) && (inst==0x00008067)){
       printf("%lx:%*s",pc,func_depth," ");
       printf("ret [%s]\n",func_pool[i].func_name);
       func_depth--;
