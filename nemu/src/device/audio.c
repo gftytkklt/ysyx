@@ -71,6 +71,7 @@ static void SDL_audio_init(){
 static void audio_io_handler(uint32_t offset, int len, bool is_write) {
   // call SDL init after config
   if(offset == 8 && is_write && audio_base[reg_init]) {
+    assert(0);
     SDL_audio_init();
   }
 }
