@@ -1,7 +1,7 @@
 #include <common.h>
 #include <device/map.h>
 #include <SDL2/SDL.h>
-
+#include <stdio.h>
 enum {
   reg_freq,
   reg_channels,
@@ -17,15 +17,15 @@ static uint8_t *sbuf = NULL;
 static uint32_t *audio_base = NULL;
 SDL_AudioSpec s = {};
 static uint32_t audio_freq() {
-  return MUXDEF(CONFIG_TARGET_AM, io_read(AM_AUDIO_CTRL).freq, audio_base[0]);
+  return MUXDEF(CONFIG_TARGET_AM, io_read(AM_AUDIO_CTRL).freq, audio_base[reg_freq]);
 }
 
 static uint32_t audio_channels() {
-  return MUXDEF(CONFIG_TARGET_AM, io_read(AM_AUDIO_CTRL).channels, audio_base[1]);
+  return MUXDEF(CONFIG_TARGET_AM, io_read(AM_AUDIO_CTRL).channels, audio_base[reg_channels]);
 }
 
 static uint32_t audio_samples() {
-  return MUXDEF(CONFIG_TARGET_AM, io_read(AM_AUDIO_CTRL).samples, audio_base[2]);
+  return MUXDEF(CONFIG_TARGET_AM, io_read(AM_AUDIO_CTRL).samples, audio_base[reg_samples]);
 }
 
 static void audio_play(void *userdata, uint8_t *stream, int len){
@@ -59,7 +59,7 @@ static void SDL_audio_init(){
   s.samples = audio_samples();
   s.callback = audio_play;
   s.userdata = NULL;
-
+  printf("%d %d %d\n",s.freq,s.channels,s.samples);
   //count = 0;
   int ret = SDL_InitSubSystem(SDL_INIT_AUDIO);
   if (ret == 0) {
@@ -72,7 +72,7 @@ static void audio_io_handler(uint32_t offset, int len, bool is_write) {
   // call SDL init after config
   if(offset == 8 && is_write && audio_base[reg_init]) {
     SDL_audio_init();
-    assert(0);
+    //assert(0);
   }
 }
 
