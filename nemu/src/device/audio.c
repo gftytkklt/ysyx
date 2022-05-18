@@ -1,7 +1,7 @@
 #include <common.h>
 #include <device/map.h>
 #include <SDL2/SDL.h>
-#include <stdio.h>
+
 enum {
   reg_freq,
   reg_channels,
@@ -40,6 +40,7 @@ static void audio_play(void *userdata, uint8_t *stream, int len){
   for(int i=0;i<nread;i++){
     if(rd_index >= audio_base[reg_sbuf_size]) {rd_index = rd_index - audio_base[reg_sbuf_size];}
     stream[i] = sbuf[rd_index];
+    rd_index++;
   }
 
   audio_base[reg_count] -= nread;
@@ -59,7 +60,7 @@ static void SDL_audio_init(){
   s.samples = audio_samples();
   s.callback = audio_play;
   s.userdata = NULL;
-  printf("%d %d %d\n",s.freq,s.channels,s.samples);
+  //printf("%d %d %d\n",s.freq,s.channels,s.samples);
   //count = 0;
   int ret = SDL_InitSubSystem(SDL_INIT_AUDIO);
   if (ret == 0) {

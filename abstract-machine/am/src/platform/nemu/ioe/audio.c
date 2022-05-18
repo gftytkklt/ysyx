@@ -45,6 +45,7 @@ void __am_audio_play(AM_AUDIO_PLAY_T *ctl) {
   for (uint32_t i=0;i<len;i++) {
     if (wr_index >= bufsize) {wr_index = wr_index - bufsize;}
     outb(AUDIO_SBUF_ADDR+wr_index,play_buf[i]);
+    wr_index ++;
   }
   //printf("4\n");
   // update count
