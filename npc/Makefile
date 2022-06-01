@@ -1,13 +1,13 @@
-VSRC = $(abspath ./vsrc/example.v)
-CSRC = $(abspath ./csrc/main_nvboard.cpp)
-WAVEFILE = switch_sim
-TOPNAME = example
-NXDC_FILES = constr/example.nxdc
+VSRC = $(shell find $(abspath ./vsrc) -name "*.v")
+CSRC = $(abspath ./csrc/cputest.cpp)
+WAVEFILE = addcpu_sim
+TOPNAME = cpu_top
+#NXDC_FILES = constr/example.nxdc
 INC_PATH ?=
 
 VERILATOR = verilator
 VERILATOR_CFLAGS += -MMD --build -cc  \
-		    -O3 --x-assign fast --x-initial fast --noassert
+		    -O3 --x-assign fast --x-initial fast --noassert --trace
 BUILD_DIR = ./build
 OBJ_DIR = $(BUILD_DIR)/obj_dir
 BIN = $(BUILD_DIR)/$(TOPNAME)
@@ -16,19 +16,19 @@ default: $(BIN)
 
 $(shell mkdir -p $(BUILD_DIR))
 
-SRC_AUTO_BIND = $(abspath $(BUILD_DIR)/auto_bind.cpp)
-$(SRC_AUTO_BIND): $(NXDC_FILES)
-	python3 $(NVBOARD_HOME)/scripts/auto_pin_bind.py $^ $@
+#SRC_AUTO_BIND = $(abspath $(BUILD_DIR)/auto_bind.cpp)
+#$(SRC_AUTO_BIND): $(NXDC_FILES)
+#	python3 $(NVBOARD_HOME)/scripts/auto_pin_bind.py $^ $@
 
-CSRC += $(SRC_AUTO_BIND)
+#CSRC += $(SRC_AUTO_BIND)
 
-include $(NVBOARD_HOME)/scripts/nvboard.mk
+#include $(NVBOARD_HOME)/scripts/nvboard.mk
 
 INCFLAGS = $(addprefix -I, $(INC_PATH))
 CFLAGS += $(INCFLAGS) -DTOP_NAME="\"V$(TOPNAME)\""
 LDFLAGS += -lSDL2 -lSDL2_image
 
-$(BIN): $(VSRC) $(CSRC) $(NVBOARD_ARCHIVE)
+$(BIN): $(VSRC) $(CSRC)
 	@rm -rf $(OBJ_DIR)
 	$(VERILATOR) $(VERILATOR_CFLAGS) \
 		-top $(TOPNAME) $^ \

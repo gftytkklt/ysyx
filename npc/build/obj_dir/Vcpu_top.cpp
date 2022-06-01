@@ -1,78 +1,81 @@
 // Verilated -*- C++ -*-
 // DESCRIPTION: Verilator output: Model implementation (design independent parts)
 
-#include "Vexample.h"
-#include "Vexample__Syms.h"
+#include "Vcpu_top.h"
+#include "Vcpu_top__Syms.h"
 #include "verilated_vcd_c.h"
+#include "verilated_dpi.h"
 
 //============================================================
 // Constructors
 
-Vexample::Vexample(VerilatedContext* _vcontextp__, const char* _vcname__)
-    : vlSymsp{new Vexample__Syms(_vcontextp__, _vcname__, this)}
-    , a{vlSymsp->TOP.a}
-    , b{vlSymsp->TOP.b}
-    , z{vlSymsp->TOP.z}
+Vcpu_top::Vcpu_top(VerilatedContext* _vcontextp__, const char* _vcname__)
+    : vlSymsp{new Vcpu_top__Syms(_vcontextp__, _vcname__, this)}
+    , I_sys_clk{vlSymsp->TOP.I_sys_clk}
+    , I_rst{vlSymsp->TOP.I_rst}
+    , I_inst{vlSymsp->TOP.I_inst}
+    , O_pc{vlSymsp->TOP.O_pc}
+    , __PVT____024unit{vlSymsp->TOP.__PVT____024unit}
     , rootp{&(vlSymsp->TOP)}
 {
 }
 
-Vexample::Vexample(const char* _vcname__)
-    : Vexample(nullptr, _vcname__)
+Vcpu_top::Vcpu_top(const char* _vcname__)
+    : Vcpu_top(nullptr, _vcname__)
 {
 }
 
 //============================================================
 // Destructor
 
-Vexample::~Vexample() {
+Vcpu_top::~Vcpu_top() {
     delete vlSymsp;
 }
 
 //============================================================
 // Evaluation loop
 
-void Vexample___024root___eval_initial(Vexample___024root* vlSelf);
-void Vexample___024root___eval_settle(Vexample___024root* vlSelf);
-void Vexample___024root___eval(Vexample___024root* vlSelf);
-QData Vexample___024root___change_request(Vexample___024root* vlSelf);
+void Vcpu_top___024root___eval_initial(Vcpu_top___024root* vlSelf);
+void Vcpu_top___024root___eval_settle(Vcpu_top___024root* vlSelf);
+void Vcpu_top___024root___eval(Vcpu_top___024root* vlSelf);
+QData Vcpu_top___024root___change_request(Vcpu_top___024root* vlSelf);
 #ifdef VL_DEBUG
-void Vexample___024root___eval_debug_assertions(Vexample___024root* vlSelf);
+void Vcpu_top___024root___eval_debug_assertions(Vcpu_top___024root* vlSelf);
 #endif  // VL_DEBUG
-void Vexample___024root___final(Vexample___024root* vlSelf);
+void Vcpu_top___024root___final(Vcpu_top___024root* vlSelf);
 
-static void _eval_initial_loop(Vexample__Syms* __restrict vlSymsp) {
+static void _eval_initial_loop(Vcpu_top__Syms* __restrict vlSymsp) {
     vlSymsp->__Vm_didInit = true;
-    Vexample___024root___eval_initial(&(vlSymsp->TOP));
+    Vcpu_top___024root___eval_initial(&(vlSymsp->TOP));
     // Evaluate till stable
     int __VclockLoop = 0;
     QData __Vchange = 1;
     vlSymsp->__Vm_activity = true;
     do {
         VL_DEBUG_IF(VL_DBG_MSGF("+ Initial loop\n"););
-        Vexample___024root___eval_settle(&(vlSymsp->TOP));
-        Vexample___024root___eval(&(vlSymsp->TOP));
+        Vcpu_top___024root___eval_settle(&(vlSymsp->TOP));
+        Vcpu_top___024root___eval(&(vlSymsp->TOP));
         if (VL_UNLIKELY(++__VclockLoop > 100)) {
             // About to fail, so enable debug to see what's not settling.
             // Note you must run make with OPT=-DVL_DEBUG for debug prints.
             int __Vsaved_debug = Verilated::debug();
             Verilated::debug(1);
-            __Vchange = Vexample___024root___change_request(&(vlSymsp->TOP));
+            __Vchange = Vcpu_top___024root___change_request(&(vlSymsp->TOP));
             Verilated::debug(__Vsaved_debug);
-            VL_FATAL_MT("vsrc/example.v", 1, "",
+            VL_FATAL_MT("/home/gftyt/ysyx-workbench/npc/vsrc/cpu_top.v", 23, "",
                 "Verilated model didn't DC converge\n"
                 "- See https://verilator.org/warn/DIDNOTCONVERGE");
         } else {
-            __Vchange = Vexample___024root___change_request(&(vlSymsp->TOP));
+            __Vchange = Vcpu_top___024root___change_request(&(vlSymsp->TOP));
         }
     } while (VL_UNLIKELY(__Vchange));
 }
 
-void Vexample::eval_step() {
-    VL_DEBUG_IF(VL_DBG_MSGF("+++++TOP Evaluate Vexample::eval_step\n"); );
+void Vcpu_top::eval_step() {
+    VL_DEBUG_IF(VL_DBG_MSGF("+++++TOP Evaluate Vcpu_top::eval_step\n"); );
 #ifdef VL_DEBUG
     // Debug assertions
-    Vexample___024root___eval_debug_assertions(&(vlSymsp->TOP));
+    Vcpu_top___024root___eval_debug_assertions(&(vlSymsp->TOP));
 #endif  // VL_DEBUG
     // Initialize
     if (VL_UNLIKELY(!vlSymsp->__Vm_didInit)) _eval_initial_loop(vlSymsp);
@@ -82,19 +85,19 @@ void Vexample::eval_step() {
     vlSymsp->__Vm_activity = true;
     do {
         VL_DEBUG_IF(VL_DBG_MSGF("+ Clock loop\n"););
-        Vexample___024root___eval(&(vlSymsp->TOP));
+        Vcpu_top___024root___eval(&(vlSymsp->TOP));
         if (VL_UNLIKELY(++__VclockLoop > 100)) {
             // About to fail, so enable debug to see what's not settling.
             // Note you must run make with OPT=-DVL_DEBUG for debug prints.
             int __Vsaved_debug = Verilated::debug();
             Verilated::debug(1);
-            __Vchange = Vexample___024root___change_request(&(vlSymsp->TOP));
+            __Vchange = Vcpu_top___024root___change_request(&(vlSymsp->TOP));
             Verilated::debug(__Vsaved_debug);
-            VL_FATAL_MT("vsrc/example.v", 1, "",
+            VL_FATAL_MT("/home/gftyt/ysyx-workbench/npc/vsrc/cpu_top.v", 23, "",
                 "Verilated model didn't converge\n"
                 "- See https://verilator.org/warn/DIDNOTCONVERGE");
         } else {
-            __Vchange = Vexample___024root___change_request(&(vlSymsp->TOP));
+            __Vchange = Vcpu_top___024root___change_request(&(vlSymsp->TOP));
         }
     } while (VL_UNLIKELY(__Vchange));
 }
@@ -102,30 +105,30 @@ void Vexample::eval_step() {
 //============================================================
 // Invoke final blocks
 
-void Vexample::final() {
-    Vexample___024root___final(&(vlSymsp->TOP));
+void Vcpu_top::final() {
+    Vcpu_top___024root___final(&(vlSymsp->TOP));
 }
 
 //============================================================
 // Utilities
 
-VerilatedContext* Vexample::contextp() const {
+VerilatedContext* Vcpu_top::contextp() const {
     return vlSymsp->_vm_contextp__;
 }
 
-const char* Vexample::name() const {
+const char* Vcpu_top::name() const {
     return vlSymsp->name();
 }
 
 //============================================================
 // Trace configuration
 
-void Vexample___024root__traceInitTop(Vexample___024root* vlSelf, VerilatedVcd* tracep);
+void Vcpu_top___024root__traceInitTop(Vcpu_top___024root* vlSelf, VerilatedVcd* tracep);
 
 static void traceInit(void* voidSelf, VerilatedVcd* tracep, uint32_t code) {
     // Callback from tracep->open()
-    Vexample___024root* const __restrict vlSelf VL_ATTR_UNUSED = static_cast<Vexample___024root*>(voidSelf);
-    Vexample__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    Vcpu_top___024root* const __restrict vlSelf VL_ATTR_UNUSED = static_cast<Vcpu_top___024root*>(voidSelf);
+    Vcpu_top__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     if (!vlSymsp->_vm_contextp__->calcUnusedSigs()) {
         VL_FATAL_MT(__FILE__, __LINE__, __FILE__,
             "Turning on wave traces requires Verilated::traceEverOn(true) call before time 0.");
@@ -133,13 +136,13 @@ static void traceInit(void* voidSelf, VerilatedVcd* tracep, uint32_t code) {
     vlSymsp->__Vm_baseCode = code;
     tracep->module(vlSymsp->name());
     tracep->scopeEscape(' ');
-    Vexample___024root__traceInitTop(vlSelf, tracep);
+    Vcpu_top___024root__traceInitTop(vlSelf, tracep);
     tracep->scopeEscape('.');
 }
 
-void Vexample___024root__traceRegister(Vexample___024root* vlSelf, VerilatedVcd* tracep);
+void Vcpu_top___024root__traceRegister(Vcpu_top___024root* vlSelf, VerilatedVcd* tracep);
 
-void Vexample::trace(VerilatedVcdC* tfp, int, int) {
+void Vcpu_top::trace(VerilatedVcdC* tfp, int, int) {
     tfp->spTrace()->addInitCb(&traceInit, &(vlSymsp->TOP));
-    Vexample___024root__traceRegister(&(vlSymsp->TOP), tfp->spTrace());
+    Vcpu_top___024root__traceRegister(&(vlSymsp->TOP), tfp->spTrace());
 }
