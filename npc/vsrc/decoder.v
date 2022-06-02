@@ -19,7 +19,7 @@
 // control signal is generated in this module!
 // dnpc: 
 //////////////////////////////////////////////////////////////////////////////////
-//import "DPI-C" function void sim_end();
+import "DPI-C" function void sim_end();
 
 module decoder(
     input I_sys_clk,
@@ -63,7 +63,7 @@ module decoder(
     assign immS = {I_inst[31:25], I_inst[11:7]};
     assign immB = {I_inst[31], I_inst[7], I_inst[30:25], I_inst[11:8],1'b0};
     assign immU = {I_inst[31:12],12'b0};
-    assign immJ = {I_inst[31],I_inst[19:12],I_inst[20],I_inst[30:21]};
+    assign immJ = {I_inst[31],I_inst[19:12],I_inst[20],I_inst[30:21],1'b0};
     // rs1, rs2, rd addr
     assign O_rs1 = rs1;
     assign O_rs2 = rs2;
@@ -171,8 +171,8 @@ module decoder(
     assign O_opnum2_sel = OP2_RS2 & {2{rs2_flag}}
                         | OP2_IMM & {2{imm_flag}};
     // ebreak signal gen
-//    always @(posedge I_sys_clk)
-//    	if ((I_inst == 32'h00100073) && !I_rst)
-//    	    sim_end();
+    always @(posedge I_sys_clk)
+    	if ((I_inst == 32'h00100073) && !I_rst)
+    	    sim_end();
     //assign O_sim_end = (I_inst == 32'h00100073) ? 1:0;
 endmodule

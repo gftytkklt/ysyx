@@ -33,6 +33,11 @@ class Vcpu_top VL_NOT_FINAL {
     VL_IN8(&I_rst,0,0);
     VL_IN(&I_inst,31,0);
     VL_OUT64(&O_pc,63,0);
+    VL_IN64(&I_mem_rd_data,63,0);
+    VL_OUT8(&O_mem_rd_en,0,0);
+    VL_OUT64(&O_mem_wr_data,63,0);
+    VL_OUT64(&O_mem_wr_addr,63,0);
+    VL_OUT8(&O_mem_wen,0,0);
 
     // CELLS
     // Public to allow access to /* verilator public */ items.

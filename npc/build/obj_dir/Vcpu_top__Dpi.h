@@ -13,7 +13,7 @@ extern "C" {
 
 
     // DPI IMPORTS
-    // DPI import at /home/gftyt/ysyx-workbench/npc/vsrc/decoder.v:21:30
+    // DPI import at /home/gftyt/ysyx-workbench/npc/vsrc/decoder.v:22:30
     extern void sim_end();
 
 #ifdef __cplusplus

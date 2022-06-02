@@ -15,6 +15,11 @@ Vcpu_top::Vcpu_top(VerilatedContext* _vcontextp__, const char* _vcname__)
     , I_rst{vlSymsp->TOP.I_rst}
     , I_inst{vlSymsp->TOP.I_inst}
     , O_pc{vlSymsp->TOP.O_pc}
+    , I_mem_rd_data{vlSymsp->TOP.I_mem_rd_data}
+    , O_mem_rd_en{vlSymsp->TOP.O_mem_rd_en}
+    , O_mem_wr_data{vlSymsp->TOP.O_mem_wr_data}
+    , O_mem_wr_addr{vlSymsp->TOP.O_mem_wr_addr}
+    , O_mem_wen{vlSymsp->TOP.O_mem_wen}
     , __PVT____024unit{vlSymsp->TOP.__PVT____024unit}
     , rootp{&(vlSymsp->TOP)}
 {

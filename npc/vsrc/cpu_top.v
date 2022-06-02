@@ -33,7 +33,7 @@ module cpu_top(
     //output O_sim_end
     );
     wire [63:0] current_pc,dnpc,snpc;
-    wire [63:0] imm,wr_data,rs1_data,rs2_data,alu_op1,alu_op2,alu_out,mem_in,mem_out;
+    wire [63:0] imm,wr_data,rs1_data,rs2_data,alu_op1,alu_op2,alu_out,mem_in,mem_out,mem_addr;
     wire [4:0] rs1_addr,rs2_addr,rd_addr;
     wire [2:0] funct3;
     wire [2:0] dnpc_sel;

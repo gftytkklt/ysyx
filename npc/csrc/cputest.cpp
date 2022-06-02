@@ -23,7 +23,7 @@ void sim_end(){
 
 static unsigned pmem_read(unsigned long pc){
 	unsigned index = (pc-(unsigned long)0x80000000)/4;
-	return index > 31 ? mem[31] : mem[index];
+	return index > 31 ? 0 : mem[index];
 }
 
 static unsigned gen_rand(int max){
@@ -33,20 +33,29 @@ static unsigned gen_rand(int max){
   return distrib(engine);
 }
 
-static void inst_gen(){
+static void inst_gen(bool rand){
+  if(rand){
   unsigned rs1, rd, imm;
-  for (int i=0;i<N-1;i++){
-    rs1 = gen_rand(31);
-    rd = gen_rand(31);
-    imm = gen_rand(16384);
-    mem[i] = (imm<<20) | (rs1<<15) | (rd << 7) | 19;
-    //printf("%d: %x %x %x\n",i,rs1,rd,mem[i]);
+    for (int i=0;i<N-1;i++){
+      rs1 = gen_rand(31);
+      rd = gen_rand(31);
+      imm = gen_rand(16384);
+      mem[i] = (imm<<20) | (rs1<<15) | (rd << 7) | 19;
+      //printf("%d: %x %x %x\n",i,rs1,rd,mem[i]);
+    }
+    mem[N-1] = 0x00100073;
   }
-  mem[N-1] = 0x00100073;
+  else{
+    const unsigned arr[14] = {0x00000413, 0x00009117, 0xffc10113, 0x00c000ef, 0x00000513, 0x00008067, 0xff010113, 0x00000517, 0x01c50513, 0x00113423, 0xfe9ff0ef, 0x00050513, 0x00100073, 0x0000006f};
+    for (int i=0;i<14;i++){
+      mem[i] = arr[i];
+    }
+  }
 }
 
 int main(int argc, char** argv) {
   printf("Hello, ysyx!\n");
+  for (int i = 0;i<argc;i++){printf("%d: %s\n", i+1, argv[i]);}
   // declear global configuration
   Verilated::commandArgs(argc, argv);
   Verilated::traceEverOn(true);
@@ -66,7 +75,7 @@ int main(int argc, char** argv) {
   tfp->open("cpu_sim.vcd");
   // set stop conditions manually by sim time
   //reset(10);
-  inst_gen();
+  inst_gen(false);
   
   while (!finish){
 	  //int a = rand() & 1;
