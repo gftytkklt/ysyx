@@ -38,7 +38,7 @@ $(BIN): $(VSRC) $(CSRC)
 
 run: $(BIN)
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
-	@$^	
+	$^ $(IMG)
 clean:
 	rm -rf $(BUILD_DIR)
 .PHONY: clean run
