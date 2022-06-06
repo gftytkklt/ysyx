@@ -20,7 +20,7 @@
 // dnpc: 
 //////////////////////////////////////////////////////////////////////////////////
 import "DPI-C" function void sim_end();
-
+import "DPI-C" function void set_inst_ptr(input logic [31:0] a []);
 module decoder(
     input I_sys_clk,
     input I_rst,
@@ -42,7 +42,7 @@ module decoder(
     output [14:0] O_alu_op_sel
     //output O_sim_end
     );
-    
+    initial set_inst_ptr(I_inst);
     wire [6:0] funct7;
     wire [6:0] opcode;
     wire [4:0] rs2,rs1,rd;

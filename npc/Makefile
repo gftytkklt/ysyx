@@ -4,7 +4,20 @@ WAVEFILE = addcpu_sim
 TOPNAME = cpu_top
 #NXDC_FILES = constr/example.nxdc
 INC_PATH ?=
-
+# debug config(in place of Kconfig)
+#CONFIG_ITRACE=y
+#CONFIG_FTRACE=y
+#CONFIG_MTRACE=n
+#CONFIG_DIFFTEST=n
+#ifdef CONFIG_ITRACE
+CXXSRC += $(abspath ./csrc/disasm.cpp)
+CFLAGS += -I/usr/lib/llvm-12/include -std=c++14   -fno-exceptions -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -fPIE
+LDFLAGS += $(shell llvm-config --libs)
+#endif
+#ifdef CONFIG_FTRACE
+CSRC += $(abspath ./csrc/readelf.cpp)
+#endif
+# verilator flag
 VERILATOR = verilator
 VERILATOR_CFLAGS += -MMD --build -cc  \
 		    -O3 --x-assign fast --x-initial fast --noassert --trace
@@ -28,17 +41,20 @@ INCFLAGS = $(addprefix -I, $(INC_PATH))
 CFLAGS += $(INCFLAGS) -DTOP_NAME="\"V$(TOPNAME)\""
 LDFLAGS += -lSDL2 -lSDL2_image
 
-$(BIN): $(VSRC) $(CSRC)
+$(BIN): $(VSRC) $(CSRC) $(CXXSRC)
 	@rm -rf $(OBJ_DIR)
 	$(VERILATOR) $(VERILATOR_CFLAGS) \
 		-top $(TOPNAME) $^ \
 		$(addprefix -CFLAGS , $(CFLAGS)) $(addprefix -LDFLAGS , $(LDFLAGS)) \
 		--Mdir $(OBJ_DIR) --exe -o $(abspath $(BIN))
 
-
+RUNARGS := $(BIN) $(IMG).bin $(IMG).elf
 run: $(BIN)
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
-	$^ $(IMG)
+	@$(RUNARGS)
+gdb: $(BIN)
+	$(call git_commit, "debug TB")
+	gdb -s $(BIN) --args $(RUNARGS)
 clean:
 	rm -rf $(BUILD_DIR)
 .PHONY: clean run

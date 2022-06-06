@@ -2,18 +2,44 @@
 #include <cpu/cpu.h>
 #include <difftest-def.h>
 #include <memory/paddr.h>
-
 void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction) {
   //assert(0);
-  
+  uint8_t* addr_pt = guest_to_host(addr);
+  uint8_t* tmp = (uint8_t*) buf;
+  if(DIFFTEST_TO_DUT){
+    for (int i=0;i<n;i++){
+      tmp[i] = addr_pt[i];
+    }
+    //tmp[32] = cpu.pc;
+  }
+  else{
+    for (int i=0;i<n;i++){
+      addr_pt[i] = tmp[i];
+    }
+    //cpu.pc = tmp[32];
+  }
 }
-
+// here, *dut must be dut reg
 void difftest_regcpy(void *dut, bool direction) {
-  assert(0);
+  //assert(0);
+  unsigned long* tmp = (unsigned long*) dut;
+  if(DIFFTEST_TO_DUT){
+    for (int i=0;i<32;i++){
+      tmp[i] = cpu.gpr[i];
+    }
+    //tmp[32] = cpu.pc;
+  }
+  else{
+    for (int i=0;i<32;i++){
+      cpu.gpr[i] = tmp[i];
+    }
+    //cpu.pc = tmp[32];
+  }
 }
 
 void difftest_exec(uint64_t n) {
-  assert(0);
+  //assert(0);
+  cpu_exec(n);
 }
 
 void difftest_raise_intr(word_t NO) {

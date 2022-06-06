@@ -9,10 +9,31 @@
 
 //==========
 
-VL_INLINE_OPT void Vcpu_top___024root___combo__TOP__1(Vcpu_top___024root* vlSelf) {
+extern "C" void set_pc_ptr(const svOpenArrayHandle a);
+
+VL_INLINE_OPT void Vcpu_top___024root____Vdpiimwrap_cpu_top__DOT__pc_e__DOT__set_pc_ptr__Vdpioc2_TOP(const QData/*63:0*/ &a) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vcpu_top___024root____Vdpiimwrap_cpu_top__DOT__pc_e__DOT__set_pc_ptr__Vdpioc2_TOP\n"); );
+    // Body
+    static const VerilatedVarProps a__Vopenprops(VLVT_UINT64, VLVD_IN, VerilatedVarProps::Packed(), 63, 0);
+    VerilatedDpiOpenVar a__Vopenarray (&a__Vopenprops, &a);
+    set_pc_ptr(&a__Vopenarray);
+}
+
+extern "C" void set_gpr_ptr(const svOpenArrayHandle a);
+
+VL_INLINE_OPT void Vcpu_top___024root____Vdpiimwrap_cpu_top__DOT__gpr_e__DOT__set_gpr_ptr__Vdpioc2_TOP(const VlUnpacked<QData/*63:0*/, 32> &a) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vcpu_top___024root____Vdpiimwrap_cpu_top__DOT__gpr_e__DOT__set_gpr_ptr__Vdpioc2_TOP\n"); );
+    // Body
+    static const int a__Vopenprops__ulims[2] = {0, 31};
+    static const VerilatedVarProps a__Vopenprops(VLVT_UINT64, VLVD_IN, VerilatedVarProps::Packed(), 63, 0, VerilatedVarProps::Unpacked(), 1, a__Vopenprops__ulims);
+    VerilatedDpiOpenVar a__Vopenarray (&a__Vopenprops, &a);
+    set_gpr_ptr(&a__Vopenarray);
+}
+
+VL_INLINE_OPT void Vcpu_top___024root___combo__TOP__2(Vcpu_top___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     Vcpu_top__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vcpu_top___024root___combo__TOP__1\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vcpu_top___024root___combo__TOP__2\n"); );
     // Body
     vlSelf->O_mem_wen = (0x23U == (0x7fU & vlSelf->I_inst));
     vlSelf->cpu_top__DOT__decoder_e__DOT__JALR = (IData)(
@@ -165,10 +186,10 @@ VL_INLINE_OPT void Vcpu_top___024root___combo__TOP__1(Vcpu_top___024root* vlSelf
 
 void Vcpu_top___024unit____Vdpiimwrap_sim_end_TOP____024unit();
 
-VL_INLINE_OPT void Vcpu_top___024root___sequent__TOP__3(Vcpu_top___024root* vlSelf) {
+VL_INLINE_OPT void Vcpu_top___024root___sequent__TOP__4(Vcpu_top___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     Vcpu_top__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vcpu_top___024root___sequent__TOP__3\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vcpu_top___024root___sequent__TOP__4\n"); );
     // Variables
     QData/*63:0*/ __Vdlyvval__cpu_top__DOT__gpr_e__DOT__gpr__v0;
     QData/*63:0*/ __Vdlyvval__cpu_top__DOT__gpr_e__DOT__gpr__v1;
@@ -438,10 +459,10 @@ VL_INLINE_OPT void Vcpu_top___024root___sequent__TOP__3(Vcpu_top___024root* vlSe
     vlSelf->O_pc = vlSelf->cpu_top__DOT__current_pc;
 }
 
-VL_INLINE_OPT void Vcpu_top___024root___combo__TOP__4(Vcpu_top___024root* vlSelf) {
+VL_INLINE_OPT void Vcpu_top___024root___combo__TOP__5(Vcpu_top___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     Vcpu_top__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vcpu_top___024root___combo__TOP__4\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vcpu_top___024root___combo__TOP__5\n"); );
     // Variables
     VlWide<4>/*127:0*/ __Vtemp20;
     VlWide<4>/*127:0*/ __Vtemp21;
@@ -1570,13 +1591,13 @@ void Vcpu_top___024root___eval(Vcpu_top___024root* vlSelf) {
     Vcpu_top__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vcpu_top___024root___eval\n"); );
     // Body
-    Vcpu_top___024root___combo__TOP__1(vlSelf);
+    Vcpu_top___024root___combo__TOP__2(vlSelf);
     vlSelf->__Vm_traceActivity[1U] = 1U;
     if (((IData)(vlSelf->I_sys_clk) & (~ (IData)(vlSelf->__Vclklast__TOP__I_sys_clk)))) {
-        Vcpu_top___024root___sequent__TOP__3(vlSelf);
+        Vcpu_top___024root___sequent__TOP__4(vlSelf);
         vlSelf->__Vm_traceActivity[2U] = 1U;
     }
-    Vcpu_top___024root___combo__TOP__4(vlSelf);
+    Vcpu_top___024root___combo__TOP__5(vlSelf);
     // Final
     vlSelf->__Vclklast__TOP__I_sys_clk = vlSelf->I_sys_clk;
 }

@@ -31,7 +31,10 @@ module gpr(
     input [4:0] I_rs2_addr,
     output [63:0] O_rs2_data
     );
+    //export "DPI-C" function check;
+    import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
     reg [63:0] gpr [0:31];
+    initial set_gpr_ptr(gpr);
     wire wen [31:0];
     assign wen[0] = 0;
     generate for(genvar i=1;i<32;i=i+1) begin
@@ -50,4 +53,8 @@ module gpr(
     endgenerate
     assign O_rs1_data = gpr[I_rs1_addr];
     assign O_rs2_data = gpr[I_rs2_addr];
+    //function void check();
+    //	$display("%d\n", gpr[10]);
+    //endfunction
+    
 endmodule
