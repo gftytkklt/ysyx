@@ -37,6 +37,7 @@ void print_ftrace(unsigned long pc, unsigned long dnpc, unsigned inst, FILE* fp)
 #endif
 #ifdef CONFIG_DIFFTEST
 void init_difftest(char *ref_so_file, long img_size, uint8_t* mem, uint64_t *cpu_gpr);
+void difftest_step(uint64_t pc, uint64_t* dut);
 #endif
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
@@ -117,7 +118,6 @@ int main(int argc, char** argv, char** env) {
   elf_file = argv[2];
   init_elf(elf_file);
   #endif
-  
   //inst_gen(false);
   // sim
   char logbuf[256] = {};
@@ -146,6 +146,7 @@ int main(int argc, char** argv, char** env) {
 	  cpu->eval();
 	  dnpc = cpu->O_pc;
 	  if(valid_posedge){
+	  fprintf(logfp,"time: %lu\n", sim_time);
 	  #ifdef CONFIG_ITRACE
 	  //printf("start disasm\n");
 	  fprintf(logfp, "%lx: %08x ",pc, cpu->I_inst);
@@ -154,6 +155,9 @@ int main(int argc, char** argv, char** env) {
 	  #endif
 	  #ifdef CONFIG_FTRACE
 	  print_ftrace(pc, dnpc, cpu->I_inst, logfp);
+	  #endif
+	  #ifdef CONFIG_DIFFTEST
+	  difftest_step(pc, cpu_gpr);
 	  #endif
 	  }
 	  tfp->dump(sim_time);

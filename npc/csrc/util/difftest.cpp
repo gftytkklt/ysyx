@@ -28,9 +28,18 @@ void init_difftest(char *ref_so_file, long img_size, uint8_t* mem, uint64_t *cpu
 	assert(nemu_difftest_raise_intr);
 	void(*nemu_difftest_init)(void) = (void (*)())dlsym(handle, "difftest_init");
 	assert(nemu_difftest_init);
-	printf("difftest link end\n");
+	//printf("difftest link end\n");
 	nemu_difftest_init();
 	nemu_difftest_memcpy(PC_START, mem, img_size, DIFFTEST_TO_REF);
 	nemu_difftest_regcpy(cpu_gpr, DIFFTEST_TO_REF);
-	printf("test2\n");
+	//printf("test2\n");
+}
+
+void difftest_step(uint64_t pc, uint64_t* dut){
+	uint64_t ref_data[32];
+	nemu_difftest_exec(1);
+	nemu_difftest_regcpy(ref_data, DIFFTEST_TO_DUT);
+	for(int i=0;i<32;i++){
+		if(dut[i] != ref_data[i]){printf("reg %d does not match! ref: %lx, dut: %lx\n", (i+1), ref_data[i], dut[i]);}
+	}
 }
