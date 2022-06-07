@@ -6,7 +6,7 @@ void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction) {
   //assert(0);
   uint8_t* addr_pt = guest_to_host(addr);
   uint8_t* tmp = (uint8_t*) buf;
-  if(DIFFTEST_TO_DUT){
+  if(direction == DIFFTEST_TO_DUT){
     for (int i=0;i<n;i++){
       tmp[i] = addr_pt[i];
     }
@@ -23,7 +23,7 @@ void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction) {
 void difftest_regcpy(void *dut, bool direction) {
   //assert(0);
   unsigned long* tmp = (unsigned long*) dut;
-  if(DIFFTEST_TO_DUT){
+  if(direction == DIFFTEST_TO_DUT){
     for (int i=0;i<32;i++){
       tmp[i] = cpu.gpr[i];
     }

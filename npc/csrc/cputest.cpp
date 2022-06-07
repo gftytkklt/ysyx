@@ -130,6 +130,7 @@ int main(int argc, char** argv, char** env) {
 	  //single_cycle();
 	  if(sim_time == 1){
 	  #ifdef CONFIG_DIFFTEST
+	  printf("%lu\n", sim_time);
   	  ref_so_file = argv[3];
 	  init_difftest(ref_so_file, img_size, mem, cpu_gpr);
 	  #endif
@@ -157,6 +158,7 @@ int main(int argc, char** argv, char** env) {
 	  print_ftrace(pc, dnpc, cpu->I_inst, logfp);
 	  #endif
 	  #ifdef CONFIG_DIFFTEST
+	  printf("difftest\n");
 	  difftest_step(pc, cpu_gpr);
 	  #endif
 	  }
