@@ -40,6 +40,6 @@ void difftest_step(uint64_t pc, uint64_t* dut){
 	nemu_difftest_exec(1);
 	nemu_difftest_regcpy(ref_data, DIFFTEST_TO_DUT);
 	for(int i=0;i<32;i++){
-		if(dut[i] != ref_data[i]){printf("reg %d does not match! ref: %lx, dut: %lx\n", (i+1), ref_data[i], dut[i]);}
+		if(dut[i] != ref_data[i]){printf("pc: %lx, reg %d does not match! ref: %lx, dut: %lx\n",pc, (i+1), ref_data[i], dut[i]);}
 	}
 }

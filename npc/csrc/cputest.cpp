@@ -158,7 +158,6 @@ int main(int argc, char** argv, char** env) {
 	  print_ftrace(pc, dnpc, cpu->I_inst, logfp);
 	  #endif
 	  #ifdef CONFIG_DIFFTEST
-	  printf("difftest\n");
 	  difftest_step(pc, cpu_gpr);
 	  #endif
 	  }
