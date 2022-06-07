@@ -129,11 +129,12 @@ void Vcpu_top___024root___settle__TOP__3(Vcpu_top___024root* vlSelf) {
     vlSelf->cpu_top__DOT__rs1_data = vlSelf->cpu_top__DOT__gpr_e__DOT__gpr
         [(0x1fU & (vlSelf->I_inst >> 0xfU))];
     vlSelf->cpu_top__DOT__decoder_e__DOT__add_flag 
-        = (((((0x37U == (0x7fU & vlSelf->I_inst)) | 
-              (0x17U == (0x7fU & vlSelf->I_inst))) 
-             | (0x6fU == (0x7fU & vlSelf->I_inst))) 
-            | (IData)(vlSelf->cpu_top__DOT__decoder_e__DOT__JALR)) 
-           | (IData)((0x3023U == (0x707fU & vlSelf->I_inst))));
+        = ((((((0x37U == (0x7fU & vlSelf->I_inst)) 
+               | (0x17U == (0x7fU & vlSelf->I_inst))) 
+              | (0x6fU == (0x7fU & vlSelf->I_inst))) 
+             | (IData)(vlSelf->cpu_top__DOT__decoder_e__DOT__JALR)) 
+            | (IData)((0x3023U == (0x707fU & vlSelf->I_inst)))) 
+           | (IData)((0x13U == (0x707fU & vlSelf->I_inst))));
     vlSelf->cpu_top__DOT__reg_wen = ((((IData)(vlSelf->cpu_top__DOT__decoder_e__DOT__typeR) 
                                        | (IData)(vlSelf->cpu_top__DOT__decoder_e__DOT__typeI)) 
                                       | (IData)(vlSelf->cpu_top__DOT__decoder_e__DOT__typeU)) 

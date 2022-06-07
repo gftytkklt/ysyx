@@ -30,13 +30,13 @@ void difftest_regcpy(void *dut, bool direction) {
     //tmp[32] = cpu.pc;
   }
   else{
-    printf("dut to ref\n");
+    //printf("dut to ref\n");
     for (int i=0;i<32;i++){
       
       cpu.gpr[i] = tmp[i];
-      printf("%d: %lx\n",i, cpu.gpr[i]);
+      //printf("%d: %lx\n",i, cpu.gpr[i]);
     }
-    printf("end\n");
+    //printf("end\n");
     //cpu.pc = tmp[32];
   }
 }

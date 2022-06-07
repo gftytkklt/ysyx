@@ -89,6 +89,8 @@ module decoder(
     assign LUI = (opcode == 7'b0110111);
     wire AUIPC;
     assign AUIPC = (opcode == 7'b0010111);
+    wire ADDI;
+    assign ADDI = (opcode == 7'b0010011) && (funct3 == 3'b000);
     wire JAL;
     assign JAL = (opcode == 7'b1101111);
     wire JALR;
@@ -149,7 +151,7 @@ module decoder(
     localparam OP_REM = 15'b010_0000_0000_0000;
     localparam OP_REMU = 15'b100_0000_0000_0000;
     wire add_flag;
-    assign add_flag = (LUI | AUIPC | JAL | JALR | SD);
+    assign add_flag = (LUI | AUIPC | JAL | JALR | SD | ADDI);
     assign O_alu_op_sel = (OP_ADD & {15{add_flag}});
     // op_num1
     localparam OP1_RS1 = 3'd1;

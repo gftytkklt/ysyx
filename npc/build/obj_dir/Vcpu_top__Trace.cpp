@@ -277,39 +277,42 @@ void Vcpu_top___024root__traceChgSub0(Vcpu_top___024root* vlSelf, VerilatedVcd* 
         tracep->chgBit(oldp+256,((0x6fU == (0x7fU & vlSelf->I_inst))));
         tracep->chgBit(oldp+257,((0x37U == (0x7fU & vlSelf->I_inst))));
         tracep->chgBit(oldp+258,((0x17U == (0x7fU & vlSelf->I_inst))));
-        tracep->chgBit(oldp+259,((IData)((0x3023U == 
+        tracep->chgBit(oldp+259,((IData)((0x13U == 
                                           (0x707fU 
                                            & vlSelf->I_inst)))));
-        tracep->chgBit(oldp+260,((IData)((0x63U == 
+        tracep->chgBit(oldp+260,((IData)((0x3023U == 
                                           (0x707fU 
                                            & vlSelf->I_inst)))));
-        tracep->chgBit(oldp+261,((IData)((0x1063U == 
+        tracep->chgBit(oldp+261,((IData)((0x63U == 
                                           (0x707fU 
                                            & vlSelf->I_inst)))));
-        tracep->chgBit(oldp+262,((IData)((0x4063U == 
+        tracep->chgBit(oldp+262,((IData)((0x1063U == 
                                           (0x707fU 
                                            & vlSelf->I_inst)))));
-        tracep->chgBit(oldp+263,((IData)((0x5063U == 
+        tracep->chgBit(oldp+263,((IData)((0x4063U == 
                                           (0x707fU 
                                            & vlSelf->I_inst)))));
-        tracep->chgBit(oldp+264,((IData)((0x6063U == 
+        tracep->chgBit(oldp+264,((IData)((0x5063U == 
                                           (0x707fU 
                                            & vlSelf->I_inst)))));
-        tracep->chgBit(oldp+265,((IData)((0x7063U == 
+        tracep->chgBit(oldp+265,((IData)((0x6063U == 
                                           (0x707fU 
                                            & vlSelf->I_inst)))));
-        tracep->chgBit(oldp+266,((3U == (0x7fU & vlSelf->I_inst))));
-        tracep->chgBit(oldp+267,((((IData)(vlSelf->cpu_top__DOT__decoder_e__DOT__typeR) 
+        tracep->chgBit(oldp+266,((IData)((0x7063U == 
+                                          (0x707fU 
+                                           & vlSelf->I_inst)))));
+        tracep->chgBit(oldp+267,((3U == (0x7fU & vlSelf->I_inst))));
+        tracep->chgBit(oldp+268,((((IData)(vlSelf->cpu_top__DOT__decoder_e__DOT__typeR) 
                                    | (IData)(vlSelf->cpu_top__DOT__decoder_e__DOT__typeI)) 
                                   | (0x23U == (0x7fU 
                                                & vlSelf->I_inst)))));
-        tracep->chgBit(oldp+268,((((0x63U == (0x7fU 
+        tracep->chgBit(oldp+269,((((0x63U == (0x7fU 
                                               & vlSelf->I_inst)) 
                                    | (0x6fU == (0x7fU 
                                                 & vlSelf->I_inst))) 
                                   | (0x17U == (0x7fU 
                                                & vlSelf->I_inst)))));
-        tracep->chgBit(oldp+269,((((((IData)(vlSelf->cpu_top__DOT__decoder_e__DOT__typeI) 
+        tracep->chgBit(oldp+270,((((((IData)(vlSelf->cpu_top__DOT__decoder_e__DOT__typeI) 
                                      | (0x23U == (0x7fU 
                                                   & vlSelf->I_inst))) 
                                     | (0x63U == (0x7fU 
