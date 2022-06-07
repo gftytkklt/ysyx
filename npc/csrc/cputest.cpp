@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-#include <getopt.h>
 #include <malloc.h>
-#include <random>
+#include <stdint.h>
 #include "verilated.h"
 #include "verilated_dpi.h"
 #include "verilated_vcd_c.h"
@@ -13,18 +12,21 @@
 #define N 32
 #define CONFIG_FTRACE
 #define CONFIG_ITRACE
+#define CONFIG_DIFFTEST
 static Vcpu_top* cpu;
-static unsigned* mem = NULL;
+static int mem_size = 0x8000000;
+static uint8_t* mem = NULL;
 static bool finish = false;
 static char *img_file = NULL;
 static char *elf_file = NULL;
-static long size = 0;
+static char *ref_so_file = NULL;
+static long img_size = 0;
 //static svBit good = false;
 //extern void check();
 vluint64_t sim_time = 0;
-uint64_t *cpu_gpr = NULL;
-uint64_t *cpu_pc = NULL;
-uint32_t *inst = NULL;
+static uint64_t *cpu_gpr = NULL;
+static uint64_t *cpu_pc = NULL;
+static uint32_t *inst = NULL;
 #ifdef CONFIG_ITRACE
 void init_disasm(const char *triple);
 void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
@@ -32,6 +34,9 @@ void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
 #ifdef CONFIG_FTRACE
 void init_elf(char* elf_file);
 void print_ftrace(unsigned long pc, unsigned long dnpc, unsigned inst, FILE* fp);
+#endif
+#ifdef CONFIG_DIFFTEST
+void init_difftest(char *ref_so_file, long img_size, uint8_t* mem, uint64_t *cpu_gpr);
 #endif
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
@@ -61,8 +66,8 @@ void sim_end(){
 }
 
 static unsigned pmem_read(unsigned long pc){
-	unsigned index = (pc-(unsigned long)0x80000000)/4;
-	return index > size ? 0 : mem[index];
+	unsigned index = (pc-(unsigned long)0x80000000);
+	return index > img_size ? 0 : *((unsigned *)&mem[index]);
 }
 
 static long load_img() {
@@ -78,7 +83,7 @@ static long load_img() {
   long size = ftell(fp);
 
   printf("The image is %s, size = %ld\n", img_file, size);
-  mem = (unsigned *)malloc(size);
+  mem = (uint8_t *)malloc(mem_size);
   fseek(fp, 0, SEEK_SET);
   //int ret = fread(guest_to_host(RESET_VECTOR), size, 1, fp);
   int ret = fread(mem, size, 1, fp);
@@ -103,7 +108,7 @@ int main(int argc, char** argv, char** env) {
   tfp->open("cpu_sim.vcd");
   // init imgfile
   img_file=argv[1];
-  size = load_img();
+  img_size = load_img();
   FILE* logfp = fopen("npc-log.txt","w");
   #ifdef CONFIG_ITRACE
   init_disasm("riscv64" "-pc-linux-gnu");
@@ -123,6 +128,12 @@ int main(int argc, char** argv, char** env) {
 	  //int b = rand() & 1;
 	  //printf("%ld\n", sim_time);
 	  //single_cycle();
+	  if(sim_time == 1){
+	  #ifdef CONFIG_DIFFTEST
+  	  ref_so_file = argv[3];
+	  init_difftest(ref_so_file, img_size, mem, cpu_gpr);
+	  #endif
+	  }
 	  if(sim_time < 10){cpu->I_rst = 1;}
 	  else{cpu->I_rst = 0;}
 	  if((sim_time % 6) == 0){cpu->I_sys_clk = 1;}

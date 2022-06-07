@@ -1,5 +1,6 @@
 VSRC = $(shell find $(abspath ./vsrc) -name "*.v")
 CSRC = $(abspath ./csrc/cputest.cpp)
+CSRC += $(shell find $(abspath ./csrc/util) -name "*.cpp")
 WAVEFILE = addcpu_sim
 TOPNAME = cpu_top
 #NXDC_FILES = constr/example.nxdc
@@ -10,12 +11,12 @@ INC_PATH ?=
 #CONFIG_MTRACE=n
 #CONFIG_DIFFTEST=n
 #ifdef CONFIG_ITRACE
-CXXSRC += $(abspath ./csrc/disasm.cpp)
+#CXXSRC += $(abspath ./csrc/disasm.cpp)
 CFLAGS += -I/usr/lib/llvm-12/include -std=c++14   -fno-exceptions -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -fPIE
-LDFLAGS += $(shell llvm-config --libs)
+LDFLAGS += $(shell llvm-config --libs) -ldl
 #endif
 #ifdef CONFIG_FTRACE
-CSRC += $(abspath ./csrc/readelf.cpp)
+#CSRC += $(abspath ./csrc/readelf.cpp)
 #endif
 # verilator flag
 VERILATOR = verilator
@@ -41,7 +42,7 @@ INCFLAGS = $(addprefix -I, $(INC_PATH))
 CFLAGS += $(INCFLAGS) -DTOP_NAME="\"V$(TOPNAME)\""
 LDFLAGS += -lSDL2 -lSDL2_image
 
-$(BIN): $(VSRC) $(CSRC) $(CXXSRC)
+$(BIN): $(VSRC) $(CSRC)
 	@rm -rf $(OBJ_DIR)
 	$(VERILATOR) $(VERILATOR_CFLAGS) \
 		-top $(TOPNAME) $^ \
@@ -49,12 +50,16 @@ $(BIN): $(VSRC) $(CSRC) $(CXXSRC)
 		--Mdir $(OBJ_DIR) --exe -o $(abspath $(BIN))
 
 RUNARGS := $(BIN) $(IMG).bin $(IMG).elf
-run: $(BIN)
+DIFF_NEMU = $(NEMU_HOME)/build/riscv64-nemu-interpreter-so
+run: $(BIN) $(DIFFTEST_NEMU)
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
-	@$(RUNARGS)
-gdb: $(BIN)
-	$(call git_commit, "debug TB")
-	gdb -s $(BIN) --args $(RUNARGS)
+	@$(RUNARGS) $(DIFF_NEMU)
+#gdb: $(BIN)
+#	$(call git_commit, "debug TB")
+#	gdb -s $(BIN) --args $(RUNARGS)
+#difftest: $(BIN)
+#	$(call git_commit, "sim RTL in difftest mode")
+#	@$(RUNARGS) $(DIFFTEST_NEMU)
 clean:
 	rm -rf $(BUILD_DIR)
 .PHONY: clean run

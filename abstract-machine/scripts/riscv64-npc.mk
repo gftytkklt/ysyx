@@ -23,5 +23,8 @@ image: $(IMAGE).elf
 
 run: image
 	$(MAKE) -C $(NPC_HOME) run IMG=$(IMAGE)
-gdb: image
-	$(MAKE) -C $(NPC_HOME) gdb IMG=$(IMAGE)
+#gdb: image
+#	$(MAKE) -C $(NPC_HOME) gdb IMG=$(IMAGE)
+
+#difftest: image
+#	$(MAKE) -C $(NPC_HOME) difftest IMG=$(IMAGE)

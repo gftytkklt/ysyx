@@ -47,18 +47,21 @@ VM_USER_CFLAGS = \
 # User LDLIBS (from -LDFLAGS on Verilator command line)
 VM_USER_LDLIBS = \
 	-lLLVM-12 \
+	-ldl \
 	-lSDL2 \
 	-lSDL2_image \
 
 # User .cpp files (from .cpp's on Verilator command line)
 VM_USER_CLASSES = \
 	cputest \
+	difftest \
 	disasm \
 	readelf \
 
 # User .cpp directories (from .cpp's on Verilator command line)
 VM_USER_DIR = \
 	/home/gftyt/ysyx-workbench/npc/csrc \
+	/home/gftyt/ysyx-workbench/npc/csrc/util \
 
 
 ### Default rules...
@@ -72,9 +75,11 @@ VPATH += $(VM_USER_DIR)
 
 cputest.o: /home/gftyt/ysyx-workbench/npc/csrc/cputest.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-disasm.o: /home/gftyt/ysyx-workbench/npc/csrc/disasm.cpp
+difftest.o: /home/gftyt/ysyx-workbench/npc/csrc/util/difftest.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-readelf.o: /home/gftyt/ysyx-workbench/npc/csrc/readelf.cpp
+disasm.o: /home/gftyt/ysyx-workbench/npc/csrc/util/disasm.cpp
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+readelf.o: /home/gftyt/ysyx-workbench/npc/csrc/util/readelf.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 
 ### Link rules... (from --exe)
