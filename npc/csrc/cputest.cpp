@@ -75,6 +75,7 @@ static void pmem_read(unsigned long raddr, unsigned long* rdata){
 
 static void pmem_write(unsigned long waddr, unsigned long wdata, unsigned char wmask){
 	unsigned index = (waddr-(unsigned long)0x80000000) & ~(0x7ul);
+	printf("wr: %lx to %lx, index = %x", wdata,waddr,index);
 	uint8_t *data_pt = (uint8_t*)&wdata;
 	while(wmask!=0){
 		mem[index] = 1;
