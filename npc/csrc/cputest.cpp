@@ -66,9 +66,25 @@ void sim_end(){
   finish = true;
 }
 
-static unsigned pmem_read(unsigned long pc){
-	unsigned index = (pc-(unsigned long)0x80000000);
-	return index > img_size ? 0 : *((unsigned *)&mem[index]);
+static void pmem_read(unsigned long raddr, unsigned long* rdata){
+	unsigned index = (raddr-(unsigned long)0x80000000) & ~(0x7ul);
+	//printf("%x\n", index);
+	*rdata = index > img_size ? 0 : *((unsigned long*)&mem[index]);
+	//return index > img_size ? 0 : *((unsigned *)&mem[index]);
+}
+
+static void pmem_write(unsigned long waddr, unsigned long wdata, unsigned char wmask){
+	unsigned index = (waddr-(unsigned long)0x80000000) & ~(0x7ul);
+	uint8_t *data_pt = (uint8_t*)&wdata;
+	while(wmask!=0){
+		mem[index] = 1;
+		printf("before: %02x ", mem[index]);
+		mem[index] = *data_pt;
+		index++;data_pt++;
+		wmask = wmask >> 1;
+		printf("after: %02x ", mem[index]);
+	}
+	printf("\n");
 }
 
 static long load_img() {
@@ -123,6 +139,7 @@ int main(int argc, char** argv, char** env) {
   char logbuf[256] = {};
   bool valid_posedge = false;
   unsigned long pc, dnpc;
+  unsigned long *inst64 = (unsigned long*)malloc(sizeof(unsigned long));
   while (!finish){
 	  //int a = rand() & 1;
 	  //int b = rand() & 1;
@@ -130,7 +147,7 @@ int main(int argc, char** argv, char** env) {
 	  //single_cycle();
 	  if(sim_time == 1){
 	  #ifdef CONFIG_DIFFTEST
-	  printf("%lu\n", sim_time);
+	  //printf("%lu\n", sim_time);
   	  ref_so_file = argv[3];
 	  init_difftest(ref_so_file, img_size, mem, cpu_gpr);
 	  #endif
@@ -142,12 +159,26 @@ int main(int argc, char** argv, char** env) {
 	  if(((sim_time % 6) == 0) && (cpu->I_rst == 0)){valid_posedge = true;}
 	  else{valid_posedge = false;}
 	  //if(((sim_time % 6) == 0)&&(cpu->I_rst==0)){}
-	  cpu->I_inst = pmem_read(cpu->O_pc);
+	  //pmem_read(cpu->O_pc, inst);
+	  //cpu->I_inst = pmem_read(cpu->O_pc);
 	  pc = cpu->O_pc;
+	  //printf("t1\n");
+	  pmem_read(pc, inst64);
+	  //printf("%016lx\n", *inst64);
+	  //printf("t2\n");
+	  cpu->I_inst = (pc % 8) ? *((unsigned*)(inst64)+1) : *((unsigned*)inst64);
+	  //printf("t3\n");
 	  cpu->eval();
 	  dnpc = cpu->O_pc;
 	  if(valid_posedge){
 	  fprintf(logfp,"time: %lu\n", sim_time);
+	  if(cpu->O_mem_wen){
+	  	fprintf(logfp,"wr data %lx to %lx\n", cpu->O_mem_wr_data, cpu->O_mem_addr);
+	  	pmem_write(cpu->O_mem_addr, cpu->O_mem_wr_data, cpu->O_mem_wr_strb);
+	  }
+	  else if(cpu->O_mem_rd_en){
+	  	pmem_read(cpu->O_mem_addr, &(cpu->I_mem_rd_data));
+	  }
 	  #ifdef CONFIG_ITRACE
 	  //printf("start disasm\n");
 	  fprintf(logfp, "%lx: %08x ",pc, cpu->I_inst);

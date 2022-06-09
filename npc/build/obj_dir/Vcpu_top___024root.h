@@ -26,11 +26,12 @@ VL_MODULE(Vcpu_top___024root) {
     VL_IN8(I_rst,0,0);
     VL_OUT8(O_mem_rd_en,0,0);
     VL_OUT8(O_mem_wen,0,0);
+    VL_OUT8(O_mem_wr_strb,7,0);
     VL_IN(I_inst,31,0);
     VL_OUT64(O_pc,63,0);
+    VL_OUT64(O_mem_addr,63,0);
     VL_IN64(I_mem_rd_data,63,0);
     VL_OUT64(O_mem_wr_data,63,0);
-    VL_OUT64(O_mem_wr_addr,63,0);
 
     // LOCAL SIGNALS
     CData/*2:0*/ cpu_top__DOT__dnpc_sel;
@@ -42,6 +43,8 @@ VL_MODULE(Vcpu_top___024root) {
     CData/*0:0*/ cpu_top__DOT__decoder_e__DOT__typeR;
     CData/*0:0*/ cpu_top__DOT__decoder_e__DOT__typeU;
     CData/*0:0*/ cpu_top__DOT__decoder_e__DOT__JALR;
+    CData/*0:0*/ cpu_top__DOT__decoder_e__DOT__SD;
+    CData/*0:0*/ cpu_top__DOT__decoder_e__DOT__SW;
     CData/*0:0*/ cpu_top__DOT__decoder_e__DOT__typeB_jr;
     CData/*0:0*/ cpu_top__DOT__decoder_e__DOT__eq;
     CData/*0:0*/ cpu_top__DOT__decoder_e__DOT__lt;

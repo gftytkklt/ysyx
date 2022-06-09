@@ -53,6 +53,16 @@ void Vcpu_top___024root___settle__TOP__3(Vcpu_top___024root* vlSelf) {
     VlWide<3>/*95:0*/ __Vtemp10;
     // Body
     vlSelf->O_mem_wen = (0x23U == (0x7fU & vlSelf->I_inst));
+    vlSelf->cpu_top__DOT__decoder_e__DOT__SW = (IData)(
+                                                       (0x2023U 
+                                                        == 
+                                                        (0x707fU 
+                                                         & vlSelf->I_inst)));
+    vlSelf->cpu_top__DOT__decoder_e__DOT__SD = (IData)(
+                                                       (0x3023U 
+                                                        == 
+                                                        (0x707fU 
+                                                         & vlSelf->I_inst)));
     vlSelf->cpu_top__DOT__decoder_e__DOT__JALR = (IData)(
                                                          (0x67U 
                                                           == 
@@ -128,12 +138,20 @@ void Vcpu_top___024root___settle__TOP__3(Vcpu_top___024root* vlSelf) {
         [(0x1fU & (vlSelf->I_inst >> 0x14U))];
     vlSelf->cpu_top__DOT__rs1_data = vlSelf->cpu_top__DOT__gpr_e__DOT__gpr
         [(0x1fU & (vlSelf->I_inst >> 0xfU))];
+    vlSelf->O_mem_wr_strb = (0xffU & ((((- (IData)((IData)(vlSelf->cpu_top__DOT__decoder_e__DOT__SD))) 
+                                        | (0xfU & (- (IData)((IData)(vlSelf->cpu_top__DOT__decoder_e__DOT__SW))))) 
+                                       | (3U & (- (IData)((IData)(
+                                                                  (0x1023U 
+                                                                   == 
+                                                                   (0x707fU 
+                                                                    & vlSelf->I_inst))))))) 
+                                      | (1U & (- (IData)((IData)(vlSelf->cpu_top__DOT__decoder_e__DOT__SW))))));
     vlSelf->cpu_top__DOT__decoder_e__DOT__add_flag 
         = ((((((0x37U == (0x7fU & vlSelf->I_inst)) 
                | (0x17U == (0x7fU & vlSelf->I_inst))) 
               | (0x6fU == (0x7fU & vlSelf->I_inst))) 
              | (IData)(vlSelf->cpu_top__DOT__decoder_e__DOT__JALR)) 
-            | (IData)((0x3023U == (0x707fU & vlSelf->I_inst)))) 
+            | (IData)(vlSelf->cpu_top__DOT__decoder_e__DOT__SD)) 
            | (IData)((0x13U == (0x707fU & vlSelf->I_inst))));
     vlSelf->cpu_top__DOT__reg_wen = ((((IData)(vlSelf->cpu_top__DOT__decoder_e__DOT__typeR) 
                                        | (IData)(vlSelf->cpu_top__DOT__decoder_e__DOT__typeI)) 
@@ -554,8 +572,8 @@ void Vcpu_top___024root___settle__TOP__3(Vcpu_top___024root* vlSelf) {
     vlSelf->cpu_top__DOT__alu_op1_64bit_3sel__DOT__sel_data[2U] 
         = (((QData)((IData)(vlSelf->cpu_top__DOT____Vcellinp__alu_op1_64bit_3sel__I_sel_data[5U])) 
             << 0x20U) | (QData)((IData)(vlSelf->cpu_top__DOT____Vcellinp__alu_op1_64bit_3sel__I_sel_data[4U])));
-    vlSelf->O_mem_wen = (1U & ((IData)(vlSelf->cpu_top__DOT__regin_sel) 
-                               >> 1U));
+    vlSelf->O_mem_rd_en = (1U & ((IData)(vlSelf->cpu_top__DOT__regin_sel) 
+                                 >> 1U));
     vlSelf->cpu_top__DOT__alu_op2 = ((- (QData)((IData)(
                                                         (1U 
                                                          & (IData)(vlSelf->cpu_top__DOT__opnum2_sel))))) 
@@ -904,9 +922,7 @@ void Vcpu_top___024root___settle__TOP__3(Vcpu_top___024root* vlSelf) {
     vlSelf->cpu_top__DOT__alu_e__DOT__result = (vlSelf->cpu_top__DOT__alu_op1 
                                                 + vlSelf->cpu_top__DOT__alu_e__DOT__adder2);
     vlSelf->cpu_top__DOT__alu_e__DOT__shift_op = vlSelf->cpu_top__DOT__alu_op1;
-    vlSelf->O_mem_wr_addr = ((IData)(vlSelf->O_mem_wen)
-                              ? vlSelf->cpu_top__DOT__alu_e__DOT__result
-                              : 0ULL);
+    vlSelf->O_mem_addr = vlSelf->cpu_top__DOT__alu_e__DOT__result;
     vlSelf->cpu_top__DOT__alu_e__DOT__slt_result = (QData)((IData)(
                                                                    (1U 
                                                                     & (((IData)(
@@ -1352,11 +1368,12 @@ void Vcpu_top___024root___ctor_var_reset(Vcpu_top___024root* vlSelf) {
     vlSelf->I_rst = 0;
     vlSelf->I_inst = 0;
     vlSelf->O_pc = 0;
-    vlSelf->I_mem_rd_data = 0;
+    vlSelf->O_mem_addr = 0;
     vlSelf->O_mem_rd_en = 0;
-    vlSelf->O_mem_wr_data = 0;
-    vlSelf->O_mem_wr_addr = 0;
     vlSelf->O_mem_wen = 0;
+    vlSelf->I_mem_rd_data = 0;
+    vlSelf->O_mem_wr_data = 0;
+    vlSelf->O_mem_wr_strb = 0;
     vlSelf->cpu_top__DOT__current_pc = 0;
     vlSelf->cpu_top__DOT__dnpc = 0;
     vlSelf->cpu_top__DOT__wr_data = 0;
@@ -1393,6 +1410,8 @@ void Vcpu_top___024root___ctor_var_reset(Vcpu_top___024root* vlSelf) {
     vlSelf->cpu_top__DOT__decoder_e__DOT__typeR = 0;
     vlSelf->cpu_top__DOT__decoder_e__DOT__typeU = 0;
     vlSelf->cpu_top__DOT__decoder_e__DOT__JALR = 0;
+    vlSelf->cpu_top__DOT__decoder_e__DOT__SD = 0;
+    vlSelf->cpu_top__DOT__decoder_e__DOT__SW = 0;
     vlSelf->cpu_top__DOT__decoder_e__DOT__typeB_jr = 0;
     vlSelf->cpu_top__DOT__decoder_e__DOT__eq = 0;
     vlSelf->cpu_top__DOT__decoder_e__DOT__lt = 0;

@@ -33,6 +33,8 @@ module decoder(
     output [4:0] O_rd,
     output O_reg_wen,
     output O_mem_wen,
+    output [7:0] O_mem_wstrb,
+    //output O_mem_ren,
     output [2:0] O_funct3,
     //output [6:0] O_funct7,
     output [2:0] O_dnpc_sel,
@@ -95,8 +97,28 @@ module decoder(
     assign JAL = (opcode == 7'b1101111);
     wire JALR;
     assign JALR = (opcode == 7'b1100111) && (funct3 == 3'b000);
+    wire LD;
+    assign LD = (opcode == 7'b0000011) && (funct3 == 3'b011);
+    wire LW;
+    assign LW = (opcode == 7'b0000011) && (funct3 == 3'b010);
+    wire LWU;
+    assign LWU = (opcode == 7'b0000011) && (funct3 == 3'b110);
+    wire LH;
+    assign LH = (opcode == 7'b0000011) && (funct3 == 3'b001);
+    wire LHU;
+    assign LHU = (opcode == 7'b0000011) && (funct3 == 3'b101);
+    wire LB;
+    assign LB = (opcode == 7'b0000011) && (funct3 == 3'b000);
+    wire LBU;
+    assign LBU = (opcode == 7'b0000011) && (funct3 == 3'b100);
     wire SD;
     assign SD = (opcode == 7'b0100011) && (funct3 == 3'b011);
+    wire SW;
+    assign SW = (opcode == 7'b0100011) && (funct3 == 3'b010);
+    wire SH;
+    assign SH = (opcode == 7'b0100011) && (funct3 == 3'b001);
+    wire SB;
+    assign SB = (opcode == 7'b0100011) && (funct3 == 3'b000);
     wire BEQ;
     assign BEQ = (opcode == 7'b1100011) && (funct3 == 3'b000);
     wire BNE;
@@ -118,6 +140,11 @@ module decoder(
     assign O_regin_sel[0] = O_reg_wen & (~(regin_from_mem | JAL | JALR));
     assign O_reg_wen = typeR | typeI | typeU | typeJ;
     assign O_mem_wen = typeS;
+    assign O_mem_wstrb = ({8{SD}} & 8'b11111111)
+    		       | ({8{SW}} & 8'b00001111)
+    		       | ({8{SH}} & 8'b00000011)
+    		       | ({8{SW}} & 8'b00000001);
+    //assign O_mem_ren = (opcode == 7'b0000011);
     // dnpc
     localparam SNPC = 3'd1;
     localparam DNPC = 3'd2;

@@ -36,6 +36,16 @@ VL_INLINE_OPT void Vcpu_top___024root___combo__TOP__2(Vcpu_top___024root* vlSelf
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vcpu_top___024root___combo__TOP__2\n"); );
     // Body
     vlSelf->O_mem_wen = (0x23U == (0x7fU & vlSelf->I_inst));
+    vlSelf->cpu_top__DOT__decoder_e__DOT__SW = (IData)(
+                                                       (0x2023U 
+                                                        == 
+                                                        (0x707fU 
+                                                         & vlSelf->I_inst)));
+    vlSelf->cpu_top__DOT__decoder_e__DOT__SD = (IData)(
+                                                       (0x3023U 
+                                                        == 
+                                                        (0x707fU 
+                                                         & vlSelf->I_inst)));
     vlSelf->cpu_top__DOT__decoder_e__DOT__JALR = (IData)(
                                                          (0x67U 
                                                           == 
@@ -105,12 +115,20 @@ VL_INLINE_OPT void Vcpu_top___024root___combo__TOP__2(Vcpu_top___024root* vlSelf
                                                       == 
                                                       (0x7fU 
                                                        & vlSelf->I_inst)));
+    vlSelf->O_mem_wr_strb = (0xffU & ((((- (IData)((IData)(vlSelf->cpu_top__DOT__decoder_e__DOT__SD))) 
+                                        | (0xfU & (- (IData)((IData)(vlSelf->cpu_top__DOT__decoder_e__DOT__SW))))) 
+                                       | (3U & (- (IData)((IData)(
+                                                                  (0x1023U 
+                                                                   == 
+                                                                   (0x707fU 
+                                                                    & vlSelf->I_inst))))))) 
+                                      | (1U & (- (IData)((IData)(vlSelf->cpu_top__DOT__decoder_e__DOT__SW))))));
     vlSelf->cpu_top__DOT__decoder_e__DOT__add_flag 
         = ((((((0x37U == (0x7fU & vlSelf->I_inst)) 
                | (0x17U == (0x7fU & vlSelf->I_inst))) 
               | (0x6fU == (0x7fU & vlSelf->I_inst))) 
              | (IData)(vlSelf->cpu_top__DOT__decoder_e__DOT__JALR)) 
-            | (IData)((0x3023U == (0x707fU & vlSelf->I_inst)))) 
+            | (IData)(vlSelf->cpu_top__DOT__decoder_e__DOT__SD)) 
            | (IData)((0x13U == (0x707fU & vlSelf->I_inst))));
     vlSelf->cpu_top__DOT__reg_wen = ((((IData)(vlSelf->cpu_top__DOT__decoder_e__DOT__typeR) 
                                        | (IData)(vlSelf->cpu_top__DOT__decoder_e__DOT__typeI)) 
@@ -181,8 +199,8 @@ VL_INLINE_OPT void Vcpu_top___024root___combo__TOP__2(Vcpu_top___024root* vlSelf
                                                              (0x7fU 
                                                               & vlSelf->I_inst))) 
                                                          | (IData)(vlSelf->cpu_top__DOT__decoder_e__DOT__JALR))))));
-    vlSelf->O_mem_wen = (1U & ((IData)(vlSelf->cpu_top__DOT__regin_sel) 
-                               >> 1U));
+    vlSelf->O_mem_rd_en = (1U & ((IData)(vlSelf->cpu_top__DOT__regin_sel) 
+                                 >> 1U));
 }
 
 void Vcpu_top___024unit____Vdpiimwrap_sim_end_TOP____024unit();
@@ -1174,9 +1192,7 @@ VL_INLINE_OPT void Vcpu_top___024root___combo__TOP__5(Vcpu_top___024root* vlSelf
     vlSelf->cpu_top__DOT__alu_e__DOT__result = (vlSelf->cpu_top__DOT__alu_op1 
                                                 + vlSelf->cpu_top__DOT__alu_e__DOT__adder2);
     vlSelf->cpu_top__DOT__alu_e__DOT__shift_op = vlSelf->cpu_top__DOT__alu_op1;
-    vlSelf->O_mem_wr_addr = ((IData)(vlSelf->O_mem_wen)
-                              ? vlSelf->cpu_top__DOT__alu_e__DOT__result
-                              : 0ULL);
+    vlSelf->O_mem_addr = vlSelf->cpu_top__DOT__alu_e__DOT__result;
     vlSelf->cpu_top__DOT__alu_e__DOT__slt_result = (QData)((IData)(
                                                                    (1U 
                                                                     & (((IData)(

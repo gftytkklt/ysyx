@@ -25,11 +25,12 @@ module cpu_top(
     input I_rst,
     input [31:0] I_inst,
     output [63:0] O_pc,
-    input [63:0] I_mem_rd_data,
+    output [63:0] O_mem_addr,
     output O_mem_rd_en,
+    output O_mem_wen,
+    input [63:0] I_mem_rd_data,
     output [63:0] O_mem_wr_data,
-    output [63:0] O_mem_wr_addr,
-    output O_mem_wen
+    output [7:0] O_mem_wr_strb  
     //output O_sim_end
     );
     wire [63:0] current_pc,dnpc,snpc;
@@ -41,14 +42,16 @@ module cpu_top(
     wire [2:0] opnum1_sel;
     wire [1:0] opnum2_sel;
     wire [14:0] alu_op_sel;
+    wire [7:0] mem_wstrb;
     wire reg_wen,mem_wen;
     assign snpc = current_pc + 4;
     assign O_pc = current_pc;
     assign mem_in = I_mem_rd_data;
-    assign O_mem_wen = regin_sel[1];
+    assign O_mem_rd_en = regin_sel[1];
     assign O_mem_wr_data = mem_out;
-    assign O_mem_wr_addr = O_mem_wen ? mem_addr : 0;
+    assign O_mem_addr = mem_addr;
     assign O_mem_wen = mem_wen;
+    assign O_mem_wr_strb = mem_wstrb;
     assign mem_out = rs2_data;
     mux_Nbit_Msel #(64, 3)
     nextpc_64bit_3sel (
@@ -92,6 +95,7 @@ module cpu_top(
     .O_rd(rd_addr),
     .O_reg_wen(reg_wen),
     .O_mem_wen(mem_wen),
+    .O_mem_wstrb(mem_wstrb),
     .O_funct3(funct3),
     //.O_funct7(funct7),
     .O_dnpc_sel(dnpc_sel),
