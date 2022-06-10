@@ -6,6 +6,12 @@
 #define PC_START 0x80000000
 //extern uint8_t* mem;
 //extern uint64_t* cpu_gpr;
+const char *regs[] = {
+  "$0", "ra", "sp", "gp", "tp", "t0", "t1", "t2",
+  "s0", "s1", "a0", "a1", "a2", "a3", "a4", "a5",
+  "a6", "a7", "s2", "s3", "s4", "s5", "s6", "s7",
+  "s8", "s9", "s10", "s11", "t3", "t4", "t5", "t6"
+};
 enum { DIFFTEST_TO_DUT, DIFFTEST_TO_REF };
 void (*nemu_difftest_memcpy)(uint64_t addr, void* buf, size_t n, bool direction) = NULL;
 void (*nemu_difftest_regcpy)(void* dut, bool direction) = NULL;
@@ -40,6 +46,6 @@ void difftest_step(uint64_t pc, uint64_t* dut, uint64_t sim_time){
 	nemu_difftest_exec(1);
 	nemu_difftest_regcpy(ref_data, DIFFTEST_TO_DUT);
 	for(int i=0;i<32;i++){
-		if(dut[i] != ref_data[i]){printf("time: %ld, pc: %lx, reg %d does not match! ref: %lx, dut: %lx\n", sim_time, pc, (i+1), ref_data[i], dut[i]);}
+		if(dut[i] != ref_data[i]){printf("time: %ld, pc: %lx, reg %s does not match! ref: %lx, dut: %lx\n", sim_time, pc, regs[i], ref_data[i], dut[i]);}
 	}
 }
