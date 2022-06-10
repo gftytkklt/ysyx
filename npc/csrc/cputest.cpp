@@ -37,7 +37,7 @@ void print_ftrace(unsigned long pc, unsigned long dnpc, unsigned inst, FILE* fp)
 #endif
 #ifdef CONFIG_DIFFTEST
 void init_difftest(char *ref_so_file, long img_size, uint8_t* mem, uint64_t *cpu_gpr);
-void difftest_step(uint64_t pc, uint64_t* dut);
+void difftest_step(uint64_t pc, uint64_t* dut, uint64_t sim_time);
 #endif
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
@@ -75,17 +75,19 @@ static void pmem_read(unsigned long raddr, unsigned long* rdata){
 
 static void pmem_write(unsigned long waddr, unsigned long wdata, unsigned char wmask){
 	unsigned index = (waddr-(unsigned long)0x80000000) & ~(0x7ul);
-	printf("wr: %lx to %lx, index = %x", wdata,waddr,index);
+	//printf("wr: %016lx to %lx, index = %x\n", wdata,waddr,index);
 	uint8_t *data_pt = (uint8_t*)&wdata;
 	while(wmask!=0){
 		mem[index] = 1;
-		printf("before: %02x ", mem[index]);
+		//printf("before: %02x ", mem[index]);
 		mem[index] = *data_pt;
+		//printf("data: %02x ", *data_pt);
+		//printf("after: %02x ", mem[index]);
 		index++;data_pt++;
 		wmask = wmask >> 1;
-		printf("after: %02x ", mem[index]);
 	}
-	printf("\n");
+	//printf("total: %016lx ", *(unsigned long*)&mem[index-8]);
+	//printf("\n");
 }
 
 static long load_img() {
@@ -178,6 +180,7 @@ int main(int argc, char** argv, char** env) {
 	  	pmem_write(cpu->O_mem_addr, cpu->O_mem_wr_data, cpu->O_mem_wr_strb);
 	  }
 	  else if(cpu->O_mem_rd_en){
+	  	fprintf(logfp,"rd data %lx from %lx\n", cpu->I_mem_rd_data, cpu->O_mem_addr);
 	  	pmem_read(cpu->O_mem_addr, &(cpu->I_mem_rd_data));
 	  }
 	  #ifdef CONFIG_ITRACE
@@ -190,7 +193,7 @@ int main(int argc, char** argv, char** env) {
 	  print_ftrace(pc, dnpc, cpu->I_inst, logfp);
 	  #endif
 	  #ifdef CONFIG_DIFFTEST
-	  difftest_step(pc, cpu_gpr);
+	  difftest_step(pc, cpu_gpr, sim_time);
 	  #endif
 	  }
 	  tfp->dump(sim_time);

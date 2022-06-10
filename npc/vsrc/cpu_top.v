@@ -36,17 +36,20 @@ module cpu_top(
     wire [63:0] current_pc,dnpc,snpc;
     wire [63:0] imm,wr_data,rs1_data,rs2_data,alu_op1,alu_op2,alu_out,mem_in,mem_out,mem_addr;
     wire [4:0] rs1_addr,rs2_addr,rd_addr;
-    wire [2:0] funct3;
+    //wire [2:0] funct3;
     wire [2:0] dnpc_sel;
     wire [2:0] regin_sel;
     wire [2:0] opnum1_sel;
     wire [1:0] opnum2_sel;
     wire [14:0] alu_op_sel;
     wire [7:0] mem_wstrb;
+    wire [8:0] mem_rstrb;
     wire reg_wen,mem_wen;
+    wire word_op_mask;
+    wire [1:0] alu_op_sext;
     assign snpc = current_pc + 4;
     assign O_pc = current_pc;
-    assign mem_in = I_mem_rd_data;
+    //assign mem_in = I_mem_rd_data;
     assign O_mem_rd_en = regin_sel[1];
     assign O_mem_wr_data = mem_out;
     assign O_mem_addr = mem_addr;
@@ -64,6 +67,11 @@ module cpu_top(
     .I_rst(I_rst),
     .I_dnpc(dnpc),
     .O_pc(current_pc)
+    );
+    data_ld mem_ld_e(
+    .I_data_in(I_mem_rd_data),
+    .I_rd_strb(mem_rstrb),
+    .O_load_data(mem_in)
     );
     //assign imm[63:32] = 0;
     mux_Nbit_Msel #(64, 3)
@@ -96,13 +104,16 @@ module cpu_top(
     .O_reg_wen(reg_wen),
     .O_mem_wen(mem_wen),
     .O_mem_wstrb(mem_wstrb),
-    .O_funct3(funct3),
+    .O_mem_rstrb(mem_rstrb),
+    //.O_funct3(funct3),
     //.O_funct7(funct7),
     .O_dnpc_sel(dnpc_sel),
     .O_regin_sel(regin_sel),
     .O_opnum1_sel(opnum1_sel),
     .O_opnum2_sel(opnum2_sel),
-    .O_alu_op_sel(alu_op_sel)
+    .O_alu_op_sel(alu_op_sel),
+    .O_alu_op_sext(alu_op_sext),
+    .O_word_op_mask(word_op_mask)
     //.O_sim_end(O_sim_end)
     );
     mux_Nbit_Msel #(64, 3)
@@ -121,7 +132,8 @@ module cpu_top(
     .I_op1(alu_op1),
     .I_op2(alu_op2),
     .I_alu_op_sel(alu_op_sel),
-    //.I_funct3(funct3),
+    .I_alu_op_sext(alu_op_sext),
+    .I_word_op_mask(word_op_mask),
     .O_mem_addr(mem_addr),
     .O_result(alu_out)
     );
