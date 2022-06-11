@@ -64,10 +64,24 @@ module alu(
     wire [63:0] rem_result;
     //wire [63:0] remu_result;
     wire [64:0] op1_sext, op2_sext;
-    assign op1_sext[64] = I_alu_op_sext[1] ? I_op1[63] : 0;
-    assign op1_sext[63:0] = I_op1;
-    assign op2_sext[64] = I_alu_op_sext[0] ? I_op2[63] : 0;
-    assign op2_sext[63:0] = I_op2;
+    wire sign_bit1, sign_bit2;
+    wire sext1, sext2;
+    // if sext, use sign bit to extend bit[64](bit[64:32] for w case)
+    // sign bit sel
+    assign sign_bit1 = I_word_op_mask ? I_op1[31] : I_op1[63];
+    assign sign_bit2 = I_word_op_mask ? I_op2[31] : I_op2[63];
+    // sext bit sel : sign bit for signed, 0 for unsigned
+    assign sext1 = I_alu_op_sext[1] ? sign_bit1 : 0;
+    assign sext2 = I_alu_op_sext[0] ? sign_bit2 : 0;
+    assign op1_sext[64] = sext1;
+    assign op2_sext[64] = sext2;
+    // DW/W sel
+    assign op1_sext[63:0] = I_word_op_mask ? {{32{sext1}}, I_op1[31:0]} : I_op1;
+    assign op2_sext[63:0] = I_word_op_mask ? {{32{sext2}}, I_op2[31:0]} : I_op2;
+    //assign op1_sext[64] = I_alu_op_sext[1] ? sign_bit1 : 0;
+    //assign op1_sext[63:0] = I_word_op_mask ? {{32{op1_sext[64]}}, I_op1[31:0]}: I_op1;
+    //assign op2_sext[64] = I_alu_op_sext[0] ? sign_bit2 : 0;
+    //assign op2_sext[63:0] = I_word_op_mask ? {{32{op2_sext[64]}}, I_op2[31:0]}: I_op2;
     assign and_result = I_op1 & I_op2;
     assign xor_result = I_op1 ^ I_op2;
     assign or_result = I_op1 | I_op2;
@@ -82,12 +96,13 @@ module alu(
     //assign remu_result = I_op1 % I_op2;
     // add, sub, slt, sltu
     wire [63:0] adder1, adder2, result;
-    //wire cin,cout;
+    wire [63:0] cin;
     wire cout;
+    //wire cout;
     assign adder1 = I_op1;
-    assign adder2 = (op_sub | op_slt | op_sltu) ? (~I_op2+1) : I_op2;
-    //assign cin = (op_sub | op_slt | op_sltu) ? 1 : 0;
-    //assign {cout, result} = adder1+adder2+cin;
+    assign adder2 = (op_sub | op_slt | op_sltu) ? ~I_op2 : I_op2;
+    assign cin = (op_sub | op_slt | op_sltu) ? 1 : 0;
+    assign {cout, result} = adder1+adder2+cin;
     assign {cout, result} = adder1+adder2;
     assign add_sub_result = result;
     assign slt_result[63:1] = 0;
@@ -100,18 +115,38 @@ module alu(
         assign reverse_op1[i] = I_op1[63-i];
     end
     endgenerate
+    // sign for sra mask
+    wire shift_sign;
+    assign shift_sign = I_word_op_mask ? I_op1[31] : I_op1[63];
+    // op for sll/srl
     wire [63:0] shift_op;
     assign shift_op = op_sll ? reverse_op1 : I_op1;
+    // w/dw shamt
     wire [5:0] shamt;
-    assign shamt = I_word_op_mask ? I_op2[5:0] : {1'b0, I_op2[4:0]};
+    assign shamt = I_word_op_mask ?  {1'b0, I_op2[4:0]} : I_op2[5:0];
+    // w/dw sra mask
     wire [63:0] sra_mask;
-    assign sra_mask = ~(64'hffff_ffff_ffff_ffff >> shamt);
+    assign sra_mask = I_word_op_mask ? ~(64'h0000_0000_ffff_ffff >> shamt) : ~(64'hffff_ffff_ffff_ffff >> shamt);
+    // unified shift result
     wire [63:0] shift_result;
-    assign shift_result = shift_op >> shamt;
+    // for W op
+    wire [31:0] shift_opW;
+    // sll op is on msb
+    assign shift_opW = op_sll ? shift_op[63:32] : shift_op[31:0];
+    // dw/w unified right shift op sel
+    wire [63:0] srl_op;
+    assign srl_op = I_word_op_mask ? {32'b0, shift_opW} : shift_op;
+    assign shift_result = srl_op >> shamt;
+    //assign shift_result = I_word_op_mask ? ({32'b0, shift_opW} >> shamt) : (shift_op >> shamt);
     assign srl_result = shift_result;
-    assign sra_result = ({64{shift_op[63]}} & sra_mask) | shift_result;
+    assign sra_result = ({64{shift_sign}} & sra_mask) | shift_result;
+    // w/dw sll result
+    wire [63:0] sllw_result;
+    wire [63:0] slldw_result;
+    assign sll_result = I_word_op_mask ? sllw_result : slldw_result;
+    assign sllw_result = {{32{shift_result[0]}}, slldw_result[63:32]};
     generate for(genvar i = 0;i<64;i=i+1) begin
-        assign sll_result[i] = shift_result[63-i];
+        assign slldw_result[i] = shift_result[63-i];
     end
     endgenerate
     assign O_mem_addr = add_sub_result;

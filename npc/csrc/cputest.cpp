@@ -9,10 +9,14 @@
 #include "Vcpu_top.h"
 #include "svdpi.h"
 #include "Vcpu_top__Dpi.h"
-#define N 32
+//#define N 32
 #define CONFIG_FTRACE
 #define CONFIG_ITRACE
 #define CONFIG_DIFFTEST
+#define ASNI_FG_RED     "\33[1;31m"
+#define ASNI_FG_GREEN   "\33[1;32m"
+#define ASNI_NONE       "\33[0m"
+#define ASNI_FMT(str, fmt) fmt str ASNI_NONE
 static Vcpu_top* cpu;
 static int mem_size = 0x8000000;
 static uint8_t* mem = NULL;
@@ -56,10 +60,10 @@ void sim_end(){
   //set_gpr_ptr(10);
   //printf("%ld\n", cpu_gpr[10]);
   if(cpu_gpr[10]){
-    printf("Hit bad trap at pc = 0x%lx\n", *cpu_pc);
+    printf("%s at pc = 0x%016lx\n", ASNI_FMT("HIT BAD TRAP", ASNI_FG_RED), *cpu_pc);
   }
   else{
-    printf("Hit good trap at pc = 0x%lx\n", *cpu_pc);
+    printf("%s at pc = 0x%016lx\n", ASNI_FMT("HIT GOOD TRAP", ASNI_FG_GREEN), *cpu_pc);
   }
   //printf(" C: Im called fronm Scope :: %s \n\n ",svGetNameFromScope(svGetScope() ));
   //Vcpu_top::check();
@@ -69,7 +73,7 @@ void sim_end(){
 static void pmem_read(unsigned long raddr, unsigned long* rdata){
 	unsigned index = (raddr-(unsigned long)0x80000000) & ~(0x7ul);
 	//printf("%x\n", index);
-	*rdata = index > img_size ? 0 : *((unsigned long*)&mem[index]);
+	*rdata = index > mem_size ? 0 : *((unsigned long*)&mem[index]);
 	//return index > img_size ? 0 : *((unsigned *)&mem[index]);
 }
 
@@ -77,10 +81,11 @@ static void pmem_write(unsigned long waddr, unsigned long wdata, unsigned char w
 	unsigned index = (waddr-(unsigned long)0x80000000) & ~(0x7ul);
 	//printf("wr: %016lx to %lx, index = %x\n", wdata,waddr,index);
 	uint8_t *data_pt = (uint8_t*)&wdata;
+	// sim of byte write enable mode
 	while(wmask!=0){
-		mem[index] = 1;
+		//mem[index] = 1;
 		//printf("before: %02x ", mem[index]);
-		mem[index] = *data_pt;
+		if(wmask & 0x01){mem[index] = *data_pt;}
 		//printf("data: %02x ", *data_pt);
 		//printf("after: %02x ", mem[index]);
 		index++;data_pt++;
@@ -170,19 +175,22 @@ int main(int argc, char** argv, char** env) {
 	  //printf("%016lx\n", *inst64);
 	  //printf("t2\n");
 	  cpu->I_inst = (pc % 8) ? *((unsigned*)(inst64)+1) : *((unsigned*)inst64);
+	  if(cpu->O_mem_rd_en){
+	  	//fprintf(logfp,"rd data %lx from %lx\n", cpu->I_mem_rd_data, cpu->O_mem_addr);
+	  	pmem_read(cpu->O_mem_addr, &(cpu->I_mem_rd_data));
+	  }
 	  //printf("t3\n");
 	  cpu->eval();
 	  dnpc = cpu->O_pc;
 	  if(valid_posedge){
 	  fprintf(logfp,"time: %lu\n", sim_time);
+	  if(cpu->O_mem_rd_en){
+	  	fprintf(logfp,"rd data %lx from %lx\n", cpu->I_mem_rd_data, cpu->O_mem_addr);}
 	  if(cpu->O_mem_wen){
 	  	fprintf(logfp,"wr data %lx to %lx\n", cpu->O_mem_wr_data, cpu->O_mem_addr);
 	  	pmem_write(cpu->O_mem_addr, cpu->O_mem_wr_data, cpu->O_mem_wr_strb);
 	  }
-	  else if(cpu->O_mem_rd_en){
-	  	fprintf(logfp,"rd data %lx from %lx\n", cpu->I_mem_rd_data, cpu->O_mem_addr);
-	  	pmem_read(cpu->O_mem_addr, &(cpu->I_mem_rd_data));
-	  }
+	  
 	  #ifdef CONFIG_ITRACE
 	  //printf("start disasm\n");
 	  fprintf(logfp, "%lx: %08x ",pc, cpu->I_inst);

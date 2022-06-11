@@ -235,9 +235,9 @@ module decoder(
     assign O_reg_wen = typeR | typeI | typeU | typeJ;
     assign O_mem_wen = typeS;
     assign O_mem_wstrb = ({8{SD}} & 8'b11111111)
-    		   | ({8{SW}} & 8'b00001111)
-    		   | ({8{SH}} & 8'b00000011)
-    		   | ({8{SW}} & 8'b00000001);
+    		       | ({8{SW}} & 8'b00001111)
+    		       | ({8{SH}} & 8'b00000011)
+    		       | ({8{SB}} & 8'b00000001);
     assign O_mem_rstrb[8] = LW | LH | LB; //sext
     assign O_mem_rstrb[7:4] = {4{LD}};
     assign O_mem_rstrb[3:2] = {2{LD | LW | LWU}};
