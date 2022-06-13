@@ -13,15 +13,15 @@ static inline int check_reg_idx(int idx) {
 
 static inline int check_csr_idx(int idx) {
   IFDEF(CONFIG_RT_CHECK, assert(idx >= 0 && idx < 4096));
-  int gpr_idx;
+  int csr_idx;
   switch(idx){
-    case MEPC: gpr_idx=0;break;
-    case MSTATUS: gpr_idx=1;break;
-    case MCAUSE: gpr_idx=2;break;
-    case MTVEC: gpr_idx=3;break;
+    case MEPC: csr_idx=0;break;
+    case MSTATUS: csr_idx=1;break;
+    case MCAUSE: csr_idx=2;break;
+    case MTVEC: csr_idx=3;break;
     default: assert(0);
   }
-  return gpr_idx;
+  return csr_idx;
 }
 
 #define gpr(idx) (cpu.gpr[check_reg_idx(idx)])
