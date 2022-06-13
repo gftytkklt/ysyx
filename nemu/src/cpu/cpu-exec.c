@@ -23,7 +23,7 @@ void inst_hist_display();
 void print_ftrace(unsigned long pc, unsigned long dnpc, unsigned inst);
 #endif
 // add for ftrace end
-CPU_state cpu = {.csr[1]=0xa00001800,};
+CPU_state cpu = {};
 
 uint64_t g_nr_guest_inst = 0;
 static uint64_t g_timer = 0; // unit: us
