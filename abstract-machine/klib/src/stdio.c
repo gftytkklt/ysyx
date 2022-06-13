@@ -49,7 +49,7 @@ static char* num2str(char *tmp, long val, int width, bool ispad){
           if(bit < 10){a[cnt] = (unsigned char) (bit+48);}
           else{a[cnt] = (unsigned char) (bit+87);}
           cnt++;
-          val = (unsigned)val >> 4;
+          val = val >> 4;
         }
       }
       else {assert(0);}
