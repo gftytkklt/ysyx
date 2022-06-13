@@ -31,7 +31,7 @@ static char* num2str(char *tmp, long val, int width, bool ispad){
   else {
     if ((type == INTD) || (type == INTLD)) {
     //dec case
-      if(val < 0){val = -val;*tmp = '-';tmp++;}
+      if(val < 0){val = -val;*tmp = '-';tmp++;}//-2^31 will overflow
         while(val!=0){
           bit = val % 10;
           //*tmp = (unsigned char) (bit+48);
@@ -43,13 +43,13 @@ static char* num2str(char *tmp, long val, int width, bool ispad){
       }
       //hex case
       else if((type == INTX) || (type == INTLX)){
-        //val = (unsigned long) val;
-        while(val!=0){
-          bit = ((unsigned long)val) % 16;
+        unsigned long val_u = (unsigned long) val;
+        while(val_u!=0){
+          bit = val_u % 16;
           if(bit < 10){a[cnt] = (unsigned char) (bit+48);}
           else{a[cnt] = (unsigned char) (bit+87);}
           cnt++;
-          val = (unsigned long) val >> 4;
+          val_u = val_u >> 4;
         }
       }
       else {assert(0);}
