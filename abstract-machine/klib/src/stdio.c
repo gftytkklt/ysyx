@@ -20,7 +20,7 @@ static int type = CHAR;
 // print int, return char * next to src int
 static char* num2str(char *tmp, long val, int width, bool ispad){
   char a[20] = "\0";// long have 19 bits at most
-  int bit = 0;
+  unsigned bit = 0;
   int cnt = 0;// a index
   if(val == 0){
     //*tmp = (unsigned char) 48;
@@ -43,7 +43,6 @@ static char* num2str(char *tmp, long val, int width, bool ispad){
       }
       //hex case
       else if((type == INTX) || (type == INTLX)){
-        val = (unsigned long) val;
         while(val!=0){
           bit = val % 16;
           if(bit < 10){a[cnt] = (unsigned char) (bit+48);}
