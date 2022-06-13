@@ -43,6 +43,7 @@ static char* num2str(char *tmp, long val, int width, bool ispad){
       }
       //hex case
       else if((type == INTX) || (type == INTLX)){
+        val = (unsigned long) val;
         while(val!=0){
           bit = val % 16;
           if(bit < 10){a[cnt] = (unsigned char) (bit+48);}
