@@ -5,7 +5,7 @@
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 static char buf[1024] = "\0";
-enum {CHAR, INTD, INTX, INVALID_TYPE, };
+enum {CHAR, INTD, INTX, INTLX, INVALID_TYPE, };
 //static bool isdec = true;
 static bool ispad = false;
 static int width = 0;
@@ -18,8 +18,8 @@ static int type = CHAR;
 //}
 
 // print int, return char * next to src int
-static char* int2str(char *tmp, int val, int width, bool ispad){
-  char a[20] = "\0";// int have 10 bits at most
+static char* num2str(char *tmp, long val, int width, bool ispad){
+  char a[20] = "\0";// long have 19 bits at most
   int bit = 0;
   int cnt = 0;// a index
   if(val == 0){
@@ -42,7 +42,7 @@ static char* int2str(char *tmp, int val, int width, bool ispad){
         }
       }
       //hex case
-      else if(type == INTX){
+      else if((type == INTX) || (type == INTLX)){
         while(val!=0){
           bit = val % 16;
           if(bit < 10){a[cnt] = (unsigned char) (bit+48);}
@@ -51,7 +51,7 @@ static char* int2str(char *tmp, int val, int width, bool ispad){
           val = (unsigned)val >> 4;
         }
       }
-      else {assert(type == INTD || type == INTX);}
+      else {assert(0);}
     }
     if (cnt < width){
       int pad_num = width - cnt;
@@ -90,6 +90,7 @@ static int print_pattern(const char *fmt, int *width, bool *ispad, int *type){
     case 'd': *type = INTD;break;
     case 'x': *type = INTX;break;
     case 'X': *type = INTX;break;
+    case 'p': *type = INTLX;break;
     case 'c': *type = CHAR;break;
     case 's': *type = CHAR;break;
     default: *type = INVALID_TYPE;return 0;// invalid format, treat it as str
@@ -111,8 +112,13 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
     if (fmt[i]=='%'){
       i += print_pattern(&fmt[i],&width,&ispad,&type);
       if(type == INTD || type == INTX){
-        int val = va_arg(ap, int);
-        tmp = int2str(tmp, val, width, ispad);
+        long val = (long) va_arg(ap, int);
+        tmp = num2str(tmp, val, width, ispad);
+        continue;
+      }
+      else if(type == INTLX){
+        long val = va_arg(ap, long);
+        tmp = num2str(tmp, val, width, ispad);
         continue;
       }
       else if(type == CHAR){
@@ -139,7 +145,7 @@ int sprintf(char *out, const char *fmt, ...) {
       i += print_pattern(&fmt[i],&width,&ispad,&type);
       if(type == INTD || type == INTX){
         int val = va_arg(ap, int);
-        tmp = int2str(tmp, val, width, ispad);
+        tmp = num2str(tmp, val, width, ispad);
         continue;
       }
       else if(type == CHAR){
@@ -170,7 +176,7 @@ int snprintf(char *out, size_t n, const char *fmt, ...) {
       i += print_pattern(&fmt[i],&width,&ispad,&type);
       if(type == INTD || type == INTX){
         int val = va_arg(ap, int);
-        tmp = int2str(tmp, val, width, ispad);
+        tmp = num2str(tmp, val, width, ispad);
         continue;
       }
       else if(type == CHAR){
