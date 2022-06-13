@@ -213,28 +213,30 @@ static int func_depth = 0;
 void print_ftrace(unsigned long pc, unsigned long dnpc, unsigned inst) {
   //unsigned long func_addr=0;
   //char func_name[128] = {'\0'};
+  FILE* fp = fopen("ftrace.txt","a");
   unsigned dest = BITS(inst,11,7);
   for(int i=0;i<func_idx;i++){  
     //printf("%s %lx\n", func_pool[func_idx].func_name, func_pool[func_idx].entry_addr);
     if(dnpc == func_pool[i].entry_addr && (dest != 0)){
       func_depth++;
-      printf("%lx:%*s",pc,func_depth," ");
+      fprintf(fp, "%lx:%*s",pc,func_depth," ");
       // print info & depth update
-      printf("call [%s@0x%lx]\n",func_pool[i].func_name,func_pool[i].entry_addr);
+      fprintf(fp, "call [%s@0x%lx]\n",func_pool[i].func_name,func_pool[i].entry_addr);
     }
     //else if((dnpc > func_pool[i].entry_addr) && (dnpc < func_pool[i].entry_addr + func_pool[i].func_size) && (inst==0x00008067)){
     else if((pc > func_pool[i].entry_addr) && (pc < func_pool[i].entry_addr + func_pool[i].func_size) && (inst==0x00008067)){
-      printf("%lx:%*s",pc,func_depth," ");
-      printf("ret [%s]\n",func_pool[i].func_name);
+      fprintf(fp, "%lx:%*s",pc,func_depth," ");
+      fprintf(fp, "ret [%s]\n",func_pool[i].func_name);
       func_depth--;
     }
     else if(inst == 0x00100073){
-      printf("%lx:%*sebreak\n",pc,func_depth," ");
+      fprintf(fp, "%lx:%*sebreak\n",pc,func_depth," ");
       //func_depth--;
       break;
       
     }
   }
+  fclose(fp);
 }
 #endif
 
