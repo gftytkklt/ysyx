@@ -4,7 +4,7 @@
 #include <stdarg.h>
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
-static char buf[1024] = "\0";
+static char buf[2048] = "\0";
 enum {CHAR, INTD, INTX, INTLD, INTLX, INVALID_TYPE, };
 //static bool isdec = true;
 static bool ispad = false;
