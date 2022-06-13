@@ -5,7 +5,7 @@
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 static char buf[1024] = "\0";
-enum {CHAR, INTD, INTX, INTLX, INVALID_TYPE, };
+enum {CHAR, INTD, INTX, INTLD, INTLX, INVALID_TYPE, };
 //static bool isdec = true;
 static bool ispad = false;
 static int width = 0;
@@ -29,7 +29,7 @@ static char* num2str(char *tmp, long val, int width, bool ispad){
     cnt++;
     }
   else {
-    if (type == INTD) {
+    if ((type == INTD) || (type == INTLD)) {
     //dec case
       if(val < 0){val = -val;*tmp = '-';tmp++;}// -2^31 will overflow
         while(val!=0){
@@ -91,6 +91,7 @@ static int print_pattern(const char *fmt, int *width, bool *ispad, int *type){
     case 'x': *type = INTX;break;
     case 'X': *type = INTX;break;
     case 'p': *type = INTLX;break;
+    case 'l': tmp++;switch(*tmp){case 'd':*type = INTLD;break;case 'x':*type = INTLX;break;default: *type = INVALID_TYPE;return 0;}
     case 'c': *type = CHAR;break;
     case 's': *type = CHAR;break;
     default: *type = INVALID_TYPE;return 0;// invalid format, treat it as str
