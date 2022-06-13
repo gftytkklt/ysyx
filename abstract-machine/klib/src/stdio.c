@@ -117,7 +117,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
         tmp = num2str(tmp, val, width, ispad);
         continue;
       }
-      else if(type == INTLX){
+      else if(type == INTLX || type == INTLD){
         long val = va_arg(ap, long);
         tmp = num2str(tmp, val, width, ispad);
         continue;
