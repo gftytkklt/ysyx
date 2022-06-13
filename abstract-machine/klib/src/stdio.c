@@ -22,6 +22,7 @@ static char* num2str(char *tmp, long val, int width, bool ispad){
   char a[20] = "\0";// long have 19 bits at most
   int bit = 0;
   int cnt = 0;// a index
+  unsigned long val_u = 0;
   if(val == 0){
     //*tmp = (unsigned char) 48;
     //tmp++;
@@ -29,21 +30,23 @@ static char* num2str(char *tmp, long val, int width, bool ispad){
     cnt++;
     }
   else {
+    
     if ((type == INTD) || (type == INTLD)) {
     //dec case
-      if(val < 0){val = -val;*tmp = '-';tmp++;}//-2^31 will overflow
-        while(val!=0){
-          bit = val % 10;
+      if(val < 0){val = -val;*tmp = '-';tmp++;}
+        val_u = (unsigned long) val;
+        while(val_u!=0){
+          bit = val_u % 10;
           //*tmp = (unsigned char) (bit+48);
           //tmp++;
           a[cnt] = (unsigned char) (bit+48);
           cnt++;
-          val = val / 10;
+          val_u = val_u / 10;
         }
       }
       //hex case
       else if((type == INTX) || (type == INTLX)){
-        unsigned long val_u = (unsigned long) val;
+        val_u = (unsigned long) val;
         while(val_u!=0){
           bit = val_u % 16;
           if(bit < 10){a[cnt] = (unsigned char) (bit+48);}
