@@ -31,7 +31,7 @@ static char* num2str(char *tmp, long val, int width, bool ispad){
   else {
     if ((type == INTD) || (type == INTLD)) {
     //dec case
-      if(val < 0){val = -val;*tmp = '-';tmp++;}// -2^31 will overflow
+      if(val < 0){val = -val;*tmp = '-';tmp++;}
         while(val!=0){
           bit = val % 10;
           //*tmp = (unsigned char) (bit+48);
@@ -91,7 +91,7 @@ static int print_pattern(const char *fmt, int *width, bool *ispad, int *type){
     case 'x': *type = INTX;break;
     case 'X': *type = INTX;break;
     case 'p': *type = INTLX;break;
-    case 'l': tmp++;switch(*tmp){case 'd':*type = INTLD;break;case 'x':*type = INTLX;break;default: *type = INVALID_TYPE;return 0;}
+    //case 'l': tmp++;switch(*tmp){case 'd':*type = INTLD;break;case 'x':*type = INTLX;break;default: *type = INVALID_TYPE;return 0;}
     case 'c': *type = CHAR;break;
     case 's': *type = CHAR;break;
     default: *type = INVALID_TYPE;return 0;// invalid format, treat it as str
