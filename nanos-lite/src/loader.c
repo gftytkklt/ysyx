@@ -12,15 +12,31 @@ size_t ramdisk_read(void *buf, size_t offset, size_t len);
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
   Elf_Ehdr ehdr  = {};
-  //Elf_Phdr phdr  = {};
+  Elf_Phdr phdr  = {};
   ramdisk_read(&ehdr, 0, 64);
   assert(*(uint32_t *)&ehdr.e_ident == 0x464c457f);
-  int phoff = ehdr.e_phoff;
-  int phnum = ehdr.e_phnum;
-  int phentsize = ehdr.e_phentsize;
-  printf("%d %d %d\n", phoff, phnum, phentsize);
+  uint64_t phoff = ehdr.e_phoff;
+  uint16_t phnum = ehdr.e_phnum;
+  uint16_t phentsize = ehdr.e_phentsize;
+  //printf("%d %d %d\n", phoff, phnum, phentsize);
   //ramdisk_read(&phdr, ehdr.e_phoff, 64);
   //TODO();
+  uint64_t current_phoff = phoff;
+  uint64_t ldofft; // for load offset
+  uint64_t ldvaddr;
+  uint64_t filesz, memsz;
+  for (int i=0;i<phnum;i++){
+    ramdisk_read(&phdr, current_phoff, phentsize);
+    if (phdr.p_type == PT_LOAD){
+      ldofft = phdr.p_offset;
+      ldvaddr = phdr.p_vaddr;
+      filesz = phdr.p_filesz;
+      memsz = phdr.p_memsz;
+      ramdisk_read((void *)ldvaddr, ldofft, filesz);
+      memset((void *)(ldvaddr + filesz), 0, (memsz-filesz));
+    }
+    current_phoff += phentsize;
+  }
   return ehdr.e_entry;
     
 }
