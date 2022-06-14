@@ -14,7 +14,7 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc) {
 word_t isa_query_intr() {
   switch(cpu.gpr[17]){
     case -1: return INTR_EMPTY & 0x0b;
-    case 1: return INTR_EMPTY & 0x0b;
+    //case 1: return INTR_EMPTY & 0x0b;
     default: return INTR_EMPTY;
   }
   
