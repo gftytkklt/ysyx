@@ -5,13 +5,13 @@
 static Context* (*user_handler)(Event, Context*) = NULL;
 
 Context* __am_irq_handle(Context *c) {
-  long *tmp = (long *) c;
+  //long *tmp = (long *) c;
   if (user_handler) {
     Event ev = {0};
-    for (int i=0;i<35;i++){
-      printf("%d: %lx\n", i+1, *tmp);
-      tmp++;
-    }
+    //for (int i=0;i<35;i++){
+    //  printf("%d: %lx\n", i+1, *tmp);
+    //  tmp++;
+    //}
     //printf("cause: %ld\n", c->mcause);
     switch (c->mcause) {
       case 0x0b: ev.event = EVENT_YIELD; break;
