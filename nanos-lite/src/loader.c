@@ -12,10 +12,16 @@ size_t ramdisk_read(void *buf, size_t offset, size_t len);
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
   Elf_Ehdr ehdr  = {};
+  //Elf_Phdr phdr  = {};
   ramdisk_read(&ehdr, 0, 64);
-  assert(*(uint32_t *)&ehdr.e_ident == 0x464c459f);
+  assert(*(uint32_t *)&ehdr.e_ident == 0x464c457f);
+  int phoff = ehdr.e_phoff;
+  int phnum = ehdr.e_phnum;
+  int phentsize = ehdr.e_phentsize;
+  printf("%d %d %d\n", phoff, phnum, phentsize);
+  //ramdisk_read(&phdr, ehdr.e_phoff, 64);
   //TODO();
-  return 0;
+  return ehdr.e_entry;
     
 }
 
