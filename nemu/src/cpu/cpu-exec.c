@@ -22,6 +22,9 @@ void inst_hist_display();
 #ifdef CONFIG_FTRACE
 void print_ftrace(unsigned long pc, unsigned long dnpc, unsigned inst);
 #endif
+#ifdef CONFIG_ETRACE
+void etrace(unsigned long pc, unsigned inst);
+#endif
 // add for ftrace end
 CPU_state cpu = {.csr[1] = 0xa00001800};
 
@@ -62,6 +65,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
   //IFDEF(CONFIG_ITRACE, write_ringbuf(_this->logbuf));
   if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
+  IFDEF(CONFIG_ETRACE, etrace(_this->pc, _this->isa.inst.val));
 #ifdef CONFIG_WATCHPOINT
   //bool break_triggered = false;
   bool changed = check_wp();

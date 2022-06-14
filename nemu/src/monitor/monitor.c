@@ -240,6 +240,13 @@ void print_ftrace(unsigned long pc, unsigned long dnpc, unsigned inst) {
 }
 #endif
 
+#ifdef CONFIG_ETRACE
+void etrace(unsigned long pc, unsigned inst) {
+  if (inst == 0x00000073) {Log("throw exception at pc = %lx", pc);}
+  else if (inst == 0x30200073) {Log("exit exception at pc = %lx", pc);}
+}
+#endif
+
 void init_monitor(int argc, char *argv[]) {
   /* Perform some global initialization. */
 
