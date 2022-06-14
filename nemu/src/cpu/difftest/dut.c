@@ -77,15 +77,15 @@ void init_difftest(char *ref_so_file, long img_size, int port) {
 }
 
 static void checkregs(CPU_state *ref, vaddr_t pc) {
-  if (!isa_difftest_checkregs(ref, pc)) {
+  if (!isa_difftest_checkregs(ref, pc) || ref->pc != pc) {
     nemu_state.state = NEMU_ABORT;
     nemu_state.halt_pc = pc;
     printf("ref pc:%lx, dut pc:%lx\n", ref->pc, pc);
     isa_reg_display();
   }
-  if(ref->pc != pc){
-    printf("pc not match! ref pc:%lx, dut pc:%lx\n", ref->pc, pc);
-  }
+  //if(ref->pc != pc){
+    //printf("pc not match! ref pc:%lx, dut pc:%lx\n", ref->pc, pc);
+  //}
 }
 
 void difftest_step(vaddr_t pc, vaddr_t npc) {
