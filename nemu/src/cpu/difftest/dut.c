@@ -82,7 +82,9 @@ static void checkregs(CPU_state *ref, vaddr_t pc) {
     nemu_state.halt_pc = pc;
     printf("ref pc:%lx, dut pc:%lx\n", ref->pc, pc);
     isa_reg_display();
-    
+  }
+  if(ref->pc != pc){
+    printf("pc not match! ref pc:%lx, dut pc:%lx\n", ref->pc, pc);
   }
 }
 
