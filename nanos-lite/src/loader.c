@@ -13,7 +13,7 @@ size_t ramdisk_read(void *buf, size_t offset, size_t len);
 static uintptr_t loader(PCB *pcb, const char *filename) {
   Elf_Ehdr ehdr  = {};
   ramdisk_read(&ehdr, 0, 64);
-  assert(*(uint32_t *)&ehdr.e_ident == 0x464c457f);
+  assert(*(uint32_t *)&ehdr.e_ident == 0x464c459f);
   //TODO();
   return 0;
     
