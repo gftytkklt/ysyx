@@ -1,5 +1,6 @@
 #include <common.h>
 #include "syscall.h"
+#define CONFIG_STRACE
 #ifdef CONFIG_STRACE
 void print_strace(Context *c){
   printf("type: %ld, parameters: %ld, %ld, %ld, ret: %ld\n",c->GPR1, c->GPR2, c->GPR3, c->GPR4, c->GPRx);
