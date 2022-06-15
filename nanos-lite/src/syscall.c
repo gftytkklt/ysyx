@@ -45,9 +45,6 @@ void do_syscall(Context *c) {
   a[2] = c->GPR3;
   a[3] = c->GPR4;
   //ret = c->GPRx;
-  #ifdef CONFIG_STRACE
-  print_strace(c);
-  #endif
   switch (a[0]) {
     case SYS_exit: sys_exit(a[1]);break;
     case SYS_yield: c->GPRx = sys_yield();break;
@@ -55,4 +52,7 @@ void do_syscall(Context *c) {
     case SYS_brk: c->GPRx = brk((void*)a[1]);break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
+  #ifdef CONFIG_STRACE
+  print_strace(c);
+  #endif
 }
