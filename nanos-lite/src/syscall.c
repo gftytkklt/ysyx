@@ -6,6 +6,8 @@ void print_strace(Context *c){
   printf("type: %ld, parameters: %ld, %ld, %ld, ret: %ld\n",c->GPR1, c->GPR2, c->GPR3, c->GPR4, c->GPRx);
 }
 #endif
+//extern char end;
+//void *program_break = &end;
 static int sys_yield(){
   yield();
   return 0;
@@ -31,6 +33,11 @@ long write(int fd, void *buf, size_t count){
 void sys_exit(uintptr_t ret){
   halt(ret);
 }
+
+int brk(void *addr){
+  //*end = 
+  return 0;
+}
 void do_syscall(Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
@@ -45,7 +52,7 @@ void do_syscall(Context *c) {
     case SYS_exit: sys_exit(a[1]);break;
     case SYS_yield: sys_yield();break;
     case SYS_write: write((int)a[1],(void*)a[2],(size_t)a[3]);break;
-    case SYS_brk: break;
+    case SYS_brk: brk((void*)a[1]);break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 }
