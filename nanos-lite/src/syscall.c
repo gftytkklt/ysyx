@@ -11,6 +11,19 @@ static int sys_yield(){
   return 0;
 }
 
+size_t write(int fd, void *buf, size_t count){
+  // stdout, strerr
+  char *tmp = (char*) buf;
+  int write_size = 0;
+  if(fd == 1 || fd == 2){
+    while ((write_size < count) && (tmp[write_size] != '\0')){
+      putch(tmp[write_size]);
+      write_size++;
+    }
+  }
+  return write_size;
+}
+
 void sys_exit(uintptr_t ret){
   halt(ret);
 }
@@ -27,6 +40,7 @@ void do_syscall(Context *c) {
   switch (a[0]) {
     case SYS_exit: sys_exit(ret);break;
     case SYS_yield: sys_yield();break;
+    case SYS_write: write((int)a[1],(void*)a[2],(size_t)a[3]);break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 }
