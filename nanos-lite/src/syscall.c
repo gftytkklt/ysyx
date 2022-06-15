@@ -11,7 +11,7 @@ static int sys_yield(){
   return 0;
 }
 
-size_t write(int fd, void *buf, size_t count){
+long write(int fd, void *buf, size_t count){
   // stdout, strerr
   char *tmp = (char*) buf;
   int write_size = 0;
@@ -20,6 +20,10 @@ size_t write(int fd, void *buf, size_t count){
       putch(tmp[write_size]);
       write_size++;
     }
+  }
+  // TODO: finish case in future task
+  else {
+    return -1;
   }
   return write_size;
 }
