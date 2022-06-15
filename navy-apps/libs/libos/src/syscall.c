@@ -64,7 +64,7 @@ int _write(int fd, void *buf, size_t count) {
   //long ret = _syscall_(SYS_write, fd, buf, count);
   //_exit(SYS_write);
   _syscall_(SYS_write, fd, buf, count);
-  return -1;
+  return 3;
   //_exit(ret == -1 ? -1 : 0);
   //return ret;
 }
