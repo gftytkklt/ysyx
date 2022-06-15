@@ -28,17 +28,17 @@ void sys_exit(uintptr_t ret){
   halt(ret);
 }
 void do_syscall(Context *c) {
-  uintptr_t a[4], ret;
+  uintptr_t a[4];
   a[0] = c->GPR1;
   a[1] = c->GPR2;
   a[2] = c->GPR3;
   a[3] = c->GPR4;
-  ret = c->GPRx;
+  //ret = c->GPRx;
   #ifdef CONFIG_STRACE
   print_strace(c);
   #endif
   switch (a[0]) {
-    case SYS_exit: sys_exit(ret);break;
+    case SYS_exit: sys_exit(a[1]);break;
     case SYS_yield: sys_yield();break;
     case SYS_write: write((int)a[1],(void*)a[2],(size_t)a[3]);break;
     default: panic("Unhandled syscall ID = %d", a[0]);
