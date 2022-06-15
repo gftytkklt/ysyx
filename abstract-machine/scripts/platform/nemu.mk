@@ -16,9 +16,9 @@ NEMUFLAGS += -b
 #NEMUFLAGS += $(if CiONFIG_RACE,-e $(IMAGE).elf, )
 #ifdef CONFIG_FTRACE
 NEMUFLAGS += -e $(IMAGE).elf
-ifdef HAS_RAMDISK
-NEMUFLAGS +=  /home/gftyt/ysyx-workbench/nanos-lite/$(RAMDISK_FILE)
-endif
+#ifdef HAS_RAMDISK
+#NEMUFLAGS += /home/gftyt/ysyx-workbench/nanos-lite/$(RAMDISK_FILE)
+#endif
 #endif
 CFLAGS += -DMAINARGS=\"$(mainargs)\"
 CFLAGS += -I$(AM_HOME)/am/src/platform/nemu/include
