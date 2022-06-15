@@ -1,4 +1,8 @@
 #HAS_NAVY = 1
+# 0615 added for load ramdisk.img
+define HAS_RAMDISK 
+endef
+# 0615 add end
 RAMDISK_FILE = build/ramdisk.img
 
 NAME = nanos-lite
