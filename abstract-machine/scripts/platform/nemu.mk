@@ -13,7 +13,10 @@ LDFLAGS   += -T $(AM_HOME)/scripts/linker.ld \
 LDFLAGS   += --gc-sections -e _start
 NEMUFLAGS += -l $(shell dirname $(IMAGE).elf)/nemu-log.txt
 NEMUFLAGS += -b
-NEMUFLAGS += $(if CONFIG_RACE, -e $(IMAGE).elf, )
+#NEMUFLAGS += $(if CiONFIG_RACE,-e $(IMAGE).elf, )
+ifdef CONFIG_FTRACE
+NEMUFLAGS += -e $(IMAGE).elf
+endif
 CFLAGS += -DMAINARGS=\"$(mainargs)\"
 CFLAGS += -I$(AM_HOME)/am/src/platform/nemu/include
 .PHONY: $(AM_HOME)/am/src/platform/nemu/trm.c
