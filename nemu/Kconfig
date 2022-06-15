@@ -136,6 +136,10 @@ config ETRACE
   bool "Enable exception trace"
   default n
 
+config STRACE
+  bool "Enable syscall trace"
+  default n
+  
 config WATCHPOINT
   bool "Enable watchpoint"
   default y
