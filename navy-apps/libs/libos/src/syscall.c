@@ -64,9 +64,9 @@ int _write(int fd, void *buf, size_t count) {
   //long ret = _syscall_(SYS_write, fd, buf, count);
   //_exit(SYS_write);
   _syscall_(SYS_write, fd, buf, count);
-  return 3;
+  //return _syscall_(SYS_write, fd, buf, count);
   //_exit(ret == -1 ? -1 : 0);
-  //return ret;
+  return -1;
 }
 
 void *_sbrk(intptr_t increment) {
