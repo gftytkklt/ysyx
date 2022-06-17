@@ -31,6 +31,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   else{strcat(buf, "key up: ");}
   strcat(buf, keyname[keycode]);
   strcat(buf, "\n");
+  strcat(buf, '\0');
   //char event[64] = {'\0'};
   //char *tmp = (char*) buf;
   //printf("%s\n", keyname[keycode]);
