@@ -28,21 +28,21 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   bool keydown = io_read(AM_INPUT_KEYBRD).keydown;
   int keycode = io_read(AM_INPUT_KEYBRD).keycode;
   //char event[64] = {'\0'};
-  char *tmp = (char*) buf;
+  //char *tmp = (char*) buf;
+  printf("%s\n", keyname[keycode]);
   if(keycode != 0){
-    
-    char event[64];
-    if(keydown){printf("key down: ");strcat(event, "key down: ");}
-    else{printf("key up: ");strcat(event, "key up: ");}
+    //char event[64];
+    if(keydown){printf("key down: ");/*strcat(event, "key down: ");*/}
+    else{printf("key up: ");/*strcat(event, "key up: ");*/}
     printf("%s\n", keyname[keycode]);
-    strcat(event, keyname[keycode]);
-    strcat(event, "\n");
-    size_t index = 0;
-    while((index < len) && (event[index] != '\0')){
-      tmp[index] = event[index];
-      index++;
-    }
-    return index + 1;
+    //strcat(event, keyname[keycode]);
+    //strcat(event, "\n");
+    //size_t index = 0;
+    //while((index < len) && (event[index] != '\0')){
+    //  tmp[index] = event[index];
+    //  index++;
+    //}
+    //return index + 1;
   }
   return 0;
 }
