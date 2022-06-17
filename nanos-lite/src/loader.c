@@ -1,4 +1,5 @@
 #include <proc.h>
+#include <fs.h>
 #include <elf.h>
 
 #ifdef __LP64__
@@ -8,35 +9,43 @@
 # define Elf_Ehdr Elf32_Ehdr
 # define Elf_Phdr Elf32_Phdr
 #endif
-size_t ramdisk_read(void *buf, size_t offset, size_t len);
+//size_t ramdisk_read(void *buf, size_t offset, size_t len);
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
   Elf_Ehdr ehdr  = {};
   Elf_Phdr phdr  = {};
-  ramdisk_read(&ehdr, 0, 64);
+  int fd = fs_open(filename, 0, 0);
+  fs_read(fd, &ehdr, 64);
+  //fs_lseek(fd, 64, )
+  //ramdisk_read(&ehdr, 0, 64);
   assert(*(uint32_t *)&ehdr.e_ident == 0x464c457f);
   uint64_t phoff = ehdr.e_phoff;
   uint16_t phnum = ehdr.e_phnum;
   uint16_t phentsize = ehdr.e_phentsize;
   //printf("%d %d %d\n", phoff, phnum, phentsize);
   //ramdisk_read(&phdr, ehdr.e_phoff, 64);
-  //TODO();
   uint64_t current_phoff = phoff;
   uint64_t ldofft; // for load offset
   uint64_t ldvaddr;
   uint64_t filesz, memsz;
+  
   for (int i=0;i<phnum;i++){
-    ramdisk_read(&phdr, current_phoff, phentsize);
+    fs_lseek(fd, current_phoff, SEEK_SET);
+    fs_read(fd, &ehdr, phentsize);
+    //ramdisk_read(&phdr, current_phoff, phentsize);
     if (phdr.p_type == PT_LOAD){
       ldofft = phdr.p_offset;
       ldvaddr = phdr.p_vaddr;
       filesz = phdr.p_filesz;
       memsz = phdr.p_memsz;
-      ramdisk_read((void *)ldvaddr, ldofft, filesz);
+      fs_lseek(fd, ldofft, SEEK_SET);
+      fs_read(fd, (void *)ldvaddr, filesz);
+      //ramdisk_read((void *)ldvaddr, ldofft, filesz);
       memset((void *)(ldvaddr + filesz), 0, (memsz-filesz));
     }
-    current_phoff += phentsize;
+    //current_phoff += phentsize;
   }
+  fs_close(fd);
   return ehdr.e_entry;
     
 }

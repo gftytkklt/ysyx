@@ -30,7 +30,51 @@ static Finfo file_table[] __attribute__((used)) = {
   [FD_STDERR] = {"stderr", 0, 0, invalid_read, invalid_write},
 #include "files.h"
 };
+//alternative if static int error: 
+//static int filenum(){
+//  return sizeof(file_table) / sizeof(Finfo);
+//}
+static int filenum = sizeof(file_table) / sizeof(Finfo);
+static long *fp_offt;
+
+int fs_open(const char *pathname, int flags, int mode){
+  for(int i=0;i<=filenum;i++){
+    if(i==filenum){assert(0);}
+    if(!strcmp(file_table[i].name, pathname)){return i;}
+  }
+  return -1;
+}
+
+long fs_read(int fd, void *buf, size_t len){
+  long rd_offt = fp_offt[fd] + file_table[fd].disk_offset;
+  long offt_incr = ramdisk_read(buf, rd_offt, len);
+  fp_offt[fd] += offt_incr;
+  return offt_incr;
+}
+
+long fs_write(int fd, const void *buf, size_t len){
+  long wr_offt = fp_offt[fd] + file_table[fd].disk_offset;
+  long offt_incr = ramdisk_write(buf, wr_offt, len);
+  fp_offt[fd] += offt_incr;
+  return offt_incr;
+}
+
+long fs_lseek(int fd, size_t offset, int whence){
+  switch(whence){
+    case SEEK_SET: fp_offt[fd] = offset;break;
+    case SEEK_CUR: fp_offt[fd] += offset;break;
+    case SEEK_END: fp_offt[fd] = file_table[fd].size + offset;break;
+    default: return -1;
+  }
+  return fp_offt[fd];
+}
+
+int fs_close(int fd){
+  fp_offt[fd] = 0;
+  return 0;
+}
 
 void init_fs() {
+  fp_offt=(long*)malloc(filenum*sizeof(long));
   // TODO: initialize the size of /dev/fb
 }
