@@ -2,12 +2,41 @@
 #include "syscall.h"
 #define CONFIG_STRACE
 #ifdef CONFIG_STRACE
-void print_strace(uintptr_t a1,uintptr_t a2,uintptr_t a3,uintptr_t a4,uintptr_t ret, bool has_ret){
+const char* syscall_name[]={
+  "sys exit",
+  "sys yield",
+  "sys open",
+  "sys read",
+  "sys write",
+  "sys kill",
+  "sys getpid",
+  "sys close",
+  "sys lseek",
+  "sys brk",
+  "sys fstat",
+  "sys time",
+  "sys signal",
+  "sys execve",
+  "sys fork",
+  "sys link",
+  "sys unlink",
+  "sys wait",
+  "sys times",
+  "sys gettimeofday"
+};
+// a1: type, all possible fp is a2
+const char* get_filename(int fd);
+void print_strace(uintptr_t a1,uintptr_t a2,uintptr_t a3,uintptr_t a4,uintptr_t ret, bool has_ret, bool file_op){
   if(has_ret){
-    printf("type: %ld, parameters: %ld, %ld, %ld, ret: %ld\n",a1,a2,a3,a4,ret);
+    if(file_op){
+      printf("%s %s, parameters: %ld, %ld, ret: %ld\n",syscall_name[a1],get_filename(a2),a3,a4,ret);
+    }
+    else{
+      printf("%s, parameters: %ld, %ld, %ld, ret: %ld\n",syscall_name[a1],a2,a3,a4,ret);
+    }
   }
   else{
-    printf("type: %ld, parameters: %ld, %ld, %ld\n",a1,a2,a3,a4);
+    printf("%s, parameters: %ld, %ld, %ld\n",syscall_name[a1],a2,a3,a4);
   }
 }
 #endif
@@ -75,11 +104,13 @@ int sys_brk(void *addr){
 void do_syscall(Context *c) {
   uintptr_t a[4], ret;
   bool has_ret = true;
+  bool file_op = false;
   a[0] = c->GPR1;
   a[1] = c->GPR2;
   a[2] = c->GPR3;
   a[3] = c->GPR4;
   //ret = c->GPRx;
+  if((a[0] == SYS_open) | (a[0] == SYS_read) | (a[0] == SYS_write) | (a[0] == SYS_close) | (a[0] == SYS_lseek)){file_op = true;}
   switch (a[0]) {
     case SYS_exit: sys_exit(a[1]);has_ret=false;break;
     case SYS_yield: c->GPRx = sys_yield();break;
@@ -93,6 +124,6 @@ void do_syscall(Context *c) {
   }
   ret = c->GPRx;
   #ifdef CONFIG_STRACE
-  print_strace(a[0],a[1],a[2],a[3],ret,has_ret);
+  print_strace(a[0],a[1],a[2],a[3],ret,has_ret,file_op);
   #endif
 }

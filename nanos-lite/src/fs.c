@@ -34,7 +34,11 @@ static Finfo file_table[] __attribute__((used)) = {
 //static int filenum(){
 //  return sizeof(file_table) / sizeof(Finfo);
 //}
+
 static int filenum = sizeof(file_table) / sizeof(Finfo);
+const char* get_filename(int fd){
+  return (fd < filenum) ? file_table[fd].name : "undef file!";
+}
 static long *fp_offt;
 
 int fs_open(const char *pathname, int flags, int mode){
