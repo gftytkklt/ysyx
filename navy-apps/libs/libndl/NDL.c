@@ -19,6 +19,7 @@ uint32_t NDL_GetTicks() {
 }
 
 int NDL_PollEvent(char *buf, int len) {
+  rewind(kbd_fp);
   return fread(buf, 1, len, kbd_fp) ? 1 : 0;
 }
 
