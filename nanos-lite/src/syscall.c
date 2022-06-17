@@ -2,7 +2,7 @@
 #include "syscall.h"
 #include <sys/time.h>
 #include <time.h>
-#define CONFIG_STRACE
+//#define CONFIG_STRACE
 #ifdef CONFIG_STRACE
 const char* syscall_name[]={
   "sys exit",
@@ -112,17 +112,15 @@ int sys_gettimeofday(struct timeval *tv, struct timezone *tz){
   return 0;
 }
 void do_syscall(Context *c) {
-  uintptr_t a[4], ret;
-  bool has_ret = true;
-  bool file_op = false;
+  uintptr_t a[4];
   a[0] = c->GPR1;
   a[1] = c->GPR2;
   a[2] = c->GPR3;
   a[3] = c->GPR4;
   //ret = c->GPRx;
-  if((a[0] == SYS_open) | (a[0] == SYS_read) | (a[0] == SYS_write) | (a[0] == SYS_close) | (a[0] == SYS_lseek)){file_op = true;}
+  
   switch (a[0]) {
-    case SYS_exit: sys_exit(a[1]);has_ret=false;break;
+    case SYS_exit: sys_exit(a[1]);break;
     case SYS_yield: c->GPRx = sys_yield();break;
     case SYS_open: c->GPRx = sys_open((const char *)a[1], (int)a[2], (int) a[3]);break;
     case SYS_read: c->GPRx = sys_read((int)a[1],(void*)a[2],(size_t)a[3]);break;
@@ -133,8 +131,14 @@ void do_syscall(Context *c) {
     case SYS_gettimeofday: c->GPRx = sys_gettimeofday((struct timeval *)a[1], NULL);break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
-  ret = c->GPRx;
+  
   #ifdef CONFIG_STRACE
+  uintptr_t ret;
+  bool has_ret = true;
+  bool file_op = false;
+  if((a[0] == SYS_open) | (a[0] == SYS_read) | (a[0] == SYS_write) | (a[0] == SYS_close) | (a[0] == SYS_lseek)){file_op = true;}
+  if(a[0] == SYS_exit){has_ret = false;}
+  ret = c->GPRx;
   print_strace(a[0],a[1],a[2],a[3],ret,has_ret,file_op);
   #endif
 }
