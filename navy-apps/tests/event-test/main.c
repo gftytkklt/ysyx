@@ -9,6 +9,6 @@ int main() {
       printf("receive event: %s\n", buf);
     }
   }
-  NDL_Quit();
+  //NDL_Quit();
   return 0;
 }
