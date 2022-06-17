@@ -30,6 +30,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   if(keydown){strcat(buf, "key down: ");}
   else{strcat(buf, "key up: ");}
   strcat(buf, keyname[keycode]);
+  strcat(buf, "\n");
   //char event[64] = {'\0'};
   //char *tmp = (char*) buf;
   //printf("%s\n", keyname[keycode]);
