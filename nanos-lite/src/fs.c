@@ -53,6 +53,7 @@ int fs_open(const char *pathname, int flags, int mode){
 }
 
 long fs_read(int fd, void *buf, size_t len){
+  printf("in fs_read\n");
   long rd_offt = fp_offt[fd] + file_table[fd].disk_offset;
   long offt_incr = 0;
   //printf("read %ld bytes data from addr %ld\n", len, rd_offt);
