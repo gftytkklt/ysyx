@@ -35,8 +35,8 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   else{while(up_const[i] != '\0'){tmp[i] = up_const[i];i++;}}
   //if(keydown){strcat(buf, "key down: ");}
   //else{strcat(buf, "key up: ");}
-  strcat(buf, keyname[keycode]);
-  strcat(buf, "\n");
+  strcat(tmp, keyname[keycode]);
+  strcat(tmp, "\n");
   //strcat(buf, "\0");
   //char event[64] = {'\0'};
   //char *tmp = (char*) buf;
@@ -55,7 +55,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
     //}
     //return index + 1;
   //}
-  return strlen(buf);
+  return strlen(tmp);
 }
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
