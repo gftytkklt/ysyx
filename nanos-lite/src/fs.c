@@ -22,12 +22,13 @@ size_t invalid_write(const void *buf, size_t offset, size_t len) {
   panic("should not reach here");
   return 0;
 }
+size_t serial_write(const void *buf, size_t offset, size_t len);
 
 /* This is the information about all files in disk. */
 static Finfo file_table[] __attribute__((used)) = {
   [FD_STDIN]  = {"stdin", 0, 0, invalid_read, invalid_write},
-  [FD_STDOUT] = {"stdout", 0, 0, invalid_read, invalid_write},
-  [FD_STDERR] = {"stderr", 0, 0, invalid_read, invalid_write},
+  [FD_STDOUT] = {"stdout", 0, 0, invalid_read, serial_write},
+  [FD_STDERR] = {"stderr", 0, 0, invalid_read, serial_write},
 #include "files.h"
 };
 //alternative if static int error: 
@@ -59,7 +60,13 @@ long fs_read(int fd, void *buf, size_t len){
 
 long fs_write(int fd, const void *buf, size_t len){
   long wr_offt = fp_offt[fd] + file_table[fd].disk_offset;
-  long offt_incr = ramdisk_write(buf, wr_offt, len);
+  long offt_incr = 0;
+  if (file_table[fd].write == NULL){
+    offt_incr = ramdisk_write(buf, wr_offt, len);
+  }
+  else{
+    offt_incr = file_table[fd].write(buf, wr_offt, len);
+  }
   fp_offt[fd] += offt_incr;
   return offt_incr;
 }

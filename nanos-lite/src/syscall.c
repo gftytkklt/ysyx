@@ -51,23 +51,24 @@ static int sys_yield(){
 long fs_write(int fd, const void *buf, size_t len);
 long sys_write(int fd, void *buf, size_t count){
   // stdout, strerr
-  char *tmp = (char*) buf;
-  int write_size = 0;
+  //char *tmp = (char*) buf;
+  //int write_size = 0;
   // stdin
-  if(fd == 0){return 0;}
+  //if(fd == 0){return 0;}
   // strout | stderr
-  if(fd == 1 || fd == 2){
-    while ((write_size < count) && (tmp[write_size] != '\0')){
-      putch(tmp[write_size]);
-      write_size++;
-    }
-  }
+  //if(fd == 1 || fd == 2){
+  //  while ((write_size < count) && (tmp[write_size] != '\0')){
+  //    putch(tmp[write_size]);
+  //    write_size++;
+  //  }
+  //}
   // TODO: finish case in future task
-  else {
-    return fs_write(fd, buf, count);
+  //else {
+  //  return fs_write(fd, buf, count);
     //return -1;
-  }
-  return write_size;
+  //}
+  //return write_size;
+  return fs_write(fd, buf, count);
 }
 
 void sys_exit(uintptr_t ret){
