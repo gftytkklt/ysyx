@@ -57,6 +57,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
     //}
     //return index + 1;
   //}
+  printf("events_read ret\n");
   return strlen(tmp);
 }
 
