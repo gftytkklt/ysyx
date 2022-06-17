@@ -11,6 +11,7 @@ static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
 static uint32_t boot_time = 0;
 static struct timeval timevar = {};
+static FILE* kbd_fp = NULL;
 
 uint32_t NDL_GetTicks() {
   gettimeofday(&timevar, NULL);
@@ -18,8 +19,7 @@ uint32_t NDL_GetTicks() {
 }
 
 int NDL_PollEvent(char *buf, int len) {
-  FILE* fp = fopen("/dev/events", "r");
-  return fread(buf, 1, len, fp) ? 1 : 0;
+  return fread(buf, 1, len, kbd_fp) ? 1 : 0;
 }
 
 void NDL_OpenCanvas(int *w, int *h) {
@@ -63,9 +63,11 @@ int NDL_Init(uint32_t flags) {
   if (getenv("NWM_APP")) {
     evtdev = 3;
   }
+  kbd_fp = fopen("/dev/events", "r");
   boot_time = NDL_GetTicks();
   return 0;
 }
 
 void NDL_Quit() {
+  fclose(kbd_fp);
 }
