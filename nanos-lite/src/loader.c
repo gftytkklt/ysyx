@@ -16,7 +16,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   Elf_Phdr phdr  = {};
   int fd = fs_open(filename, 0, 0);
   fs_read(fd, &ehdr, 64);
-  printf("%d\n", fd);
+  //printf("%d\n", fd);
   //fs_lseek(fd, 64, )
   //ramdisk_read(&ehdr, 0, 64);
   assert(*(uint32_t *)&ehdr.e_ident == 0x464c457f);
@@ -37,6 +37,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     if (phdr.p_type == PT_LOAD){
       ldofft = phdr.p_offset;
       ldvaddr = phdr.p_vaddr;
+      printf("%d: %ld, %lx\n",i, ldofft, ldvaddr);
       filesz = phdr.p_filesz;
       memsz = phdr.p_memsz;
       fs_lseek(fd, ldofft, SEEK_SET);
