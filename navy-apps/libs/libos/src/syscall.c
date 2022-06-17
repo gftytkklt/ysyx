@@ -97,8 +97,9 @@ long _lseek(int fd, long offset, int whence) {
 }
 
 int _gettimeofday(struct timeval *tv, struct timezone *tz) {
-  _exit(SYS_gettimeofday);
-  return 0;
+  //_exit(SYS_gettimeofday);
+  //return 0;
+  return _syscall_(SYS_gettimeofday, tv, tz, 0);
 }
 
 int _execve(const char *fname, char * const argv[], char *const envp[]) {

@@ -1,5 +1,7 @@
 #include <common.h>
 #include "syscall.h"
+#include <sys/time.h>
+#include <time.h>
 #define CONFIG_STRACE
 #ifdef CONFIG_STRACE
 const char* syscall_name[]={
@@ -103,6 +105,12 @@ int sys_brk(void *addr){
   //*end = 
   return 0;
 }
+
+int sys_gettimeofday(struct timeval *tv, struct timezone *tz){
+  //gettimeofday(&tv, NULL);
+  tv->tv_usec=io_read(AM_TIMER_UPTIME).us;
+  return 0;
+}
 void do_syscall(Context *c) {
   uintptr_t a[4], ret;
   bool has_ret = true;
@@ -122,6 +130,7 @@ void do_syscall(Context *c) {
     case SYS_close: c->GPRx = sys_close((int)a[1]);break;
     case SYS_lseek: c->GPRx = sys_lseek((int)a[1],(long)a[2],(int)a[3]);break;
     case SYS_brk: c->GPRx = sys_brk((void*)a[1]);break;
+    case SYS_gettimeofday: c->GPRx = sys_gettimeofday((struct timeval *)a[1], NULL);break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
   ret = c->GPRx;
