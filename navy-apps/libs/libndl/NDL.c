@@ -19,8 +19,8 @@ uint32_t NDL_GetTicks() {
 }
 
 int NDL_PollEvent(char *buf, int len) {
-  printf("in NDL_PollEvent\n");
   rewind(kbd_fp);
+  printf("in NDL_PollEvent\n");
   int ret = fread(buf, 1, len, kbd_fp) ? 1 : 0;
   printf("NDL ret = %d\n",ret);
   return ret;
