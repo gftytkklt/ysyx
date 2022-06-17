@@ -25,7 +25,7 @@ void init_proc() {
   Log("Initializing processes...");
 
   // load program here
-  naive_uload(NULL,"/bin/hello");
+  naive_uload(NULL,"/share/fonts/Courier-9.bdf");
 }
 
 Context* schedule(Context *prev) {
