@@ -32,7 +32,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   
   for (int i=0;i<phnum;i++){
     fs_lseek(fd, current_phoff, SEEK_SET);
-    fs_read(fd, &ehdr, phentsize);
+    fs_read(fd, &phdr, phentsize);
     //printf()
     //ramdisk_read(&phdr, current_phoff, phentsize);
     if (phdr.p_type == PT_LOAD){
@@ -46,7 +46,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       //ramdisk_read((void *)ldvaddr, ldofft, filesz);
       memset((void *)(ldvaddr + filesz), 0, (memsz-filesz));
     }
-    //current_phoff += phentsize;
+    current_phoff += phentsize;
   }
   fs_close(fd);
   return ehdr.e_entry;
