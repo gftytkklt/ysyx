@@ -25,6 +25,22 @@ size_t serial_write(const void *buf, size_t offset, size_t len) {
 }
 
 size_t events_read(void *buf, size_t offset, size_t len) {
+  bool keydown = io_read(AM_INPUT_KEYBRD).keydown;
+  int keycode = io_read(AM_INPUT_KEYBRD).keycode;
+  char event[64] = {'\0'};
+  char *tmp = (char*) buf;
+  if(keycode != 0){
+    if(keydown){strcat(event, "key down");}
+    else{strcat(event, "key up");}
+    strcat(event, keyname[keycode]);
+    strcat(event, "\n");
+    size_t index = 0;
+    while((index < len) && (event[index] != '\0')){
+      tmp[index] = event[index];
+      index++;
+    }
+    return index + 1;
+  }
   return 0;
 }
 
