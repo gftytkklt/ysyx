@@ -46,7 +46,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       //ramdisk_read((void *)ldvaddr, ldofft, filesz);
       memset((void *)(ldvaddr + filesz), 0, (memsz-filesz));
     }
-    current_phoff += phentsize;
+    //current_phoff += phentsize;
   }
   fs_close(fd);
   return ehdr.e_entry;
