@@ -83,7 +83,7 @@ int sys_open(const char *pathname, int flags, int mode){
 
 long fs_read(int fd, void *buf, size_t len);
 long sys_read(int fd, void *buf, size_t len){
-  printf("in sys_read\n");
+  //printf("in sys_read\n");
   return fs_read(fd, buf, len);
 }
 
