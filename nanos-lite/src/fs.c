@@ -47,7 +47,7 @@ int fs_open(const char *pathname, int flags, int mode){
 
 long fs_read(int fd, void *buf, size_t len){
   long rd_offt = fp_offt[fd] + file_table[fd].disk_offset;
-  printf("read %ld bytes data from addr %lx\n", len, rd_offt);
+  printf("read %ld bytes data from addr %ld\n", len, rd_offt);
   long offt_incr = ramdisk_read(buf, rd_offt, len);
   fp_offt[fd] += offt_incr;
   return offt_incr;
