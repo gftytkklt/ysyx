@@ -72,7 +72,7 @@ int NDL_Init(uint32_t flags) {
     evtdev = 3;
   }
   else{
-    printf("NDL init else\n");
+    //printf("NDL init else\n");
     evtdev = open("/dev/events", 0, 0);
   }
   boot_time = NDL_GetTicks();
