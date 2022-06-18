@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 #include <sys/time.h>
 #include <time.h>
 
@@ -11,7 +13,7 @@ static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
 static uint32_t boot_time = 0;
 static struct timeval timevar = {};
-static FILE* kbd_fp = NULL;
+//static FILE* kbd_fp = NULL;
 
 uint32_t NDL_GetTicks() {
   gettimeofday(&timevar, NULL);
@@ -19,12 +21,13 @@ uint32_t NDL_GetTicks() {
 }
 
 int NDL_PollEvent(char *buf, int len) {
-  rewind(kbd_fp);
-  printf("in NDL_PollEvent, len = %d\n",len);
-  int ret = fread(buf, 1, len, kbd_fp) ? 1 : 0;
-  printf("NDL ret = %d\n",ret);
-  return ret;
+  //rewind(kbd_fp);
+  //printf("in NDL_PollEvent, len = %d\n",len);
+  //int ret = fread(buf, 1, len, kbd_fp) ? 1 : 0;
+  //printf("NDL ret = %d\n",ret);
+  //return ret;
   //return fread(buf, 1, len, kbd_fp) ? 1 : 0;
+  return read(evtdev, buf, len);
 }
 
 void NDL_OpenCanvas(int *w, int *h) {
@@ -68,11 +71,14 @@ int NDL_Init(uint32_t flags) {
   if (getenv("NWM_APP")) {
     evtdev = 3;
   }
-  kbd_fp = fopen("/dev/events", "r");
+  else{
+    printf("NDL init else\n");
+    evtdev = open("/dev/events", 0, 0);
+  }
   boot_time = NDL_GetTicks();
   return 0;
 }
 
 void NDL_Quit() {
-  fclose(kbd_fp);
+  close(evtdev);
 }
