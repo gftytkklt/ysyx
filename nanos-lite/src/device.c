@@ -26,11 +26,15 @@ size_t serial_write(const void *buf, size_t offset, size_t len) {
 
 size_t events_read(void *buf, size_t offset, size_t len) {
   //printf("in events_read\n");
+  AM_INPUT_KEYBRD_T kbd = {};
   bool keydown = 0;
   int keycode = 0;
   while(!keycode){
-    keydown = io_read(AM_INPUT_KEYBRD).keydown;
-    keycode = io_read(AM_INPUT_KEYBRD).keycode;
+    kbd = io_read(AM_INPUT_KEYBRD);
+    keydown = kbd.keydown;
+    keycode = kbd.keycode;
+    //keydown = io_read(AM_INPUT_KEYBRD).keydown;
+    //keycode = io_read(AM_INPUT_KEYBRD).keycode;
   }
   char *tmp = (char *)buf;
   char *down_const = "key down: ";
