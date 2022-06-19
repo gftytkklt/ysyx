@@ -11,6 +11,8 @@
 static int evtdev = -1;
 static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
+static int canvas_w = 0, canvas_h = 0;
+static uint32_t* canvas = NULL;
 static uint32_t boot_time = 0;
 static struct timeval timevar = {};
 //static FILE* kbd_fp = NULL;
@@ -49,17 +51,21 @@ void NDL_OpenCanvas(int *w, int *h) {
     }
     close(fbctl);
   }
-  //TODO: call read "proc/dispinfo", get screen info
-  int fbctl = open("/proc/dispinfo", 0, 0);
-  char buf[64];
-  read(fbctl, buf, 64);
-  sscanf(buf, "WIDTH : %d\nHEIGHT : %d\n", &screen_w, &screen_h);
-  // then config it to screen_w, screen_h
-  //screen_w = *w; screen_h = *h;
-  printf("%d %d\n", screen_w, screen_h);
+  if ((*w==0) || (*h==0)){canvas_w = screen_w;canvas_h = screen_h;}
+  else{canvas_w = *w;canvas_h = *h;}
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
+  int fb = open("/dev/fb", 0, 0);
+  int offset = y*screen_w + x;//initial offt of canvas
+  uint32_t *current_row = pixels;
+  for (int i=0;i<h;i++){
+    lseek(fb, offset, SEEK_CUR);
+    write(fb, current_row, w*4);
+    current_row += w;
+    offset += screen_w*4;
+  }
+  //fb_write(buf, offset, w*sizeof(int));
 }
 
 void NDL_OpenAudio(int freq, int channels, int samples) {
@@ -85,6 +91,15 @@ int NDL_Init(uint32_t flags) {
     evtdev = open("/dev/events", 0, 0);
   }
   boot_time = NDL_GetTicks();
+  //TODO: call read "proc/dispinfo", get screen info
+  int fbctl = open("/proc/dispinfo", 0, 0);
+  char buf[64];
+  read(fbctl, buf, 64);
+  sscanf(buf, "WIDTH : %d\nHEIGHT : %d\n", &screen_w, &screen_h);
+  // then config it to screen_w, screen_h
+  //screen_w = *w; screen_h = *h;
+  printf("%d %d\n", screen_w, screen_h);
+  close(fbctl);
   return 0;
 }
 

@@ -104,4 +104,12 @@ void init_fs() {
   fp_offt=(long*)malloc(filenum*sizeof(long));
   for(int i=0;i<filenum;i++){fp_offt[i] = 0;}
   // TODO: initialize the size of /dev/fb
+  //int fdispinfo = fs_open("/proc/dispinfo", 0, 0);
+  //char buf[64];
+  //fs_read(fdispinfo, buf, 64);
+  //int screen_w, screen_h;
+  //sscanf(buf, "WIDTH : %d\nHEIGHT : %d\n", &screen_w, &screen_h);
+  //fs_close(fdispinfo);
+  //file_table[FD_FB].size = screen_w*screen_h*4;
+  
 }
