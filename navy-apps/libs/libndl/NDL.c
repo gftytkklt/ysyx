@@ -62,14 +62,16 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   int canvas_offset = y*w + x;
   int offset = screen_offset + canvas_offset;
   uint32_t *current_row = pixels;
-  //for (int i=0;i<h;i++){
-  //  lseek(fb, offset, SEEK_SET);
-  //  write(fb, current_row, w);
-  //  current_row += w;
-  //  offset += screen_w;
-  //}
-  lseek(fb, offset, SEEK_SET);
-  write(fb, current_row, w);
+  // arbitrary canvas
+  for (int i=0;i<h;i++){
+    lseek(fb, offset, SEEK_SET);
+    write(fb, current_row, w);
+    current_row += w;
+    offset += screen_w;
+  }
+  // square canvas
+  //lseek(fb, offset, SEEK_SET);
+  //write(fb, current_row, w);
   //fb_write(buf, offset, w*sizeof(int));
 }
 
