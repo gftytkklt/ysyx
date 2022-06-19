@@ -48,7 +48,13 @@ void NDL_OpenCanvas(int *w, int *h) {
     }
     close(fbctl);
   }
-  screen_w = *w; screen_h = *h;
+  //TODO: call read "proc/dispinfo", get screen info
+  int fbctl = open("/proc/dispinfo", 0, 0);
+  char buf[64];
+  assert(read(buf, 0, 64));
+  sscanf(buf, "WIDTH : %d\nHEIGHT : %d\n", &screen_w, &screen_h);
+  // then config it to screen_w, screen_h
+  //screen_w = *w; screen_h = *h;
   printf("%d %d\n", screen_w, screen_h);
 }
 
