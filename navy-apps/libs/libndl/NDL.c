@@ -48,6 +48,8 @@ void NDL_OpenCanvas(int *w, int *h) {
     }
     close(fbctl);
   }
+  screen_w = *w; screen_h = *h;
+  printf("%d %d\n", screen_w, screen_h);
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {

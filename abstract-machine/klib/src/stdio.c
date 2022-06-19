@@ -30,7 +30,6 @@ static char* num2str(char *tmp, long val, int width, bool ispad){
     cnt++;
     }
   else {
-    
     if ((type == INTD) || (type == INTLD)) {
     //dec case
       if(val < 0){val = -val;*tmp = '-';tmp++;}
@@ -149,7 +148,12 @@ int sprintf(char *out, const char *fmt, ...) {
     if (fmt[i]=='%'){
       i += print_pattern(&fmt[i],&width,&ispad,&type);
       if(type == INTD || type == INTX){
-        int val = va_arg(ap, int);
+        long val = (long) va_arg(ap, int);
+        tmp = num2str(tmp, val, width, ispad);
+        continue;
+      }
+      else if(type == INTLX || type == INTLD){
+        long val = va_arg(ap, long);
         tmp = num2str(tmp, val, width, ispad);
         continue;
       }
@@ -159,8 +163,6 @@ int sprintf(char *out, const char *fmt, ...) {
           *tmp = *str;
           tmp++;str++;
         }
-        //strcat(tmp, str);
-        //tmp += strlen(str);
         continue;
       }
     }
