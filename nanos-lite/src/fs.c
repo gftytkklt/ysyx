@@ -34,7 +34,7 @@ static Finfo file_table[] __attribute__((used)) = {
   [FD_STDERR] = {"stderr", 0, 0, invalid_read, serial_write},
   [FD_EVENT] = {"/dev/events", 0, 0, events_read, invalid_write},
   [PROC_DISP] = {"/proc/dispinfo", 0, 0, dispinfo_read, invalid_write},
-  [FD_FB] = {"dev/fb", 0, 0, invalid_read, fb_write},
+  [FD_FB] = {"/dev/fb", 0, 0, invalid_read, fb_write},
 #include "files.h"
 };
 //alternative if static int error: 
@@ -49,7 +49,7 @@ const char* get_filename(int fd){
 static long *fp_offt;
 
 int fs_open(const char *pathname, int flags, int mode){
-  printf("%s %d\n", pathname, filenum);
+  //printf("%s %d\n", pathname, filenum);
   for(int i=0;i<=filenum;i++){
     if(i==filenum){assert(0);}
     if(!strcmp(file_table[i].name, pathname)){return i;}
