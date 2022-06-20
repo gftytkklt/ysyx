@@ -12,7 +12,7 @@ int main() {
     //gettimeofday(&cur_time, NULL);
     while(NDL_GetTicks() / 500 < half_sec);
     uint32_t x = NDL_GetTicks();
-    printf("%d\n", x);
+    //printf("%d\n", x);
     printf("%d half sec(s)\n", half_sec);
     half_sec++;
   }
