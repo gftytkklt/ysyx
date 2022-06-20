@@ -109,6 +109,7 @@ int sys_brk(void *addr){
 
 int sys_gettimeofday(struct timeval *tv, struct timezone *tz){
   //gettimeofday(&tv, NULL);
+  tv->tv_sec = 0;
   tv->tv_usec=io_read(AM_TIMER_UPTIME).us;
   return 0;
 }

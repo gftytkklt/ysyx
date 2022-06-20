@@ -20,10 +20,11 @@ static struct timeval timevar = {};
 uint32_t NDL_GetTicks() {
   //printf("in NDL\n");
   gettimeofday(&timevar, NULL);
-  uint32_t delta = timevar.tv_usec-boot_time;
+  //uint32_t delta = timevar.tv_usec-boot_time;
   //if(delta % 100000 == 0){printf("%d\n", delta);}
-  printf("%d\n", delta);
-  return (timevar.tv_usec-boot_time)/1000;
+  //printf("%d\n", delta);
+  //int time
+  return (timevar.tv_sec*1000 + (timevar.tv_usec)/1000) - boot_time;
 }
 
 int NDL_PollEvent(char *buf, int len) {
