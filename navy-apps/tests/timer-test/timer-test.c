@@ -11,6 +11,7 @@ int main() {
   while(1){
     //gettimeofday(&cur_time, NULL);
     while(NDL_GetTicks() / 500 < half_sec);
+    printf("%d\n", NDL_GetTicks());
     printf("%d half sec(s)\n", half_sec);
     half_sec++;
   }

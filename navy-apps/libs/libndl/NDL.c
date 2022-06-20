@@ -18,7 +18,7 @@ static struct timeval timevar = {};
 //static FILE* kbd_fp = NULL;
 
 uint32_t NDL_GetTicks() {
-  printf("in NDL\n");
+  //printf("in NDL\n");
   gettimeofday(&timevar, NULL);
   //uint32_t delta = timevar.tv_usec-boot_time;
   //if(delta % 100000 == 0){printf("%d\n", delta);}
