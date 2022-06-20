@@ -20,7 +20,8 @@ static struct timeval timevar = {};
 uint32_t NDL_GetTicks() {
   gettimeofday(&timevar, NULL);
   uint32_t delta = timevar.tv_usec-boot_time;
-  if(delta % 100000 == 0){printf("%d\n", delta);}
+  //if(delta % 100000 == 0){printf("%d\n", delta);}
+  printf("%d\n", delta);
   return (timevar.tv_usec-boot_time)/1000;
 }
 
