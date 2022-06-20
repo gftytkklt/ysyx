@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <NDL.h>
 
-static struct timeval boot_time = {};
+//static struct timeval boot_time = {};
 
 int main() {
   NDL_Init(0);
