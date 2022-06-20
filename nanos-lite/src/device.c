@@ -79,17 +79,17 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
   // non-standard draw
-  /*AM_GPU_FBDRAW_T fbdraw = {.y = offset/cfg.width,
+  AM_GPU_FBDRAW_T fbdraw = {.y = offset/cfg.width,
                             .x = offset%cfg.width,
                             .pixels = (void*)buf,
                             .w=(len>>32),
-                            .h=(len&0xffffffff)};*/
+                            .h=(len&0xffffffff)};
   // standard draw
-  AM_GPU_FBDRAW_T fbdraw = {.y = (offset/4)/cfg.width,
+  /*AM_GPU_FBDRAW_T fbdraw = {.y = (offset/4)/cfg.width,
                             .x = (offset/4)%cfg.width,
                             .pixels = (void*)buf,
                             .w=(len>>2),
-                            .h=1};
+                            .h=1};*/
   //printf("%d %d %d %d %ld %ld\n",fbdraw.x, fbdraw.y, fbdraw.w, fbdraw.h, offset, len);
   io_write(AM_GPU_FBDRAW, fbdraw.x, fbdraw.y, fbdraw.pixels, fbdraw.w, fbdraw.h, 1);
   //io_write(AM_GPU_FBDRAW, fbdraw.x, fbdraw.y, fbdraw.pixels, fbdraw.w, fbdraw.h, 0);
