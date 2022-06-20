@@ -19,6 +19,8 @@ static struct timeval timevar = {};
 
 uint32_t NDL_GetTicks() {
   gettimeofday(&timevar, NULL);
+  uint32_t delta = timevar.tv_usec-boot_time;
+  if(delta % 100000 == 0){printf("%d\n", delta);}
   return (timevar.tv_usec-boot_time)/1000;
 }
 
@@ -100,6 +102,7 @@ int NDL_Init(uint32_t flags) {
     evtdev = open("/dev/events", 0, 0);
   }
   boot_time = NDL_GetTicks();
+  printf("%d\n", boot_time);
   //TODO: call read "proc/dispinfo", get screen info
   int fbctl = open("/proc/dispinfo", 0, 0);
   char buf[64];
