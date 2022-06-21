@@ -20,7 +20,7 @@ static SDL_Surface *slide = NULL;
 static int cur = 0;
 
 void render() {
-  printf("render start\n");
+  //printf("render start\n");
   if (slide) {
     SDL_FreeSurface(slide);
   }
@@ -28,7 +28,7 @@ void render() {
   sprintf(fname, path, cur);
   slide = SDL_LoadBMP(fname);
   assert(slide);
-  printf("draw start\n");
+  //printf("draw start\n");
   SDL_UpdateRect(slide, 0, 0, 0, 0);
 }
 
@@ -47,7 +47,7 @@ void next(int rep) {
 }
 
 int main() {
-  printf("proc start\n");
+  //printf("proc start\n");
   SDL_Init(0);
   SDL_Surface *screen = SDL_SetVideoMode(W, H, 32, SDL_HWSURFACE);
 
