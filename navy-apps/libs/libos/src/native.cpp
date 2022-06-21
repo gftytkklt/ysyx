@@ -107,6 +107,7 @@ static void audio_fill(void *userdata, uint8_t *stream, int len) {
 }
 
 static void open_display() {
+  printf("call open display\n");
   SDL_InitSubSystem(SDL_INIT_VIDEO | SDL_INIT_TIMER);
 #ifdef MODE_800x600
   SDL_CreateWindowAndRenderer(disp_w, disp_h, 0, &window, &renderer);
@@ -161,6 +162,7 @@ FILE *fopen(const char *path, const char *mode) {
 }
 
 int open(const char *path, int flags, ...) {
+  printf("%s in open\n", path);
   if (strcmp(path, "/proc/dispinfo") == 0) {
     return dispinfo_fd;
   } else if (strcmp(path, "/dev/events") == 0) {
@@ -212,6 +214,7 @@ ssize_t read(int fd, void *buf, size_t count) {
 }
 
 ssize_t write(int fd, const void *buf, size_t count) {
+  //printf("call write\n");
   if (fd == sbctl_fd) {
     // open audio
     const int *args = (const int *)buf;

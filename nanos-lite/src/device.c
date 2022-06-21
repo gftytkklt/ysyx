@@ -57,6 +57,7 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 }
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
+  //printf("in fb_write\n");
   // non-standard draw
   /*AM_GPU_FBDRAW_T fbdraw = {.y = offset/cfg.width,
                             .x = offset%cfg.width,

@@ -56,8 +56,10 @@ void NDL_OpenCanvas(int *w, int *h) {
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
-  //printf("in NDL_UpdateRect\n");
+  printf("in NDL_UpdateRect\n");
   int fb = open("/dev/fb", 0, 0);
+  printf("fb=%d\n",fb);
+  printf("%p\n",pixels);
   //printf("screen size: %d*%d, canvas size: %d*%d\n",screen_w, screen_h, canvas_w, canvas_h);
   //int offset = y*screen_w + x;//initial offt of canvas
   int screen_offset = screen_w*((screen_h-canvas_h)/2+y) + (screen_w-canvas_w)/2;
@@ -69,8 +71,11 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   // printf("xywh = %d %d %d %d\n",x,y,w,h);
   for (int i=0;i<h;i++){
     lseek(fb, offset*4, SEEK_SET);
+    //printf("offset = %d\n", offset*4);
     write(fb, current_row, w*4);
+    //write(fb, pixels, w*4);
     current_row += w;
+    pixels += w;
     offset += screen_w;
   }
   // this is non-standard draw parameter for am, len = {32'bw, 32'bh};
@@ -96,24 +101,26 @@ int NDL_QueryAudio() {
 }
 
 int NDL_Init(uint32_t flags) {
+  printf("NDL Init\n");
   if (getenv("NWM_APP")) {
     evtdev = 3;
   }
   else{
     //printf("NDL init else\n");
     evtdev = open("/dev/events", 0, 0);
+    int fbctl = open("/proc/dispinfo", 0, 0);
+    char buf[64];
+    read(fbctl, buf, 64);
+    sscanf(buf, "WIDTH : %d\nHEIGHT : %d\n", &screen_w, &screen_h);
+    // then config it to screen_w, screen_h
+    //screen_w = *w; screen_h = *h;
+    printf("screen_size: %d*%d\n", screen_w, screen_h);
+    close(fbctl);
   }
   boot_time = NDL_GetTicks();
   printf("boot_time: %d\n", boot_time);
   //TODO: call read "proc/dispinfo", get screen info
-  int fbctl = open("/proc/dispinfo", 0, 0);
-  char buf[64];
-  read(fbctl, buf, 64);
-  sscanf(buf, "WIDTH : %d\nHEIGHT : %d\n", &screen_w, &screen_h);
-  // then config it to screen_w, screen_h
-  //screen_w = *w; screen_h = *h;
-  printf("screen_size: %d*%d\n", screen_w, screen_h);
-  close(fbctl);
+  
   return 0;
 }
 
