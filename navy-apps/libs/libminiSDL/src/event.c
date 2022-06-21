@@ -42,7 +42,7 @@ int SDL_WaitEvent(SDL_Event *event) {
   //event->type = SDL_KEYUP;
   //event->key.keysym.sym = 0;
   if (NDL_PollEvent(buf, 64)){
-    char key_status[2];
+    char key_status[5];
     char key_name[20];
     int name_id=0;
     sscanf(buf,"%s %s",key_status, key_name);
@@ -52,7 +52,11 @@ int SDL_WaitEvent(SDL_Event *event) {
       if(!strcmp(key_name, keyname[name_id])){event->key.keysym.sym = name_id;break;}
       name_id++;
     }
-    printf("%s %s %d\n",key_status, key_name, name_id);
+    //printf("%s %s %d\n",key_status, key_name, name_id);
+  }
+  else {
+    event->type = SDL_KEYUP;
+    event->key.keysym.sym = 0;
   }
   return 1;
 }

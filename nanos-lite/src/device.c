@@ -46,6 +46,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   if(keydown){strcpy(tmp, down_const);}
   else{strcpy(tmp, up_const);}
   strcat(tmp, keyname[keycode]);
+  strcat(tmp, "\n");
   return strlen(tmp);
 }
 
