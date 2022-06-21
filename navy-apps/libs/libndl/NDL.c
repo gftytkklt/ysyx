@@ -66,6 +66,7 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   uint32_t *current_row = pixels;
   // arbitrary canvas
   // this is correct for native
+  printf("xywh = %d %d %d %d\n",x,y,w,h);
   for (int i=0;i<h;i++){
     lseek(fb, offset*4, SEEK_SET);
     write(fb, current_row, w*4);
