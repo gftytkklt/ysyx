@@ -33,7 +33,7 @@ int SDL_WaitEvent(SDL_Event *event) {
     if(!strcmp(key_name, keyname[name_id])){break;}
     name_id++;
   }
-  printf("%d\n", name_id);
+  if(name_id != sizeof(keyname)/sizeof(const char*)){printf("%d\n", name_id);}
   //event->type = (key_status=='u') ? SDL_KEYUP : SDL_KEYDOWN;
   //event->key.keysym.sym = name_id;
   //printf("%s\n", keyname(0));
