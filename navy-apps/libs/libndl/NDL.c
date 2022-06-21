@@ -29,7 +29,7 @@ int NDL_PollEvent(char *buf, int len) {
   //printf("NDL ret = %d\n",ret);
   //return ret;
   //return fread(buf, 1, len, kbd_fp) ? 1 : 0;
-  return read(evtdev, buf, len);
+  return read(evtdev, buf, len) ? 1 : 0;
 }
 
 void NDL_OpenCanvas(int *w, int *h) {
