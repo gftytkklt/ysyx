@@ -13,6 +13,10 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
+  int full_screen = (x == 0) && (y == 0) && (w==0) && (h==0);
+  int w_in = full_screen ? s->w : w;
+  int h_in = full_screen ? s->h : h;
+  NDL_DrawRect(s->pixels, x, y, w_in, h_in);
 }
 
 // APIs below are already implemented.

@@ -18,12 +18,7 @@ static struct timeval timevar = {};
 //static FILE* kbd_fp = NULL;
 
 uint32_t NDL_GetTicks() {
-  //printf("in NDL\n");
   gettimeofday(&timevar, NULL);
-  //uint32_t delta = timevar.tv_usec-boot_time;
-  //if(delta % 100000 == 0){printf("%d\n", delta);}
-  //printf("%d\n", delta);
-  //int time
   return (timevar.tv_sec*1000 + (timevar.tv_usec)/1000) - boot_time;
 }
 
@@ -39,7 +34,7 @@ int NDL_PollEvent(char *buf, int len) {
 
 void NDL_OpenCanvas(int *w, int *h) {
   if (getenv("NWM_APP")) {
-    printf("in if\n");
+    //printf("in if\n");
     int fbctl = 4;
     fbdev = 5;
     screen_w = *w; screen_h = *h;
@@ -75,10 +70,7 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
     current_row += w;
     offset += screen_w;
   }*/
-  //lseek(fb, offset*4, SEEK_SET);
-  //write(fb, current_row, w*h*4);
-  // this is non-standard draw parameter for am
-  //len = {32'bw, 32'bh};
+  // this is non-standard draw parameter for am, len = {32'bw, 32'bh};
   lseek(fb, offset, SEEK_SET);
   size_t w_h = (((size_t) w) << 32) + (size_t) h;
   write(fb, current_row, w_h);
