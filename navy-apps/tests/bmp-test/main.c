@@ -3,14 +3,19 @@
 #include <stdlib.h>
 #include <NDL.h>
 #include <BMP.h>
+//#include <SDL.h>
+//#include <SDL_bmp.h>
 
 int main() {
   NDL_Init(0);
   int w, h;
+  //static SDL_Surface *slide = NULL;
   void *bmp = BMP_Load("/share/pictures/projectn.bmp", &w, &h);
+  //slide = SDL_LoadBMP("/share/pictures/projectn.bmp");
   assert(bmp);
   int a=0;int b=0;
   NDL_OpenCanvas(&a, &b);
+  //SDL_UpdateRect(slide, 0, 0, 0, 0);
   NDL_DrawRect(bmp, 0, 0, w, h);
   //int i = 0;
   //while(i++ < 100000);
