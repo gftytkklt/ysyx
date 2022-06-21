@@ -24,13 +24,9 @@ int SDL_WaitEvent(SDL_Event *event) {
   char key_name[20];
   int name_id=0;
   //printf("before while\n");
-  while(!key_status){
-    sscanf(buf,"%s %s",key_status, key_name);
-    if(!strcmp(key_status, "kd")){
-      printf("%s %s\n", key_status, key_name);
-      break;
-    }
-  }
+  //while(!key_status){
+  sscanf(buf,"%s %s",key_status, key_name);
+  if(!strcmp(key_status, "kd")){printf("%s %s\n", key_status, key_name);}
   //printf("middle while\n");
   while(name_id < sizeof(keyname)/sizeof(const char*)){
     if(!strcmp(key_name, keyname[name_id])){break;}
