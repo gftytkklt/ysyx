@@ -64,10 +64,7 @@ int main() {
   while (1) {
     SDL_Event e;
     SDL_WaitEvent(&e);
-    //printf("out of wait\n");
-    //if(e.key.keysym.sym){printf("have key %d\n", e.key.keysym.sym);}
     if (e.type == SDL_KEYDOWN) {
-      //printf("in if, keycode = %d\n", e.key.keysym.sym);
       switch(e.key.keysym.sym) {
         case SDLK_0: rep = rep * 10 + 0; break;
         case SDLK_1: rep = rep * 10 + 1; break;

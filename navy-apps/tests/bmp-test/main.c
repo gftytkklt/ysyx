@@ -11,7 +11,12 @@ int main() {
   assert(bmp);
   NDL_OpenCanvas(&w, &h);
   NDL_DrawRect(bmp, 0, 0, w, h);
-  free(bmp);
+  //int i = 0;
+  //while(i++ < 100000);
+  void *bmp1 = BMP_Load("/share/slides/slides-0.bmp", &w, &h);
+  assert(bmp1);
+  NDL_DrawRect(bmp1, 0, 0, w, h);
+  free(bmp);free(bmp1);
   NDL_Quit();
   printf("Test ends! Spinning...\n");
   while (1);
