@@ -18,7 +18,8 @@ int SDL_PollEvent(SDL_Event *ev) {
 
 int SDL_WaitEvent(SDL_Event *event) {
   char buf[64];
-  NDL_PollEvent(buf, 64);
+  int ret = NDL_PollEvent(buf, 64);
+  if(ret){printf("%s\n", buf);}
   char key_status[2];
   char key_name[20];
   int name_id=0;
