@@ -65,16 +65,16 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   uint32_t *current_row = pixels;
   // arbitrary canvas
   // this is correct for native
-  /*for (int i=0;i<h;i++){
+  for (int i=0;i<h;i++){
     lseek(fb, offset*4, SEEK_SET);
     write(fb, current_row, w*4);
     current_row += w;
     offset += screen_w;
-  }*/
+  }
   // this is non-standard draw parameter for am, len = {32'bw, 32'bh};
-  lseek(fb, offset, SEEK_SET);
+  /*lseek(fb, offset, SEEK_SET);
   size_t w_h = (((size_t) w) << 32) + (size_t) h;
-  write(fb, current_row, w_h);
+  write(fb, current_row, w_h);*/
 
   close(fb);
 }
