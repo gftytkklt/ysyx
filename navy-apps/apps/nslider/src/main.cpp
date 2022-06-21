@@ -29,11 +29,12 @@ void render() {
   char fname[256];
   sprintf(fname, path, cur);
   //sprintf(fname, path1, cur);
-  printf("load start\n");
+  printf("load %s start\n", fname);
   slide = SDL_LoadBMP(fname);
   assert(slide);
   printf("draw %s start\n", fname);
   //SDL_SaveBMP(slide, path1);
+  //SDL_UnlockSurface(slide);
   SDL_UpdateRect(slide, 0, 0, 0, 0);
 }
 
