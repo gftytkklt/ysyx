@@ -19,10 +19,16 @@ int SDL_PollEvent(SDL_Event *ev) {
 int SDL_WaitEvent(SDL_Event *event) {
   char buf[64];
   NDL_PollEvent(buf, 64);
-  char key_status;
+  char key_status = 0;
   char key_name[20];
   int name_id=0;
-  sscanf(buf,"k%c %s",&key_status, key_name);
+  while(!key_status){
+    sscanf(buf,"k%c %s",&key_status, key_name);
+    if(key_status){
+      printf("%c\n", key_status);
+      break;
+    }
+  }
   while(name_id < sizeof(keyname)/sizeof(const char*)){
     if(!strcmp(key_name, keyname[name_id])){break;}
     name_id++;
