@@ -40,8 +40,8 @@ size_t events_read(void *buf, size_t offset, size_t len) {
     //keycode = io_read(AM_INPUT_KEYBRD).keycode;
   //}
   char *tmp = (char *)buf;
-  char *down_const = "key down: ";
-  char *up_const = "key up: ";
+  char *down_const = "kd ";
+  char *up_const = "ku ";
   
   if(keydown){strcpy(tmp, down_const);}
   else{strcpy(tmp, up_const);}
