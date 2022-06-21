@@ -56,6 +56,7 @@ void NDL_OpenCanvas(int *w, int *h) {
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
+  //printf("in NDL_UpdateRect\n");
   int fb = open("/dev/fb", 0, 0);
   //printf("screen size: %d*%d, canvas size: %d*%d\n",screen_w, screen_h, canvas_w, canvas_h);
   //int offset = y*screen_w + x;//initial offt of canvas

@@ -15,20 +15,25 @@
 const int N = 3;
 // slides path pattern (starts from 0)
 const char *path = "/share/slides/slides-%d.bmp";
+//const char *path1 = "slides-%d.bmp";
 
 static SDL_Surface *slide = NULL;
 static int cur = 0;
 
 void render() {
-  //printf("render start\n");
+  printf("render start\n");
   if (slide) {
+    printf("clear\n");
     SDL_FreeSurface(slide);
   }
   char fname[256];
   sprintf(fname, path, cur);
+  //sprintf(fname, path1, cur);
+  printf("load start\n");
   slide = SDL_LoadBMP(fname);
   assert(slide);
   printf("draw %s start\n", fname);
+  //SDL_SaveBMP(slide, path1);
   SDL_UpdateRect(slide, 0, 0, 0, 0);
 }
 
