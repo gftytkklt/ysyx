@@ -17,7 +17,7 @@ int SDL_PollEvent(SDL_Event *ev) {
 }
 
 int SDL_WaitEvent(SDL_Event *event) {
-  char buf[64]={'0'};
+  char buf[64];
   int ret = NDL_PollEvent(buf, 64);
   if(ret){printf("%s\n", buf);}
   char key_status[2];
@@ -26,7 +26,7 @@ int SDL_WaitEvent(SDL_Event *event) {
   //printf("before while\n");
   //while(!key_status){
   sscanf(buf,"%s %s",key_status, key_name);
-  if(!strcmp(key_status, "kd")){printf("%s %s\n", key_status, key_name);}
+  if(!strcmp(key_status, "kd")){printf("%s, %s\n", key_status, key_name);}
   //printf("middle while\n");
   while(name_id < sizeof(keyname)/sizeof(const char*)){
     if(!strcmp(key_name, keyname[name_id])){break;}
