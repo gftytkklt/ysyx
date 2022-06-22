@@ -34,7 +34,7 @@ int NDL_PollEvent(char *buf, int len) {
 }
 
 void NDL_OpenCanvas(int *w, int *h) {
-  printf("NDL_OpenCanvas\n");
+  //printf("NDL_OpenCanvas\n");
   if (getenv("NWM_APP")) {
     //printf("in if\n");
     int fbctl = 4;
@@ -59,11 +59,11 @@ void NDL_OpenCanvas(int *w, int *h) {
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
-  printf("in NDL_UpdateRect\n");
-  int fb = open("/dev/fb", 0, 0);
+  //printf("in NDL_UpdateRect\n");
+  //int fb = open("/dev/fb", 0, 0);
   //FILE* fb = fopen("/dev/fb","w");
   //assert(fb != NULL);
-  //printf("fb=%d\n",fb);
+  //printf("fb=%d\n",fbdev);
   //printf("%p\n",pixels);
   //printf("screen size: %d*%d, canvas size: %d*%d\n",screen_w, screen_h, canvas_w, canvas_h);
   //int offset = y*screen_w + x;//initial offt of canvas
@@ -73,12 +73,15 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   uint32_t *current_row = pixels;
   // arbitrary canvas
   // this is correct for native
-  // printf("xywh = %d %d %d %d\n",x,y,w,h);
+  //printf("xywh = %d %d %d %d\n",x,y,w,h);
+  //printf("offset: %d\n", offset);
   for (int i=0;i<h;i++){
-    lseek(fb, offset*4, SEEK_SET);
+    lseek(fbdev, offset*4, SEEK_SET);
+    //lseek(fb, offset*4, SEEK_SET);
     //fseek(fb, offset*4, SEEK_SET);
     //printf("offset = %d\n", offset*4);
-    write(fb, current_row, w*4);
+    write(fbdev, current_row, w*4);
+    //write(fb, current_row, w*4);
     //fwrite(current_row, 4, w, fb);
     //write(fb, pixels, w*4);
     current_row += w;
@@ -89,7 +92,7 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   /*lseek(fb, offset, SEEK_SET);
   size_t w_h = (((size_t) w) << 32) + (size_t) h;
   write(fb, current_row, w_h);*/
-  close(fb);
+  //close(fb);
   //fclose(fb);
 }
 
@@ -108,7 +111,7 @@ int NDL_QueryAudio() {
 }
 
 int NDL_Init(uint32_t flags) {
-  printf("NDL Init\n");
+  printf("\nNDL Init\n");
   if (getenv("NWM_APP")) {
     evtdev = 3;
   }
@@ -124,8 +127,9 @@ int NDL_Init(uint32_t flags) {
     printf("screen_size: %d*%d\n", screen_w, screen_h);
     close(fbctl);
   }
+  fbdev = open("/dev/fb", 0, 0);
   boot_time = NDL_GetTicks();
-  printf("boot_time: %d\n", boot_time);
+  printf("boot_time: %d\n\n", boot_time);
   //TODO: call read "proc/dispinfo", get screen info
   
   return 0;
@@ -133,4 +137,5 @@ int NDL_Init(uint32_t flags) {
 
 void NDL_Quit() {
   close(evtdev);
+  close(fbdev);
 }

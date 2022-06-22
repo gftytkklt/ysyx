@@ -107,7 +107,7 @@ static void audio_fill(void *userdata, uint8_t *stream, int len) {
 }
 
 static void open_display() {
-  printf("call open display\n");
+  //printf("call open display\n");
   SDL_InitSubSystem(SDL_INIT_VIDEO | SDL_INIT_TIMER);
 #ifdef MODE_800x600
   SDL_CreateWindowAndRenderer(disp_w, disp_h, 0, &window, &renderer);
@@ -124,6 +124,7 @@ static void open_display() {
   int ret = ftruncate(fb_memfd, FB_SIZE);
   assert(ret == 0);
   fb = (uint32_t *)mmap(NULL, FB_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, fb_memfd, 0);
+  //printf("fb_memfd = %d, size = %d\n", fb_memfd, FB_SIZE);
   assert(fb != (void *)-1);
   memset(fb, 0, FB_SIZE);
   lseek(fb_memfd, 0, SEEK_SET);
@@ -163,7 +164,7 @@ FILE *fopen(const char *path, const char *mode) {
 }
 
 int open(const char *path, int flags, ...) {
-  printf("%s in open\n", path);
+  //printf("%s in open\n", path);
   if (strcmp(path, "/proc/dispinfo") == 0) {
     return dispinfo_fd;
   } else if (strcmp(path, "/dev/events") == 0) {
@@ -231,7 +232,11 @@ ssize_t write(int fd, const void *buf, size_t count) {
     SDL_PauseAudio(0);
     return count;
   }
-  return glibc_write(fd, buf, count);
+  //printf();
+  int ret = glibc_write(fd, buf, count);
+  //printf("write %d data\n", ret);
+  return ret;
+  //return glibc_write(fd, buf, count);
 }
 
 int execve(const char *filename, char *const argv[], char *const envp[]) {
@@ -242,6 +247,7 @@ int execve(const char *filename, char *const argv[], char *const envp[]) {
 
 struct Init {
   Init() {
+    //printf("init\n");
     glibc_fopen = (FILE*(*)(const char*, const char*))dlsym(RTLD_NEXT, "fopen");
     assert(glibc_fopen != NULL);
     glibc_open = (int(*)(const char*, int, ...))dlsym(RTLD_NEXT, "open");
@@ -273,6 +279,7 @@ struct Init {
     open_audio();
   }
   ~Init() {
+    //printf("~init\n");
   }
 };
 

@@ -21,18 +21,18 @@ static SDL_Surface *slide = NULL;
 static int cur = 0;
 
 void render() {
-  printf("render start\n");
+  //printf("render start\n");
   if (slide) {
-    printf("clear\n");
+    //printf("clear\n");
     SDL_FreeSurface(slide);
   }
   char fname[256];
   sprintf(fname, path, cur);
   //sprintf(fname, path1, cur);
-  printf("load %s start\n", fname);
+  //printf("load %s start\n", fname);
   slide = SDL_LoadBMP(fname);
   assert(slide);
-  printf("draw %s start\n", fname);
+  //printf("draw %s start\n", fname);
   //SDL_SaveBMP(slide, path1);
   //SDL_UnlockSurface(slide);
   SDL_UpdateRect(slide, 0, 0, 0, 0);

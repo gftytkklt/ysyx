@@ -7,6 +7,7 @@
 //#include <SDL_bmp.h>
 
 int main() {
+  printf("main start\n");
   NDL_Init(0);
   int w, h;
   //static SDL_Surface *slide = NULL;
@@ -21,7 +22,7 @@ int main() {
   //while(i++ < 100000);
   void *bmp1 = BMP_Load("/share/slides/slides-0.bmp", &w, &h);
   assert(bmp1);
-  //NDL_OpenCanvas(&w, &h);
+  //NDL_OpenCanvas(&a, &b);
   NDL_DrawRect(bmp1, 0, 0, w, h);
   free(bmp);free(bmp1);
   NDL_Quit();
