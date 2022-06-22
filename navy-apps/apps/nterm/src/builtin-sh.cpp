@@ -22,7 +22,29 @@ static void sh_prompt() {
   sh_printf("sh> ");
 }
 
+static int cmd_echo(char* args){
+  sh_printf("%s\n", args);
+  return 0;
+}
+
+static struct {
+  const char *name;
+  const char *description;
+  int (*handler) (char *);
+} cmd_table [] = {
+  { "echo", "Display info", cmd_echo},
+};
+
 static void sh_handle_cmd(const char *cmd) {
+  char *tmp = (char*) cmd;
+  char *cmd_end = tmp + strlen(tmp);
+  char *inst = strtok(tmp, " ");
+  if (inst == NULL) {return;}
+  char *args = tmp + strlen(tmp) + 1;
+  if (args >= cmd_end){args = NULL;}
+  if (strcmp(inst, cmd_table[0].name) == 0){
+    cmd_table[0].handler(args);
+  }
 }
 
 void builtin_sh_run() {
