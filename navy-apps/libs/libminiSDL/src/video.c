@@ -5,11 +5,48 @@
 #include <stdlib.h>
 
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {
+  //printf("blit draw\n");
+  //printf("src: %d %d, dst: %d, %d, dst rect %d %d %d %d\n", src->w,src->h,dst->w,dst->h,dstrect->x, dstrect->y, dstrect->w, dstrect->h);
   assert(dst && src);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
+  int srcrect_w = (srcrect == NULL) ? src->w : srcrect->w;
+  int srcrect_h = (srcrect == NULL) ? src->h : srcrect->h;
+  // offt by pixels
+  //printf("srcrect at(%d, %d)")
+  int src_offt;
+  src_offt = (srcrect == NULL) ? 0 : (srcrect->x + srcrect->y*src->w);
+  int dst_offt;
+  dst_offt = dstrect->x + dstrect->y*dst->w;
+  // cp data
+  void* src_pt = src->pixels + src_offt*4;
+  void* dst_pt = dst->pixels + dst_offt*4;
+  //void* dst_pt = malloc(srcrect_w*srcrect_h*4);
+  //assert(src_pt && dst_pt);
+  for (int i=0;i<srcrect_h;i++){
+    //src_pt = src->pixels + src_offt*4;
+    //printf("%d\n", i);
+    memcpy(dst_pt, src_pt, srcrect_w*4);
+    src_pt += src->w*4;
+    dst_pt += dst->w*4;
+  }
+  //printf("draw at(%d, %d), w = %d, h = %d\n", dstrect->x, dstrect->y, srcrect_w, srcrect_h);
+  //NDL_DrawRect(dst_pt, dstrect->x, dstrect->y, srcrect_w, srcrect_h);
+  //free(dst_pt);
+  NDL_DrawRect(dst_pt, 0, 0, dstrect->w, dstrect->h);
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
+  int x,y,w,h;
+  if(dstrect == NULL){
+    x=0;y=0;w=dst->w;h=dst->h;
+    //memset(dst->pixels, color, (dst->w)*(dst->h)*4);
+  }
+  else{
+    x=dstrect->x; y=dstrect->y; w=dstrect->w; h=dstrect->h;
+  }
+  memset(dst->pixels, color, w*h*4);
+  //printf("fill parameters: %d %d %d %d\n",x,y,w,h);
+  NDL_DrawRect(dst->pixels, x, y, w, h);
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
@@ -97,6 +134,7 @@ void SDL_FreeSurface(SDL_Surface *s) {
 
 SDL_Surface* SDL_SetVideoMode(int width, int height, int bpp, uint32_t flags) {
   if (flags & SDL_HWSURFACE) NDL_OpenCanvas(&width, &height);
+  //printf("surface created:%d %d\n", width, height);
   return SDL_CreateRGBSurface(flags, width, height, bpp,
       DEFAULT_RMASK, DEFAULT_GMASK, DEFAULT_BMASK, DEFAULT_AMASK);
 }

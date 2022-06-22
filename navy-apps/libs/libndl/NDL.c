@@ -53,8 +53,10 @@ void NDL_OpenCanvas(int *w, int *h) {
     }
     close(fbctl);
   }
-  if ((*w==0) || (*h==0)){canvas_w = screen_w;canvas_h = screen_h;}
-  else{canvas_w = *w;canvas_h = *h;}
+  //if ((*w==0) || (*h==0)){canvas_w = screen_w;canvas_h = screen_h;}
+  //else{canvas_w = *w;canvas_h = *h;}
+  if ((*w==0) || (*h==0)){*w = screen_w;*h = screen_h;}
+  canvas_w = *w;canvas_h = *h;
   printf("canvas: %d*%d\n",canvas_w, canvas_h);
 }
 
@@ -67,9 +69,11 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   //printf("%p\n",pixels);
   //printf("screen size: %d*%d, canvas size: %d*%d\n",screen_w, screen_h, canvas_w, canvas_h);
   //int offset = y*screen_w + x;//initial offt of canvas
-  int screen_offset = screen_w*((screen_h-canvas_h)/2+y) + (screen_w-canvas_w)/2;
-  int canvas_offset = y*w + x;
-  int offset = screen_offset + canvas_offset;
+  //if((screen_h==canvas_h)&&(screen_w==canvas_w)){printf("full screen\n");}
+  int offset_y = screen_w*((screen_h-canvas_h)/2+y);
+  int offset_x = (screen_w-canvas_w)/2 + x;
+  //printf("off_y: %d, off_x: %d\n", offset_y, offset_x);
+  int offset = offset_y + offset_x;
   uint32_t *current_row = pixels;
   // arbitrary canvas
   // this is correct for native
