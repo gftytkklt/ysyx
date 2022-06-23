@@ -80,7 +80,8 @@ long fs_write(int fd, const void *buf, size_t len){
   long wr_offt = fp_offt[fd] + file_table[fd].disk_offset;
   long offt_incr = 0;
   if (file_table[fd].write == NULL){
-    offt_incr = ramdisk_write(buf, wr_offt, len);
+    size_t ramdisk_wr_len = (fp_offt[fd] + len) < file_table[fd].size ? len : (file_table[fd].size - fp_offt[fd]);
+    offt_incr = ramdisk_write(buf, wr_offt, ramdisk_wr_len);
   }
   else{
     offt_incr = file_table[fd].write(buf, wr_offt, len);
