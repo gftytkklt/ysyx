@@ -65,12 +65,13 @@ long fs_read(int fd, void *buf, size_t len){
   //printf("read %ld bytes data from addr %ld\n", len, rd_offt);
   //long offt_incr = ramdisk_read(buf, rd_offt, len);
   if (file_table[fd].read == NULL){
-    offt_incr = ramdisk_read(buf, rd_offt, len);
+    size_t ramdisk_rd_len = (fp_offt[fd] + len) < file_table[fd].size ? len : (file_table[fd].size - fp_offt[fd]);
+    offt_incr = ramdisk_read(buf, rd_offt, ramdisk_rd_len);
   }
   else{
     offt_incr = file_table[fd].read(buf, rd_offt, len);
   }
-  printf("read %s, len = %d, offt=%ld\n", file_table[fd].name, offt_incr, rd_offt);
+  //printf("read %s, len = %d, offt=%ld\n", file_table[fd].name, offt_incr, rd_offt);
   fp_offt[fd] += offt_incr;
   return offt_incr;
 }

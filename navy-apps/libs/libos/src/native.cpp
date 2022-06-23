@@ -159,12 +159,12 @@ extern "C" int execve(const char *filename, char *const argv[], char *const envp
 
 FILE *fopen(const char *path, const char *mode) {
   char newpath[512];
-  //printf("new path:%s\n", redirect_path(newpath, path));
+  //printf("\nopen:%s\n\n", path);
   return glibc_fopen(redirect_path(newpath, path), mode);
 }
 
 int open(const char *path, int flags, ...) {
-  //printf("%s in open\n", path);
+  //printf("%s open\n", path);
   if (strcmp(path, "/proc/dispinfo") == 0) {
     return dispinfo_fd;
   } else if (strcmp(path, "/dev/events") == 0) {
@@ -182,6 +182,7 @@ int open(const char *path, int flags, ...) {
 }
 
 ssize_t read(int fd, void *buf, size_t count) {
+  //printf("offt: %ld\n", lseek(fd, 0, SEEK_CUR));
   if (fd == dispinfo_fd) {
     return snprintf((char *)buf, count, "WIDTH: %d\nHEIGHT: %d\n", disp_w, disp_h);
   } else if (fd == evt_fd) {
@@ -212,6 +213,7 @@ ssize_t read(int fd, void *buf, size_t count) {
     int free = pipe_size - used;
     return snprintf((char *)buf, count, "%d", free);
   }
+  //printf("offt: %ld\n", lseek(fd, 0, SEEK_CUR));
   return glibc_read(fd, buf, count);
 }
 
@@ -240,6 +242,7 @@ ssize_t write(int fd, const void *buf, size_t count) {
 }
 
 int execve(const char *filename, char *const argv[], char *const envp[]) {
+  //printf("exec\n");
   char newpath[512];
   glibc_execve(redirect_path(newpath, filename), argv, envp);
   return -1;
