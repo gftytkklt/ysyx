@@ -12,7 +12,23 @@ SDL_Surface* IMG_Load_RW(SDL_RWops *src, int freesrc) {
 }
 
 SDL_Surface* IMG_Load(const char *filename) {
-  return NULL;
+  printf("img load init\n");
+  FILE* fp = fopen(filename,"r");
+  printf("fp %s open\n", filename);
+  if(fp == NULL){printf("invalid fp");}
+  else{printf("get fp of %s\n", filename);}
+  fseek(fp, 0, SEEK_END);
+  size_t len = ftell(fp);
+  printf("len=%d\n", len);
+  void *buf = SDL_malloc(len);
+  fseek(fp, 0, SEEK_SET);
+  fread(buf, 1, len, fp);
+  SDL_Surface *slide = STBIMG_LoadFromMemory(buf, len);
+  fclose(fp);
+  SDL_free(buf);
+  printf("img load done\n\n");
+  return slide;
+  //return NULL;
 }
 
 int IMG_isPNG(SDL_RWops *src) {

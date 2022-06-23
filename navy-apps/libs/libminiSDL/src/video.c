@@ -11,12 +11,14 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
   int srcrect_w = (srcrect == NULL) ? src->w : srcrect->w;
   int srcrect_h = (srcrect == NULL) ? src->h : srcrect->h;
+  int dstrect_w = (dstrect == NULL) ? dst->w : dstrect->w;
+  int dstrect_h = (dstrect == NULL) ? dst->h : dstrect->h;
   // offt by pixels
   //printf("srcrect at(%d, %d)")
   int src_offt;
   src_offt = (srcrect == NULL) ? 0 : (srcrect->x + srcrect->y*src->w);
   int dst_offt;
-  dst_offt = dstrect->x + dstrect->y*dst->w;
+  dst_offt = (dstrect == NULL) ? 0 : dstrect->x + dstrect->y*dst->w;
   // cp data
   void* src_pt = src->pixels + src_offt*4;
   void* dst_pt = dst->pixels + dst_offt*4;
@@ -32,7 +34,8 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   //printf("draw at(%d, %d), w = %d, h = %d\n", dstrect->x, dstrect->y, srcrect_w, srcrect_h);
   //NDL_DrawRect(dst_pt, dstrect->x, dstrect->y, srcrect_w, srcrect_h);
   //free(dst_pt);
-  NDL_DrawRect(dst_pt, 0, 0, dstrect->w, dstrect->h);
+  //NDL_DrawRect(dst_pt, 0, 0, dstrect->w, dstrect->h);
+  NDL_DrawRect(dst_pt, 0, 0, dstrect_w, dstrect_h);
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
