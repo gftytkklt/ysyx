@@ -74,6 +74,9 @@ long sys_write(int fd, void *buf, size_t count){
 }
 
 void sys_exit(uintptr_t ret){
+  #ifdef CONFIG_STRACE
+    printf("exit code: %lx\n", ret);
+  #endif
   halt(ret);
 }
 int fs_open(const char *pathname, int flags, int mode);
@@ -122,7 +125,7 @@ void do_syscall(Context *c) {
   //ret = c->GPRx;
   
   switch (a[0]) {
-    //case SYS_exit: sys_exit(a[1]);break;
+    case SYS_exit: sys_exit(a[1]);break;
     case SYS_yield: c->GPRx = sys_yield();break;
     case SYS_open: c->GPRx = sys_open((const char *)a[1], (int)a[2], (int) a[3]);break;
     case SYS_read: c->GPRx = sys_read((int)a[1],(void*)a[2],(size_t)a[3]);break;
