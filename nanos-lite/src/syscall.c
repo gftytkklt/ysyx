@@ -2,7 +2,7 @@
 #include "syscall.h"
 #include <sys/time.h>
 #include <time.h>
-#define CONFIG_STRACE
+//#define CONFIG_STRACE
 #ifdef CONFIG_STRACE
 const char* syscall_name[]={
   "sys exit",
@@ -75,7 +75,7 @@ long sys_write(int fd, void *buf, size_t count){
 
 void sys_exit(uintptr_t ret){
   #ifdef CONFIG_STRACE
-    printf("exit code: %lx\n", ret);
+    printf("sys exit,ret code: %lx\n", ret);
   #endif
   halt(ret);
 }

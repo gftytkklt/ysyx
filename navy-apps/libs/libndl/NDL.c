@@ -24,12 +24,6 @@ uint32_t NDL_GetTicks() {
 }
 
 int NDL_PollEvent(char *buf, int len) {
-  //rewind(kbd_fp);
-  //printf("in NDL_PollEvent, len = %d\n",len);
-  //int ret = fread(buf, 1, len, kbd_fp) ? 1 : 0;
-  //printf("NDL ret = %d\n",ret);
-  //return ret;
-  //return fread(buf, 1, len, kbd_fp) ? 1 : 0;
   return read(evtdev, buf, len) ? 1 : 0;
 }
 
@@ -61,35 +55,16 @@ void NDL_OpenCanvas(int *w, int *h) {
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
-  //printf("in NDL_UpdateRect\n");
-  //int fb = open("/dev/fb", 0, 0);
-  //FILE* fb = fopen("/dev/fb","w");
-  //assert(fb != NULL);
-  //printf("fb=%d\n",fbdev);
-  //printf("%p\n",pixels);
-  //printf("screen size: %d*%d, canvas size: %d*%d\n",screen_w, screen_h, canvas_w, canvas_h);
-  //int offset = y*screen_w + x;//initial offt of canvas
-  //if((screen_h==canvas_h)&&(screen_w==canvas_w)){printf("full screen\n");}
   int offset_y = screen_w*((screen_h-canvas_h)/2+y);
   int offset_x = (screen_w-canvas_w)/2 + x;
-  //printf("off_y: %d, off_x: %d\n", offset_y, offset_x);
   int offset = offset_y + offset_x;
   uint32_t *current_row = pixels;
   // arbitrary canvas
   // this is correct for native
-  //printf("xywh = %d %d %d %d\n",x,y,w,h);
-  //printf("offset: %d\n", offset);
   for (int i=0;i<h;i++){
     lseek(fbdev, offset*4, SEEK_SET);
-    //lseek(fb, offset*4, SEEK_SET);
-    //fseek(fb, offset*4, SEEK_SET);
-    //printf("offset = %d\n", offset*4);
     write(fbdev, current_row, w*4);
-    //write(fb, current_row, w*4);
-    //fwrite(current_row, 4, w, fb);
-    //write(fb, pixels, w*4);
     current_row += w;
-    //pixels += w;
     offset += screen_w;
   }
   // this is non-standard draw parameter for am, len = {32'bw, 32'bh};

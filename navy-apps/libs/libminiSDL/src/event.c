@@ -7,8 +7,9 @@ static const char *keyname[] = {
   "NONE",
   _KEYS(keyname)
 };
-
+static uint8_t event_status[256];
 int SDL_PushEvent(SDL_Event *ev) {
+  printf("SDL_PushEvent not impl\n");
   return 0;
 }
 
@@ -55,9 +56,32 @@ int SDL_WaitEvent(SDL_Event *event) {
 }
 
 int SDL_PeepEvents(SDL_Event *ev, int numevents, int action, uint32_t mask) {
+  printf("SDL_PeepEvents not impl\n");
   return 0;
 }
 
 uint8_t* SDL_GetKeyState(int *numkeys) {
-  return NULL;
+  //printf("SDL_GetKeyState not impl\n");
+  //uint8_t event_status[256] = {0};
+  memset(event_status, 0, 256);
+  char buf[64];
+  while(NDL_PollEvent(buf, 64)){
+    printf("hit\n");
+    char key_status[5];
+    char key_name[20];
+    int name_id=0;
+    sscanf(buf,"%s %s",key_status, key_name);
+    //if(!strcmp(key_status, "kd")){ev->type = SDL_KEYDOWN;}
+    //else{ev->type = SDL_KEYUP;}
+    while(name_id < sizeof(keyname)/sizeof(const char*)){
+      if(!strcmp(key_name, keyname[name_id])){
+        event_status[name_id] = (!strcmp(key_status, "kd")) ? 1 : 0;
+        break;
+      }
+      name_id++;
+    }
+    memset(buf, 0, 64);
+  }
+  //printf("get end\n");
+  return event_status;
 }

@@ -19,27 +19,60 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   src_offt = (srcrect == NULL) ? 0 : (srcrect->x + srcrect->y*src->w);
   int dst_offt;
   dst_offt = (dstrect == NULL) ? 0 : dstrect->x + dstrect->y*dst->w;
-  // cp data
-  void* src_pt = src->pixels + src_offt*4;
-  void* dst_pt = dst->pixels + dst_offt*4;
-  //void* dst_pt = malloc(srcrect_w*srcrect_h*4);
-  //assert(src_pt && dst_pt);
-  for (int i=0;i<srcrect_h;i++){
-    //src_pt = src->pixels + src_offt*4;
-    //printf("%d\n", i);
-    memcpy(dst_pt, src_pt, srcrect_w*4);
-    src_pt += src->w*4;
-    dst_pt += dst->w*4;
+  void* src_pt;
+  void* dst_pt;
+  // true color pixel
+  if(src->format->palette == NULL){
+    // cp data
+    src_pt = src->pixels + src_offt*4;
+    dst_pt = dst->pixels + dst_offt*4;
+    //void* dst_pt = malloc(srcrect_w*srcrect_h*4);
+    //assert(src_pt && dst_pt);
+    for (int i=0;i<srcrect_h;i++){
+      //src_pt = src->pixels + src_offt*4;
+      //printf("%d\n", i);
+      memcpy(dst_pt, src_pt, srcrect_w*4);
+      src_pt += src->w*4;
+      dst_pt += dst->w*4;
+    }
+    //printf("draw at(%d, %d), w = %d, h = %d\n", dstrect->x, dstrect->y, srcrect_w, srcrect_h);
+    //NDL_DrawRect(dst_pt, dstrect->x, dstrect->y, srcrect_w, srcrect_h);
+    //free(dst_pt);
+    //NDL_DrawRect(dst_pt, 0, 0, dstrect->w, dstrect->h);
+    NDL_DrawRect(dst_pt, 0, 0, dstrect_w, dstrect_h);
   }
-  //printf("draw at(%d, %d), w = %d, h = %d\n", dstrect->x, dstrect->y, srcrect_w, srcrect_h);
-  //NDL_DrawRect(dst_pt, dstrect->x, dstrect->y, srcrect_w, srcrect_h);
-  //free(dst_pt);
-  //NDL_DrawRect(dst_pt, 0, 0, dstrect->w, dstrect->h);
-  NDL_DrawRect(dst_pt, 0, 0, dstrect_w, dstrect_h);
+  // palette index pixel
+  /*else{
+    // cp data
+    //void* dst_pixels = malloc(srcrect_w*4);
+    uint32_t dst_pixels[srcrect_w];// storage true pixel
+    SDL_Color* color_pt = src->format->palette->colors;
+    src_pt = src->pixels + src_offt;
+    dst_pt = dst->pixels + dst_offt;
+    uint32_t r, g, b;// pixel colors
+    for (int i=0;i<srcrect_h;i++){
+      //src_pt = src->pixels + src_offt*4;
+      //printf("%d\n", i);
+      memcpy(dst_pt, src_pt, srcrect_w);
+      // index to pixel
+      for (int j=0;j<srcrect_w;j++){
+        r = color_pt[src_pt[j]].r;
+        g = color_pt[src_pt[j]].g;
+        b = color_pt[src_pt[j]].b;
+        dst_pixels[j] = (r << 16) + (g << 8) + b;
+      }
+      NDL_DrawRect(dst_pixels, 0, 0, dstrect_w, 1);
+      src_pt += src->w;
+      dst_pt += dst->w;
+    }
+    //free(dst_pixels);
+  }*/
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
-  int x,y,w,h;
+  // orig
+  /*int x,y,w,h;
+  //uint32_t *true_pixel_pt = NULL;
   if(dstrect == NULL){
     x=0;y=0;w=dst->w;h=dst->h;
     //memset(dst->pixels, color, (dst->w)*(dst->h)*4);
@@ -49,15 +82,108 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   }
   memset(dst->pixels, color, w*h*4);
   //printf("fill parameters: %d %d %d %d\n",x,y,w,h);
-  NDL_DrawRect(dst->pixels, x, y, w, h);
+  NDL_DrawRect(dst->pixels, x, y, w, h);*/
+  // revised
+  int x,y,w,h;
+  uint32_t *true_pixel_pt = NULL;
+  if(dstrect == NULL){
+    x=0;y=0;w=dst->w;h=dst->h;
+    uint32_t *true_pixel_pt = NULL;
+    if(dst->format->palette == NULL){
+      true_pixel_pt = dst->pixels;
+      memset(dst->pixels, color, w*h*4);
+    }
+    else{
+      uint32_t padding[w*h];
+      memset(padding, color, w*h*4);
+      memset(dst->pixels, color, w*h);
+      true_pixel_pt = padding;
+    }
+  }
+  else{
+    uint32_t padding1[w*h];
+    memset(padding1, color, w*h*4);
+    true_pixel_pt = padding1;
+    int offset = 0;
+    if(dst->format->palette == NULL){
+      offset = (x+y*dst->w)*4;
+      memset(dst->pixels+offset, color, w*h*4);
+    }
+    else{
+      offset = (x+y*dst->w);
+      memset(dst->pixels+offset, color, w*h);
+    }
+  }
+  assert(true_pixel_pt != NULL);
+  NDL_DrawRect(true_pixel_pt, x, y, w, h);
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
-  //printf("in SDL_UpdateRect\n");
+  // orig
+  /*//printf("in SDL_UpdateRect\n");
   int full_screen = (x == 0) && (y == 0) && (w==0) && (h==0);
   int w_in = full_screen ? s->w : w;
   int h_in = full_screen ? s->h : h;
-  NDL_DrawRect(s->pixels, x, y, w_in, h_in);
+  
+  NDL_DrawRect(s->pixels, x, y, w_in, h_in);*/
+  
+  // revised
+  int full_screen = (x == 0) && (y == 0) && (w == 0) && (h == 0);
+  int draw_w = 0, draw_h = 0;
+  uint32_t *true_pixel_pt = NULL;
+  SDL_Color* palette = NULL;
+  int r, g, b;
+  if(full_screen){
+    draw_w = s->w;
+    draw_h = s->h;
+    if(s->format->palette == NULL){
+      true_pixel_pt = s->pixels;
+      //NDL_DrawRect(s->pixels, 0, 0, s->w, s->h);
+    }
+    else{
+      // palette
+      palette = s->format->palette->colors;
+      assert(palette != NULL);
+      uint32_t true_pixel[draw_w*draw_h];
+      for(int i=0;i<draw_w*draw_h;i++){
+        r = palette[s->pixels[i]].r;
+        g = palette[s->pixels[i]].g;
+        b = palette[s->pixels[i]].b;
+        true_pixel[i] = (r << 16) + (g << 8) + b;
+      }
+      true_pixel_pt = true_pixel;
+    }
+  }
+  else{
+    draw_w = w;
+    draw_h = h;
+    uint32_t true_pixel1[draw_w*draw_h];
+    if(s->format->palette == NULL){
+      int offset = x+y*s->w;
+      uint32_t *current_src = (uint32_t *)s->pixels;
+      uint32_t *current_dst = true_pixel1;
+      current_src += offset;
+      for(int i=0;i<draw_h;i++){
+        memcpy(current_dst, current_src, draw_w*4);
+        current_dst += draw_w;
+        current_src += s->w;
+      }
+    }
+    else{
+      // palette
+      palette = s->format->palette->colors;
+      assert(palette != NULL);
+      for(int i=0;i<draw_w*draw_h;i++){
+        r = palette[s->pixels[i]].r;
+        g = palette[s->pixels[i]].g;
+        b = palette[s->pixels[i]].b;
+        true_pixel1[i] = (r << 16) + (g << 8) + b;
+      }
+    }
+    true_pixel_pt = true_pixel1;
+  }
+  assert(true_pixel_pt != NULL);
+  NDL_DrawRect(true_pixel_pt, x, y, draw_w, draw_h);
 }
 
 // APIs below are already implemented.

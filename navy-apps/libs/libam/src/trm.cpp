@@ -8,4 +8,5 @@ void putch(char ch) {
 
 void halt(int code) {
   //exit(code);
+  //return;
 }
