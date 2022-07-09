@@ -2,7 +2,7 @@
 #include "syscall.h"
 #include <sys/time.h>
 #include <time.h>
-#define CONFIG_STRACE
+//#define CONFIG_STRACE
 #ifdef CONFIG_STRACE
 const char* syscall_name[]={
   "sys exit",
