@@ -80,27 +80,28 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   if(full_screen){
     draw_w = s->w;
     draw_h = s->h;
-    printf("full screen: %d %d\n", draw_w, draw_h);
+    //printf("full screen: %d %d\n", draw_w, draw_h);
     if(s->format->palette == NULL){
       true_pixel_pt = s->pixels;
     }
     else{
       // palette
-      printf("palette\n");
+      //printf("palette\n");
       palette = s->format->palette->colors;
       assert(palette != NULL);
-      uint32_t true_pixel[draw_w*draw_h];
-      printf("maprgb begin\n");
+      //uint32_t true_pixel[draw_w*draw_h];
+      uint32_t *true_pixel = (uint32_t*)malloc(draw_w*draw_h*4);
+      //printf("maprgb begin\n");
       for(int i=0;i<draw_w*draw_h;i++){
-        if(i>60000){printf("%d ", i);}
+        //if(i>60000){printf("%d ", i);}
         r = palette[s->pixels[i]].r;
         g = palette[s->pixels[i]].g;
         b = palette[s->pixels[i]].b;
         true_pixel[i] = ((r << 16) + (g << 8) + b);
-        
       }
-      printf("maprgb end\n");
+      //printf("maprgb end\n");
       true_pixel_pt = true_pixel;
+      free(true_pixel);
     }
   }
   else{
@@ -108,7 +109,8 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     draw_w = w;
     draw_h = h;
     int offset = x+y*s->w;
-    uint32_t true_pixel1[draw_w*draw_h];
+    //uint32_t true_pixel1[draw_w*draw_h];
+    uint32_t *true_pixel1 = (uint32_t*)malloc(draw_w*draw_h*4);
     uint32_t *current_dst = true_pixel1;
     if(s->format->palette == NULL){
       uint32_t *current_src = (uint32_t *)s->pixels;
@@ -137,11 +139,13 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
       }
     }
     true_pixel_pt = true_pixel1;
+    free(true_pixel1);
   }
   assert(true_pixel_pt != NULL);
-  printf("draw begin\n");
+  //printf("draw begin\n");
   NDL_DrawRect(true_pixel_pt, x, y, draw_w, draw_h);
-  printf("draw end\n");
+  //free(true_pixel_pt);
+  //printf("draw end\n");
 }
 
 // APIs below are already implemented.
@@ -269,9 +273,9 @@ void SDL_SetPalette(SDL_Surface *s, int flags, SDL_Color *colors, int firstcolor
       uint8_t g = colors[i].g;
       uint8_t b = colors[i].b;
     }
-    printf("uprect start\n");
+    //printf("uprect start\n");
     SDL_UpdateRect(s, 0, 0, 0, 0);
-    printf("uprect end\n");
+    //printf("uprect end\n");
   }
 }
 
