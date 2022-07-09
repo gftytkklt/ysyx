@@ -92,7 +92,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
       uint32_t true_pixel[draw_w*draw_h];
       printf("maprgb begin\n");
       for(int i=0;i<draw_w*draw_h;i++){
-        printf("%d ", i);
+        if(i>60000){printf("%d ", i);}
         r = palette[s->pixels[i]].r;
         g = palette[s->pixels[i]].g;
         b = palette[s->pixels[i]].b;
