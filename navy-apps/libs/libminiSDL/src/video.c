@@ -52,7 +52,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
       dst_pt += dst->w*4;
       printf("4 ");
       buf_pt += srcrect_w;
-      printf("5\n ");
+      printf("5\n");
     }
     //NDL_DrawRect(dst_pt, 0, 0, dstrect_w, dstrect_h);
   }
