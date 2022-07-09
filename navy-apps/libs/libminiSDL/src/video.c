@@ -134,7 +134,9 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     true_pixel_pt = true_pixel1;
   }
   assert(true_pixel_pt != NULL);
+  printf("draw begin\n");
   NDL_DrawRect(true_pixel_pt, x, y, draw_w, draw_h);
+  printf("draw end\n");
 }
 
 // APIs below are already implemented.
