@@ -22,7 +22,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   //printf("srcrect at(%d, %d)")
   int src_offt = srcrect_x+srcrect_y*src->w;
   int dst_offt = dstrect_x+dstrect_y*dst->w;
-  //printf("\n%d %d\n", src_offt, dst_offt);
+  printf("\nsrc offt=%d dst offt=%d\n", src_offt, dst_offt);
   int rect_buf[srcrect_w*srcrect_h];
   int *buf_pt = rect_buf;
   //src_offt = (srcrect == NULL) ? 0 : (srcrect->x + srcrect->y*src->w);
