@@ -10,6 +10,13 @@ static const char *keyname[] = {
 static uint8_t event_status[256];
 int SDL_PushEvent(SDL_Event *ev) {
   printf("SDL_PushEvent not impl\n");
+  /*if (ev->type == SDL_KEYDOWN){
+    event_status[ev->key.keysym.sym] = 1;
+  }
+  else{
+    event_status[ev->key.keysym.sym] = 0;
+  }
+  return 1;*/
   return 0;
 }
 
@@ -61,7 +68,7 @@ int SDL_PeepEvents(SDL_Event *ev, int numevents, int action, uint32_t mask) {
 }
 
 uint8_t* SDL_GetKeyState(int *numkeys) {
-  //printf("SDL_GetKeyState not impl\n");
+  /*printf("call SDL_GetKeyState\n");
   //uint8_t event_status[256] = {0};
   memset(event_status, 0, 256);
   char buf[64];
@@ -82,6 +89,6 @@ uint8_t* SDL_GetKeyState(int *numkeys) {
     }
     memset(buf, 0, 64);
   }
-  //printf("get end\n");
+  //printf("get end\n");*/
   return event_status;
 }
