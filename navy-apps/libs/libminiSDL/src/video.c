@@ -34,7 +34,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   uint8_t* dst_pt;
   // true color pixel
   if(src->format->palette == NULL){
-    printf("\ntrue color\n");
+    printf("\ntrue color: %d %d\n", srcrect_w, srcrect_h);
     // cp data
     src_pt = src->pixels + src_offt*4;
     dst_pt = dst->pixels + dst_offt*4;
