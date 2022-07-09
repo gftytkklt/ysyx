@@ -45,7 +45,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
       printf("i=%d\n", i);
       memcpy(dst_pt, src_pt, srcrect_w*4);
       printf("1 \n");
-      memcpy(buf_pt, src_pt, srcrect_w*4);
+      //memcpy(buf_pt, src_pt, srcrect_w*4);
       printf("2 \n");
       src_pt += src->w*4;
       printf("3 \n");
