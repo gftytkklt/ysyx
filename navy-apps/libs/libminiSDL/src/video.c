@@ -42,12 +42,17 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
     //assert(src_pt && dst_pt);
     for (int i=0;i<srcrect_h;i++){
       //src_pt = src->pixels + src_offt*4;
-      printf("i=%d\n", i);
+      printf("i=%d ", i);
       memcpy(dst_pt, src_pt, srcrect_w*4);
+      printf("1 ");
       memcpy(buf_pt, src_pt, srcrect_w*4);
+      printf("2 ");
       src_pt += src->w*4;
+      printf("3 ");
       dst_pt += dst->w*4;
+      printf("4 ");
       buf_pt += srcrect_w;
+      printf("5\n ");
     }
     //NDL_DrawRect(dst_pt, 0, 0, dstrect_w, dstrect_h);
   }
