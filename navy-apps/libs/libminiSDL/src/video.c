@@ -78,14 +78,15 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   SDL_Color* palette = NULL;
   int r, g, b;
   if(full_screen){
-    //printf("full screen\n");
     draw_w = s->w;
     draw_h = s->h;
+    printf("full screen: %d %d\n", draw_w, draw_h);
     if(s->format->palette == NULL){
       true_pixel_pt = s->pixels;
     }
     else{
       // palette
+      printf("palette\n");
       palette = s->format->palette->colors;
       assert(palette != NULL);
       uint32_t true_pixel[draw_w*draw_h];
