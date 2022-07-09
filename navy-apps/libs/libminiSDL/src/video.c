@@ -42,7 +42,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
     //assert(src_pt && dst_pt);
     for (int i=0;i<srcrect_h;i++){
       //src_pt = src->pixels + src_offt*4;
-      //printf("%d\n", i);
+      printf("i=%d\n", i);
       memcpy(dst_pt, src_pt, srcrect_w*4);
       memcpy(buf_pt, src_pt, srcrect_w*4);
       src_pt += src->w*4;
