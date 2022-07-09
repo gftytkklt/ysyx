@@ -96,7 +96,9 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
         g = palette[s->pixels[i]].g;
         b = palette[s->pixels[i]].b;
         true_pixel[i] = ((r << 16) + (g << 8) + b);
+        if(i%draw_h == 0){printf("%d ", i/draw_h);}
       }
+      printf("maprgb end\n");
       true_pixel_pt = true_pixel;
     }
   }
