@@ -256,7 +256,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
         r = palette[s->pixels[i]].r;
         g = palette[s->pixels[i]].g;
         b = palette[s->pixels[i]].b;
-        true_pixel[i] = (r << 16) + (g << 8) + b;
+        true_pixel[i] = ((r << 16) + (g << 8) + b) & 0x00ffffff;
       }
       true_pixel_pt = true_pixel;
     }
@@ -290,7 +290,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
           r = palette[*(current_src+j)].r;
           g = palette[*(current_src+j)].g;
           b = palette[*(current_src+j)].b;
-          true_pixel1[index] = (r << 16) + (g << 8) + b;
+          true_pixel1[index] = ((r << 16) + (g << 8) + b) & 0x00ffffff;
           index++;
         }
         current_src += s->w;
