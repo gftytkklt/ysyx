@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {
-  //printf("\ncall SDL_BlitSurface\n");
+  printf("\ncall SDL_BlitSurface\n");
   // ignore clip currently
   assert(dst && src);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
@@ -75,6 +75,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   //printf("\ncall drawrect: %d %d %d %d\n", dstrect_x, dstrect_y, srcrect_w, srcrect_h);
   assert(rect_buf != NULL);
   NDL_DrawRect(rect_buf, dstrect_x, dstrect_y, srcrect_w, srcrect_h);
+  printf("\nExit SDL_BlitSurface\n");
   //NDL_DrawRect(dst_pt, 0, 0, dstrect_w, dstrect_h);
   /*else{
     // cp data
@@ -104,7 +105,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
-  printf("\ncall fillrect\n");
+  printf("\ncall SDL_FillRect\n");
   // orig
   /*int x,y,w,h;
   //uint32_t *true_pixel_pt = NULL;
@@ -183,6 +184,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   }
   assert(true_pixel_pt != NULL);
   NDL_DrawRect(true_pixel_pt, x, y, w, h);
+  printf("\nExit SDL_FillRect\n");
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
@@ -193,7 +195,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   int h_in = full_screen ? s->h : h;
   
   NDL_DrawRect(s->pixels, x, y, w_in, h_in);*/
-  
+  printf("\nin SDL_UpdateRect\n");
   // revised
   int full_screen = (x == 0) && (y == 0) && (w == 0) && (h == 0);
   int draw_w = 0, draw_h = 0;
@@ -260,6 +262,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   }
   assert(true_pixel_pt != NULL);
   NDL_DrawRect(true_pixel_pt, x, y, draw_w, draw_h);
+  printf("\nexit SDL_UpdateRect\n");
 }
 
 // APIs below are already implemented.
