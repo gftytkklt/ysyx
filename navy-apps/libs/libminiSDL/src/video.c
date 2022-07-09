@@ -34,7 +34,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   uint8_t* dst_pt;
   // true color pixel
   if(src->format->palette == NULL){
-    printf("\ntrue color: %d %d\n", srcrect_w, srcrect_h);
+    //printf("\ntrue color: %d %d\n", srcrect_w, srcrect_h);
     // cp data
     src_pt = src->pixels + src_offt*4;
     dst_pt = dst->pixels + dst_offt*4;
@@ -113,7 +113,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
-  printf("\ncall SDL_FillRect\n");
+  //printf("\ncall SDL_FillRect\n");
   // orig
   /*int x,y,w,h;
   //uint32_t *true_pixel_pt = NULL;
@@ -233,7 +233,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   int h_in = full_screen ? s->h : h;
   
   NDL_DrawRect(s->pixels, x, y, w_in, h_in);*/
-  printf("\nin SDL_UpdateRect\n");
+  //printf("\nin SDL_UpdateRect\n");
   // revised
   int full_screen = (x == 0) && (y == 0) && (w == 0) && (h == 0);
   int draw_w = 0, draw_h = 0;
@@ -300,7 +300,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   }
   assert(true_pixel_pt != NULL);
   NDL_DrawRect(true_pixel_pt, x, y, draw_w, draw_h);
-  printf("\nexit SDL_UpdateRect\n");
+  //printf("\nexit SDL_UpdateRect\n");
 }
 
 // APIs below are already implemented.
