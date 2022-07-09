@@ -34,7 +34,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   uint8_t* dst_pt;
   // true color pixel
   if(src->format->palette == NULL){
-    //printf("\ntrue color\n");
+    printf("\ntrue color\n");
     // cp data
     src_pt = src->pixels + src_offt*4;
     dst_pt = dst->pixels + dst_offt*4;
@@ -72,7 +72,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
       dst_pt += dst->w;
     }
   }
-  //printf("\ncall drawrect: %d %d %d %d\n", dstrect_x, dstrect_y, srcrect_w, srcrect_h);
+  printf("\ncall drawrect: %d %d %d %d\n", dstrect_x, dstrect_y, srcrect_w, srcrect_h);
   assert(rect_buf != NULL);
   NDL_DrawRect(rect_buf, dstrect_x, dstrect_y, srcrect_w, srcrect_h);
   printf("\nExit SDL_BlitSurface\n");
