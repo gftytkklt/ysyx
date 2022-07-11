@@ -35,7 +35,7 @@ void render() {
   //printf("draw %s start\n", fname);
   //SDL_SaveBMP(slide, path1);
   //SDL_UnlockSurface(slide);
-  SDL_UpdateRect(slide, 0, 0, 0, 0);
+  SDL_UpdateRect(slide, 0, 0, 50, 50);
 }
 
 void prev(int rep) {

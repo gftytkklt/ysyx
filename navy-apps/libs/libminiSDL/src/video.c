@@ -7,6 +7,7 @@
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {
   // ignore clip currently
   //if(src->pixels == dst->pixels){printf("overlap\n");}
+  //printf("call SDL_BlitSurface\n");
   assert(dst && src);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
   int srcrect_w = (srcrect == NULL) ? src->w : srcrect->w;
@@ -15,16 +16,41 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   int srcrect_y = (srcrect == NULL) ? 0 : srcrect->y;
   int dstrect_x = (dstrect == NULL) ? 0 : dstrect->x;
   int dstrect_y = (dstrect == NULL) ? 0 : dstrect->y;
-  int src_offt = srcrect_x+srcrect_y*src->w;
-  int dst_offt = dstrect_x+dstrect_y*dst->w;
+  int src_offx = srcrect_x;
+  int src_offy = srcrect_y;
+  int dst_offx = dstrect_x;
+  int dst_offy = dstrect_y;
+  int draw_w;
+  int draw_h;
+  // clip rect if negative dest_x, dest_y
+  if(dstrect_x < 0){
+    src_offx -= dstrect_x;
+    draw_w = ((srcrect_w+dstrect_x)>dst->w) ? dst->w : (srcrect_w+dstrect_x);
+  }
+  else{
+    draw_w = ((srcrect_w+dstrect_x)>dst->w) ? (dst->w-dstrect_x) : srcrect_w;
+  }
+  if(dstrect_y < 0){
+    src_offy -= dstrect_y;
+    draw_h = ((srcrect_h+dstrect_y)>dst->h) ? dst->h : (srcrect_h+dstrect_y);
+  }
+  else{
+    draw_h = ((srcrect_h+dstrect_y)>dst->h) ? (dst->h-dstrect_y) : srcrect_h;
+  }
+  //draw_h = (draw_h + )
+  //int src_offt = srcrect_x+srcrect_y*src->w;
+  //int dst_offt = dstrect_x+dstrect_y*dst->w;
+  int src_offt = src_offx + src_offy*src->w;
+  int dst_offt = dst_offx + dst_offy*dst->w;
   uint8_t* src_pt;
   uint8_t* dst_pt;
+  assert(draw_w >= 0 && draw_h >= 0);
   // true color pixel
   if(src->format->palette == NULL){
     src_pt = src->pixels + src_offt*4;
     dst_pt = dst->pixels + dst_offt*4;
-    for (int i=0;i<srcrect_h;i++){
-      memcpy(dst_pt, src_pt, srcrect_w*4);
+    for (int i=0;i<draw_h;i++){
+      memcpy(dst_pt, src_pt, draw_w*4);
       src_pt += src->w*4;
       dst_pt += dst->w*4;
     }
@@ -33,8 +59,8 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   else{
     src_pt = src->pixels + src_offt;
     dst_pt = dst->pixels + dst_offt;
-    for(int j=0;j<srcrect_h;j++){
-      memcpy(dst_pt, src_pt, srcrect_w);
+    for(int j=0;j<draw_h;j++){
+      memcpy(dst_pt, src_pt, draw_w);
       src_pt += src->w;
       dst_pt += dst->w;
     }
@@ -43,6 +69,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   // rect parameter
+  //printf("call SDL_FillRect\n");
   int x,y,w,h;
   if(dstrect == NULL){
     x=0;y=0;w=dst->w;h=dst->h;
@@ -50,7 +77,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   else{
     x=dstrect->x; y=dstrect->y; w=dstrect->w; h=dstrect->h;
   }
-  int offset = x+y*w;
+  int offset = x+y*dst->w;
   if(dst->format->palette == NULL){
     int *current_pt = (int*)dst->pixels + offset;
     for (int i=0;i<h;i++){
@@ -72,6 +99,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
+  //printf("call SDL_UpdateRect\n");
   int full_screen = (x == 0) && (y == 0) && (w == 0) && (h == 0);
   int draw_w = 0, draw_h = 0;
   uint32_t *true_pixel_pt = NULL;
@@ -109,6 +137,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     draw_w = w;
     draw_h = h;
     int offset = x+y*s->w;
+    //printf("offset = %d\n", offset);
     //uint32_t true_pixel1[draw_w*draw_h];
     uint32_t *true_pixel1 = (uint32_t*)malloc(draw_w*draw_h*4);
     uint32_t *current_dst = true_pixel1;

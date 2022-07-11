@@ -9,21 +9,24 @@ static const char *keyname[] = {
 };
 static uint8_t event_status[256];
 int SDL_PushEvent(SDL_Event *ev) {
-  printf("SDL_PushEvent not impl\n");
-  /*if (ev->type == SDL_KEYDOWN){
+  //printf("SDL_PushEvent not impl\n");
+  //printf("%d %s\n",ev->key.keysym.sym, keyname[ev->key.keysym.sym]);
+  if (ev->type == SDL_KEYDOWN){
     event_status[ev->key.keysym.sym] = 1;
   }
   else{
     event_status[ev->key.keysym.sym] = 0;
   }
-  return 1;*/
-  return 0;
+  return 1;
+  //return 0;
 }
 
 int SDL_PollEvent(SDL_Event *ev) {
+  //printf("call SDL_PollEvent\n");
   char buf[64];
   if (!NDL_PollEvent(buf, 64)){return 0;}
   else {
+    //printf("hit\n");
     char key_status[5];
     char key_name[20];
     int name_id=0;
@@ -34,14 +37,18 @@ int SDL_PollEvent(SDL_Event *ev) {
       if(!strcmp(key_name, keyname[name_id])){ev->key.keysym.sym = name_id;break;}
       name_id++;
     }
+    SDL_PushEvent(ev);
   }
   return 1;
 }
 
 int SDL_WaitEvent(SDL_Event *event) {
   char buf[64];
+  //printf("call SDL_WaitEvent\n");
   //if (NDL_PollEvent(buf, 64)){
   while(!NDL_PollEvent(buf, 64));
+    //printf("hit\n");
+    SDL_PushEvent(event);
     char key_status[5];
     char key_name[20];
     int name_id=0;
@@ -52,6 +59,7 @@ int SDL_WaitEvent(SDL_Event *event) {
       if(!strcmp(key_name, keyname[name_id])){event->key.keysym.sym = name_id;break;}
       name_id++;
     }
+    SDL_PushEvent(event);
     //printf("%s\n", buf);
     //printf("%s %s %d\n",key_status, key_name, name_id);
   //}
