@@ -10,6 +10,8 @@
   [AM_KEY_##key] = #key,
 
 static AM_GPU_CONFIG_T cfg = {};
+static AM_AUDIO_CONFIG_T audio_cfg = {};
+static AM_AUDIO_STATUS_T audio_stat = {};
 
 static const char *keyname[256] __attribute__((used)) = {
   [AM_KEY_NONE] = "NONE",
@@ -74,6 +76,29 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
   io_write(AM_GPU_FBDRAW, fbdraw.x, fbdraw.y, fbdraw.pixels, fbdraw.w, fbdraw.h, 1);
   //io_write(AM_GPU_FBDRAW, fbdraw.x, fbdraw.y, fbdraw.pixels, fbdraw.w, fbdraw.h, 0);
   return fbdraw.w*fbdraw.h*4;
+}
+
+size_t sbctl_read(const void *buf, size_t offset, size_t len){
+  audio_stat = io_read(AM_AUDIO_STATUS);
+  audio_cfg = io_read(AM_AUDIO_CONFIG);
+  return (audio_cfg.bufsize - audio_stat.count);
+}
+
+size_t sbctl_write(const void *buf, size_t offset, size_t len){
+  int *freq = (int*)buf;
+  int *channels = freq+1;
+  int *samples = freq+2;
+  io_write(AM_AUDIO_CTRL, *freq, *channels, *samples);
+  return 12;
+}
+
+size_t sb_write(const void *buf, size_t offset, size_t len){
+  Area audio_buf;
+  audio_buf.start = buf;
+  audio_buf.end = buf + len;
+  while(sbctl_read(NULL, 0, 0) < len);
+  io_write(AM_AUDIO_PLAY, audio_buf);
+  return len;
 }
 
 void init_device() {

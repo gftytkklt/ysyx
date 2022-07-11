@@ -11,6 +11,9 @@
 
 static int evtdev = -1;
 static int fbdev = -1;
+static int fbctl = -1;
+static int sbdev = -1;
+static int sbctl = -1;
 static int screen_w = 0, screen_h = 0;
 static int canvas_w = 0, canvas_h = 0;
 static uint32_t* canvas = NULL;
@@ -76,17 +79,22 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
 }
 
 void NDL_OpenAudio(int freq, int channels, int samples) {
+  int audio_para[3] = {freq, channels, samples};
+  write(sbctl, audio_para, 12);
 }
 
 void NDL_CloseAudio() {
+  int audio_para[3] = {0, 0, 0};
+  write(sbctl, audio_para, 12);
 }
 
 int NDL_PlayAudio(void *buf, int len) {
-  return 0;
+  return write(sbdev, buf, len);
 }
 
 int NDL_QueryAudio() {
-  return 0;
+  //return 0;
+  return read(sbctl, NULL, 0);
 }
 
 int NDL_Init(uint32_t flags) {
@@ -97,18 +105,20 @@ int NDL_Init(uint32_t flags) {
   else{
     //printf("NDL init else\n");
     evtdev = open("/dev/events", 0, 0);
-    int fbctl = open("/proc/dispinfo", 0, 0);
-    char buf[64];
-    read(fbctl, buf, 64);
-    sscanf(buf, "WIDTH : %d\nHEIGHT : %d\n", &screen_w, &screen_h);
-    // then config it to screen_w, screen_h
-    //screen_w = *w; screen_h = *h;
-    printf("screen_size: %d*%d\n", screen_w, screen_h);
-    close(fbctl);
   }
+  fbctl = open("/proc/dispinfo", 0, 0);
+  char buf[64];
+  read(fbctl, buf, 64);
+  sscanf(buf, "WIDTH : %d\nHEIGHT : %d\n", &screen_w, &screen_h);
+  // then config it to screen_w, screen_h
+  //screen_w = *w; screen_h = *h;
+  printf("screen_size: %d*%d\n", screen_w, screen_h);
+  close(fbctl);
   fbdev = open("/dev/fb", 0, 0);
+  sbdev = open("/dev/sb", 0, 0);
+  sbctl = open("/dev/sbctl", 0, 0);
   boot_time = NDL_GetTicks();
-  printf("boot_time: %d\n\n", boot_time);
+  printf("boot_time: %d\n", boot_time);
   //TODO: call read "proc/dispinfo", get screen info
   
   return 0;
@@ -117,4 +127,6 @@ int NDL_Init(uint32_t flags) {
 void NDL_Quit() {
   close(evtdev);
   close(fbdev);
+  close(sbdev);
+  close(sbctl);
 }
