@@ -3,7 +3,7 @@
 Area heap;
 
 void putch(char ch) {
-  putchar(ch+1);
+  putchar(ch);
 }
 //intptr_t _syscall_(intptr_t type, intptr_t a0, intptr_t a1, intptr_t a2);
 //extern intptr_t _syscall_(intptr_t, intptr_t, intptr_t, intptr_t);
