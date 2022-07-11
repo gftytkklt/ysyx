@@ -6,7 +6,7 @@ Area heap=RANGE(&_heap_start, 0x83000000);
 
 extern int write(int, const void *, size_t);
 void putch(char ch) {
-  write(1, &ch, 1);
+  write(1, "0", 1);
 }
 //intptr_t _syscall_(intptr_t type, intptr_t a0, intptr_t a1, intptr_t a2);
 //extern intptr_t _syscall_(intptr_t, intptr_t, intptr_t, intptr_t);
