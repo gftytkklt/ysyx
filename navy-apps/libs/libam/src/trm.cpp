@@ -1,6 +1,8 @@
 #include <am.h>
+#include <klib-macros.h>
+extern char _heap_start;
+Area heap=RANGE(&_heap_start, 0x88000000);
 
-Area heap;
 
 void putch(char ch) {
   putchar(ch);
