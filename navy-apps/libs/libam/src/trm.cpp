@@ -1,10 +1,10 @@
 #include <am.h>
-//#include <klib-macros.h>
-//extern char _heap_start;
-//Area heap=RANGE(&_heap_start, 0x88000000);
-Area heap;
+#include <klib-macros.h>
+extern char _heap_start;
+Area heap=RANGE(&_heap_start, 0x83000000);
+//Area heap;
 
-extern int write (int, const void *, size_t);
+extern int write(int, const void *, size_t);
 void putch(char ch) {
   write(1, &ch, 1);
 }
