@@ -79,7 +79,7 @@ void sys_exit(uintptr_t ret){
   #ifdef CONFIG_STRACE
     printf("sys exit,ret code: %lx\n", ret);
   #endif
-  sys_execve("/bin/menu", NULL, NULL);
+  sys_execve("/bin/nterm", NULL, NULL);
   //halt(ret);
 }
 int fs_open(const char *pathname, int flags, int mode);

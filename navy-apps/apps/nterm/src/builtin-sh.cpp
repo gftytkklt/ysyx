@@ -27,6 +27,11 @@ static int cmd_echo(char* args){
   return 0;
 }
 
+static int cmd_exec(char* args){
+  execve(args, NULL, NULL);
+  return 0;
+}
+
 static struct {
   const char *name;
   const char *description;
@@ -44,6 +49,9 @@ static void sh_handle_cmd(const char *cmd) {
   if (args >= cmd_end){args = NULL;}
   if (strcmp(inst, cmd_table[0].name) == 0){
     cmd_table[0].handler(args);
+  }
+  else{
+    cmd_exec(args);
   }
 }
 
