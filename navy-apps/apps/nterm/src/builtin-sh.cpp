@@ -23,7 +23,6 @@ static void sh_prompt() {
 }
 
 static int cmd_echo(char* args){
-  printf("%s\n", args);
   sh_printf("%s", args);
   return 0;
 }
@@ -52,7 +51,7 @@ static void sh_handle_cmd(const char *cmd) {
     cmd_table[0].handler(args);
   }
   else{
-    cmd_exec(args);
+    cmd_exec(inst);
   }
 }
 
