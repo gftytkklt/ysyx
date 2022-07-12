@@ -35,6 +35,7 @@ void init_proc() {
   Log("Initializing processes...");
   // load program here
   naive_uload(NULL,NULL);
+  printf("load end\n");
 }
 
 Context* schedule(Context *prev) {
