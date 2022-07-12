@@ -51,7 +51,7 @@ static void sh_handle_cmd(const char *cmd) {
     cmd_table[0].handler(args);
   }
   else{
-    cmd_exec(inst);
+    cmd_exec(tmp);
   }
 }
 
