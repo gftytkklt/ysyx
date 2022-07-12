@@ -150,7 +150,8 @@ static inline fixedpt fixedpt_mul(fixedpt A, fixedpt B) {
 static inline fixedpt fixedpt_div(fixedpt A, fixedpt B) {
 	//return 0;
 	//return A / B * (1<<8);
-	return (((fixedptd)A << FIXEDPT_FBITS) / (fixedptd)B);
+	//return (((fixedptd)A << FIXEDPT_FBITS) / (fixedptd)B);
+	return (((fixedptd)A / (fixedptd)B) << FIXEDPT_FBITS);
 }
 
 static inline fixedpt fixedpt_abs(fixedpt A) {

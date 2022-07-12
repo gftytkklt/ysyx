@@ -79,13 +79,19 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
 }
 
 void NDL_OpenAudio(int freq, int channels, int samples) {
+  printf("init audio\n");
+  sbdev = open("/dev/sb", 0, 0);
+  sbctl = open("/dev/sbctl", 0, 0);
   int audio_para[3] = {freq, channels, samples};
   write(sbctl, audio_para, 12);
+  printf("freq: %d, channels: %d, samples: %d\n", freq, channels, samples);
 }
 
 void NDL_CloseAudio() {
-  int audio_para[3] = {0, 0, 0};
-  write(sbctl, audio_para, 12);
+  //int audio_para[3] = {0, 0, 0};
+  //write(sbctl, audio_para, 12);
+  close(fbctl);
+  close(fbdev);
 }
 
 int NDL_PlayAudio(void *buf, int len) {
@@ -115,8 +121,6 @@ int NDL_Init(uint32_t flags) {
   printf("screen_size: %d*%d\n", screen_w, screen_h);
   close(fbctl);
   fbdev = open("/dev/fb", 0, 0);
-  sbdev = open("/dev/sb", 0, 0);
-  sbctl = open("/dev/sbctl", 0, 0);
   boot_time = NDL_GetTicks();
   printf("boot_time: %d\n", boot_time);
   //TODO: call read "proc/dispinfo", get screen info

@@ -94,8 +94,8 @@ size_t sbctl_write(const void *buf, size_t offset, size_t len){
 
 size_t sb_write(const void *buf, size_t offset, size_t len){
   Area audio_buf;
-  audio_buf.start = buf;
-  audio_buf.end = buf + len;
+  audio_buf.start = (void*)buf;
+  audio_buf.end = (void*)(buf + len);
   while(sbctl_read(NULL, 0, 0) < len);
   io_write(AM_AUDIO_PLAY, audio_buf);
   return len;

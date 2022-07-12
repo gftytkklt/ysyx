@@ -1,17 +1,31 @@
 #include <NDL.h>
 #include <SDL.h>
 
+static SDL_AudioSpec s = {};
+
 int SDL_OpenAudio(SDL_AudioSpec *desired, SDL_AudioSpec *obtained) {
-  printf("SDL_OpenAudio not impl\n");
+  //printf("SDL_OpenAudio not impl\n");
+  if (obtained == NULL){
+    s = *desired;
+  }
+  else{
+    if(desired->format != obtained->format){return -1;}
+    s = *obtained;
+  }
+  NDL_OpenAudio(s.freq, s.channels, s.samples);
   return 0;
 }
 
 void SDL_CloseAudio() {
-  printf("SDL_CloseAudio not impl\n");
+  NDL_CloseAudio();
+  //printf("SDL_CloseAudio not impl\n");
 }
 
 void SDL_PauseAudio(int pause_on) {
-  printf("SDL_PauseAudio not impl\n");
+  if(!pause_on){
+    
+  }
+  //printf("SDL_PauseAudio not impl\n");
 }
 
 void SDL_MixAudio(uint8_t *dst, uint8_t *src, uint32_t len, int volume) {
