@@ -4,7 +4,7 @@
 #include <time.h>
 #include <proc.h>
 void naive_uload(PCB *pcb, const char *filename);
-//#define CONFIG_STRACE
+#define CONFIG_STRACE
 #ifdef CONFIG_STRACE
 const char* syscall_name[]={
   "sys exit",
