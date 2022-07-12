@@ -46,6 +46,7 @@ static char fsimg_path[512] = "";
 
 static inline void get_fsimg_path(char *newpath, const char *path) {
   sprintf(newpath, "%s%s", fsimg_path, path);
+  //printf("fsimg: %s\n", newpath);
 }
 
 #define _KEYS(_) \
@@ -144,6 +145,7 @@ static void open_audio() {
 
 static const char* redirect_path(char *newpath, const char *path) {
   get_fsimg_path(newpath, path);
+  //printf("re: %s\n", newpath);
   if (0 == access(newpath, 0)) {
     fprintf(stderr, "Redirecting file open: %s -> %s\n", path, newpath);
     return newpath;
@@ -159,7 +161,7 @@ extern "C" int execve(const char *filename, char *const argv[], char *const envp
 
 FILE *fopen(const char *path, const char *mode) {
   char newpath[512];
-  //printf("\nopen:%s\n\n", path);
+  //printf("\nopen:%s\n", path);
   return glibc_fopen(redirect_path(newpath, path), mode);
 }
 
@@ -242,9 +244,10 @@ ssize_t write(int fd, const void *buf, size_t count) {
 }
 
 int execve(const char *filename, char *const argv[], char *const envp[]) {
-  //printf("exec\n");
+  //printf("exec %s\n", filename);
   char newpath[512];
   glibc_execve(redirect_path(newpath, filename), argv, envp);
+  //printf("exec end\n");
   return -1;
 }
 
@@ -273,6 +276,7 @@ struct Init {
     char newpath[512];
     get_fsimg_path(newpath, "/bin");
     setenv("PATH", newpath, 1); // overwrite the current PATH
+    //printf("newpath: %s\n", newpath);
 
     SDL_Init(0);
     if (!getenv("NWM_APP")) {
