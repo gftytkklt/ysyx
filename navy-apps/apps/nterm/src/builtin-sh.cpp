@@ -51,6 +51,7 @@ static void sh_handle_cmd(const char *cmd) {
     cmd_table[0].handler(args);
   }
   else{
+    char *filename = strtok(tmp, "\n");
     cmd_exec(tmp);
   }
 }
