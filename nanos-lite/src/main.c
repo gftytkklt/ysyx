@@ -1,5 +1,4 @@
 #include <common.h>
-
 void init_mm(void);
 void init_device(void);
 void init_ramdisk(void);
@@ -24,7 +23,7 @@ int main() {
 #endif
 
   init_fs();
-
+  
   init_proc();
 
   Log("Finish initialization");
