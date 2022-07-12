@@ -28,13 +28,13 @@ static int cmd_echo(char* args){
 }
 
 static int cmd_exec(char* args){
-  //setenv("PATH","/bin",0);
+  setenv("PATH","/bin",0);
   //printf("%d %s\n",i, args);
   //printf("exec %s\n",args);
   char *arglist[] = {args, NULL};
-  //execvp(args, arglist);
+  execvp(args, arglist);
   //printf("exec end\n");
-  execve(args, arglist, NULL);
+  //execve(args, arglist, NULL);
   return 0;
 }
 
