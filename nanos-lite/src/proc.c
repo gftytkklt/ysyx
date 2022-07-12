@@ -27,7 +27,9 @@ void context_kload(PCB *pcb, void (*entry)(void *), void *arg){
 }
 
 void init_proc() {
+  printf("init begin\n");
   context_kload(&pcb[0], hello_fun, NULL);
+  printf("init end\n");
   switch_boot_pcb();
 
   Log("Initializing processes...");
