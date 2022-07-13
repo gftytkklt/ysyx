@@ -43,7 +43,7 @@ Context *kcontext(Area kstack, void (*entry)(void *), void *arg) {
   Context *cp1 = (Context*)kstack.start;
   printf("start: %p\n", kstack.start);
   *cp1 = *cp;
-  printf("start: %p\n", kstack.start);
+  printf("start: %p\n", *(Context*)kstack.start);
   cp->mstatus = 0xa00001800;
   cp->mepc = (uintptr_t)entry;
   printf("entry: %p, addr: %p\n", cp->mepc, &cp->mepc);
