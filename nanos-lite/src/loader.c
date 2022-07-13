@@ -55,6 +55,14 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     
 }
 
+void context_uload(PCB *pcb, const char *filename){
+  Area kstack;
+  kstack.start = (void*)pcb->stack;
+  kstack.end = (void*)pcb->stack + STACK_SIZE;
+  uintptr_t entry = loader(pcb, filename);
+  pcb->cp = ucontext(&pcb->as, kstack, (void*)entry);
+}
+
 void naive_uload(PCB *pcb, const char *filename) {
   //printf("in uload\n");
   uintptr_t entry = loader(pcb, filename);

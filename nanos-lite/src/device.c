@@ -19,6 +19,7 @@ static const char *keyname[256] __attribute__((used)) = {
 };
 
 size_t serial_write(const void *buf, size_t offset, size_t len) {
+  yield();
   char *tmp = (char*) buf;
   size_t write_size = 0;
   while ((write_size < len) && (tmp[write_size] != '\0')){
@@ -29,6 +30,7 @@ size_t serial_write(const void *buf, size_t offset, size_t len) {
 }
 
 size_t events_read(void *buf, size_t offset, size_t len) {
+  yield();
   //printf("in events_read\n");
   AM_INPUT_KEYBRD_T kbd = {};
   bool keydown = 0;
@@ -59,6 +61,7 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 }
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
+  yield();
   //printf("in fb_write\n");
   // non-standard draw
   /*AM_GPU_FBDRAW_T fbdraw = {.y = offset/cfg.width,
