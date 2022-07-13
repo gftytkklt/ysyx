@@ -25,6 +25,7 @@ void context_kload(PCB *pcb, void (*entry)(void *), void *arg){
   kstack.end = (void*)pcb->stack + STACK_SIZE;
   printf("start = %p, end = %p\n",kstack.start,kstack.end);
   pcb->cp = kcontext(kstack, entry, arg);
+  printf("pcb->cp: %p\n", pcb->cp);
 }
 
 void init_proc() {
