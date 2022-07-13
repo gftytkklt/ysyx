@@ -42,7 +42,7 @@ Context *kcontext(Area kstack, void (*entry)(void *), void *arg) {
   printf("start: %p, end: %p\n", kstack.start, kstack.end);
   Context *cp = (Context*)kstack.end - 1;
   Context **cp1 = kstack.start;
-  printf("cp = %p, cp->%p\n",&cp, cp);
+  printf("cp = %p, cp->%p\n",cp, *cp);
   //printf("start:%p %p\n",cp1, kstack.start);
   *cp1 = cp;
   //printf("start: %p %p\n", *(Context*)kstack.start, *cp1);
