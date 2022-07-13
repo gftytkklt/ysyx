@@ -27,7 +27,7 @@ void context_kload(PCB *pcb, void (*entry)(void *), void *arg){
 }
 
 void init_proc() {
-  context_kload(&pcb[0], hello_fun, NULL);
+  context_kload(&pcb[0], hello_fun, "hello");
   //context_kload(&pcb[0], hello_fun, "No.0 Hello world!\n");
   //context_kload(&pcb[1], hello_fun, "No.1 Hello world!\n");
   switch_boot_pcb();
