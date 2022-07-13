@@ -30,8 +30,8 @@ void context_kload(PCB *pcb, void (*entry)(void *), void *arg){
 void init_proc() {
   //context_kload(&pcb[0], hello_fun, "hello");
   context_kload(&pcb[0], hello_fun, "No.0 Hello world!");
-  //context_kload(&pcb[1], hello_fun, "No.1 Hello world!");
-  context_uload(&pcb[1],"/bin/pal");
+  context_kload(&pcb[1], hello_fun, "No.1 Hello world!");
+  //context_uload(&pcb[1],"/bin/pal");
   switch_boot_pcb();
 
   Log("Initializing processes...");
