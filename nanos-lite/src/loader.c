@@ -62,6 +62,7 @@ void context_uload(PCB *pcb, const char *filename){
   uintptr_t entry = loader(pcb, filename);
   printf("entry = %p\n",entry);
   pcb->cp = ucontext(&pcb->as, kstack, (void*)entry);
+  printf("cp = %p, cp->%p\n",&pcb->cp,pcb->cp);
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
