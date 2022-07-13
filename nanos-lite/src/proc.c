@@ -24,10 +24,10 @@ void context_kload(PCB *pcb, void (*entry)(void *), void *arg){
   kstack.start = (void*)pcb->stack;
   kstack.end = (void*)pcb->stack + STACK_SIZE;
   //printf("0 = %p, 1 = %p\n",&pcb->stack[0],&pcb->stack[1]);
-  printf("start = %p, end = %p, cp = %p, cp->%p\n",kstack.start,kstack.end,&pcb->cp,pcb->cp);
+  //printf("start = %p, end = %p, cp = %p, cp->%p\n",kstack.start,kstack.end,&pcb->cp,pcb->cp);
   //printf("Addr = %p\n",&pcb->as);
   pcb->cp = kcontext(kstack, entry, arg);
-  printf("cp = %p, pcb->cp: %p\n",&pcb->cp, pcb->cp);
+  //printf("cp = %p, pcb->cp: %p\n",&pcb->cp, pcb->cp);
 }
 
 void init_proc() {
