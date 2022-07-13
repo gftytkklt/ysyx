@@ -60,6 +60,7 @@ void context_uload(PCB *pcb, const char *filename){
   kstack.start = (void*)pcb->stack;
   kstack.end = (void*)pcb->stack + STACK_SIZE;
   uintptr_t entry = loader(pcb, filename);
+  printf("entry = %p\n",entry);
   pcb->cp = ucontext(&pcb->as, kstack, (void*)entry);
 }
 
