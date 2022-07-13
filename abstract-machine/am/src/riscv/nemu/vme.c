@@ -74,7 +74,7 @@ Context *ucontext(AddrSpace *as, Area kstack, void *entry) {
   cp->mstatus = 0xa00001800;
   cp->mepc = (uintptr_t)entry;
   cp->gpr[10] = (uintptr_t)heap.end;
-  printf("ustack top: %p\n", cp->gpr[10]);
+  //printf("ustack top: %p\n", cp->gpr[10]);
   return cp;
   //cp->gpr[10] = (uintptr_t) arg;
   //return kstack.end;
