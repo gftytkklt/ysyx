@@ -40,7 +40,7 @@ bool cte_init(Context*(*handler)(Event, Context*)) {
 Context *kcontext(Area kstack, void (*entry)(void *), void *arg) {
   Context *cp = (Context*)kstack.end - 1;
   cp->mstatus = 0xa00001800;
-  cp->mepc = (uintptr_t)entry +6;
+  cp->mepc = (uintptr_t)entry;
   return cp;
 }
 
