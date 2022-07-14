@@ -53,14 +53,14 @@ __am_asm_trap:
   
   # 0712 set multiprocess
   mv sp, a0
-  sub  a7, a7, a7
-  LOAD a7, OFFSET_STATUS(a7)
   LOAD t1, OFFSET_STATUS(sp)
   LOAD t2, OFFSET_EPC(sp)
   csrw mstatus, t1
   csrw mepc, t2
   
   MAP(REGS, POP)
+  sub  a7, a7, a7
+  LOAD a7, OFFSET_STATUS(a7)
 
   addi sp, sp, CONTEXT_SIZE
   mret
