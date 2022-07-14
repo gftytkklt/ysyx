@@ -55,7 +55,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     
 }
 
-uintptr_t context_uload(PCB *pcb, const char *filename){
+void context_uload(PCB *pcb, const char *filename){
   Area kstack;
   kstack.start = (void*)pcb->stack;
   kstack.end = (void*)pcb->stack + STACK_SIZE;
@@ -64,7 +64,7 @@ uintptr_t context_uload(PCB *pcb, const char *filename){
   printf("user kstack: %p, %p\n",kstack.start,kstack.end);
   pcb->cp = ucontext(&pcb->as, kstack, (void*)entry);
   //printf("cp = %p, cp->%p\n",&pcb->cp,pcb->cp->gpr[10]);
-  return pcb->cp->gpr[10];
+  //return pcb->cp->gpr[10];
 }
 
 void naive_uload(PCB *pcb, const char *filename) {

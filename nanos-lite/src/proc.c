@@ -33,7 +33,7 @@ void init_proc() {
   context_kload(&pcb[0], hello_fun, "No.0 Hello world!");
   //context_kload(&pcb[1], hello_fun, "No.1 Hello world!");
   context_uload(&pcb[1],"/bin/pal");
-  assert(0);
+  //assert(0);
   switch_boot_pcb();
 
   Log("Initializing processes...");
