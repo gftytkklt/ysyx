@@ -52,10 +52,9 @@ __am_asm_trap:
   jal __am_irq_handle
   
   # 0712 set multiprocess
+  mv sp, a0
   sub  a7, a7, a7
   LOAD a7, OFFSET_STATUS(a7)
-  mv sp, a0
-
   LOAD t1, OFFSET_STATUS(sp)
   LOAD t2, OFFSET_EPC(sp)
   csrw mstatus, t1
