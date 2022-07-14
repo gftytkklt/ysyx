@@ -58,10 +58,10 @@ __am_asm_trap:
   LOAD t2, OFFSET_EPC(sp)
   csrw mstatus, t1
   csrw mepc, t2
-
-  MAP(REGS, POP)
-
-  addi sp, sp, CONTEXT_SIZE
   sub  a7, a7, a7
   LOAD a7, OFFSET_STATUS(a7)
+  MAP(REGS, POP)
+  
+
+  addi sp, sp, CONTEXT_SIZE
   mret
