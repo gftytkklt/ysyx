@@ -52,6 +52,8 @@ __am_asm_trap:
   jal __am_irq_handle
   
   # 0712 set multiprocess
+  sub  a7, a7, a7
+  LOAD a7, OFFSET_STATUS(a7)
   mv sp, a0
 
   LOAD t1, OFFSET_STATUS(sp)
@@ -60,7 +62,6 @@ __am_asm_trap:
   csrw mepc, t2
   
   MAP(REGS, POP)
-  sub  a7, a7, a7
-  LOAD a7, OFFSET_STATUS(a7)
+
   addi sp, sp, CONTEXT_SIZE
   mret
