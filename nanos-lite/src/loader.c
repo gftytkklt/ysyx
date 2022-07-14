@@ -61,6 +61,7 @@ void context_uload(PCB *pcb, const char *filename){
   kstack.end = (void*)pcb->stack + STACK_SIZE;
   uintptr_t entry = loader(pcb, filename);
   //printf("entry = %p\n",entry);
+  printf("user kstack: %p, %p\n",kstack.start,kstack.end);
   pcb->cp = ucontext(&pcb->as, kstack, (void*)entry);
   //printf("cp = %p, cp->%p\n",&pcb->cp,pcb->cp->gpr[10]);
 }
