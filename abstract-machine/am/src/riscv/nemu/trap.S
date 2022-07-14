@@ -62,4 +62,6 @@ __am_asm_trap:
   MAP(REGS, POP)
 
   addi sp, sp, CONTEXT_SIZE
+  sub  a7, a7, a7
+  LOAD a7, OFFSET_STATUS(a7)
   mret
