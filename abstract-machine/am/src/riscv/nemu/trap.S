@@ -60,5 +60,7 @@ __am_asm_trap:
   csrw mepc, t2
   
   MAP(REGS, POP)
+  sub  a7, a7, a7
+  LOAD a7, OFFSET_STATUS(a7)
   addi sp, sp, CONTEXT_SIZE
   mret
