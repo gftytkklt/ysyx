@@ -31,12 +31,12 @@ void init_proc() {
   //context_kload(&pcb[0], hello_fun, "hello");
   context_kload(&pcb[0], hello_fun, "No.0 Hello world!");
   //context_kload(&pcb[1], hello_fun, "No.1 Hello world!");
-  context_uload(&pcb[1],"/bin/pal");
+  context_uload(&pcb[1],"/bin/nslider");
   switch_boot_pcb();
 
   Log("Initializing processes...");
   // load program here
-  naive_uload(NULL,"/bin/pal");
+  naive_uload(NULL,"/bin/nslider");
 }
 
 Context* schedule(Context *prev) {
