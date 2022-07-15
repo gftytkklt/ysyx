@@ -55,7 +55,7 @@ __am_asm_trap:
   
   # 0712 set multiprocess
   mv sp, a0
-  ld a0, 0(zero)
+  #ld a0, 0(zero)
   LOAD t1, OFFSET_STATUS(sp)
   LOAD t2, OFFSET_EPC(sp)
   csrw mstatus, t1

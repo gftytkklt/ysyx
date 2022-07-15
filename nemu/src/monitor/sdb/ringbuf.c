@@ -1,5 +1,5 @@
 #include "sdb.h"
-#define RINGBUF_LEN 32
+#define RINGBUF_LEN 64
 static ringbuf ring[RINGBUF_LEN] = {};
 static ringbuf* current_buf;
 void init_ringbuf() {
