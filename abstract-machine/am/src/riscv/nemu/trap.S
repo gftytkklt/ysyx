@@ -30,7 +30,7 @@ f(30) f(31)
 .align 3
 .globl __am_asm_trap
 __am_asm_trap:
-  ld a0, 0(zero)
+  
   addi sp, sp, -CONTEXT_SIZE
 
   MAP(REGS, PUSH)
@@ -50,6 +50,7 @@ __am_asm_trap:
   csrw mstatus, t1
 
   mv a0, sp
+  ld a0, 0(zero)
   jal __am_irq_handle
   
   # 0712 set multiprocess
