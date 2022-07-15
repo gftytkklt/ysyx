@@ -65,6 +65,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   pcb->cp = ucontext(&pcb->as, kstack, (void*)entry);
   //push parameters to stack
   void *stacktop = (void*)pcb->cp->gpr[10];
+  printf("ustack: %p\n",stacktop);
   //int argc = sizeof(argv)/sizeof(char* const*);
   //int envc = sizeof(envp)/sizeof(char* const*);
   int argc = 0;
