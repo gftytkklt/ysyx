@@ -61,7 +61,7 @@ __am_asm_trap:
   csrw mstatus, t1
   csrw mepc, t2
   #ld a0, 0(zero)
-  #mv sp, a0
+  mv sp, a0
   
   MAP(REGS, POP)
   addi sp, sp, CONTEXT_SIZE
