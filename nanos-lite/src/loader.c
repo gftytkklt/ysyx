@@ -63,7 +63,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   //printf("entry = %p\n",entry);
   printf("user kstack: %p, %p\n",kstack.start,kstack.end);
   pcb->cp = ucontext(&pcb->as, kstack, (void*)entry);
-  //push parameters to stack
+  /*//push parameters to stack
   void *stacktop = (void*)pcb->cp->gpr[10];
   printf("ustack: %p\n",stacktop);
   //int argc = sizeof(argv)/sizeof(char* const*);
@@ -122,7 +122,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   ((void(*)())entry) ();
   //yield();
   //printf("cp = %p, cp->%p\n",&pcb->cp,pcb->cp->gpr[10]);
-  //return pcb->cp->gpr[10];
+  //return pcb->cp->gpr[10];*/
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
