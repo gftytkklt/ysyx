@@ -30,7 +30,7 @@ f(30) f(31)
 .align 3
 .globl __am_asm_trap
 __am_asm_trap:
-  ld a0, 0(zero)
+  
   addi sp, sp, -CONTEXT_SIZE
 
   MAP(REGS, PUSH)
@@ -55,6 +55,7 @@ __am_asm_trap:
   
   # 0712 set multiprocess
   mv sp, a0
+  ld a0, 0(zero)
   LOAD t1, OFFSET_STATUS(sp)
   LOAD t2, OFFSET_EPC(sp)
   csrw mstatus, t1
