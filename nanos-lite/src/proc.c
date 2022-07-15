@@ -2,7 +2,7 @@
 
 #define MAX_NR_PROC 4
 void naive_uload(PCB *pcb, const char *filename);
-void context_uload(PCB *pcb, const char *filename);
+void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]);
 static PCB pcb[MAX_NR_PROC] __attribute__((used)) = {};
 static PCB pcb_boot = {};
 PCB *current = NULL;
@@ -40,7 +40,7 @@ void init_proc() {
   Log("Initializing processes...");
   // load program here
   //naive_uload(NULL,"/bin/pal");
-  context_uload(&pcb[1],"/bin/pal");
+  context_uload(&pcb[1],"/bin/pal", NULL, NULL);
 }
 
 Context* schedule(Context *prev) {

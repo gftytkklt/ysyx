@@ -63,7 +63,56 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   //printf("entry = %p\n",entry);
   printf("user kstack: %p, %p\n",kstack.start,kstack.end);
   pcb->cp = ucontext(&pcb->as, kstack, (void*)entry);
-  //TODO: push parameters to stack
+  //push parameters to stack
+  void *stacktop = (void*)pcb->cp->gpr[10];
+  //int argc = sizeof(argv)/sizeof(char* const*);
+  //int envc = sizeof(envp)/sizeof(char* const*);
+  int argc = 0;
+  int envc = 0;
+  while(argv[argc] != NULL){
+    argc++;
+  }
+  while(envp[envc] != NULL){
+    envc++;
+  }
+  char **argv_stack = (char **)malloc(argc*sizeof(char**));
+  char **envp_stack = (char **)malloc(envc*sizeof(char**));
+  // push envp & argv str to stack
+  // larger index at end of stack
+  int cplen;
+  // push envc str
+  for (int i=envc;i>0;i--){
+    cplen = strlen(envp[i-1]);
+    stacktop -= (cplen+1);
+    strcpy(stacktop,envp[i-1]);
+    envp_stack[i-1] = (char *const)stacktop;
+  }
+  // push argv str
+  for (int i=argc;i>0;i--){
+    cplen = strlen(argv[i-1]);
+    stacktop -= (cplen+1);
+    strcpy(stacktop,argv[i-1]);
+    argv_stack[i-1] = (char *const)stacktop;
+  }
+  // align with 8 byte
+  stacktop = (void *)((unsigned long)stacktop & 0xfffffffffffffff8);
+  // push envc*
+  stacktop -= sizeof(char**);
+  memset(stacktop, 0, 8);
+  for (int i=envc;i>0;i--){
+    stacktop -= sizeof(char**);
+    *((char**)stacktop) = envp_stack[i-1];
+  }
+  // push argv*
+  stacktop -= sizeof(char**);
+  memset(stacktop, 0, 8);
+  for (int i=envc;i>0;i--){
+    stacktop -= sizeof(char**);
+    *((char**)stacktop) = argv_stack[i-1];
+  }
+  stacktop -= sizeof(int);
+  *((int*)stacktop) = argc;
+  pcb->cp->gpr[10] = (uintptr_t)stacktop;
   ((void(*)())entry) ();
   //yield();
   //printf("cp = %p, cp->%p\n",&pcb->cp,pcb->cp->gpr[10]);
