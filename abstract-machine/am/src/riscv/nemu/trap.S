@@ -65,5 +65,5 @@ __am_asm_trap:
   
   MAP(REGS, POP)
   addi sp, sp, CONTEXT_SIZE
-  ld a0, 0(zero)
+  #ld a0, 0(zero)
   mret
