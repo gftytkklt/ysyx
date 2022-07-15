@@ -65,7 +65,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   pcb->cp = ucontext(&pcb->as, kstack, (void*)entry);
   //((void(*)())entry) ();
   //push parameters to stack
-  void *stacktop = (void*)pcb->cp->gpr[10];
+  /*void *stacktop = (void*)pcb->cp->gpr[10];
   printf("ustack: %p\n",stacktop);
   //int argc = sizeof(argv)/sizeof(char* const*);
   //int envc = sizeof(envp)/sizeof(char* const*);
@@ -118,7 +118,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   stacktop -= sizeof(int);
   *((int*)stacktop) = argc;
   pcb->cp->gpr[10] = (uintptr_t)stacktop;
-  printf("end: %p\n",pcb->cp->gpr[10]);
+  printf("end: %p\n",pcb->cp->gpr[10]);*/
   //asm volatile("ld a0, 0(zero)");
   //((void(*)())entry) ();
   //yield();
