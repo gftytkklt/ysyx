@@ -76,8 +76,10 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   while(envp[envc] != NULL){
     envc++;
   }
+  printf("%d %d\n", argc, envc);
   char **argv_stack = (char **)malloc(argc*sizeof(char**));
   char **envp_stack = (char **)malloc(envc*sizeof(char**));
+  printf("test1\n");
   // push envp & argv str to stack
   // larger index at end of stack
   int cplen;
@@ -114,6 +116,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   stacktop -= sizeof(int);
   *((int*)stacktop) = argc;
   pcb->cp->gpr[10] = (uintptr_t)stacktop;
+  printf("end: %p\n",stacktop);
   ((void(*)())entry) ();
   //yield();
   //printf("cp = %p, cp->%p\n",&pcb->cp,pcb->cp->gpr[10]);
