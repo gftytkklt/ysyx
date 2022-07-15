@@ -14,6 +14,7 @@ void call_main(uintptr_t *args) {
   char **envp = (char **)((char **)argv + argc + 1);
   printf("envp addr = %p\n", envp);
   environ = envp;
+  printf("main start\n");
   exit(main(argc, argv, envp));
   //char *empty[] =  {NULL };
   //environ = empty;
