@@ -55,7 +55,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     
 }
 
-void context_uload(PCB *pcb, const char *filename){
+void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]){
   Area kstack;
   kstack.start = (void*)pcb->stack;
   kstack.end = (void*)pcb->stack + STACK_SIZE;
@@ -63,6 +63,7 @@ void context_uload(PCB *pcb, const char *filename){
   //printf("entry = %p\n",entry);
   printf("user kstack: %p, %p\n",kstack.start,kstack.end);
   pcb->cp = ucontext(&pcb->as, kstack, (void*)entry);
+  //TODO: push parameters to stack
   ((void(*)())entry) ();
   //yield();
   //printf("cp = %p, cp->%p\n",&pcb->cp,pcb->cp->gpr[10]);
