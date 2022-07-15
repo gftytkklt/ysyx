@@ -12,9 +12,9 @@ void call_main(uintptr_t *args) {
   //printf("argv addr = %p\n", argv);
   //char **envp = (char **)((char **)argv + argc + 1);
   //printf("envp addr = %p\n", envp);
-  char *empty[] =  {NULL };
   //environ = envp;
   //exit(main(argc, argv, envp));
+  char *empty[] =  {NULL };
   environ = empty;
   exit(main(0, empty, empty));
   assert(0);
