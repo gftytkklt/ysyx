@@ -12,7 +12,7 @@ void call_main(uintptr_t *args) {
   char **argv = (char **)((int*)args + 1);
   printf("argv addr = %p\n", argv);
   for (int i=0;i<argc;i++){
-    printf("argv: %s\n", argv[i]);
+    printf("argv: %p\n", argv[i]);
   }
   char **envp = (char **)((char **)argv + argc + 1);
   printf("envp addr = %p\n", envp);
