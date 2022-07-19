@@ -8,14 +8,14 @@ extern char **environ;
 void call_main(uintptr_t *args) {
   //printf("in callmain, main = %p\n", (void*)main);
   int argc = *((int*)args);
-  printf("argc = %d, addr = %p\n", argc, args);
+  //printf("argc = %d, addr = %p\n", argc, args);
   char **argv = (char **)((int*)args + 1);
-  printf("argv addr = %p\n", argv);
-  for (int i=0;i<argc;i++){
-    printf("argv%p: %s\n", argv[i], argv[i]);
-  }
+  //printf("argv addr = %p\n", argv);
+  //for (int i=0;i<argc;i++){
+  //  printf("argv%p: %s\n", argv[i], argv[i]);
+  //}
   char **envp = (char **)((char **)argv + argc + 1);
-  printf("envp addr = %p\n", envp);
+  //printf("envp addr = %p\n", envp);
   environ = envp;
   //printf("main start\n");
   exit(main(argc, argv, envp));
