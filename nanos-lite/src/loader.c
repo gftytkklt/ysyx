@@ -109,6 +109,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   for (int i=envc;i>0;i--){
     stacktop -= sizeof(char**);
     *((char**)stacktop) = envp_stack[i-1];
+    printf("envc %p\n", stacktop);
   }
   // push argv*
   stacktop -= sizeof(char**);
@@ -116,6 +117,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   for (int i=envc;i>0;i--){
     stacktop -= sizeof(char**);
     *((char**)stacktop) = argv_stack[i-1];
+    printf("argv%d: %p\n",i-1, stacktop);
   }
   stacktop -= sizeof(int);
   *((int*)stacktop) = argc;
