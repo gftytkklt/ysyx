@@ -69,7 +69,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   printf("ustack: %p\n",stacktop);
   //int argc = sizeof(argv)/sizeof(char* const*);
   //int envc = sizeof(envp)/sizeof(char* const*);
-  /*int argc = 0;
+  int argc = 0;
   int envc = 0;
   //printf("%p %p\n", argv, envp);
   while(argv[argc] != NULL){
@@ -79,7 +79,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     envc++;
   }
   //printf("%d %d\n", argc, envc);
-  char **argv_stack = (char **)malloc(argc*sizeof(char**));
+  /*char **argv_stack = (char **)malloc(argc*sizeof(char**));
   char **envp_stack = (char **)malloc(envc*sizeof(char**));
   //printf("test1\n");
   // push envp & argv str to stack
