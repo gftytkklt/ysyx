@@ -60,28 +60,21 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   kstack.start = (void*)pcb->stack;
   kstack.end = (void*)pcb->stack + STACK_SIZE;
   uintptr_t entry = loader(pcb, filename);
-  //printf("entry = %p\n",entry);
   printf("user kstack: %p, %p\n",kstack.start,kstack.end);
   pcb->cp = ucontext(&pcb->as, kstack, (void*)entry);
-  //((void(*)())entry) ();
   //push parameters to stack
   void *stacktop = (void*)pcb->cp->gpr[10];
   printf("ustack: %p\n",stacktop);
-  //int argc = sizeof(argv)/sizeof(char* const*);
-  //int envc = sizeof(envp)/sizeof(char* const*);
   int argc = 0;
   int envc = 0;
-  //printf("%p %p\n", argv, envp);
   while(argv[argc] != NULL){
     argc++;
   }
   while(envp[envc] != NULL){
     envc++;
   }
-  //printf("%d %d\n", argc, envc);
   char **argv_stack = (char **)malloc(argc*sizeof(char**));
   char **envp_stack = (char **)malloc(envc*sizeof(char**));
-  //printf("test1\n");
   // push envp & argv str to stack
   // larger index at end of stack
   int cplen;
@@ -91,7 +84,6 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     stacktop -= (cplen+1);
     strcpy(stacktop,envp[i-1]);
     envp_stack[i-1] = (char *)stacktop;
-    
   }
   // push argv str
   for (int i=argc;i>0;i--){
@@ -99,7 +91,6 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     stacktop -= (cplen+1);
     strcpy(stacktop,argv[i-1]);
     argv_stack[i-1] = (char *)stacktop;
-    //printf("%p: %s\n", argv_stack[i-1], argv_stack[i-1]);
   }
   // align with 8 byte
   stacktop = (void *)((unsigned long)stacktop & 0xfffffffffffffff8);
@@ -109,7 +100,6 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   for (int i=envc;i>0;i--){
     stacktop -= sizeof(char**);
     *((char**)stacktop) = envp_stack[i-1];
-    //printf("envc %p\n", stacktop);
   }
   // push argv*
   stacktop -= sizeof(char**);
@@ -117,11 +107,10 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   for (int i=argc;i>0;i--){
     stacktop -= sizeof(char**);
     *((char**)stacktop) = argv_stack[i-1];
-    //printf("argv%d: %p\n",i-1, stacktop);
   }
   stacktop -= sizeof(int);
   *((int*)stacktop) = argc;
-  //pcb->cp->gpr[10] = (uintptr_t)stacktop;
+  pcb->cp->gpr[10] = (uintptr_t)stacktop;
   printf("uloader end\n");
 }
 

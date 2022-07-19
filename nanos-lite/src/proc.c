@@ -40,7 +40,7 @@ void init_proc() {
   Log("Initializing processes...");
   // load program here
   //naive_uload(NULL,"/bin/pal");
-  char * argv[]={"hello", "fuck you", NULL};
+  char * argv[]={"--skip", NULL};
   char * envp[]={NULL};
   context_uload(&pcb[1],"/bin/pal", argv, envp);
 }
