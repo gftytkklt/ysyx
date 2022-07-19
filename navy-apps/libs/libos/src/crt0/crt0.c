@@ -21,7 +21,7 @@ void call_main(uintptr_t *args) {
   exit(main(argc, argv, envp));
   char *empty[] =  {NULL };
   environ = empty;
-  assert(1==2);
+  //assert(1==2);
   exit(main(0, empty, empty));
   assert(0);
 }
