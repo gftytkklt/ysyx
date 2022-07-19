@@ -114,7 +114,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   // push argv*
   stacktop -= sizeof(char**);
   memset(stacktop, 0, 8);
-  for (int i=envc;i>0;i--){
+  for (int i=argc;i>0;i--){
     stacktop -= sizeof(char**);
     *((char**)stacktop) = argv_stack[i-1];
     printf("argv%d: %p\n",i-1, stacktop);
