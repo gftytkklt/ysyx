@@ -79,7 +79,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     envc++;
   }
   //printf("%d %d\n", argc, envc);
-  /*char **argv_stack = (char **)malloc(argc*sizeof(char**));
+  char **argv_stack = (char **)malloc(argc*sizeof(char**));
   char **envp_stack = (char **)malloc(envc*sizeof(char**));
   //printf("test1\n");
   // push envp & argv str to stack
@@ -102,7 +102,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     //printf("%p: %s\n", argv_stack[i-1], argv_stack[i-1]);
   }
   // align with 8 byte
-  stacktop = (void *)((unsigned long)stacktop & 0xfffffffffffffff8);
+  /*stacktop = (void *)((unsigned long)stacktop & 0xfffffffffffffff8);
   // push envc*
   stacktop -= sizeof(char**);
   memset(stacktop, 0, 8);
