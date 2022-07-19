@@ -119,9 +119,9 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     *((char**)stacktop) = argv_stack[i-1];
     //printf("argv%d: %p\n",i-1, stacktop);
   }
-  /*stacktop -= sizeof(int);
+  stacktop -= sizeof(int);
   *((int*)stacktop) = argc;
-  pcb->cp->gpr[10] = (uintptr_t)stacktop;*/
+  /*pcb->cp->gpr[10] = (uintptr_t)stacktop;*/
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
