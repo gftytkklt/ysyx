@@ -106,7 +106,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   // push envc*
   stacktop -= sizeof(char**);
   memset(stacktop, 0, 8);
-  /*for (int i=envc;i>0;i--){
+  for (int i=envc;i>0;i--){
     stacktop -= sizeof(char**);
     *((char**)stacktop) = envp_stack[i-1];
     //printf("envc %p\n", stacktop);
@@ -119,7 +119,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     *((char**)stacktop) = argv_stack[i-1];
     //printf("argv%d: %p\n",i-1, stacktop);
   }
-  stacktop -= sizeof(int);
+  /*stacktop -= sizeof(int);
   *((int*)stacktop) = argc;
   pcb->cp->gpr[10] = (uintptr_t)stacktop;*/
 }
