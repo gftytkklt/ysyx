@@ -122,12 +122,6 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   stacktop -= sizeof(int);
   *((int*)stacktop) = argc;
   pcb->cp->gpr[10] = (uintptr_t)stacktop;
-  //printf("end: %p\n",pcb->cp->gpr[10]);
-  //asm volatile("ld a0, 0(zero)");
-  //((void(*)())entry) ();
-  //yield();
-  //printf("cp = %p, cp->%p\n",&pcb->cp,pcb->cp->gpr[10]);
-  //return pcb->cp->gpr[10];
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
