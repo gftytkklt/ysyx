@@ -69,7 +69,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   printf("ustack: %p\n",stacktop);
   //int argc = sizeof(argv)/sizeof(char* const*);
   //int envc = sizeof(envp)/sizeof(char* const*);
-  int argc = 0;
+  /*int argc = 0;
   int envc = 0;
   //printf("%p %p\n", argv, envp);
   while(argv[argc] != NULL){
@@ -121,7 +121,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   }
   stacktop -= sizeof(int);
   *((int*)stacktop) = argc;
-  pcb->cp->gpr[10] = (uintptr_t)stacktop;
+  pcb->cp->gpr[10] = (uintptr_t)stacktop;*/
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
