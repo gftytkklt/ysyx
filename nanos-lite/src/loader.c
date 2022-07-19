@@ -102,11 +102,11 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     //printf("%p: %s\n", argv_stack[i-1], argv_stack[i-1]);
   }
   // align with 8 byte
-  /*stacktop = (void *)((unsigned long)stacktop & 0xfffffffffffffff8);
+  stacktop = (void *)((unsigned long)stacktop & 0xfffffffffffffff8);
   // push envc*
   stacktop -= sizeof(char**);
   memset(stacktop, 0, 8);
-  for (int i=envc;i>0;i--){
+  /*for (int i=envc;i>0;i--){
     stacktop -= sizeof(char**);
     *((char**)stacktop) = envp_stack[i-1];
     //printf("envc %p\n", stacktop);
