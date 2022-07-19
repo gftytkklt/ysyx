@@ -5,7 +5,7 @@
 #include <memory/paddr.h>
 #include <utils.h>
 #include <difftest-def.h>
-
+void inst_hist_display();
 void (*ref_difftest_memcpy)(paddr_t addr, void *buf, size_t n, bool direction) = NULL;
 void (*ref_difftest_regcpy)(void *dut, bool direction) = NULL;
 void (*ref_difftest_exec)(uint64_t n) = NULL;
@@ -82,6 +82,7 @@ static void checkregs(CPU_state *ref, vaddr_t pc) {
     nemu_state.halt_pc = pc;
     printf("ref pc:%lx, dut pc:%lx\n", ref->pc, pc);
     isa_reg_display();
+    inst_hist_display();
   }
   //if(ref->pc != pc){
     //printf("pc not match! ref pc:%lx, dut pc:%lx\n", ref->pc, pc);
