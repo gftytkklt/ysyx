@@ -112,7 +112,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   *((int*)stacktop) = argc;
   pcb->cp->gpr[10] = (uintptr_t)stacktop;
   printf("uloader end\n");
-  ((void(*)())entry) ();
+  //((void(*)())entry) ();
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
