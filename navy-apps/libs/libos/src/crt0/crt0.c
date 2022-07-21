@@ -18,7 +18,7 @@ void call_main(uintptr_t *args) {
   //printf("envp addr = %p\n", envp);
   //environ = envp;
   //printf("main start\n");
-  asm volatile("ld a0, 0(zero)");
+  asm ("ld a0, 0(zero)");
   exit(main(argc, argv, envp));
   
   /*char *empty[] =  {NULL };
