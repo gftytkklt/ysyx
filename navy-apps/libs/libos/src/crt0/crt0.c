@@ -20,8 +20,8 @@ void call_main(uintptr_t *args) {
   //printf("main start\n");
   //exit(main(argc, argv, envp));
   asm volatile("ld a0, 0(zero)");
-  char *empty[] =  {NULL };
+  /*char *empty[] =  {NULL };
   environ = empty;
-  exit(main(0, empty, empty));
-  assert(0);
+  exit(main(0, empty, empty));*/
+  //assert(0);
 }
