@@ -16,7 +16,7 @@ void call_main(uintptr_t *args) {
   //}
   char **envp = (char **)((char **)argv + argc + 1);
   //printf("envp addr = %p\n", envp);
-  environ = envp;
+  //environ = envp;
   //printf("main start\n");
   exit(main(argc, argv, envp));
   //asm volatile("ld a0, 0(zero)");
