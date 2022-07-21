@@ -110,7 +110,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   }
   stacktop -= sizeof(int);
   *((int*)stacktop) = argc;
-  pcb->cp->gpr[10] = (uintptr_t)stacktop;
+  //pcb->cp->gpr[10] = (uintptr_t)stacktop;
   printf("uloader end\n");
 }
 
