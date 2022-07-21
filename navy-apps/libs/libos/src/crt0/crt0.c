@@ -19,8 +19,8 @@ void call_main(uintptr_t *args) {
   environ = envp;
   //printf("main start\n");
   //asm volatile("ld a0, 0(zero)");
-  //exit(main(argc, argv, envp));
-  main(argc, argv, envp);
+  exit(main(argc, argv, envp));
+  //main(argc, argv, envp);
   
   /*char *empty[] =  {NULL };
   environ = empty;
