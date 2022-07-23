@@ -5,6 +5,7 @@
 #include <proc.h>
 void naive_uload(PCB *pcb, const char *filename);
 void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]);
+void switch_boot_pcb();
 //#define CONFIG_STRACE
 #ifdef CONFIG_STRACE
 const char* syscall_name[]={
@@ -117,6 +118,8 @@ int sys_brk(void *addr){
 int sys_execve(const char *pathname, char *const argv[], char *const envp[]){
   //naive_uload(NULL, pathname);
   context_uload(current, pathname, argv, envp);
+  switch_boot_pcb();
+  yield();
   return 0;
 }
 
