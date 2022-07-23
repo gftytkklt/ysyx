@@ -3,7 +3,9 @@
 static void *pf = NULL;
 
 void* new_page(size_t nr_page) {
+  printf("before: %p\n",pf);
   pf = (void *)ROUNDUP(pf, PGSIZE*nr_page);
+  printf("after: %p\n",pf);
   return pf;
 }
 
