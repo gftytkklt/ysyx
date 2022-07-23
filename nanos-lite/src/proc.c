@@ -42,7 +42,7 @@ void init_proc() {
   //naive_uload(NULL,"/bin/pal");
   char * argv[]={"/bin/exec-test", NULL};
   char * envp[]={NULL};
-  context_uload(&pcb[1],"/bin/exec-test", argv, envp);
+  context_uload(&pcb[1],"/bin/menu", argv, envp);
 }
 
 Context* schedule(Context *prev) {
