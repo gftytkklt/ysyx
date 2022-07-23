@@ -58,7 +58,7 @@ static void sh_handle_cmd(const char *cmd) {
   }
   else{
     char *filename = strtok(tmp, "\n");
-    cmd_exec(tmp);
+    cmd_exec(filename);
   }
 }
 
