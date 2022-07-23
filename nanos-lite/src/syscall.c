@@ -115,7 +115,8 @@ int sys_brk(void *addr){
 }
 
 int sys_execve(const char *pathname, char *const argv[], char *const envp[]){
-  naive_uload(NULL, pathname);
+  //naive_uload(NULL, pathname);
+  context_uload(current, pathname, argv, envp);
   return 0;
 }
 

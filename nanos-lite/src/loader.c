@@ -63,7 +63,8 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   printf("user kstack: %p, %p\n",kstack.start,kstack.end);
   pcb->cp = ucontext(&pcb->as, kstack, (void*)entry);
   //push parameters to stack
-  void *stacktop = (void*)pcb->cp->gpr[10];
+  //void *stacktop = (void*)pcb->cp->gpr[10];
+  void *stacktop = (void*)heap.end;
   printf("ustack: %p\n",stacktop);
   int argc = 0;
   int envc = 0;
