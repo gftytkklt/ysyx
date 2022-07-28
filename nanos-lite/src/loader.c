@@ -75,7 +75,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   while(envp[envc] != NULL){
     envc++;
   }
-  printf("test1\n");
+  printf("test1:%d %d\n",argc,envc);
   char **argv_stack = (char **)malloc(argc*sizeof(char**));
   char **envp_stack = (char **)malloc(envc*sizeof(char**));
   printf("test2\n");
