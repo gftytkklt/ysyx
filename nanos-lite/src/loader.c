@@ -16,6 +16,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   Elf_Phdr phdr  = {};
   //printf("in loader\n");
   int fd = fs_open(filename, 0, 0);
+  if(fd<0){return -1;}
   //printf("begin read\n");
   fs_read(fd, &ehdr, 64);
   //printf("%d\n", fd);
@@ -55,7 +56,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     
 }
 
-void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]){
+int context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]){
   Area kstack;
   kstack.start = (void*)pcb->stack;
   kstack.end = (void*)pcb->stack + STACK_SIZE;
@@ -113,10 +114,12 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   stacktop -= sizeof(int);
   *((int*)stacktop) = argc;
   uintptr_t entry = loader(pcb, filename);
+  if (entry == -1){return -1;}
   pcb->cp = ucontext(&pcb->as, kstack, (void*)entry);
   pcb->cp->gpr[10] = (uintptr_t)stacktop;
   printf("uloader end\n");
   //((void(*)())entry) ();
+  return 0;
 }
 
 void naive_uload(PCB *pcb, const char *filename) {

@@ -4,7 +4,7 @@
 #include <time.h>
 #include <proc.h>
 void naive_uload(PCB *pcb, const char *filename);
-void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]);
+int context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]);
 void switch_boot_pcb();
 //#define CONFIG_STRACE
 #ifdef CONFIG_STRACE
@@ -119,7 +119,7 @@ int sys_brk(void *addr){
 
 int sys_execve(const char *pathname, char *const argv[], char *const envp[]){
   //naive_uload(NULL, pathname);
-  printf("exec: %s\n", pathname);
+  //printf("exec: %s\n", pathname);
   //int i=0;
   //while(envp[i]!=NULL){
   //  printf("%d:%p %s\n", i,envp[i], envp[i]);
@@ -127,7 +127,8 @@ int sys_execve(const char *pathname, char *const argv[], char *const envp[]){
   //}
   //printf("envp num: %d\n",i);
   //printf("envp addr: %p\n",envp);
-  context_uload(current, pathname, argv, envp);
+  int ret = context_uload(current, pathname, argv, envp);
+  if(ret < 0){return -2;}
   switch_boot_pcb();
   yield();
   return 0;

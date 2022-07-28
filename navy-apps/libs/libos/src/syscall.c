@@ -39,6 +39,7 @@
 #else
 #error _syscall_ is not implemented
 #endif
+extern int errno;
 extern char end;
 void *program_break = &end;
 
@@ -107,7 +108,9 @@ int _gettimeofday(struct timeval *tv, struct timezone *tz) {
 int _execve(const char *fname, char * const argv[], char *const envp[]) {
   //_exit(SYS_execve);
   //return 0;
-  return _syscall_(SYS_execve, fname, argv, envp);
+  int ret = _syscall_(SYS_execve, fname, argv, envp);
+  if (ret < 0){errno = -ret;return -1;}
+  return 0;
 }
 
 // Syscalls below are not used in Nanos-lite.
