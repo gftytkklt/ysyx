@@ -84,6 +84,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   int cplen;
   // push envc str
   for (int i=envc;i>0;i--){
+    printf("%s\n",envp[i-1]);
     cplen = strlen(envp[i-1]);
     stacktop -= (cplen+1);
     strcpy(stacktop,envp[i-1]);
