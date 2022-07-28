@@ -28,7 +28,7 @@ static int cmd_echo(char* args){
 }
 
 static int cmd_exec(char* filename, char* args){
-  //printf("name: %s, args: %s\n", filename, arg);
+  printf("name: %s, args: %s\n", filename, args);
   setenv("PATH","/bin",0);
   //if(!ret){printf("success\n");}
   //else{printf("failed\n");}
@@ -50,15 +50,15 @@ static struct {
 };
 
 static void sh_handle_cmd(const char *cmd) {
-  printf("%s\n",cmd);
+  //printf("%s\n",cmd);
   char *tmp = (char*)cmd;
   tmp = strtok(tmp,"\n");
-  printf("%s\n",tmp);
+  //printf("%s\n",tmp);
   //char *tmp = (char*) cmd;
   char *cmd_end = tmp + strlen(tmp);
   char *inst = strtok(tmp, " ");
   if (inst == NULL) {return;}
-  char *args = tmp + strlen(tmp) + 1;
+  char *args = inst + strlen(inst) + 1;
   if (args >= cmd_end){args = NULL;}
   if (strcmp(inst, cmd_table[0].name) == 0){
     cmd_table[0].handler(args);
