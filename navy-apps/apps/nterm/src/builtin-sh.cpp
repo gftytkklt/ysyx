@@ -28,14 +28,13 @@ static int cmd_echo(char* args){
 }
 
 static int cmd_exec(char* filename, char* args){
-  char *arg = strtok(args, "\n");
-  printf("name: %s, args: %s\n", filename, arg);
+  //printf("name: %s, args: %s\n", filename, arg);
   setenv("PATH","/bin",0);
   //if(!ret){printf("success\n");}
   //else{printf("failed\n");}
   //printf("%d %s\n",i, args);
   //printf("exec %s\n",args);
-  char *arglist[] = {filename, arg, NULL};
+  char *arglist[] = {filename, args, NULL};
   execvp(filename, arglist);
   //printf("exec end\n");
   //execve(args, arglist, NULL);
@@ -51,7 +50,11 @@ static struct {
 };
 
 static void sh_handle_cmd(const char *cmd) {
-  char *tmp = (char*) cmd;
+  printf("%s\n",cmd);
+  char *tmp = (char*)cmd;
+  tmp = strtok(tmp,"\n");
+  printf("%s\n",tmp);
+  //char *tmp = (char*) cmd;
   char *cmd_end = tmp + strlen(tmp);
   char *inst = strtok(tmp, " ");
   if (inst == NULL) {return;}
