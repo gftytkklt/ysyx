@@ -96,6 +96,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   }
   // align with 8 byte
   stacktop = (void *)((unsigned long)stacktop & 0xfffffffffffffff8);
+  printf("%p\n", stacktop);
   // push envc*
   stacktop -= sizeof(char**);
   memset(stacktop, 0, 8);
