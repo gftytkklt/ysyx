@@ -123,6 +123,7 @@ int sys_execve(const char *pathname, char *const argv[], char *const envp[]){
     printf("%d: %s\n", i, envp[i]);
     i++;
   }
+  printf("envp num: %d\n",i);
   context_uload(current, pathname, argv, envp);
   switch_boot_pcb();
   yield();
