@@ -118,6 +118,11 @@ int sys_brk(void *addr){
 int sys_execve(const char *pathname, char *const argv[], char *const envp[]){
   //naive_uload(NULL, pathname);
   printf("exec: %s %s\n", pathname, argv[0]);
+  int i=0;
+  while(envp[i]!=NULL){
+    printf("%d: %s\n", i, envp[i]);
+    i++;
+  }
   context_uload(current, pathname, argv, envp);
   switch_boot_pcb();
   yield();
