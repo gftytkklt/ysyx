@@ -120,7 +120,7 @@ int sys_execve(const char *pathname, char *const argv[], char *const envp[]){
   printf("exec: %s %s\n", pathname, argv[0]);
   int i=0;
   while(envp[i]!=NULL){
-    printf("%d: %s\n", i, envp[i]);
+    printf("%d:%p %s\n", i,envp[i], envp[i]);
     i++;
   }
   printf("envp num: %d\n",i);
