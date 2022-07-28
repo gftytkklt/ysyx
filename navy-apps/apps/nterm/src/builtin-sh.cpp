@@ -28,7 +28,7 @@ static int cmd_echo(char* args){
 }
 
 static int cmd_exec(char* filename, char* args){
-  char *arg = strtok(args, " ");
+  char *arg = strtok(args, "\n");
   printf("name: %s, args: %s\n", filename, arg);
   setenv("PATH","/bin",0);
   //if(!ret){printf("success\n");}
