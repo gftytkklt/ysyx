@@ -29,9 +29,9 @@ static int cmd_echo(char* args){
 
 static int cmd_exec(char* args){
   printf("args: %s\n", args);
-  int ret = setenv("PATH","/bin",0);
-  if(!ret){printf("success\n");}
-  else{printf("failed\n");}
+  setenv("PATH","/bin",0);
+  //if(!ret){printf("success\n");}
+  //else{printf("failed\n");}
   //printf("%d %s\n",i, args);
   //printf("exec %s\n",args);
   char *arglist[] = {args, NULL};
