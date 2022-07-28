@@ -16,7 +16,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   Elf_Phdr phdr  = {};
   //printf("in loader\n");
   int fd = fs_open(filename, 0, 0);
-  if(fd<0){printf("loader failed\n");return -1;}
+  if(fd<0){return -1;}
   //printf("begin read\n");
   fs_read(fd, &ehdr, 64);
   //printf("%d\n", fd);
@@ -114,7 +114,7 @@ int context_uload(PCB *pcb, const char *filename, char *const argv[], char *cons
   stacktop -= sizeof(int);
   *((int*)stacktop) = argc;
   uintptr_t entry = loader(pcb, filename);
-  if (entry == -1){printf("context_uload failed\n");return -1;}
+  if (entry == -1){return -1;}
   pcb->cp = ucontext(&pcb->as, kstack, (void*)entry);
   pcb->cp->gpr[10] = (uintptr_t)stacktop;
   printf("uloader end\n");

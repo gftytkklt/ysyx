@@ -54,12 +54,12 @@ const char* get_filename(int fd){
 static long *fp_offt;
 
 int fs_open(const char *pathname, int flags, int mode){
-  printf("filename: %s\n", pathname);
+  //printf("filename: %s\n", pathname);
   for(int i=0;i<filenum;i++){
     //if(i==filenum){assert(0);}
     if(!strcmp(file_table[i].name, pathname)){return i;}
   }
-  printf("file do not exist!\n");
+  //printf("file do not exist!\n");
   return -1;
 }
 
