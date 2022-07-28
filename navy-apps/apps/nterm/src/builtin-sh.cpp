@@ -28,13 +28,14 @@ static int cmd_echo(char* args){
 }
 
 static int cmd_exec(char* filename, char* args){
-  printf("name: %s\n, args: %s\n", filename, args);
+  char *arg = strtok(args, " ");
+  printf("name: %s, args: %s\n", filename, arg);
   setenv("PATH","/bin",0);
   //if(!ret){printf("success\n");}
   //else{printf("failed\n");}
   //printf("%d %s\n",i, args);
   //printf("exec %s\n",args);
-  char *arglist[] = {filename, args, NULL};
+  char *arglist[] = {filename, arg, NULL};
   execvp(filename, arglist);
   //printf("exec end\n");
   //execve(args, arglist, NULL);
