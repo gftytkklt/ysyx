@@ -28,6 +28,7 @@ static int cmd_echo(char* args){
 }
 
 static int cmd_exec(char* args){
+  printf("args: %s\n", args);
   setenv("PATH","/bin",0);
   //printf("%d %s\n",i, args);
   //printf("exec %s\n",args);
