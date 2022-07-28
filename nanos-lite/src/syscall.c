@@ -117,7 +117,7 @@ int sys_brk(void *addr){
 
 int sys_execve(const char *pathname, char *const argv[], char *const envp[]){
   //naive_uload(NULL, pathname);
-  //printf("exec: %s %s\n", pathname, argv[0]);
+  printf("exec: %s\n", pathname);
   //int i=0;
   //while(envp[i]!=NULL){
   //  printf("%d:%p %s\n", i,envp[i], envp[i]);
