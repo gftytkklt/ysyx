@@ -42,7 +42,7 @@ void init_proc() {
   //naive_uload(NULL,"/bin/pal");
   char * argv[]={NULL};
   char * envp[]={NULL};
-  context_uload(&pcb[1],"/bin/busybox", argv, envp);
+  context_uload(&pcb[1],"/bin/nterm", argv, envp);
 }
 
 Context* schedule(Context *prev) {
