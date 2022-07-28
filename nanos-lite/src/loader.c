@@ -74,7 +74,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   }
   printf("envp: %p\n",envp);
   while(envp[envc] != NULL){
-    printf("envc%d:%p %p\n",envc,&envp[envc], envp[envc]);
+    printf("envc%d:%p %p %s\n",envc,&envp[envc], envp[envc], envp[envc]);
     envc++;
   }
   printf("test1:%d %d\n",argc,envc);
