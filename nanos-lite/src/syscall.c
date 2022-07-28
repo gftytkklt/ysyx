@@ -128,7 +128,7 @@ int sys_execve(const char *pathname, char *const argv[], char *const envp[]){
   //printf("envp num: %d\n",i);
   //printf("envp addr: %p\n",envp);
   int ret = context_uload(current, pathname, argv, envp);
-  if(ret < 0){return -2;}
+  if(ret < 0){printf("execve failed\n");return -2;}
   switch_boot_pcb();
   yield();
   return 0;
