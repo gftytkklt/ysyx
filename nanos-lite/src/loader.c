@@ -59,12 +59,12 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   Area kstack;
   kstack.start = (void*)pcb->stack;
   kstack.end = (void*)pcb->stack + STACK_SIZE;
-  printf("user kstack: %p, %p\n",kstack.start,kstack.end);
+  //printf("user kstack: %p, %p\n",kstack.start,kstack.end);
   //uintptr_t entry = loader(pcb, filename);
   //pcb->cp = ucontext(&pcb->as, kstack, (void*)entry);
   //push parameters to stack
   void *stacktop = new_page(8);// 32KB
-  printf("ustack: %p\n",stacktop);
+  //printf("ustack: %p\n",stacktop);
   int argc = 0;
   int envc = 0;
   while(argv[argc] != NULL){

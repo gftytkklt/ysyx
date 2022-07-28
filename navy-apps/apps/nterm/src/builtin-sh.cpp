@@ -28,7 +28,7 @@ static int cmd_echo(char* args){
 }
 
 static int cmd_exec(char* filename, char* args){
-  printf("name: %s, args: %s\n", filename, args);
+  //printf("name: %s, args: %s\n", filename, args);
   setenv("PATH","/bin",0);
   //if(!ret){printf("success\n");}
   //else{printf("failed\n");}
