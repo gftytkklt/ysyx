@@ -89,6 +89,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     strcpy(stacktop,envp[i-1]);
     envp_stack[i-1] = (char *)stacktop;
   }
+  printf("test3\n");
   // push argv str
   for (int i=argc;i>0;i--){
     cplen = strlen(argv[i-1]);
@@ -96,7 +97,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     strcpy(stacktop,argv[i-1]);
     argv_stack[i-1] = (char *)stacktop;
   }
-  printf("test3\n");
+  printf("test4\n");
   // align with 8 byte
   stacktop = (void *)((unsigned long)stacktop & 0xfffffffffffffff8);
   //printf("%p\n", stacktop);
