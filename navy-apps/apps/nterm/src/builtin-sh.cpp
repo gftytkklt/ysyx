@@ -23,7 +23,7 @@ static void sh_prompt() {
 }
 
 static int cmd_echo(char* args){
-  sh_printf("%s", args);
+  sh_printf("%s\n", args);
   return 0;
 }
 
