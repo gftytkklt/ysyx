@@ -27,15 +27,15 @@ static int cmd_echo(char* args){
   return 0;
 }
 
-static int cmd_exec(char* args){
-  printf("args: %s\n", args);
+static int cmd_exec(char* filename, char* args){
+  printf("name: %s\n, args: %s\n", filename, args);
   setenv("PATH","/bin",0);
   //if(!ret){printf("success\n");}
   //else{printf("failed\n");}
   //printf("%d %s\n",i, args);
   //printf("exec %s\n",args);
-  char *arglist[] = {args, NULL};
-  execvp(args, arglist);
+  char *arglist[] = {filename, args, NULL};
+  execvp(filename, arglist);
   //printf("exec end\n");
   //execve(args, arglist, NULL);
   return 0;
@@ -60,8 +60,8 @@ static void sh_handle_cmd(const char *cmd) {
     cmd_table[0].handler(args);
   }
   else{
-    char *filename = strtok(tmp, "\n");
-    cmd_exec(filename);
+    //char *filename = strtok(tmp, "\n");
+    cmd_exec(inst, args);
   }
 }
 
