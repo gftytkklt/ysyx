@@ -7,7 +7,7 @@ struct Context {
   /*uintptr_t gpr[32], mcause, mstatus, mepc;
   void *pdir;*/
   union {
-    struct{uintptr_t gpr[32], mcause, mstatus, mepc;}; // addr 0-31, addr 32-34
+    struct {uintptr_t gpr[32], mcause, mstatus, mepc;}; // addr 0-31, addr 32-34
     void *pdir;// addr 35, link to $0
   };
 };

@@ -12,7 +12,7 @@ Context* __am_irq_handle(Context *c) {
     //  printf("%d: %lx\n", i+1, *tmp);
     //  tmp++;
     //}
-    //printf("cause: %ld\n", c->mcause);
+    printf("cause: %ld\n", c->mcause);
     switch (c->mcause) {
       case 0x0b: ev.event = (c->gpr[17] == -1) ? EVENT_YIELD : EVENT_SYSCALL; break;
       default: ev.event = EVENT_ERROR; break;
