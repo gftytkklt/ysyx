@@ -1,7 +1,7 @@
 #include <am.h>
 #include <nemu.h>
 #include <klib.h>
-
+#define CONTEXT_SIZE 288
 static AddrSpace kas = {};
 static void* (*pgalloc_usr)(int) = NULL;
 static void (*pgfree_usr)(void*) = NULL;
@@ -70,7 +70,8 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
 }
 
 Context *ucontext(AddrSpace *as, Area kstack, void *entry) {
-  Context *cp = (Context*)kstack.end - 1;
+  //Context *cp = (Context*)kstack.end - 1;
+  Context *cp = (Context*)((void*)kstack.end - CONTEXT_SIZE);
   printf("%p\n",cp);
   cp->mstatus = 0xa00001800;
   cp->mepc = (uintptr_t)entry;

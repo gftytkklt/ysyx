@@ -1,7 +1,7 @@
 #include <am.h>
 #include <riscv/riscv.h>
 #include <klib.h>
-
+#define CONTEXT_SIZE 288
 static Context* (*user_handler)(Event, Context*) = NULL;
 
 Context* __am_irq_handle(Context *c) {
@@ -37,7 +37,8 @@ bool cte_init(Context*(*handler)(Event, Context*)) {
 }
 
 Context *kcontext(Area kstack, void (*entry)(void *), void *arg) {
-  Context *cp = (Context*)kstack.end - 1;
+  //Context *cp = (Context*)kstack.end - 1;
+  Context *cp = (Context*)((void*)kstack.end - CONTEXT_SIZE);
   cp->mstatus = 0xa00001800;
   cp->mepc = (uintptr_t)entry;
   cp->gpr[10] = (uintptr_t) arg;
