@@ -53,7 +53,7 @@ Context* schedule(Context *prev) {
   //current = &pcb[0];
   current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
   //printf("gpr[10]: %p\n", current->cp->gpr[10]);
-
+  assert(current->cp != NULL);
   // then return the new context
   return current->cp;
 }
