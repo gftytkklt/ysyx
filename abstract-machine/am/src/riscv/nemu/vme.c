@@ -71,6 +71,7 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
 
 Context *ucontext(AddrSpace *as, Area kstack, void *entry) {
   Context *cp = (Context*)kstack.end - 1;
+  printf("%p\n",cp);
   cp->mstatus = 0xa00001800;
   cp->mepc = (uintptr_t)entry;
   //cp->gpr[10] = (uintptr_t)heap.end;
