@@ -57,6 +57,7 @@ Context* schedule(Context *prev) {
   else{printf("???\n");}
   //printf("gpr[10]: %p\n", current->cp->gpr[10]);
   assert(current->cp != NULL);
+  printf("schedule end\n");
   // then return the new context
   return current->cp;
 }
