@@ -4,7 +4,7 @@
 
 paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type) {
   printf("in mmu trans\n");
-  printf("%lx\n",vaddr);
+  printf("vaddr=%lx\n",vaddr);
   paddr_t offset = BITS(vaddr,11,0) & 0xfff;
   printf("%x\n",offset);
   vaddr_t cur_ppn = BITS(cpu.csr[4],43,0);// L2 page nums in satp
@@ -34,7 +34,7 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type) {
     // 
     // TODO();
   }
-  printf("%lx\n",(cur_ppn << 12) + offset);
+  printf("paddr = %lx\n",(cur_ppn << 12) + offset);
   return (cur_ppn << 12) + offset;
   //return MEM_RET_FAIL;
 }
