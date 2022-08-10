@@ -16,18 +16,18 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type) {
     printf("level=%d\n", level);
     // current vpn
     shift = level*9 + 12;
-    printf("%d\n",shift);
+    printf("shift=%d\n",shift);
     cur_vpn = BITS(vaddr,(shift+8),shift) & 0x1ff;
-    printf("%d\n",cur_vpn);
+    printf("cur_vpn=%d\n",cur_vpn);
     // paddr = ppn*4096 + vpn*8
     cur_paddr = (cur_ppn<<12) + (cur_vpn<<3);
-    printf("%lx\n",cur_paddr);
+    printf("cur_paddr=%lx\n",cur_paddr);
     vaddr_t *pte = (vaddr_t*)cur_paddr;
-    printf("%p\n",pte);
+    printf("pte=%p\n",pte);
     // update ppn 
     //cur_ppn = BITS((*((paddr_t*)cur_paddr)), 53,10);
     cur_ppn = BITS(*pte,53,10);
-    printf("%lx\n",cur_ppn);
+    printf("cur_ppn=%lx\n",cur_ppn);
     // exception
     // non-leaf page RWX exception
     // leaf page RWX exception
