@@ -6,6 +6,7 @@
 #define MSTATUS 0x300
 #define MCAUSE 0x342
 #define MTVEC 0x305
+#define SATP 0x180
 static inline int check_reg_idx(int idx) {
   IFDEF(CONFIG_RT_CHECK, assert(idx >= 0 && idx < 32));
   return idx;
@@ -19,7 +20,8 @@ static inline int check_csr_idx(int idx) {
     case MSTATUS: csr_idx=1;break;
     case MCAUSE: csr_idx=2;break;
     case MTVEC: csr_idx=3;break;
-    default: assert(0);
+    case SATP: csr_idx=4;break;
+    default: panic("csr idx %x is not implemented!\n",idx);//assert(0);
   }
   return csr_idx;
 }

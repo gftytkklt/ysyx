@@ -67,6 +67,28 @@ void __am_switch(Context *c) {
 }
 
 void map(AddrSpace *as, void *va, void *pa, int prot) {
+  PTE *pgaddr = (PTE*)as->ptr;
+  int mask = 0x1ff;
+  // vpn[0]-vpn[2]
+  int vpn[3] = {((long)va >> 12) & mask, ((long)va >> 21) & mask, ((long)va >> 30) & mask};
+  //long offset = (long) va & 0xfff;
+  PTE *pteaddr;
+  // set corresponding pte value, if pte is invalid, create a new one
+  for(int level = 2;level > 0;level--){
+    // L2-L0 PTE addr
+    pteaddr = pgaddr + vpn[level];
+    // if pte does not exist, create a new one, then fill pte info
+    if((*pteaddr & PTE_V) == 0){
+      if(level == 0){
+        *pteaddr = (((PTE)pa >> 12) << 10) | PTE_V | PTE_R | PTE_W | PTE_X;
+      }
+      else{
+        *pteaddr = (((PTE)pgalloc_usr(PGSIZE) >> 12) << 10) | PTE_V;
+      }
+    }
+    // extract pte info to update pgaddr
+    pgaddr = (PTE*)(((*pteaddr)>>10)<<12);
+  }
 }
 
 Context *ucontext(AddrSpace *as, Area kstack, void *entry) {

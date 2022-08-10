@@ -7,7 +7,7 @@ typedef struct {
   word_t gpr[32];
   //word_t mepc, mstatus, mcause, mtvec;
   vaddr_t pc;
-  word_t csr[4]; //mepc, mstatus, mcause, mtvec;
+  word_t csr[5]; //mepc, mstatus, mcause, mtvec, satp;
 } riscv64_CPU_state;
 
 // decode
@@ -17,6 +17,6 @@ typedef struct {
   } inst;
 } riscv64_ISADecodeInfo;
 
-#define isa_mmu_check(vaddr, len, type) (MMU_DIRECT)
+#define isa_mmu_check(vaddr, len, type) (BITS(cpu.csr[4],63,63) ? (MMU_TRANSLATE) : (MMU_DIRECT))
 
 #endif
