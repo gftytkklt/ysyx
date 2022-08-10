@@ -74,7 +74,7 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
   //long offset = (long) va & 0xfff;
   PTE *pteaddr;
   // set corresponding pte value, if pte is invalid, create a new one
-  for(int level = 2;level > 0;level--){
+  for(int level = 2;level >= 0;level--){
     // L2-L0 PTE addr
     pteaddr = pgaddr + vpn[level];
     // if pte does not exist, create a new one, then fill pte info

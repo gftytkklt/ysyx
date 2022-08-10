@@ -12,7 +12,7 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type) {
   //paddr_t cur_paddr = ppn << 12;// L2 pages addr in satp
   vaddr_t cur_paddr;
   paddr_t shift,cur_vpn;
-  for(int level = 2; level > 0; level--){
+  for(int level = 2; level >= 0; level--){
     printf("level=%d\n", level);
     // current vpn
     shift = level*9 + 12;
