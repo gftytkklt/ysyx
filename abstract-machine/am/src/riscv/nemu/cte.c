@@ -8,7 +8,7 @@ void __am_switch(Context *c);
 
 Context* __am_irq_handle(Context *c) {
   //long *tmp = (long *) c;
-  printf("before:%p, pdir=%p\n",c,c->pdir);
+  //printf("before:%p, pdir=%p\n",c,c->pdir);
   __am_get_cur_as(c);
   if (user_handler) {
     Event ev = {0};
@@ -26,7 +26,7 @@ Context* __am_irq_handle(Context *c) {
     assert(c != NULL);
   }
   __am_switch(c);
-  printf("after:%p, pdir=%p\n",c,c->pdir);
+  //printf("after:%p, pdir=%p\n",c,c->pdir);
   return c;
 }
 
