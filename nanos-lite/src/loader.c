@@ -139,9 +139,9 @@ int context_uload(PCB *pcb, const char *filename, char *const argv[], char *cons
   //printf("%p\n", stacktop);
   // push envc*
   stacktop -= sizeof(char**);
-  printf("ckpt1: stacktop = %p\n",stacktop);
+  //printf("ckpt1: stacktop = %p\n",stacktop);
   memset(stacktop, 0, 8);
-  printf("ckpt2\n");
+  //printf("ckpt2\n");
   for (int i=envc;i>0;i--){
     stacktop -= sizeof(char**);
     *((char**)stacktop) = envp_stack[i-1];
@@ -159,7 +159,7 @@ int context_uload(PCB *pcb, const char *filename, char *const argv[], char *cons
   if (entry == -1){return -1;}
   pcb->cp = ucontext(&pcb->as, kstack, (void*)entry);
   pcb->cp->gpr[10] = (uintptr_t)stacktop;
-  printf("uloader end\n");
+  printf("uloader end, entry = %p\n",entry);
   //((void(*)())entry) ();
   return 0;
 }
