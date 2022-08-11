@@ -95,6 +95,8 @@ Context *ucontext(AddrSpace *as, Area kstack, void *entry) {
   //Context *cp = (Context*)kstack.end - 1;
   Context *cp = (Context*)((void*)kstack.end - CONTEXT_SIZE);
   //printf("%p\n",cp);
+  // get pdir
+  __am_get_cur_as(cp);
   cp->mstatus = 0xa00001800;
   cp->mepc = (uintptr_t)entry;
   //cp->gpr[10] = (uintptr_t)heap.end;

@@ -45,26 +45,62 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       filesz = phdr.p_filesz;
       memsz = phdr.p_memsz;
       fs_lseek(fd, ldofft, SEEK_SET);
-      fs_read(fd, (void *)ldvaddr, filesz);
-      //ramdisk_read((void *)ldvaddr, ldofft, filesz);
-      memset((void *)(ldvaddr + filesz), 0, (memsz-filesz));
+      // naive version
+      //fs_read(fd, (void *)ldvaddr, filesz);
+      //memset((void *)(ldvaddr + filesz), 0, (memsz-filesz));
+      // pte version
+      // full page num
+      int file_pgnum = filesz / 4096;
+      // remainder
+      int remainder = filesz % 4096;
+      for (int j=0;j<memsz;j=j+4096){
+        // new page
+        void* page = new_page(1);
+        // va to pa mapping
+        map(&pcb->as,(void*)ldvaddr,page,0);
+        // full page memcpy part
+        if(file_pgnum != 0){
+          fs_read(fd, page, 4096);
+          file_pgnum--;
+        }
+        // remainder memcpy part
+        else if(remainder != 0){
+          fs_read(fd, page, remainder);
+          memset((page+remainder), 0, (4096-remainder));
+          remainder = 0;
+        }
+        // zero padding part
+        // all new pages are unused physical addr, so set whole page to zero is okay
+        else{
+          memset(page, 0, 4096);
+        }
+        // update mapping vaddr
+        ldvaddr += 4096;
+      }
     }
     current_phoff += phentsize;
   }
   fs_close(fd);
   return ehdr.e_entry;
-    
 }
 
 int context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]){
+  protect(&pcb->as);
   Area kstack;
   kstack.start = (void*)pcb->stack;
   kstack.end = (void*)pcb->stack + STACK_SIZE;
   printf("user kstack: %p, %p\n",kstack.start,kstack.end);
   //uintptr_t entry = loader(pcb, filename);
   //pcb->cp = ucontext(&pcb->as, kstack, (void*)entry);
-  //push parameters to stack
-  void *stacktop = new_page(8);// 32KB
+  //push parameters to stack(naive mode)
+  //void *stacktop = new_page(8)+8*4096;// 32KB
+  //push parameters to stack(pte mode)
+  void *stacktop = pcb->as.area.end;
+  //map user stack to physical addr
+  for (void* stackpt=(pcb->as.area.end)-8*4096; stackpt<pcb->as.area.end; stackpt = stackpt+4096){
+    void* page = new_page(1);
+    map(&pcb->as,stackpt,page,0);
+  }
   //printf("ustack: %p\n",stacktop);
   int argc = 0;
   int envc = 0;

@@ -9,14 +9,16 @@ void* new_page(size_t nr_page) {
   pf += PGSIZE*nr_page;
   heap.start = pf;
   //printf("after: %p\n",pf);
-  return pf;
+  //return pf;
+  return pf - PGSIZE*nr_page;
 }
 
 #ifdef HAS_VME
 static void* pg_alloc(int n) {
   //if(n == 0){return NULL;}
   int nr_page = (n % PGSIZE == 0) ? (n / PGSIZE) : ((n / PGSIZE) + 1);
-  void *ret = new_page(nr_page) - PGSIZE*nr_page;
+  //void *ret = new_page(nr_page) - PGSIZE*nr_page;
+  void *ret = new_page(nr_page);
   memset(ret,0,PGSIZE*nr_page);
   return ret;
   //return NULL;

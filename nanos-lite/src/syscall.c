@@ -81,10 +81,10 @@ void sys_exit(uintptr_t ret){
   #ifdef CONFIG_STRACE
     printf("sys exit,ret code: %lx\n", ret);
   #endif
-  char *exit_argv[] = {NULL};
+  /*char *exit_argv[] = {NULL};
   char *exit_envp[] = {NULL};
-  sys_execve("/bin/nterm", exit_argv, exit_envp);
-  //halt(ret);
+  sys_execve("/bin/nterm", exit_argv, exit_envp);*/
+  halt(ret);
 }
 int fs_open(const char *pathname, int flags, int mode);
 int sys_open(const char *pathname, int flags, int mode){
