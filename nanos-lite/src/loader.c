@@ -95,10 +95,13 @@ int context_uload(PCB *pcb, const char *filename, char *const argv[], char *cons
   //push parameters to stack(naive mode)
   //void *stacktop = new_page(8)+8*4096;// 32KB
   //push parameters to stack(pte mode)
-  void *stacktop = pcb->as.area.end;
+  //void *stacktop = pcb->as.area.end;
   //map user stack to physical addr
+  void *stacktop = NULL;
+  void *page = NULL;
   for (void* stackpt=(pcb->as.area.end)-8*4096; stackpt<pcb->as.area.end; stackpt = stackpt+4096){
-    void* page = new_page(1);
+    page = new_page(1);
+    if(stackpt == (pcb->as.area.end)-4096){stacktop = page+4096;}
     //printf("%p %p\n",stackpt,page);
     map(&pcb->as,stackpt,page,0);
   }
