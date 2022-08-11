@@ -99,6 +99,7 @@ int context_uload(PCB *pcb, const char *filename, char *const argv[], char *cons
   //map user stack to physical addr
   for (void* stackpt=(pcb->as.area.end)-8*4096; stackpt<pcb->as.area.end; stackpt = stackpt+4096){
     void* page = new_page(1);
+    printf("%p %p\n",stackpt,page);
     map(&pcb->as,stackpt,page,0);
   }
   //printf("ustack: %p\n",stacktop);
