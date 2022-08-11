@@ -89,7 +89,7 @@ CXXFLAGS +=  $(CFLAGS) -ffreestanding -fno-rtti -fno-exceptions
 ASFLAGS  +=  $(CFLAGS)
 
 ## 4. ISA-Specific Configurations
-VME=1
+#VME=1
 ### Paste in ISA-specific configurations (e.g., from `scripts/x86.mk`)
 -include $(NAVY_HOME)/scripts/$(ISA).mk
 
