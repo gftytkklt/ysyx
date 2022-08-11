@@ -7,7 +7,7 @@ word_t vaddr_ifetch(vaddr_t addr, int len) {
     return paddr_read(addr, len);
   }
   else{
-    //printf("in pte mode ifetch\n");
+    if(addr<0x80000000){printf("in pte mode ifetch\n");}
     paddr_t paddr = isa_mmu_translate(addr, len, MEM_TYPE_IFETCH);
     //assert(paddr == addr);
     return paddr_read(paddr, len);
