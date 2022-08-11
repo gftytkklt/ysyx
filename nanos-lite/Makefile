@@ -1,4 +1,5 @@
 HAS_NAVY = 1
+VME = 1
 # 0615 added for load ramdisk.img
 HAS_RAMDISK = 1
 # 0615 add end
