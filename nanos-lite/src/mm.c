@@ -41,6 +41,7 @@ int mm_brk(uintptr_t brk) {
     cur_brk += PGSIZE;
   }
   current->max_brk = brk;
+  assert(0);
   return 0;
 }
 
