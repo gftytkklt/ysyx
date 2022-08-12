@@ -44,6 +44,7 @@ void init_proc() {
   char * argv[]={NULL};
   char * envp[]={NULL};
   context_uload(&pcb[0],"/bin/dummy", argv, envp);
+  Log("proc end at %lx\n",pcb[0].max_brk);
 }
 
 Context* schedule(Context *prev) {
