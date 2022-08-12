@@ -34,6 +34,7 @@ void free_page(void *p) {
 int mm_brk(uintptr_t brk) {
   void *brk_pt = (void *)brk;
   void *cur_brk = (void *)ROUNDUP(current->max_brk, PGSIZE);
+  printf("max_brk = %lx, brk = %lx\n",current->max_brk,brk);
   while(brk_pt >= cur_brk){
     void *page = new_page(1);
     map(&current->as, brk_pt, page, 0);
