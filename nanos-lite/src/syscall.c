@@ -112,10 +112,12 @@ long sys_lseek(int fd, size_t offset, int whence){
   return fs_lseek(fd, offset, whence);
 }
 
+int mm_brk(uintptr_t brk);
 int sys_brk(void *addr){
   //*end = 
   //printf("call sys_brk at addr %p\n",addr);
-  return 0;
+  //return 0;
+  return mm_brk((uintptr_t)addr);
   
   //return mm_brk((uintptr_t)addr);
 }

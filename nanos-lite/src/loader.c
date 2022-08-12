@@ -32,6 +32,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   uint64_t ldofft; // for load offset
   uint64_t ldvaddr;
   uint64_t filesz, memsz;
+  uintptr_t proc_end = 0;
   
   for (int i=0;i<phnum;i++){
     fs_lseek(fd, current_phoff, SEEK_SET);
@@ -44,6 +45,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       //printf("%d: %ld, %lx\n",i, ldofft, ldvaddr);
       filesz = phdr.p_filesz;
       memsz = phdr.p_memsz;
+      if((ldvaddr + memsz)>proc_end){proc_end = (ldvaddr + memsz);}
       fs_lseek(fd, ldofft, SEEK_SET);
       // naive version
       //fs_read(fd, (void *)ldvaddr, filesz);
@@ -80,6 +82,8 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     }
     current_phoff += phentsize;
   }
+  pcb->max_brk = proc_end;
+  printf("proc end at %lx\n",pcb->max_brk);
   fs_close(fd);
   return ehdr.e_entry;
 }
