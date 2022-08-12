@@ -51,7 +51,27 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       //fs_read(fd, (void *)ldvaddr, filesz);
       //memset((void *)(ldvaddr + filesz), 0, (memsz-filesz));
       // pte version
-      // full page num
+      void *start = (void*)(ldvaddr & ~0xffful);
+      uint64_t start_offt = ldvaddr & 0xffful;
+      uint64_t file_end = ldvaddr + filesz;
+      //uint64_t end_offt = file_end & 0xffful;
+      void *end = (void*)(ldvaddr + memsz);
+      for(;start < end;start += 4096){
+        void *page = new_page(1);
+        memset(page, 0, 4096);
+        map(&pcb->as,start,page,0);
+        // map first page
+        if(start_offt != 0){
+          // if file < 4096 - start_offt, fs_read will guarantee actual rd len
+          fs_read(fd, (start + start_offt), (4096-start_offt));
+          start_offt = 0;
+        }
+        // map file page
+        else if(start < (void*) file_end){
+          fs_read(fd, start, 4096);
+        }
+      }
+      /*// full page num
       int file_pgnum = filesz / 4096;
       // remainder
       int remainder = filesz % 4096;
@@ -78,7 +98,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
         }
         // update mapping vaddr
         ldvaddr += 4096;
-      }
+      }*/
     }
     current_phoff += phentsize;
   }
