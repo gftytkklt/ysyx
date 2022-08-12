@@ -41,7 +41,7 @@
 #endif
 extern int errno;
 extern char end;
-void *program_break = &end;
+intptr_t program_break = &end;
 
 intptr_t _syscall_(intptr_t type, intptr_t a0, intptr_t a1, intptr_t a2) {
   //printf("in _syscall_\n");
@@ -76,7 +76,7 @@ long _write(int fd, void *buf, size_t count) {
 }
 
 void *_sbrk(intptr_t increment) {
-  void *ret = program_break;
+  void *ret = (void*)program_break;
   program_break += increment;
   return _syscall_(SYS_brk, program_break, 0, 0) ? (void *)-1 : ret;
 }
