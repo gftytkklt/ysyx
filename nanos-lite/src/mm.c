@@ -42,7 +42,7 @@ int mm_brk(uintptr_t brk) {
   }
   current->max_brk = brk;
   printf("max_brk = %lx, brk = %lx\n",current->max_brk,brk);
-  assert(0);
+  //assert(0);
   return 0;
 }
 
