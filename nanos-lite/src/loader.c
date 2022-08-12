@@ -65,13 +65,13 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
         // map unaligned first page
         if(start_offt != 0){
           // if file < 4096 - start_offt, fs_read will guarantee actual rd len
-          printf("unaligned fs op\n");
+          //printf("unaligned fs op\n");
           fs_read(fd, (page + start_offt), (4096-start_offt));
           start_offt = 0;
         }
         // map file page
         else if(start < (void*) file_end){
-          printf("aligned fs op\n");
+          //printf("aligned fs op\n");
           fs_read(fd, page, 4096);
         }
         //printf("%dth mapping end\n",i);
