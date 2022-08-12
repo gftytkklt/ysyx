@@ -115,6 +115,8 @@ long sys_lseek(int fd, size_t offset, int whence){
 int sys_brk(void *addr){
   //*end = 
   return 0;
+  
+  //return mm_brk((uintptr_t)addr);
 }
 
 int sys_execve(const char *pathname, char *const argv[], char *const envp[]){
