@@ -56,9 +56,9 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       uint64_t file_end = ldvaddr + filesz;
       //uint64_t end_offt = file_end & 0xffful;
       void *end = (void*)(ldvaddr + memsz);
-      int i = 0;
+      //int i = 0;
       for(;start < end;start += 4096){
-        printf("%dth mapping\n",++i);
+        //printf("%dth mapping\n",++i);
         void *page = new_page(1);
         memset(page, 0, 4096);
         map(&pcb->as,start,page,0);
@@ -66,15 +66,15 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
         if(start_offt != 0){
           // if file < 4096 - start_offt, fs_read will guarantee actual rd len
           printf("unaligned fs op\n");
-          fs_read(fd, (start + start_offt), (4096-start_offt));
+          fs_read(fd, (page + start_offt), (4096-start_offt));
           start_offt = 0;
         }
         // map file page
         else if(start < (void*) file_end){
           printf("aligned fs op\n");
-          fs_read(fd, start, 4096);
+          fs_read(fd, page, 4096);
         }
-        printf("%dth mapping end\n",i);
+        //printf("%dth mapping end\n",i);
       }
       /*// full page num
       int file_pgnum = filesz / 4096;
