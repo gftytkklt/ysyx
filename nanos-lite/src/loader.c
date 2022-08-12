@@ -72,6 +72,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
         else if(start < (void*) file_end){
           fs_read(fd, start, 4096);
         }
+        printf("%dth mapping end\n",i);
       }
       /*// full page num
       int file_pgnum = filesz / 4096;
