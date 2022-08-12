@@ -33,8 +33,8 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   uint64_t ldofft; // for load offset
   uint64_t ldvaddr;
   uint64_t filesz, memsz;
-  pcb->max_brk = (uintptr_t)&end;
-  printf("end: %lx\n",pcb->max_brk);
+  void* mm = &end;
+  printf("end: %p\n",mm);
   
   for (int i=0;i<phnum;i++){
     fs_lseek(fd, current_phoff, SEEK_SET);
