@@ -105,6 +105,7 @@ int context_uload(PCB *pcb, const char *filename, char *const argv[], char *cons
   void *stacktop = NULL;
   void *page = NULL;
   for (void* stackpt=(pcb->as.area.end)-8*4096; stackpt<pcb->as.area.end; stackpt = stackpt+4096){
+    printf("stack new page\n");
     page = new_page(1);
     if(stackpt == (pcb->as.area.end)-4096){stacktop = page+4096;}
     //printf("%p %p\n",stackpt,page);
