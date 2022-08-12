@@ -56,7 +56,9 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       uint64_t file_end = ldvaddr + filesz;
       //uint64_t end_offt = file_end & 0xffful;
       void *end = (void*)(ldvaddr + memsz);
+      int i = 0;
       for(;start < end;start += 4096){
+        printf("%dth mapping\n",++i);
         void *page = new_page(1);
         memset(page, 0, 4096);
         map(&pcb->as,start,page,0);
