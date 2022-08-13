@@ -32,11 +32,14 @@ const char* syscall_name[]={
 };
 // a1: type, all possible fp is a2
 const char* get_filename(int fd);
-void print_strace(uintptr_t a1,uintptr_t a2,uintptr_t a3,uintptr_t a4,uintptr_t ret, bool has_ret, bool file_op){
+void print_strace(uintptr_t a1,uintptr_t a2,uintptr_t a3,uintptr_t a4,uintptr_t ret, bool has_ret, bool file_op, bool brk_op){
   if(has_ret){
     if(file_op){
       const char* filename = (a1==SYS_open) ? get_filename(ret) : get_filename(a2);
       printf("%s %s, parameters: %lx, %ld, ret: %ld\n",syscall_name[a1],filename,a3,a4,ret);
+    }
+    else if(brk_op){
+      printf("%s, parameters: %lx, %ld, %ld, ret: %ld\n",syscall_name[a1],a2,a3,a4,ret);
     }
     else{
       printf("%s, parameters: %ld, %ld, %ld, ret: %ld\n",syscall_name[a1],a2,a3,a4,ret);
@@ -115,7 +118,7 @@ long sys_lseek(int fd, size_t offset, int whence){
 int mm_brk(uintptr_t brk);
 int sys_brk(void *addr, uintptr_t size){
   //*end = 
-  printf("call sys_brk at addr %p, size = %ld\n",addr, size);
+  //printf("call sys_brk at addr %p, size = %ld\n",addr, size);
   //return 0;
   return mm_brk((uintptr_t)addr);
   
@@ -171,9 +174,11 @@ void do_syscall(Context *c) {
   uintptr_t ret;
   bool has_ret = true;
   bool file_op = false;
+  bool brk_op = false;
   if((a[0] == SYS_open) | (a[0] == SYS_read) | (a[0] == SYS_write) | (a[0] == SYS_close) | (a[0] == SYS_lseek)){file_op = true;}
   if(a[0] == SYS_exit){has_ret = false;}
+  if(a[0] == SYS_brk){brk_op = true;}
   ret = c->GPRx;
-  print_strace(a[0],a[1],a[2],a[3],ret,has_ret,file_op);
+  print_strace(a[0],a[1],a[2],a[3],ret,has_ret,file_op,brk_op);
   #endif
 }

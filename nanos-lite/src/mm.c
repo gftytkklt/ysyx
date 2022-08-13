@@ -34,7 +34,7 @@ void free_page(void *p) {
 int mm_brk(uintptr_t brk) {
   void *brk_pt = (void *)brk;
   void *cur_brk = (void *)ROUNDUP(current->max_brk, PGSIZE);
-  printf("max_brk = %lx, brk = %lx\n",cur_brk,brk);
+  //printf("max_brk = %lx, brk = %lx\n",cur_brk,brk);
   while(brk_pt > cur_brk){
     printf("malloc call new page\n");
     void *page = new_page(1);
@@ -42,7 +42,7 @@ int mm_brk(uintptr_t brk) {
     cur_brk += PGSIZE;
   }
   current->max_brk = brk;
-  printf("max_brk = %lx, brk = %lx\n",cur_brk,brk);
+  //printf("max_brk = %lx, brk = %lx\n",cur_brk,brk);
   //assert(0);
   return 0;
 }
