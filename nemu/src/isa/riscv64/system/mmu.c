@@ -31,7 +31,7 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type) {
       printf("addr %lx, cur_paddr %lx, pte %lx(level%d, type%d)!\n",vaddr,cur_paddr,cur_pte,level,type);
     }*/
     cur_ppn = BITS(cur_pte,53,10);
-    if((cur_pte & 0x1110) && (level != 0)){
+    if((cur_pte & 0xe) && (level != 0)){
       printf("invalid pte %lx at %lx\n",cur_pte,cur_paddr);
     }
     if((cur_pte & 0x1)==0){
