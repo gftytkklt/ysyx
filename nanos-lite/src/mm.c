@@ -33,8 +33,8 @@ void free_page(void *p) {
 
 /* The brk() system call handler. */
 int mm_brk(uintptr_t brk) {
-  void *m = (void *)ROUNDUP(0x4006a000,PGSIZE);
-  printf("roundup test: %p\n",m);
+  //void *m = (void *)ROUNDUP(0x4006a000,PGSIZE);
+  //printf("roundup test: %p\n",m);
   void *brk_pt = (void *)brk;
   void *cur_brk = (void *)ROUNDUP(current->max_brk, PGSIZE);
   //printf("max_brk = %lx, brk = %lx\n",cur_brk,brk);
