@@ -86,7 +86,7 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
         *pteaddr = (((PTE)pgalloc_usr(PGSIZE) >> 12) << 10) | PTE_V;
       }
     }
-    if(va<(void*)0x80000000){printf("L%d pte at %p(vpn%d)\n", level, pteaddr,vpn[level]);}
+    if(va<(void*)0x80000000){printf("L%d pte at %p(vpn%d, pte%lx)\n", level, pteaddr,vpn[level],*pteaddr);}
     // extract pte info to update pgaddr
     pgaddr = (PTE*)(((*pteaddr)>>10)<<12);
   }
