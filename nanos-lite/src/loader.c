@@ -82,7 +82,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
             fs_read(fd, page, (file_end&0xfff));
           }
           else{
-            printf("aligned page\n");
+            //printf("aligned page\n");
             //rd_num = fs_read(fd, page, 4096);
             fs_read(fd, page, 4096);
           }
