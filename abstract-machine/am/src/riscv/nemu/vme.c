@@ -90,7 +90,7 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
     // extract pte info to update pgaddr
     pgaddr = (PTE*)(((*pteaddr)>>10)<<12);
   }
-  //if(va<(void*)0x80000000){printf("map va %p to pa %p\n",va,pa);}
+  if(va<(void*)0x80000000){printf("map va %p to pa %p\n",va,pa);}
 }
 
 Context *ucontext(AddrSpace *as, Area kstack, void *entry) {
