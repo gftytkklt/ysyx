@@ -81,7 +81,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
           }
           else{
             //rd_num = fs_read(fd, page, 4096);
-            fs_read(fd, page, 4096);
+            fs_read(fd, page+2, 4096);
           }
         }
         //printf("rd %d\n",rd_num);
