@@ -67,7 +67,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
         // map unaligned first page
         if (start < (void*) file_end){
           if(start_offt != 0){
-            printf("unaligned first page\n");
+            //printf("unaligned first page\n");
             int rd_len = (start_offt + filesz > 4096) ? (4096-start_offt) : filesz;
             //rd_num = fs_read(fd, (page + start_offt), rd_len);
             fs_read(fd, (page + start_offt), rd_len);
@@ -76,13 +76,13 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
           }
           // map last page
           else if(start > (void*) (file_end-4096)){
-            printf("unaligned last page\n");
+            //printf("unaligned last page\n");
             //printf("aligned fs op\n");
             //rd_num = fs_read(fd, page, (file_end&0xfff));
             fs_read(fd, page, (file_end&0xfff));
           }
           else{
-            printf("aligned page\n");
+            //printf("aligned page\n");
             //rd_num = fs_read(fd, page, 4096);
             fs_read(fd, page, 4096);
           }
