@@ -6,7 +6,7 @@
 void naive_uload(PCB *pcb, const char *filename);
 int context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]);
 void switch_boot_pcb();
-#define CONFIG_STRACE
+//#define CONFIG_STRACE
 #ifdef CONFIG_STRACE
 const char* syscall_name[]={
   "sys exit",
