@@ -79,7 +79,7 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
     pteaddr = pgaddr + vpn[level];
     // if pte does not exist, create a new one, then fill pte info
     if((*pteaddr & PTE_V) == 0){
-      printf("create new L%d page\n",level);
+      if(va<(void*)0x80000000){printf("create new L%d page\n",level);}
       if(level == 0){
         *pteaddr = (((PTE)pa >> 12) << 10) | PTE_V | PTE_R | PTE_W | PTE_X;
       }
