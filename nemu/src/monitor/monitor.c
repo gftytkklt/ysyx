@@ -236,7 +236,7 @@ void print_ftrace(unsigned long pc, unsigned long dnpc, unsigned inst) {
       
     }
   }
-  fclose(fp);
+  //fclose(fp);
 }
 #endif
 
