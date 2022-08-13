@@ -70,7 +70,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
             //printf("unaligned first page\n");
             int rd_len = (start_offt + filesz > 4096) ? (4096-start_offt) : filesz;
             //rd_num = fs_read(fd, (page + start_offt), rd_len);
-            fs_read(fd, (start + start_offt), rd_len);
+            fs_read(fd, (page + start_offt), rd_len);
             //printf("cp %ld bytes to addr %p\n",(4096-start_offt),(page + start_offt));
             start_offt = 0;
           }
@@ -79,12 +79,12 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
             //printf("unaligned last page\n");
             //printf("aligned fs op\n");
             //rd_num = fs_read(fd, page, (file_end&0xfff));
-            fs_read(fd, start, (file_end&0xfff));
+            fs_read(fd, page, (file_end&0xfff));
           }
           else{
             printf("aligned page\n");
             //rd_num = fs_read(fd, page, 4096);
-            fs_read(fd, start, 4096);
+            fs_read(fd, page, 4096);
           }
         }
         //printf("rd %d\n",rd_num);
