@@ -41,7 +41,7 @@ int mm_brk(uintptr_t brk) {
     cur_brk += PGSIZE;
   }
   current->max_brk = brk;
-  printf("max_brk = %lx, brk = %lx\n",current->max_brk,brk);
+  printf("max_brk = %lx, brk = %lx\n",cur_brk,brk);
   //assert(0);
   return 0;
 }
