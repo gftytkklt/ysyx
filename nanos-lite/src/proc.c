@@ -40,10 +40,10 @@ void init_proc() {
   Log("Initializing processes...");
   // load program here
   //naive_uload(NULL,"/bin/pal");
-  //char * argv[]={"--skip",NULL};
-  char * argv[]={NULL};
+  char * argv[]={"--skip",NULL};
+  //char * argv[]={NULL};
   char * envp[]={NULL};
-  context_uload(&pcb[0],"/bin/dummy", argv, envp);
+  context_uload(&pcb[0],"/bin/pal", argv, envp);
   Log("proc end at %lx\n",pcb[0].max_brk);
 }
 
