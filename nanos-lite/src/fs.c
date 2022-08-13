@@ -77,7 +77,7 @@ long fs_read(int fd, void *buf, size_t len){
   else{
     offt_incr = file_table[fd].read(buf, rd_offt, len);
   }
-  //printf("read %s, len = %d, offt=%ld\n", file_table[fd].name, offt_incr, rd_offt);
+  printf("read %s, len = %d, offt=%ld\n", file_table[fd].name, offt_incr, rd_offt);
   fp_offt[fd] += offt_incr;
   return offt_incr;
 }
