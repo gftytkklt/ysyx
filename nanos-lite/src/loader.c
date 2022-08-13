@@ -63,20 +63,23 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
         void *page = new_page(1);
         memset(page, 0, 4096);
         map(&pcb->as,start,page,0);
+        int rd_num = 0;
         // map unaligned first page
         if(start_offt != 0){
-          // if file < 4096 - start_offt, fs_read will guarantee actual rd len
-          //printf("unaligned fs op\n");
-          fs_read(fd, (page + start_offt), (4096-start_offt));
-          printf("cp %ld bytes to addr %p\n",(4096-start_offt),(page + start_offt));
+          int rd_len = (start_offt + filesz > 4096) ? (4096-start_offt) : filesz;
+          rd_num = fs_read(fd, (page + start_offt), rd_len);
+          //printf("cp %ld bytes to addr %p\n",(4096-start_offt),(page + start_offt));
           start_offt = 0;
         }
-        // map file page
-        else if(start < (void*) file_end){
+        // map last page
+        else if(start < (void*) (file_end-4096)){
           //printf("aligned fs op\n");
-          int rd_num = fs_read(fd, page, 4096);
-          printf("rd %d\n",rd_num);
+          rd_num = fs_read(fd, page, (file_end-4096));
         }
+        else{
+          rd_num = fs_read(fd, page, 4096);
+        }
+        printf("rd %d\n",rd_num);
         //printf("%dth mapping end\n",i);
       }
       /*// full page num
