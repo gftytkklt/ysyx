@@ -90,6 +90,11 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
       }
       //if(va<(void*)0x80000000){printf("Create L%d pte at %p(vpn%d, pte%lx)\n", level, pteaddr,vpn[level],*pteaddr);}
     }
+    else{
+      if((*pteaddr & 0xe)&&(level != 0)){
+        printf("map: invalid pte %lx at %p found!\n",*pteaddr,pteaddr);
+      }
+    }
     // extract pte info to update pgaddr
     pgaddr = (PTE*)(((*pteaddr)>>10)<<12);
   }
