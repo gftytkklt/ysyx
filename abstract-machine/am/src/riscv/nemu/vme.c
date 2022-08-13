@@ -84,7 +84,7 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
       }
       else{
         *pteaddr = (((PTE)pgalloc_usr(PGSIZE) >> 12) << 10) | PTE_V;
-        if(va<(void*)0x80000000){printf("Create L%d pte at %p(vpn%d, pte%lx)\n", level, pteaddr,vpn[level],*pteaddr);}
+        printf("Create L%d pte at %p(vpn%d, pte%lx)\n", level, pteaddr,vpn[level],*pteaddr);
       }
       //if(va<(void*)0x80000000){printf("Create L%d pte at %p(vpn%d, pte%lx)\n", level, pteaddr,vpn[level],*pteaddr);}
     }
