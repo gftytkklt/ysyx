@@ -39,7 +39,7 @@ int mm_brk(uintptr_t brk) {
   while(brk_pt >= cur_brk){
     printf("malloc call new page\n");
     void *page = new_page(1);
-    map(&current->as, brk_pt, page, 0);
+    map(&current->as, cur_brk, page, 0);
     cur_brk += PGSIZE;
   }
   current->max_brk = brk;
