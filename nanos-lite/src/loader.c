@@ -73,7 +73,8 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
         // map file page
         else if(start < (void*) file_end){
           //printf("aligned fs op\n");
-          fs_read(fd, page, 4096);
+          int rd_num = fs_read(fd, page, 4096);
+          printf("rd %d\n",rd_num);
         }
         //printf("%dth mapping end\n",i);
       }
