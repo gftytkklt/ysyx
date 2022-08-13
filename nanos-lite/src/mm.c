@@ -6,7 +6,7 @@ static void *pf = NULL;
 void* new_page(size_t nr_page) {
   //printf("before: %p\n",pf);
   //pf = (void *)ROUNDUP(pf, PGSIZE*nr_page);
-  if((uint64_t)heap.start%4096){printf("\nunaligned start %p\n\n",heap.start);}
+  if((uint64_t)heap.start%4096){printf("unaligned start %p\n",heap.start);}
   pf = (void *)ROUNDUP(heap.start, PGSIZE);
   pf += PGSIZE*nr_page;
   heap.start = pf;
