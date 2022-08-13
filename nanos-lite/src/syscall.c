@@ -36,7 +36,7 @@ void print_strace(uintptr_t a1,uintptr_t a2,uintptr_t a3,uintptr_t a4,uintptr_t 
   if(has_ret){
     if(file_op){
       const char* filename = (a1==SYS_open) ? get_filename(ret) : get_filename(a2);
-      printf("%s %s, parameters: %ld, %ld, ret: %ld\n",syscall_name[a1],filename,a3,a4,ret);
+      printf("%s %s, parameters: %lx, %ld, ret: %ld\n",syscall_name[a1],filename,a3,a4,ret);
     }
     else{
       printf("%s, parameters: %ld, %ld, %ld, ret: %ld\n",syscall_name[a1],a2,a3,a4,ret);
