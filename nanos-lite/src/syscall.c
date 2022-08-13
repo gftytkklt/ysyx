@@ -116,8 +116,8 @@ int mm_brk(uintptr_t brk);
 int sys_brk(void *addr){
   //*end = 
   printf("call sys_brk at addr %p\n",addr);
-  //return 0;
-  return mm_brk((uintptr_t)addr);
+  return 0;
+  //return mm_brk((uintptr_t)addr);
   
   //return mm_brk((uintptr_t)addr);
 }
