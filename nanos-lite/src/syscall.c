@@ -113,9 +113,9 @@ long sys_lseek(int fd, size_t offset, int whence){
 }
 
 int mm_brk(uintptr_t brk);
-int sys_brk(void *addr){
+int sys_brk(void *addr, uintptr_t size){
   //*end = 
-  printf("call sys_brk at addr %p\n",addr);
+  printf("call sys_brk at addr %p, size = %ld\n",addr, size);
   //return 0;
   return mm_brk((uintptr_t)addr);
   
@@ -161,7 +161,7 @@ void do_syscall(Context *c) {
     case SYS_write: c->GPRx = sys_write((int)a[1],(void*)a[2],(size_t)a[3]);break;
     case SYS_close: c->GPRx = sys_close((int)a[1]);break;
     case SYS_lseek: c->GPRx = sys_lseek((int)a[1],(long)a[2],(int)a[3]);break;
-    case SYS_brk: c->GPRx = sys_brk((void*)a[1]);break;
+    case SYS_brk: c->GPRx = sys_brk((void*)a[1],(uintptr_t)a[2]);break;
     case SYS_execve: c->GPRx = sys_execve((const char *)a[1], (char * const*)a[2], (char * const*)a[3]);break;
     case SYS_gettimeofday: c->GPRx = sys_gettimeofday((struct timeval *)a[1], NULL);break;
     default: panic("Unhandled syscall ID = %d", a[0]);
