@@ -21,8 +21,8 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type) {
     // paddr = ppn*4096 + vpn*8
     cur_paddr = (cur_ppn<<12) + (cur_vpn<<3);
     if(vaddr<0x80000000){printf("cur_paddr=%lx\n",cur_paddr);}
-    vaddr_t *pte = (vaddr_t*)cur_paddr;
-    printf("pte=%p *pte=%lx\n",pte,*pte);
+    //vaddr_t *pte = (vaddr_t*)cur_paddr;
+    //printf("pte=%p *pte=%lx\n",pte,*pte);
     // update ppn 
     //cur_ppn = BITS((*((paddr_t*)cur_paddr)), 53,10);
     uint64_t cur_pte = paddr_read(cur_paddr,8);
