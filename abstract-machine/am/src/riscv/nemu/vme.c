@@ -79,15 +79,14 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
     pteaddr = pgaddr + vpn[level];
     // if pte does not exist, create a new one, then fill pte info
     if((*pteaddr & PTE_V) == 0){
-      if(va<(void*)0x80000000){printf("create new L%d page\n",level);}
       if(level == 0){
         *pteaddr = (((PTE)pa >> 12) << 10) | PTE_V | PTE_R | PTE_W | PTE_X;
       }
       else{
         *pteaddr = (((PTE)pgalloc_usr(PGSIZE) >> 12) << 10) | PTE_V;
       }
+      if(va<(void*)0x80000000){printf("L%d pte at %p(vpn%d, pte%lx)\n", level, pteaddr,vpn[level],*pteaddr);}
     }
-    if(va<(void*)0x80000000){printf("L%d pte at %p(vpn%d, pte%lx)\n", level, pteaddr,vpn[level],*pteaddr);}
     // extract pte info to update pgaddr
     pgaddr = (PTE*)(((*pteaddr)>>10)<<12);
   }
