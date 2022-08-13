@@ -57,13 +57,13 @@ void unprotect(AddrSpace *as) {
 }
 
 void __am_get_cur_as(Context *c) {
-  printf("satp %lx set to pdir\n",get_satp());
+  //printf("satp %lx set to pdir\n",get_satp());
   c->pdir = (vme_enable ? (void *)get_satp() : NULL);
 }
 
 void __am_switch(Context *c) {
   if (vme_enable && c->pdir != NULL) {
-    printf("%p is setted to satp\n",c->pdir);
+    //printf("%p is setted to satp\n",c->pdir);
     set_satp(c->pdir);
   }
 }
