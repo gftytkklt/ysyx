@@ -9,7 +9,7 @@ void* new_page(size_t nr_page) {
   pf = (void *)ROUNDUP(pf, PGSIZE);
   pf += PGSIZE*nr_page;
   heap.start = pf;
-  //printf("after: %p\n",pf);
+  printf("heap.start: %p\n",pf);
   //return pf;
   return pf - PGSIZE*nr_page;
 }
