@@ -67,6 +67,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
           // if file < 4096 - start_offt, fs_read will guarantee actual rd len
           //printf("unaligned fs op\n");
           fs_read(fd, (page + start_offt), (4096-start_offt));
+          printf("cp %ld bytes to addr %p\n",(4096-start_offt),(page + start_offt));
           start_offt = 0;
         }
         // map file page

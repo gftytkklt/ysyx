@@ -30,7 +30,7 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type) {
       assert(0);
     }
     cur_ppn = BITS(paddr_read(cur_paddr,8),53,10);
-    //if(vaddr<0x80000000){printf("cur_ppn=%lx\n",cur_ppn);}
+    // if(vaddr<0x80000000){printf("cur_ppn=%lx\n",cur_ppn);}
     // exception
     // non-leaf page RWX exception
     // leaf page RWX exception
