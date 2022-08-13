@@ -8,7 +8,7 @@ void __am_switch(Context *c);
 
 Context* __am_irq_handle(Context *c) {
   //long *tmp = (long *) c;
-  printf("before:%p, pdir=%p\n",c,c->pdir);
+  printf("\nbefore:%p, pdir=%p\n",c,c->pdir);
   __am_get_cur_as(c);
   if (user_handler) {
     Event ev = {0};
