@@ -25,8 +25,8 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type) {
     //printf("pte=%p *pte=%lx\n",pte,*pte);
     // update ppn 
     //cur_ppn = BITS((*((paddr_t*)cur_paddr)), 53,10);
-    //uint64_t cur_pte = paddr_read(cur_paddr,8);
-    uint64_t cur_pte = *((uint64_t*)cur_paddr);
+    uint64_t cur_pte = paddr_read(cur_paddr,8);
+    //uint64_t cur_pte = *((uint64_t*)cur_paddr);
     if((cur_pte & 0x1)==0){
       printf("unmapped addr %lx, invalid cur_paddr %lx, pte %lx(level%d, type%d)!\n",vaddr,cur_paddr,cur_pte,level,type);
       assert(0);
