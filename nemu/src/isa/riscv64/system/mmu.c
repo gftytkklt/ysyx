@@ -29,7 +29,7 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type) {
     //uint64_t cur_pte = *((uint64_t*)cur_paddr);
     if((cur_pte & 0x1)==0){
       printf("unmapped addr %lx, invalid cur_paddr %lx, pte %lx(level%d, type%d)!\n",vaddr,cur_paddr,cur_pte,level,type);
-      assert(0);
+      if(level == 0){assert(0);}
     }
     /*else if(vaddr<0x40044000 && vaddr > 0x40043000){
       printf("addr %lx, cur_paddr %lx, pte %lx(level%d, type%d)!\n",vaddr,cur_paddr,cur_pte,level,type);

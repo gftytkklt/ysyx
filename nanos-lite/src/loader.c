@@ -40,7 +40,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     //printf()
     //ramdisk_read(&phdr, current_phoff, phentsize);
     if (phdr.p_type == PT_LOAD){
-      printf("load pts\n");
+      //printf("load pts\n");
       ldofft = phdr.p_offset;
       ldvaddr = phdr.p_vaddr;
       //printf("%d: %ld, %lx\n",i, ldofft, ldvaddr);
