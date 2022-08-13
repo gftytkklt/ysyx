@@ -3,7 +3,7 @@
 #include <memory/paddr.h>
 
 paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type) {
-  //if(vaddr<0x80000000){printf("in mmu trans\n");}
+  if(vaddr<0x80000000){printf("in mmu trans\n");}
   paddr_t offset = BITS(vaddr,11,0) & 0xfff;
   //if(vaddr<0x80000000){printf("%x\n",offset);}
   vaddr_t cur_ppn = BITS(cpu.csr[4],43,0);// L2 page nums in satp
