@@ -6,7 +6,7 @@ static void *pf = NULL;
 void* new_page(size_t nr_page) {
   //printf("before: %p\n",pf);
   //pf = (void *)ROUNDUP(pf, PGSIZE*nr_page);
-  pf = (void *)ROUNDUP(pf, PGSIZE);
+  pf = (void *)ROUNDUP(heap.start, PGSIZE);
   pf += PGSIZE*nr_page;
   heap.start = pf;
   //printf("heap.start: %p\n",pf);
