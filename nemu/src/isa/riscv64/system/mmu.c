@@ -27,14 +27,14 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type) {
     //cur_ppn = BITS((*((paddr_t*)cur_paddr)), 53,10);
     uint64_t cur_pte = paddr_read(cur_paddr,8);
     //uint64_t cur_pte = *((uint64_t*)cur_paddr);
-    if((cur_pte & 0x1)==0){
-      printf("unmapped addr %lx, invalid cur_paddr %lx, pte %lx, next_paddr = %lx(level%d, type%d)!\n",vaddr,cur_paddr,cur_pte,(cur_pte << 12)+offset,level,type);
-      assert(0);
-    }
     /*else if(vaddr<0x40044000 && vaddr > 0x40043000){
       printf("addr %lx, cur_paddr %lx, pte %lx(level%d, type%d)!\n",vaddr,cur_paddr,cur_pte,level,type);
     }*/
     cur_ppn = BITS(cur_pte,53,10);
+    if((cur_pte & 0x1)==0){
+      printf("unmapped addr %lx, invalid cur_paddr %lx, pte %lx, next_paddr = %lx(level%d, type%d)!\n",vaddr,cur_paddr,cur_pte,(cur_ppn << 12)+offset,level,type);
+      assert(0);
+    }
     // if(vaddr<0x80000000){printf("cur_ppn=%lx\n",cur_ppn);}
     // exception
     // non-leaf page RWX exception
