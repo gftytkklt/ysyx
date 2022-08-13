@@ -23,9 +23,10 @@ size_t serial_write(const void *buf, size_t offset, size_t len) {
   char *tmp = (char*) buf;
   size_t write_size = 0;
   while ((write_size < len) && (tmp[write_size] != '\0')){
-      putch(tmp[write_size]);
-      write_size++;
-    }
+    putch(write_size);
+    putch(tmp[write_size]);
+    write_size++;
+  }
   return write_size;
 }
 
