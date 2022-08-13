@@ -78,7 +78,7 @@ long fs_read(int fd, void *buf, size_t len){
     offt_incr = file_table[fd].read(buf, rd_offt, len);
   }
   //printf("read %s, len = %d, offt=%ld, offt addr = %p\n", file_table[fd].name, offt_incr, rd_offt, &fp_offt[fd]);
-  printf("fs_read at%p\n",&fp_offt[fd]);
+  printf("fs_read %d at %p\n",fd, &fp_offt[fd]);
   fp_offt[fd] += offt_incr;
   return offt_incr;
 }
@@ -93,7 +93,7 @@ long fs_write(int fd, const void *buf, size_t len){
   else{
     offt_incr = file_table[fd].write(buf, wr_offt, len);
   }
-  printf("fs_write at%p\n",&fp_offt[fd]);
+  printf("fs_write at %p\n",fd, &fp_offt[fd]);
   fp_offt[fd] += offt_incr;
   return offt_incr;
 }
