@@ -92,7 +92,7 @@ long fs_write(int fd, const void *buf, size_t len){
   else{
     offt_incr = file_table[fd].write(buf, wr_offt, len);
   }
-  fp_offt[fd] += offt_incr;
+  //fp_offt[fd] += offt_incr;
   return offt_incr;
 }
 
