@@ -83,7 +83,7 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
         *pteaddr = (((PTE)pa >> 12) << 10) | PTE_V | PTE_R | PTE_W | PTE_X;
       }
       else{
-        *pteaddr = (((PTE)pgalloc_usr(PGSIZE) >> 12) << 10) | PTE_V;
+        *pteaddr = (((PTE)pgalloc_usr(PGSIZE) >> 12) << 10);
       }
     }
     // extract pte info to update pgaddr
