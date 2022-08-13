@@ -36,7 +36,7 @@ int mm_brk(uintptr_t brk) {
   void *brk_pt = (void *)brk;
   void *cur_brk = (void *)ROUNDUP(current->max_brk, PGSIZE);
   //printf("max_brk = %lx, brk = %lx\n",cur_brk,brk);
-  while(brk_pt >= cur_brk){
+  while(brk_pt > cur_brk){
     printf("malloc call new page\n");
     void *page = new_page(1);
     map(&current->as, cur_brk, page, 0);
