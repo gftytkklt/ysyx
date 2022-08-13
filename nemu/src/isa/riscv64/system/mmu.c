@@ -32,7 +32,7 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type) {
     }*/
     cur_ppn = BITS(cur_pte,53,10);
     if((cur_pte & 0x1)==0){
-      printf("unmapped addr %lx, invalid cur_paddr %lx, pte %lx, next_paddr = %lx(level%d, type%d)!\n",vaddr,cur_paddr,cur_pte,(cur_ppn << 12)+offset,level,type);
+      printf("unmapped addr %lx, invalid cur_paddr %lx, pte %lx, next_paddr = %lx(level%d, type%d)!\n",vaddr,cur_paddr,cur_pte,(cur_ppn << 12),level,type);
       assert(0);
     }
     // if(vaddr<0x80000000){printf("cur_ppn=%lx\n",cur_ppn);}
