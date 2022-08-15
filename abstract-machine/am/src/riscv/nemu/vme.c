@@ -108,7 +108,7 @@ Context *ucontext(AddrSpace *as, Area kstack, void *entry) {
   // get pdir
   //__am_get_cur_as(cp);
   cp->pdir = as->ptr;
-  cp->mstatus = 0xa00001880;
+  cp->mstatus = 0xa00001800;
   cp->mepc = (uintptr_t)entry;
   //printf("user entry: %lx\n",cp->mepc);
   //cp->gpr[10] = (uintptr_t)stacktop;
