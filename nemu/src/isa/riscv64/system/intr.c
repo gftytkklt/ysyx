@@ -13,7 +13,7 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc) {
   //return (BITS(cpu.csr[3],1,0) == 0) ? cpu.csr[3] : ((cpu.csr[3] & 0xfffffffffffffffc) + NO*4);// dnpc = mtvec
 }
 
-#define IRQ_TIMER 0x8000000000000007
+
 // when INTR comes and MIE neq 0, trigger IRQ_TIMER
 word_t isa_query_intr() {
   //printf("INTR: %d, matatus: %lx\n",cpu.INTR, cpu.csr[1]);
