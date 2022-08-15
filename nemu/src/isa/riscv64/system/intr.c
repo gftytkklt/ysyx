@@ -20,8 +20,8 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc) {
 // when INTR comes and MIE neq 0, trigger IRQ_TIMER
 word_t isa_query_intr() {
   //printf("INTR: %d, matatus: %lx\n",cpu.INTR, cpu.csr[1]);
-  //if(cpu.INTR && (cpu.csr[1] & 0x8)){
-  if(cpu.INTR){
+  if(cpu.INTR && (cpu.csr[1] & 0x8)){
+  //if(cpu.INTR){
     printf("timer irq\n");
     cpu.INTR = 0;
     return IRQ_TIMER;
