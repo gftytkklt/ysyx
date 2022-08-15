@@ -22,7 +22,7 @@ word_t isa_query_intr() {
   //printf("INTR: %d, matatus: %lx\n",cpu.INTR, cpu.csr[1]);
   if(cpu.INTR && (cpu.csr[1] & 0x8)){
   //if(cpu.INTR){
-    //printf("timer irq\n");
+    printf("timer irq\n");
     cpu.INTR = 0;
     return IRQ_TIMER;
   }
