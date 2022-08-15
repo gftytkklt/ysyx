@@ -149,7 +149,7 @@ int context_uload(PCB *pcb, const char *filename, char *const argv[], char *cons
     //printf("%p %p\n",stackpt,page);
     map(&pcb->as,stackpt,page,0);
   }
-  //printf("ustack: %p\n",stacktop);
+  printf("ustack: %p\n",stacktop);
   int argc = 0;
   int envc = 0;
   while(argv[argc] != NULL){
