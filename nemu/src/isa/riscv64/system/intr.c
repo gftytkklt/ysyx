@@ -16,7 +16,7 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc) {
 #define IRQ_TIMER 0x8000000000000007
 // when INTR comes and MIE neq 0, trigger IRQ_TIMER
 word_t isa_query_intr() {
-  printf("matatus: %lx\n",cpu.csr[1]);
+  //printf("matatus: %lx\n",cpu.csr[1]);
   if(cpu.INTR && (cpu.csr[1] & 0x8)){
     cpu.INTR = 0;
     return IRQ_TIMER;
