@@ -101,7 +101,7 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
   //if(va<(void*)0x80000000){printf("map va %p to pa %p\n",va,pa);}
 }
 
-Context *ucontext(AddrSpace *as, Area kstack, void *entry, void* stacktop) {
+Context *ucontext(AddrSpace *as, Area kstack, void *entry) {
   //Context *cp = (Context*)kstack.end - 1;
   Context *cp = (Context*)((void*)kstack.end - CONTEXT_SIZE);
   //printf("%p\n",cp);
@@ -111,7 +111,7 @@ Context *ucontext(AddrSpace *as, Area kstack, void *entry, void* stacktop) {
   cp->mstatus = 0xa00001800;
   cp->mepc = (uintptr_t)entry;
   //printf("user entry: %lx\n",cp->mepc);
-  cp->gpr[10] = (uintptr_t)stacktop;
+  //cp->gpr[10] = (uintptr_t)stacktop;
   //printf("ustack top: %p\n", cp->gpr[10]);
   return cp;
   //cp->gpr[10] = (uintptr_t) arg;

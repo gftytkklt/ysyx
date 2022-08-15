@@ -173,8 +173,8 @@ int context_uload(PCB *pcb, const char *filename, char *const argv[], char *cons
   *((int*)stacktop) = argc;
   uintptr_t entry = loader(pcb, filename);
   if (entry == -1){return -1;}
-  pcb->cp = ucontext(&pcb->as, kstack, (void*)entry, stacktop);
-  //pcb->cp->gpr[10] = (uintptr_t)stacktop;
+  pcb->cp = ucontext(&pcb->as, kstack, (void*)entry);
+  pcb->cp->gpr[10] = (uintptr_t)stacktop;
   printf("uloader end, entry = %p\n",entry);
   //((void(*)())entry) ();
   return 0;
