@@ -110,6 +110,7 @@ Context *ucontext(AddrSpace *as, Area kstack, void *entry) {
   cp->pdir = as->ptr;
   cp->mstatus = 0xa00001808;
   cp->mepc = (uintptr_t)entry;
+  printf("user entry: %lx\n",cp->mepc);
   //cp->gpr[10] = (uintptr_t)heap.end;
   //printf("ustack top: %p\n", cp->gpr[10]);
   return cp;
