@@ -6,7 +6,7 @@ static Context* do_event(Event e, Context* c) {
   switch (e.event) {
     case EVENT_YIELD: return schedule(c);//printf("yield exec\n");break;
     case EVENT_SYSCALL: do_syscall(c);break;
-    case EVENT_IRQ_TIMER: Log("timer irq\n");return schedule(c);
+    case EVENT_IRQ_TIMER: Log("timer irq\n");schedule(c);
     default: panic("Unhandled event ID = %d", e.event);
   }
 
