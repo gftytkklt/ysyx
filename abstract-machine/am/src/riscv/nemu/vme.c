@@ -108,7 +108,7 @@ Context *ucontext(AddrSpace *as, Area kstack, void *entry) {
   // get pdir
   //__am_get_cur_as(cp);
   cp->pdir = as->ptr;
-  cp->mstatus = 0xa00001800;
+  cp->mstatus = 0xa00001808;
   cp->mepc = (uintptr_t)entry;
   //cp->gpr[10] = (uintptr_t)heap.end;
   //printf("ustack top: %p\n", cp->gpr[10]);
