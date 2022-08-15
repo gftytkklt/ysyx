@@ -26,7 +26,7 @@ void print_ftrace(unsigned long pc, unsigned long dnpc, unsigned inst);
 void etrace(unsigned long pc, unsigned inst);
 #endif
 // add for ftrace end
-CPU_state cpu = {.csr[1] = 0xa00001800};
+CPU_state cpu = {.csr[1] = 0xa00001808};
 
 uint64_t g_nr_guest_inst = 0;
 static uint64_t g_timer = 0; // unit: us
