@@ -8,6 +8,7 @@ typedef struct {
   //word_t mepc, mstatus, mcause, mtvec;
   vaddr_t pc;
   word_t csr[5]; //mepc, mstatus, mcause, mtvec, satp;
+  bool INTR; // clock interrupter
 } riscv64_CPU_state;
 
 // decode

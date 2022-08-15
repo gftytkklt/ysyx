@@ -19,6 +19,7 @@ Context* __am_irq_handle(Context *c) {
     //printf("cause: %ld event: %ld\n", c->mcause, c->gpr[17]);
     switch (c->mcause) {
       case 0x0b: ev.event = (c->gpr[17] == -1) ? EVENT_YIELD : EVENT_SYSCALL; break;
+      case 0x8000000000000007: ev.event = EVENT_IRQ_TIMER; break;
       default: ev.event = EVENT_ERROR; break;
     }
 
