@@ -27,7 +27,7 @@ Context* __am_irq_handle(Context *c) {
     assert(c != NULL);
   }
   __am_switch(c);
-  printf("mepc = %lx\n",c->mepc);
+  printf("context at %p, mepc = %lx\n",c,c->mepc);
   return c;
 }
 
