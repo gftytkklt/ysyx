@@ -90,34 +90,6 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
         //printf("rd %d\n",rd_num);
         //printf("%dth mapping end\n",i);
       }
-      /*// full page num
-      int file_pgnum = filesz / 4096;
-      // remainder
-      int remainder = filesz % 4096;
-      for (int j=0;j<memsz;j=j+4096){
-        // new page
-        void* page = new_page(1);
-        // va to pa mapping
-        map(&pcb->as,(void*)ldvaddr,page,0);
-        // full page memcpy part
-        if(file_pgnum != 0){
-          fs_read(fd, page, 4096);
-          file_pgnum--;
-        }
-        // remainder memcpy part
-        else if(remainder != 0){
-          fs_read(fd, page, remainder);
-          memset((page+remainder), 0, (4096-remainder));
-          remainder = 0;
-        }
-        // zero padding part
-        // all new pages are unused physical addr, so set whole page to zero is okay
-        else{
-          memset(page, 0, 4096);
-        }
-        // update mapping vaddr
-        ldvaddr += 4096;
-      }*/
     }
     current_phoff += phentsize;
   }
@@ -201,8 +173,8 @@ int context_uload(PCB *pcb, const char *filename, char *const argv[], char *cons
   *((int*)stacktop) = argc;
   uintptr_t entry = loader(pcb, filename);
   if (entry == -1){return -1;}
-  pcb->cp = ucontext(&pcb->as, kstack, (void*)entry);
-  pcb->cp->gpr[10] = (uintptr_t)stacktop;
+  pcb->cp = ucontext(&pcb->as, kstack, (void*)entry, stacktop);
+  //pcb->cp->gpr[10] = (uintptr_t)stacktop;
   printf("uloader end, entry = %p\n",entry);
   //((void(*)())entry) ();
   return 0;
