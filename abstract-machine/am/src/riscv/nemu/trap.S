@@ -57,9 +57,10 @@ __am_asm_trap:
   
   LOAD t1, OFFSET_STATUS(sp)
   LOAD t2, OFFSET_EPC(sp)
-  addi t2, t2, 4
+  #addi t2, t2, 4
   csrw mstatus, t1
   csrw mepc, t2
+  addi t2, t2, 4
   #ld a0, 0(zero)
   #mv sp, a0
   
