@@ -55,9 +55,9 @@ Context* schedule(Context *prev) {
   // always select pcb[0] as the new process
   //current = &pcb[0];
   current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
-  //if(current == &pcb[0]){printf("pcb0\n");}
-  //else if(current == &pcb[1]){printf("pcb1\n");}
-  //else{printf("???\n");}
+  if(current == &pcb[0]){printf("pcb0\n");}
+  else if(current == &pcb[1]){printf("pcb1\n");}
+  else{printf("???\n");}
   //printf("gpr[10]: %p\n", current->cp->gpr[10]);
   assert(current->cp != NULL);
   //printf("schedule end\n");
