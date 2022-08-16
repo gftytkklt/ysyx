@@ -117,9 +117,9 @@ static void execute(uint64_t n) {
     IFDEF(CONFIG_DEVICE, device_update());
     word_t intr = isa_query_intr();
     if (intr != INTR_EMPTY) {
-      printf("time intr at pc = %lx\n",s.pc);
+      //printf("time intr at pc = %lx\n",s.pc);
       //isa_reg_display();
-      cpu.pc = isa_raise_intr(intr, s.pc);
+      cpu.pc = isa_raise_intr(intr, cpu.pc);
     }
   }
 }
