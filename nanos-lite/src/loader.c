@@ -101,7 +101,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 
 int context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]){
   protect(&pcb->as);
-  printf("ptr = %p\n",pcb->as.ptr);
+  printf("%s ptr = %p\n",filename, pcb->as.ptr);
   Area kstack;
   kstack.start = (void*)pcb->stack;
   kstack.end = (void*)pcb->stack + STACK_SIZE;
