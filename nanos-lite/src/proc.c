@@ -31,7 +31,7 @@ void context_kload(PCB *pcb, void (*entry)(void *), void *arg){
 
 void init_proc() {
   //context_kload(&pcb[0], hello_fun, "hello");
-  //context_kload(&pcb[0], hello_fun, "No.0 Hello world!");
+  context_kload(&pcb[0], hello_fun, "No.0 Hello world!");
   context_kload(&pcb[1], hello_fun, "No.1 Hello world!");
   //context_uload(&pcb[1],"/bin/pal");
   //assert(0);
@@ -40,10 +40,10 @@ void init_proc() {
   Log("Initializing processes...");
   // load program here
   //naive_uload(NULL,"/bin/pal");
-  char * argv[]={"--skip",NULL};
+  //char * argv[]={"--skip",NULL};
   //char * argv[]={NULL};
-  char * envp[]={NULL};
-  context_uload(&pcb[0],"/bin/pal", argv, envp);
+  //char * envp[]={NULL};
+  //context_uload(&pcb[0],"/bin/pal", argv, envp);
   Log("proc end at %lx\n",pcb[0].max_brk);
 }
 
