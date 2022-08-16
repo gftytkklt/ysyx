@@ -112,19 +112,15 @@ static void execute(uint64_t n) {
   for (;n > 0; n --) {
     word_t intr = isa_query_intr();
     if (intr != INTR_EMPTY) {
-      printf("time intr at pc = %lx\n",cpu.pc);
+      //printf("time intr at pc = %lx\n",cpu.pc);
+      //isa_reg_display();
+      cpu.pc = isa_raise_intr(intr, cpu.pc);
     }
     exec_once(&s, cpu.pc);
     g_nr_guest_inst ++;
     trace_and_difftest(&s, cpu.pc);
     if (nemu_state.state != NEMU_RUNNING) break;
     IFDEF(CONFIG_DEVICE, device_update());
-    //word_t intr = isa_query_intr();
-    if (intr != INTR_EMPTY) {
-      printf("time intr at pc = %lx\n",cpu.pc);
-      isa_reg_display();
-      cpu.pc = isa_raise_intr(intr, cpu.pc);
-    }
   }
 }
 
