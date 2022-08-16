@@ -36,7 +36,7 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type) {
     }
     if((cur_pte & 0x1)==0){
       printf("pc: %lx, unmapped addr %lx, invalid cur_paddr %lx,satp = %lx, pte = %lx, next_paddr = %lx(level%d, type%d)!\n",cpu.pc, vaddr,cur_paddr,cpu.csr[4],cur_pte,(cur_ppn << 12),level,type);
-      assert(0);
+      Assert(0,"invalid\n");
     }
     // if(vaddr<0x80000000){printf("cur_ppn=%lx\n",cur_ppn);}
     // exception
