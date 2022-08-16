@@ -58,6 +58,7 @@ Context* schedule(Context *prev) {
   if(current == &pcb[0]){printf("pcb0\n");}
   else if(current == &pcb[1]){printf("pcb1\n");}
   else{printf("???\n");}
+  printf("current pcb addr: %p\n",current);
   //printf("gpr[10]: %p\n", current->cp->gpr[10]);
   assert(current->cp != NULL);
   //printf("schedule end\n");
