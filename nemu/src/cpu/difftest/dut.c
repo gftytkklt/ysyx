@@ -80,6 +80,8 @@ static void checkregs(CPU_state *ref, vaddr_t pc) {
   if (!isa_difftest_checkregs(ref, pc) || ref->pc != pc) {
     nemu_state.state = NEMU_ABORT;
     nemu_state.halt_pc = pc;
+    if(!isa_difftest_checkregs(ref, pc)){printf("reg diff detected\n");}
+    if(ref->pc != pc){printf("pc diff detected\n");}
     printf("ref pc:%lx, dut pc:%lx\n", ref->pc, pc);
     isa_reg_display();
     inst_hist_display();
