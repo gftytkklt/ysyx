@@ -15,14 +15,14 @@ static Area segments[] = {      // Kernel memory mappings
 
 static inline void set_satp(void *pdir) {
   uintptr_t mode = 1ul << (__riscv_xlen - 1);
-  printf("set satp at %p\n",pdir);
+  //printf("set satp at %p\n",pdir);
   asm volatile("csrw satp, %0" : : "r"(mode | ((uintptr_t)pdir >> 12)));
 }
 
 static inline uintptr_t get_satp() {
   uintptr_t satp;
   asm volatile("csrr %0, satp" : "=r"(satp));
-  printf("get satp at %p\n",satp << 12);
+  //printf("get satp at %p\n",satp << 12);
   return satp << 12;
 }
 
@@ -60,12 +60,12 @@ void unprotect(AddrSpace *as) {
 
 void __am_get_cur_as(Context *c) {
   c->pdir = (vme_enable ? (void *)get_satp() : NULL);
-  printf("__am_get_cur_as: satp %lx set to pdir\n",c->pdir);
+  //printf("__am_get_cur_as: satp %lx set to pdir\n",c->pdir);
 }
 
 void __am_switch(Context *c) {
   if (vme_enable && c->pdir != NULL) {
-    printf("__am_switch: %p is setted to satp\n",c->pdir);
+    //printf("__am_switch: %p is setted to satp\n",c->pdir);
     set_satp(c->pdir);
   }
 }
