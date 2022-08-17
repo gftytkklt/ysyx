@@ -26,9 +26,9 @@ void context_kload(PCB *pcb, void (*entry)(void *), void *arg){
   kstack.start = (void*)pcb->stack;
   kstack.end = (void*)pcb->stack + STACK_SIZE;
   printf("pcb addr: %p\n",pcb);
-  if(pcb == &pcb[0]){printf("context_kload pcb0: %p %p %p\n",pcb,&pcb[0],&pcb[1]);}
-  else if(pcb == &pcb[1]){printf("context_kload pcb1: %p\n",pcb);}
-  else{printf("context_kload ???\n");}
+  //if(pcb == &pcb[0]){printf("context_kload pcb0: %p %p %p\n",pcb,&pcb[0],&pcb[1]);}
+  //else if(pcb == &pcb[1]){printf("context_kload pcb1: %p\n",pcb);}
+  //else{printf("context_kload ???\n");}
   printf("pcb: %p, kstack: %p, %p\n",pcb,kstack.start,kstack.end);
   pcb->cp = kcontext(kstack, entry, arg);
   printf("pcb->cp = %p\n",pcb->cp);
