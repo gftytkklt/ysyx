@@ -73,6 +73,6 @@ Context* schedule(Context *prev) {
   assert(current->cp != NULL);
   //printf("schedule end\n");
   // then return the new context
-  printf("schedule end, cp: %p\n",current->cp);
+  //printf("schedule end, cp: %p\n",current->cp);
   return current->cp;
 }
