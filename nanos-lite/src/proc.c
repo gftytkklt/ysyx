@@ -25,8 +25,8 @@ void context_kload(PCB *pcb, void (*entry)(void *), void *arg){
   Area kstack;
   kstack.start = (void*)pcb->stack;
   kstack.end = (void*)pcb->stack + STACK_SIZE;
-  if(pcb == &pcb[0]){printf("context_kload pcb0\n");}
-  else if(pcb == &pcb[1]){printf("context_kload pcb1\n");}
+  if(pcb == &pcb[0]){printf("context_kload pcb0: %p\n",pcb);}
+  else if(pcb == &pcb[1]){printf("context_kload pcb1: %p\n",pcb);}
   else{printf("context_kload ???\n");}
   printf("pcb: %p, kstack: %p, %p\n",pcb,kstack.start,kstack.end);
   pcb->cp = kcontext(kstack, entry, arg);
@@ -48,7 +48,7 @@ void init_proc() {
   //char * argv[]={NULL};
   //char * envp[]={NULL};
   //context_uload(&pcb[0],"/bin/pal", argv, envp);
-  Log("proc end at %lx\n",pcb[0].max_brk);
+  //Log("proc end at %lx\n",pcb[0].max_brk);
 }
 
 Context* schedule(Context *prev) {
