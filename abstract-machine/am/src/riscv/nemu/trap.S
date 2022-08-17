@@ -30,7 +30,7 @@ f(30) f(31)
 .align 3
 .globl __am_asm_trap
 __am_asm_trap:
-  
+  ld a0, 0(zero)
   addi sp, sp, -CONTEXT_SIZE
 
   MAP(REGS, PUSH)
