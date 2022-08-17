@@ -12,7 +12,7 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc) {
   //cpu.csr[1] = 
   //printf("mstatus after: %lx\n",cpu.csr[1]);
   cpu.csr[2] = NO;// mcause = NO
-  printf("isa_raise_intr end\n, jump to %lx",cpu.csr[3]);
+  printf("isa_raise_intr end, jump to %lx\n",cpu.csr[3]);
   return cpu.csr[3];// dnpc = mtvec
   //assert((BITS(cpu.csr[3],1,0) == 2) || (BITS(cpu.csr[3],1,0) == 0);
   //return (BITS(cpu.csr[3],1,0) == 0) ? cpu.csr[3] : ((cpu.csr[3] & 0xfffffffffffffffc) + NO*4);// dnpc = mtvec
