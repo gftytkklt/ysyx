@@ -50,7 +50,7 @@ void init_proc() {
 
 Context* schedule(Context *prev) {
   // save the context pointer
-  printf("schedule! %p\n",prev);
+  printf("schedule begin, cp: %p\n",prev);
   current->cp = prev;
   if(current == &pcb[0]){printf("before: current pcb: pcb0\n");}
   else if(current == &pcb[1]){printf("before: current pcb: pcb1\n");}
@@ -66,5 +66,6 @@ Context* schedule(Context *prev) {
   assert(current->cp != NULL);
   //printf("schedule end\n");
   // then return the new context
+  printf("schedule end, cp: %p\n",current->cp);
   return current->cp;
 }
