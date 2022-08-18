@@ -113,7 +113,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
   void write_ringbuf(char *str);
   write_ringbuf(s->logbuf);
-  if(s->pc>=0x80000a5c && s->pc <= 0x80000a74){printf("%s\n",s->logbuf);}
+  //if(s->pc>=0x80000a5c && s->pc <= 0x80000a74){printf("%s\n",s->logbuf);}
 #endif
 }
 
