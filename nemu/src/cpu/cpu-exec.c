@@ -78,11 +78,12 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 }
 
 static void exec_once(Decode *s, vaddr_t pc) {
+  word_t intr = isa_query_intr();
   s->pc = pc;
   s->snpc = pc;
   isa_exec_once(s);
   //cpu.pc = s->dnpc;
-  word_t intr = isa_query_intr();
+  
   if (intr != INTR_EMPTY) {
       //printf("time intr at pc = %lx\n",cpu.pc);
       //isa_reg_display();
