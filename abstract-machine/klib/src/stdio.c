@@ -107,7 +107,12 @@ int printf(const char *fmt, ...) {
   va_start(ap, fmt);
   vsprintf(buf, fmt, ap);
   va_end(ap);
-  putstr(buf);
+  //putstr(buf);
+  char *tmp = buf;
+  while(*tmp != '\0'){
+    putch(*tmp);
+    tmp++;
+  }
   return strlen(buf);
 }
 int vsprintf(char *out, const char *fmt, va_list ap) {
