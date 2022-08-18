@@ -81,7 +81,16 @@ static void exec_once(Decode *s, vaddr_t pc) {
   s->pc = pc;
   s->snpc = pc;
   isa_exec_once(s);
-  cpu.pc = s->dnpc;
+  //cpu.pc = s->dnpc;
+  word_t intr = isa_query_intr();
+  if (intr != INTR_EMPTY) {
+      //printf("time intr at pc = %lx\n",cpu.pc);
+      //isa_reg_display();
+    cpu.pc = isa_raise_intr(intr, cpu.pc);
+  }
+  else{
+     cpu.pc = s->dnpc;
+  }
 #ifdef CONFIG_ITRACE
   char *p = s->logbuf;
   p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);
@@ -115,12 +124,12 @@ static void execute(uint64_t n) {
     trace_and_difftest(&s, cpu.pc);
     if (nemu_state.state != NEMU_RUNNING) break;
     IFDEF(CONFIG_DEVICE, device_update());
-    word_t intr = isa_query_intr();
+    /*word_t intr = isa_query_intr();
     if (intr != INTR_EMPTY) {
       //printf("time intr at pc = %lx\n",cpu.pc);
       //isa_reg_display();
       cpu.pc = isa_raise_intr(intr, cpu.pc);
-    }
+    }*/
   }
 }
 
