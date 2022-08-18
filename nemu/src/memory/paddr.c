@@ -57,7 +57,7 @@ void paddr_write(paddr_t addr, int len, word_t data) {
   pmem_write(addr, len, data);
   if(addr == 0x82172000 || (addr >= 0x8217a000 && addr <= 0x8217a040)){
     Log("Write data 0x%lx to addr "FMT_PADDR",pc = %lx", data, addr, cpu.pc);
-    if (data == 0){isa_reg_display();}
+    //if (data == 0){isa_reg_display();}
   }
   return; }
   IFDEF(CONFIG_DEVICE, mmio_write(addr, len, data); return);
