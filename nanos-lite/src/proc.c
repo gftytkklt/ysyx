@@ -59,15 +59,15 @@ Context* schedule(Context *prev) {
   printf("ref cp: %p(%p), %p(%p)\n",pcb[0].cp, &pcb[0].cp, pcb[1].cp, &pcb[1].cp);
   current->cp = prev;
   printf("set %p to pcb->cp(%p)\n",prev, &current->cp);
-  if(current == &pcb[0]){printf("before: current pcb: pcb0\n");}
-  else if(current == &pcb[1]){printf("before: current pcb: pcb1\n");}
-  else{printf("before :current pcb: ???\n");}
+  //if(current == &pcb[0]){printf("before: current pcb: pcb0\n");}
+  //else if(current == &pcb[1]){printf("before: current pcb: pcb1\n");}
+  //else{printf("before :current pcb: ???\n");}
   // always select pcb[0] as the new process
   //current = &pcb[0];
   current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
-  if(current == &pcb[0]){printf("after: current pcb: pcb0\n");}
-  else if(current == &pcb[1]){printf("after: current pcb: pcb1\n");}
-  else{printf("after: current pcb: ???\n");}
+  //if(current == &pcb[0]){printf("after: current pcb: pcb0\n");}
+  //else if(current == &pcb[1]){printf("after: current pcb: pcb1\n");}
+  //else{printf("after: current pcb: ???\n");}
   printf("current pcb addr: %p, pcb->cp = %p(%p)\n",current,current->cp,&(current->cp));
   //printf("gpr[10]: %p\n", current->cp->gpr[10]);
   assert(current->cp != NULL);
