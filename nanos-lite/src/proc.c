@@ -56,7 +56,7 @@ void init_proc() {
 Context* schedule(Context *prev) {
   // save the context pointer
   //printf("schedule begin, cp: %p\n",prev);
-  printf("ref cp: %p(%p), %p(%p)\n",pcb[0].cp, &pcb[0].cp, pcb[1].cp, &pcb[1].cp);
+  //printf("ref cp: %p(%p), %p(%p)\n",pcb[0].cp, &pcb[0].cp, pcb[1].cp, &pcb[1].cp);
   current->cp = prev;
   printf("set %p to pcb->cp(%p)\n",prev, &current->cp);
   //if(current == &pcb[0]){printf("before: current pcb: pcb0\n");}
