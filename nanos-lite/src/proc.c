@@ -36,8 +36,8 @@ void context_kload(PCB *pcb, void (*entry)(void *), void *arg){
 
 void init_proc() {
   //context_kload(&pcb[0], hello_fun, "hello");
-  printf("init pcb0 %p, pcb1 %p\n",&pcb[0],&pcb[1]);
-  context_kload(&pcb[0], hello_fun, "No.0 Hello world!");
+  //printf("init pcb0 %p, pcb1 %p\n",&pcb[0],&pcb[1]);
+  context_kload(&pcb[1], hello_fun, "No.0 Hello world!");
   //context_kload(&pcb[1], hello_fun, "No.1 Hello world!");
   //context_uload(&pcb[1],"/bin/pal");
   //assert(0);
@@ -64,7 +64,7 @@ Context* schedule(Context *prev) {
   //else{printf("before :current pcb: ???\n");}
   // always select pcb[0] as the new process
   //current = &pcb[0];
-  current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
+  //current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
   //if(current == &pcb[0]){printf("after: current pcb: pcb0\n");}
   //else if(current == &pcb[1]){printf("after: current pcb: pcb1\n");}
   //else{printf("after: current pcb: ???\n");}
