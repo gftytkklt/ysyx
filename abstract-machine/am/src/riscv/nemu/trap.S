@@ -49,7 +49,7 @@ __am_asm_trap:
   #0818 add
   #csrr t3, mscratch
   #0818 end
-  #addi t2, t2, 4
+  addi t2, t2, 4
   STORE t0, OFFSET_CAUSE(sp)
   STORE t1, OFFSET_STATUS(sp)
   STORE t2, OFFSET_EPC(sp)
