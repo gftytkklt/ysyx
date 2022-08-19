@@ -14,8 +14,8 @@ void switch_boot_pcb() {
 void hello_fun(void *arg) {
   int j = 1;
   while (1) {
-    if(!j%200){Log("Hello World from Nanos-lite with arg '%s' for the %dth time!", (char*)arg, j);}
-    //Log("Hello World from Nanos-lite with arg '%s' for the %dth time!", (char*)arg, j);
+    //if(!j%200){Log("Hello World from Nanos-lite with arg '%s' for the %dth time!", (char*)arg, j);}
+    Log("Hello World from Nanos-lite with arg '%s' for the %dth time!", (char*)arg, j);
     j ++;
     yield();
   }
@@ -52,19 +52,21 @@ void init_proc() {
   context_uload(&pcb[1],"/bin/pal", argv, envp);
   //Log("proc end at %lx\n",pcb[0].max_brk);
 }
-
+static int i = 0;
 Context* schedule(Context *prev) {
   // save the context pointer
   //printf("schedule begin, cp: %p\n",prev);
   //printf("ref cp: %p(%p), %p(%p)\n",pcb[0].cp, &pcb[0].cp, pcb[1].cp, &pcb[1].cp);
   current->cp = prev;
+  i++;
   //printf("set %p to pcb->cp(%p)\n",prev, &current->cp);
   //if(current == &pcb[0]){printf("before: current pcb: pcb0\n");}
   //else if(current == &pcb[1]){printf("before: current pcb: pcb1\n");}
   //else{printf("before :current pcb: ???\n");}
   // always select pcb[0] as the new process
   //current = &pcb[0];
-  current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
+  //current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
+  current = (i%100) ? &pcb[1] : &pcb[0];
   //if(current == &pcb[0]){printf("after: current pcb: pcb0\n");}
   //else if(current == &pcb[1]){printf("after: current pcb: pcb1\n");}
   //else{printf("after: current pcb: ???\n");}
