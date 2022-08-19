@@ -66,7 +66,7 @@ Context* schedule(Context *prev) {
   // always select pcb[0] as the new process
   //current = &pcb[0];
   //current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
-  current = (i%100) ? &pcb[1] : &pcb[0];
+  current = (i%1000) ? &pcb[1] : &pcb[0];
   //if(current == &pcb[0]){printf("after: current pcb: pcb0\n");}
   //else if(current == &pcb[1]){printf("after: current pcb: pcb1\n");}
   //else{printf("after: current pcb: ???\n");}
