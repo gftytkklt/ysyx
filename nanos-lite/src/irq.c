@@ -5,9 +5,10 @@ Context* schedule(Context *prev);
 static Context* do_event(Event e, Context* c) {
   //printf("do event start, cp = %p\n",c);
   switch (e.event) {
+    case EVENT_IRQ_TIMER:
     case EVENT_YIELD: return schedule(c);//printf("yield exec\n");break;
     case EVENT_SYSCALL: do_syscall(c);break;
-    case EVENT_IRQ_TIMER: Log("timer irq");return schedule(c);
+    //case EVENT_IRQ_TIMER: return schedule(c);
     default: panic("Unhandled event ID = %d", e.event);
   }
   //printf("do event end, cp = %p\n",c);
