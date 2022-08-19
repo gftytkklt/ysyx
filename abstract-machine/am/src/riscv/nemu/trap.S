@@ -21,24 +21,22 @@ f(30) f(31)
 #define PUSH(n) STORE  concat(x, n), (n * XLEN)(sp);
 #define POP(n)  LOAD   concat(x, n), (n * XLEN)(sp);
 
-#define CONTEXT_SIZE   ((32 + 3 + 1) * XLEN)
-#define OFFSET_SP      ( 2 * XLEN)
-#define OFFSET_CAUSE   (32 * XLEN)
-#define OFFSET_STATUS  (33 * XLEN)
-#define OFFSET_EPC     (34 * XLEN)
-# added 0818
-#define OFFSET_SCRATCH (35 * XLEN)
-# added 0818 end
+#define CONTEXT_SIZE  ((32 + 3 + 1) * XLEN)
+#define OFFSET_SP     ( 2 * XLEN)
+#define OFFSET_CAUSE  (32 * XLEN)
+#define OFFSET_STATUS (33 * XLEN)
+#define OFFSET_EPC    (34 * XLEN)
+#define OFFSET_NP     (35 * XLEN)
+
 .align 3
 .globl __am_asm_trap
 __am_asm_trap:
-  #ld a0, 0(zero)
-  #0818 add for context location
-  #csrw sp, mscratch
-  #bnez sp, __am_asm_save_context
-  #csrw sp, mscratch
-#__am_asm_save_context:
-  #added 0818 end
+  
+  csrrw sp, mscratch, sp
+  bnez sp, __am_asm_save_context
+  csrr sp, mscratch
+__am_asm_save_context:
+
   addi sp, sp, -CONTEXT_SIZE
 
   MAP(REGS, PUSH)
@@ -46,17 +44,13 @@ __am_asm_trap:
   csrr t0, mcause
   csrr t1, mstatus
   csrr t2, mepc
-  #0818 add
-  #csrr t3, mscratch
-  #0818 end
-  #addi t2, t2, 4
+  csrr t3, mscratch
+
   STORE t0, OFFSET_CAUSE(sp)
   STORE t1, OFFSET_STATUS(sp)
   STORE t2, OFFSET_EPC(sp)
-  #0818 add
-  #STORE t3, OFFSET_SCRATCH(sp)
-  #0818 end
-
+  STORE t3, OFFSET_SP(sp)
+  
   # set mstatus.MPRV to pass difftest
   li a0, (1 << 17)
   or t1, t1, a0
@@ -66,21 +60,14 @@ __am_asm_trap:
   
   jal __am_irq_handle
   
-  # 0712 set multiprocess
   mv sp, a0
   
   LOAD t1, OFFSET_STATUS(sp)
   LOAD t2, OFFSET_EPC(sp)
-  #addi t2, t2, 4
   csrw mstatus, t1
-  #addi t2, t2, 4
   csrw mepc, t2
-  #addi t2, t2, 4
-  #ld a0, 0(zero)
-  #mv sp, a0
   
   MAP(REGS, POP)
-  #LOAD sp, OFFSET_SCRATCH(sp)
-  addi sp, sp, CONTEXT_SIZE
-  #ld a0, 0(zero)
+  LOAD sp, OFFSET_SP(sp)
+  #addi sp, sp, CONTEXT_SIZE
   mret

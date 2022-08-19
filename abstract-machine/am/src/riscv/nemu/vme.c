@@ -104,19 +104,11 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
 }
 
 Context *ucontext(AddrSpace *as, Area kstack, void *entry) {
-  //Context *cp = (Context*)kstack.end - 1;
   Context *cp = (Context*)((void*)kstack.end - CONTEXT_SIZE);
-  //printf("%p\n",cp);
-  // get pdir
-  //__am_get_cur_as(cp);
   cp->pdir = as->ptr;
   cp->mstatus = 0xa00001880;
   cp->mepc = (uintptr_t)entry;
-  //printf("user entry: %lx\n",cp->mepc);
-  //cp->gpr[10] = (uintptr_t)stacktop;
-  //printf("ustack top: %p\n", cp->gpr[10]);
+  cp->gpr[2] = (uintptr_t)cp;
+  cp->np = USER_MODE;
   return cp;
-  //cp->gpr[10] = (uintptr_t) arg;
-  //return kstack.end;
-  //return NULL;
 }

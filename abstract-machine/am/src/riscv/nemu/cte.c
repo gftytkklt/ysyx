@@ -7,17 +7,16 @@ void __am_get_cur_as(Context *c);
 void __am_switch(Context *c);
 
 Context* __am_irq_handle(Context *c) {
-  //long *tmp = (long *) c;
-  //printf("\nbefore:%p, pdir=%p\n",c,c->pdir);
-  //printf("__am_irq_handle begin: context at %p, mepc = %lx\n",c,c->mepc);
+  uintptr_t ksp = 0;
   __am_get_cur_as(c);
   if (user_handler) {
     Event ev = {0};
-    //for (int i=0;i<35;i++){
-    //  printf("%d: %lx\n", i+1, *tmp);
-    //  tmp++;
-    //}
-    //printf("cause: %ld event: %ld\n", c->mcause, c->gpr[17]);
+    
+    asm volatile("csrr %0, mscratch" : "=r"(ksp));
+    c->np = (ksp == 0) ? KERNEL_MODE : USER_MODE;
+    ksp = 0;
+    asm volatile("csrw mscratch, %0" : : "r"(ksp));
+    
     switch (c->mcause) {
       case 0x0b: ev.event = (c->gpr[17] == -1) ? EVENT_YIELD : EVENT_SYSCALL; break;
       case 0x8000000000000007: ev.event = EVENT_IRQ_TIMER; break;
@@ -28,7 +27,10 @@ Context* __am_irq_handle(Context *c) {
     assert(c != NULL);
   }
   __am_switch(c);
-  //printf("__am_irq_handle end, context at %p, mepc = %lx\n",c,c->mepc);
+  if(c->np == USER_MODE){
+    ksp = (uintptr_t)c + CONTEXT_SIZE;
+    asm volatile("csrw mscratch, %0" : : "r"(ksp));
+  }
   return c;
 }
 
@@ -51,7 +53,9 @@ Context *kcontext(Area kstack, void (*entry)(void *), void *arg) {
   cp->mstatus = 0xa00001880;
   cp->mepc = (uintptr_t)entry;
   //printf("kernel entry: %lx\n",cp->mepc);
-  cp->gpr[10] = (uintptr_t) arg;
+  cp->gpr[10] = (uintptr_t)arg;
+  cp->gpr[2] = (uintptr_t)cp;
+  cp->np = KERNEL_MODE;
   cp->pdir = NULL;
   return cp;
 }

@@ -8,7 +8,7 @@ struct Context {
   void *pdir;*/
   union {
     void *pdir;// addr 35, link to $0
-    struct {uintptr_t gpr[32], mcause, mstatus, mepc, mscratch;}; // addr 0-31, addr 32-34
+    struct {uintptr_t gpr[32], mcause, mstatus, mepc, np;}; // addr 0-31, addr 32-34
   };
 };
 
