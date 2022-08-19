@@ -7,7 +7,7 @@ typedef struct {
   word_t gpr[32];
   //word_t mepc, mstatus, mcause, mtvec;
   vaddr_t pc;
-  word_t csr[5]; //mepc, mstatus, mcause, mtvec, satp;
+  word_t csr[6]; //mepc, mstatus, mcause, mtvec, satp, mscratch;
   bool INTR; // clock interrupter
 } riscv64_CPU_state;
 
