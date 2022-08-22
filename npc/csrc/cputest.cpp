@@ -13,7 +13,7 @@
 //#define N 32
 #define CONFIG_FTRACE
 #define CONFIG_ITRACE
-#define CONFIG_DIFFTEST
+//#define CONFIG_DIFFTEST
 #define ASNI_FG_RED     "\33[1;31m"
 #define ASNI_FG_GREEN   "\33[1;32m"
 #define ASNI_NONE       "\33[0m"
@@ -82,7 +82,7 @@ static void pmem_read(unsigned long raddr, unsigned long* rdata) {
 		*rdata = index > mem_size ? 0 : *((unsigned long*)&mem[index]);
 	}
 	else {
-		printf("invalid raddr %lx\n", raddr);
+		//printf("invalid raddr %lx\n", raddr);
 		//assert(0);
 	}
 	//return index > img_size ? 0 : *((unsigned *)&mem[index]);
@@ -104,7 +104,7 @@ static void pmem_write(unsigned long waddr, unsigned long wdata, unsigned char w
 				mem[index] = *data_pt;
 			}
 			else {
-				printf("invalid waddr %lx\n", waddr);
+				//printf("invalid waddr %lx\n", waddr);
 				//assert(0);
 			}
 		}
