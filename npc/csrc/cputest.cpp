@@ -3,6 +3,7 @@
 #include <assert.h>
 #include <malloc.h>
 #include <stdint.h>
+#include <time.h>
 #include "verilated.h"
 #include "verilated_dpi.h"
 #include "verilated_vcd_c.h"
@@ -70,29 +71,46 @@ void sim_end(){
   finish = true;
 }
 
-static void pmem_read(unsigned long raddr, unsigned long* rdata){
-	unsigned index = (raddr-(unsigned long)0x80000000) & ~(0x7ul);
-	//printf("%x\n", index);
-	*rdata = index > mem_size ? 0 : *((unsigned long*)&mem[index]);
+static void pmem_read(unsigned long raddr, unsigned long* rdata) {
+	if (raddr == 0xa0000048) {
+		//printf("rtc read\n");
+		time((time_t*)rdata);
+	}
+	else if(raddr >= 0x80000000 && raddr <= 0x88000000) {
+		//printf("pmem read\n");
+		unsigned index = (raddr-(unsigned long)0x80000000) & ~(0x7ul);
+		*rdata = index > mem_size ? 0 : *((unsigned long*)&mem[index]);
+	}
+	else {
+		printf("invalid raddr %lx\n", raddr);
+		//assert(0);
+	}
 	//return index > img_size ? 0 : *((unsigned *)&mem[index]);
 }
 
 static void pmem_write(unsigned long waddr, unsigned long wdata, unsigned char wmask){
 	unsigned index = (waddr-(unsigned long)0x80000000) & ~(0x7ul);
-	//printf("wr: %016lx to %lx, index = %x\n", wdata,waddr,index);
 	uint8_t *data_pt = (uint8_t*)&wdata;
 	// sim of byte write enable mode
-	while(wmask!=0){
-		//mem[index] = 1;
-		//printf("before: %02x ", mem[index]);
-		if(wmask & 0x01){mem[index] = *data_pt;}
-		//printf("data: %02x ", *data_pt);
-		//printf("after: %02x ", mem[index]);
+	while(wmask!=0) {
+		if(wmask & 0x01){
+			if(waddr == 0xa00003f8) {
+				//printf("serial write\n");
+				//printf("%c", *data_pt);
+				//putchar(*data_pt);
+			}
+			else if(waddr >= 0x80000000 && waddr <= 0x88000000) {
+				//printf("pmem write\n");
+				mem[index] = *data_pt;
+			}
+			else {
+				printf("invalid waddr %lx\n", waddr);
+				//assert(0);
+			}
+		}
 		index++;data_pt++;
 		wmask = wmask >> 1;
 	}
-	//printf("total: %016lx ", *(unsigned long*)&mem[index-8]);
-	//printf("\n");
 }
 
 static long load_img() {
