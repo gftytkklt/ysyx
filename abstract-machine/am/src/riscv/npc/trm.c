@@ -15,7 +15,8 @@ Area heap = RANGE(&_heap_start, PMEM_END);
 static const char mainargs[] = MAINARGS;
 
 void putch(char ch) {
-  outb(SERIAL_PORT, ch);
+  //io_write(AM_UART_TX, ch);
+  *(volatile uint8_t  *)(0xa00003f8) = ch;
 }
 
 void halt(int code) {
