@@ -12,9 +12,10 @@
 #include "svdpi.h"
 #include "Vcpu_top__Dpi.h"
 //#define N 32
-#define CONFIG_FTRACE
-#define CONFIG_ITRACE
+//#define CONFIG_FTRACE
+//#define CONFIG_ITRACE
 //#define CONFIG_DIFFTEST
+//#define CONFIG_WAVEFORM
 #define ASNI_FG_RED     "\33[1;31m"
 #define ASNI_FG_GREEN   "\33[1;32m"
 #define ASNI_NONE       "\33[0m"
@@ -148,17 +149,21 @@ int main(int argc, char** argv, char** env) {
   //const svScope scope = svGetScope();
   //assert(scope);
   //svSetScope(scope);
+  
+  #ifdef CONFIG_WAVEFORM
   // waveform file pointer
   Verilated::traceEverOn(true);
   VerilatedVcdC* tfp = new VerilatedVcdC;
   // waveform gen
   cpu->trace(tfp,99);
   tfp->open("cpu_sim.vcd");
+  #endif
+  
   // init imgfile
   img_file=argv[1];
   img_size = load_img();
-  FILE* logfp = fopen("npc-log.txt","w");
   #ifdef CONFIG_ITRACE
+  FILE* logfp = fopen("npc-log.txt","w");
   init_disasm("riscv64" "-pc-linux-gnu");
   #endif
   #ifdef CONFIG_FTRACE
@@ -206,11 +211,19 @@ int main(int argc, char** argv, char** env) {
 	  cpu->eval();
 	  dnpc = cpu->O_pc;
 	  if(valid_posedge){
+	  #ifdef CONFIG_ITRACE
 	  fprintf(logfp,"time: %lu\n", sim_time);
+	  #endif
 	  if(cpu->O_mem_rd_en){
-	  	fprintf(logfp,"rd data %lx from %lx\n", cpu->I_mem_rd_data, cpu->O_mem_addr);}
+	  	#ifdef CONFIG_ITRACE
+	  	fprintf(logfp,"rd data %lx from %lx\n", cpu->I_mem_rd_data, cpu->O_mem_addr);
+	  	#endif
+	  	//pmem_read(cpu->O_mem_addr, &(cpu->I_mem_rd_data));
+	  }
 	  if(cpu->O_mem_wen){
+	  	#ifdef CONFIG_ITRACE
 	  	fprintf(logfp,"wr data %lx to %lx\n", cpu->O_mem_wr_data, cpu->O_mem_addr);
+	  	#endif
 	  	pmem_write(cpu->O_mem_addr, cpu->O_mem_wr_data, cpu->O_mem_wr_strb);
 	  }
 	  
@@ -227,13 +240,17 @@ int main(int argc, char** argv, char** env) {
 	  difftest_step(pc, cpu_gpr, sim_time);
 	  #endif
 	  }
+	  #ifdef CONFIG_WAVEFORM
 	  tfp->dump(sim_time);
+	  #endif
 	  sim_time++;
   }
   //printf("a\n");
   cpu->final();
   //printf("b\n");
+  #ifdef CONFIG_WAVEFORM
   tfp->close();
+  #endif
   delete cpu;
   //delete contextp;
   return 0;
