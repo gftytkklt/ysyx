@@ -38,7 +38,7 @@ void init_difftest(char *ref_so_file, long img_size, uint8_t* mem, uint64_t *cpu
 	//printf("difftest link end\n");
 	nemu_difftest_init();
 	nemu_difftest_memcpy(PC_START, mem, img_size, DIFFTEST_TO_REF);
-	nemu_difftest_regcpy(cpu_gpr, DIFFTEST_TO_REF);
+	nemu_difftest_regcpy(cpu_gpr, 0x80000000, DIFFTEST_TO_REF);
 	//printf("test2\n");
 }
 
@@ -57,7 +57,7 @@ void difftest_step(uint64_t pc, uint64_t* dut, uint64_t sim_time){
         }
 	nemu_difftest_exec(1);
 	//printf("ref exec\n");
-	nemu_difftest_regcpy(ref_data, DIFFTEST_TO_DUT);
+	nemu_difftest_regcpy(ref_data, pc, DIFFTEST_TO_DUT);
 	for(int i=0;i<32;i++){
 		if(dut[i] != ref_data[i]){printf("time: %ld, pc: %lx, reg %s does not match! ref: %lx, dut: %lx\n", sim_time, pc, regs[i], ref_data[i], dut[i]);}
 	}
