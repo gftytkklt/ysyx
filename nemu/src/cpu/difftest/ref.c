@@ -39,7 +39,7 @@ void difftest_regcpy(void *dut, bool direction) {
     }
     //cpu.pc = pc;
     //printf("end\n");
-    //cpu.pc = tmp[32];
+    cpu.pc = tmp[32];
   }
 }
 
