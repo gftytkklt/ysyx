@@ -14,7 +14,7 @@
 //#define N 32
 //#define CONFIG_FTRACE
 //#define CONFIG_ITRACE
-//#define CONFIG_DIFFTEST
+#define CONFIG_DIFFTEST
 //#define CONFIG_WAVEFORM
 #define ASNI_FG_RED     "\33[1;31m"
 #define ASNI_FG_GREEN   "\33[1;32m"
@@ -45,6 +45,7 @@ void print_ftrace(unsigned long pc, unsigned long dnpc, unsigned inst, FILE* fp)
 #ifdef CONFIG_DIFFTEST
 void init_difftest(char *ref_so_file, long img_size, uint8_t* mem, uint64_t *cpu_gpr);
 void difftest_step(uint64_t pc, uint64_t* dut, uint64_t sim_time);
+void difftest_skip_ref();
 #endif
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
@@ -75,6 +76,9 @@ void sim_end(){
 
 static void pmem_read(unsigned long raddr, unsigned long* rdata) {
 	if (raddr == 0xa0000048) {
+		#ifdef CONFIG_DIFFTEST
+		difftest_skip_ref();
+		#endif
 	        struct timeval now;
   		gettimeofday(&now, NULL);
   		*rdata = now.tv_sec * 1000000 + now.tv_usec;
@@ -101,6 +105,9 @@ static void pmem_write(unsigned long waddr, unsigned long wdata, unsigned char w
 	while(wmask!=0) {
 		if(wmask & 0x01){
 			if(waddr == 0xa00003f8) {
+				#ifdef CONFIG_DIFFTEST
+				difftest_skip_ref();
+				#endif
 				//printf("serial write\n");
 				//printf("%c", *data_pt);
 				putchar(*(char*)data_pt);
@@ -207,10 +214,11 @@ int main(int argc, char** argv, char** env) {
 	  	//fprintf(logfp,"rd data %lx from %lx\n", cpu->I_mem_rd_data, cpu->O_mem_addr);
 	  	pmem_read(cpu->O_mem_addr, &(cpu->I_mem_rd_data));
 	  }
-	  //printf("t3\n");
+	  
 	  cpu->eval();
 	  dnpc = cpu->O_pc;
 	  if(valid_posedge){
+	  //printf("dut exec\n");
 	  #ifdef CONFIG_ITRACE
 	  fprintf(logfp,"time: %lu\n", sim_time);
 	  #endif

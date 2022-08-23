@@ -20,7 +20,8 @@ void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction) {
   }
 }
 // here, *dut must be dut reg
-void difftest_regcpy(void *dut, bool direction) {
+// TODO: add pc cp, set pc to correct value
+void difftest_regcpy(void *dut, uint64_t pc, bool direction) {
   //assert(0);
   unsigned long* tmp = (unsigned long*) dut;
   if(direction == DIFFTEST_TO_DUT){
@@ -36,6 +37,7 @@ void difftest_regcpy(void *dut, bool direction) {
       cpu.gpr[i] = tmp[i];
       //printf("%d: %lx\n",i, cpu.gpr[i]);
     }
+    cpu.pc = pc;
     //printf("end\n");
     //cpu.pc = tmp[32];
   }
