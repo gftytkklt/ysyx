@@ -4,6 +4,7 @@
 #include <malloc.h>
 #include <stdint.h>
 #include <time.h>
+#include <sys/time.h>
 #include "verilated.h"
 #include "verilated_dpi.h"
 #include "verilated_vcd_c.h"
@@ -73,8 +74,12 @@ void sim_end(){
 
 static void pmem_read(unsigned long raddr, unsigned long* rdata) {
 	if (raddr == 0xa0000048) {
-		//printf("rtc read\n");
-		time((time_t*)rdata);
+	        struct timeval now;
+  		gettimeofday(&now, NULL);
+  		*rdata = now.tv_sec * 1000000 + now.tv_usec;
+		//*rdata = get_time();
+		//time((time_t*)rdata);
+		//printf("rtc read: %lu\n", *rdata);
 	}
 	else if(raddr >= 0x80000000 && raddr <= 0x88000000) {
 		//printf("pmem read\n");
