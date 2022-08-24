@@ -18,5 +18,5 @@ typedef union {
 
 extern PCB *current;
 extern PCB *fg_pcb;
-
+void switch_fg_pcb(int keycode);
 #endif

@@ -10,6 +10,10 @@ PCB *fg_pcb = NULL;
 void switch_boot_pcb() {
   current = &pcb_boot;
 }
+void switch_fg_pcb(int keycode){
+  if(keycode == 2){fg_pcb = &pcb[1];}
+  else if(keycode == 3){fg_pcb = &pcb[2];}
+}
 
 void hello_fun(void *arg) {
   int j = 1;
@@ -69,7 +73,8 @@ Context* schedule(Context *prev) {
   // always select pcb[0] as the new process
   //current = &pcb[1];
   //current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
-  current = (i%100) ? &pcb[1] : &pcb[0];
+  //current = (i%100) ? &pcb[1] : &pcb[0];
+  current = (i%100) ? fg_pcb : &pcb[0];
   //if(current == &pcb[0]){printf("after: current pcb: pcb0\n");}
   //else if(current == &pcb[1]){printf("after: current pcb: pcb1\n");}
   //else{printf("after: current pcb: ???\n");}
