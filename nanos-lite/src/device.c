@@ -41,6 +41,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   kbd = io_read(AM_INPUT_KEYBRD);
   keydown = kbd.keydown;
   keycode = kbd.keycode;
+  printf("keycode = %d\n", keycode);
   if(!keycode) {return 0;}
     //keydown = io_read(AM_INPUT_KEYBRD).keydown;
     //keycode = io_read(AM_INPUT_KEYBRD).keycode;
