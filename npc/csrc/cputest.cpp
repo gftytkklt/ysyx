@@ -31,6 +31,11 @@ static long img_size = 0;
 //static svBit good = false;
 //extern void check();
 vluint64_t sim_time = 0;
+struct cpu_context {
+  uint64_t gpr[32];
+  uint64_t *pc;
+};
+static struct cpu_context context = {};
 static uint64_t *cpu_gpr = NULL;
 static uint64_t *cpu_pc = NULL;
 static uint32_t *inst = NULL;
@@ -49,9 +54,11 @@ void difftest_skip_ref();
 #endif
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
+  //cpu_context->gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
 extern "C" void set_pc_ptr(const svOpenArrayHandle r) {
   cpu_pc = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
+  //cpu_context->pc = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
 extern "C" void set_inst_ptr(const svOpenArrayHandle r) {
   inst = (uint32_t *)(((VerilatedDpiOpenVar*)r)->datap());

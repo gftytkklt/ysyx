@@ -49,7 +49,7 @@ void init_proc() {
   char * argv[]={"--skip",NULL};
   //char * argv[]={NULL};
   char * envp[]={NULL};
-  context_uload(&pcb[0],"/bin/hello", argv, envp);
+  //context_uload(&pcb[0],"/bin/hello", argv, envp);
   context_uload(&pcb[1],"/bin/pal", argv, envp);
   //Log("proc end at %lx\n",pcb[0].max_brk);
 }
@@ -65,9 +65,9 @@ Context* schedule(Context *prev) {
   //else if(current == &pcb[1]){printf("before: current pcb: pcb1\n");}
   //else{printf("before :current pcb: ???\n");}
   // always select pcb[0] as the new process
-  //current = &pcb[0];
+  current = &pcb[1];
   //current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
-  current = (i%1000) ? &pcb[1] : &pcb[0];
+  //current = (i%1000) ? &pcb[1] : &pcb[0];
   //if(current == &pcb[0]){printf("after: current pcb: pcb0\n");}
   //else if(current == &pcb[1]){printf("after: current pcb: pcb1\n");}
   //else{printf("after: current pcb: ???\n");}

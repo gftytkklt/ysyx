@@ -14,11 +14,7 @@ const char *regs[] = {
 };
 enum { DIFFTEST_TO_DUT, DIFFTEST_TO_REF };
 static bool is_skip_ref = false;
-struct dut_t {
-	  uint64_t gpr[32];
-	  uint64_t pc;
-};
-struct dut_t dut_context = {};
+static uint64_t cpu_context[33];
 void (*nemu_difftest_memcpy)(uint64_t addr, void* buf, size_t n, bool direction) = NULL;
 void (*nemu_difftest_regcpy)(void* dut, bool direction) = NULL;
 void (*nemu_difftest_exec)(uint64_t n) = NULL;
@@ -26,7 +22,6 @@ void (*nemu_difftest_raise_intr)(uint64_t NO) = NULL;
 
 void init_difftest(char *ref_so_file, long img_size, uint8_t* mem, uint64_t *cpu_gpr){
 	assert(ref_so_file != NULL);
-
 	void *handle;
 	handle = dlopen(ref_so_file, RTLD_LAZY);
 	assert(handle);
@@ -43,7 +38,11 @@ void init_difftest(char *ref_so_file, long img_size, uint8_t* mem, uint64_t *cpu
 	//printf("difftest link end\n");
 	nemu_difftest_init();
 	nemu_difftest_memcpy(PC_START, mem, img_size, DIFFTEST_TO_REF);
-	nemu_difftest_regcpy(cpu_gpr, DIFFTEST_TO_REF);
+	for(int i = 0;i<32;i++){
+	  cpu_context[i] = cpu_gpr[i];
+	}
+	cpu_context[32] = PC_START;
+	nemu_difftest_regcpy(cpu_context, DIFFTEST_TO_REF);
 	//printf("test2\n");
 }
 
@@ -52,14 +51,18 @@ void difftest_skip_ref() {
 }
 
 void difftest_step(uint64_t pc, uint64_t* dut, uint64_t sim_time){
-	for(int i=0;i<32;i++){dut_context.gpr[i] = dut[i];}
-	dut_context.pc = pc;
+	//for(int i=0;i<32;i++){dut_context.gpr[i] = dut[i];}
+	//dut_context.pc = pc;
 	uint64_t ref_data[32];
 	if (is_skip_ref) {
         	// to skip the checking of an instruction, just copy the reg state to reference design
         	//printf("skip ref\n");
         	//nemu_difftest_regcpy(dut, DIFFTEST_TO_REF);
-        	nemu_difftest_regcpy(&dut_context, DIFFTEST_TO_REF);
+        	for(int i = 0;i<32;i++){
+	  		cpu_context[i] = dut[i];
+		}
+		cpu_context[32] = pc;
+        	nemu_difftest_regcpy(cpu_context, DIFFTEST_TO_REF);
         	is_skip_ref = false;
         	return;
         }
