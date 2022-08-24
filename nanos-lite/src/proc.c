@@ -6,7 +6,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
 static PCB pcb[MAX_NR_PROC] __attribute__((used)) = {};
 static PCB pcb_boot = {};
 PCB *current = NULL;
-
+PCB *fg_pcb = NULL;
 void switch_boot_pcb() {
   current = &pcb_boot;
 }
@@ -51,6 +51,8 @@ void init_proc() {
   char * envp[]={NULL};
   context_uload(&pcb[0],"/bin/hello", argv, envp);
   context_uload(&pcb[1],"/bin/pal", argv, envp);
+  context_uload(&pcb[2],"/bin/nslider", argv, envp);
+  fg_pcb = &pcb[1];
   //Log("proc end at %lx\n",pcb[0].max_brk);
 }
 static int i = 0;
