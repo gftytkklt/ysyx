@@ -1,4 +1,4 @@
-VSRC = $(shell find $(abspath ./vsrc) -name "*.v")
+VSRC = $(shell find $(abspath ./vsrc_pipline) -name "*.v")
 CSRC = $(abspath ./csrc/cputest.cpp)
 CSRC += $(shell find $(abspath ./csrc/util) -name "*.cpp")
 WAVEFILE = addcpu_sim

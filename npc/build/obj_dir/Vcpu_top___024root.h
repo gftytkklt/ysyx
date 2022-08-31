@@ -24,6 +24,8 @@ VL_MODULE(Vcpu_top___024root) {
     // PORTS
     VL_IN8(I_sys_clk,0,0);
     VL_IN8(I_rst,0,0);
+    VL_IN8(I_inst_valid,0,0);
+    VL_OUT8(O_pc_valid,0,0);
     VL_OUT8(O_mem_rd_en,0,0);
     VL_OUT8(O_mem_wen,0,0);
     VL_OUT8(O_mem_wr_strb,7,0);
@@ -44,6 +46,7 @@ VL_MODULE(Vcpu_top___024root) {
         CData/*0:0*/ cpu_top__DOT__reg_wen;
         CData/*0:0*/ cpu_top__DOT__word_op_mask;
         CData/*1:0*/ cpu_top__DOT__alu_op_sext;
+        CData/*0:0*/ cpu_top__DOT__IF_ID_valid;
         CData/*0:0*/ cpu_top__DOT__decoder_e__DOT__typeI;
         CData/*0:0*/ cpu_top__DOT__decoder_e__DOT__typeR;
         CData/*0:0*/ cpu_top__DOT__decoder_e__DOT__typeU;
@@ -69,12 +72,12 @@ VL_MODULE(Vcpu_top___024root) {
         CData/*0:0*/ cpu_top__DOT__decoder_e__DOT__add_flag;
         CData/*0:0*/ cpu_top__DOT__alu_e__DOT__sext1;
         CData/*0:0*/ cpu_top__DOT__alu_e__DOT__sext2;
-        CData/*0:0*/ cpu_top__DOT__alu_e__DOT__cout;
         CData/*5:0*/ cpu_top__DOT__alu_e__DOT__shamt;
         SData/*14:0*/ cpu_top__DOT__alu_op_sel;
         SData/*8:0*/ cpu_top__DOT__mem_rstrb;
         SData/*11:0*/ cpu_top__DOT__decoder_e__DOT__immS;
         SData/*12:0*/ cpu_top__DOT__decoder_e__DOT__immB;
+        IData/*31:0*/ cpu_top__DOT__inst_IF_ID;
         IData/*20:0*/ cpu_top__DOT__decoder_e__DOT__immJ;
         VlWide<3>/*64:0*/ cpu_top__DOT__alu_e__DOT__op1_sext;
         VlWide<3>/*64:0*/ cpu_top__DOT__alu_e__DOT__op2_sext;
@@ -87,6 +90,7 @@ VL_MODULE(Vcpu_top___024root) {
         QData/*63:0*/ cpu_top__DOT__alu_op2;
         QData/*63:0*/ cpu_top__DOT__alu_out;
         QData/*63:0*/ cpu_top__DOT__mem_in;
+        QData/*63:0*/ cpu_top__DOT__pc_IF_ID;
         QData/*63:0*/ cpu_top__DOT__mem_ld_e__DOT__ld_data;
         QData/*63:0*/ cpu_top__DOT__alu_e__DOT__slt_result;
         QData/*63:0*/ cpu_top__DOT__alu_e__DOT__adder2;
@@ -98,10 +102,10 @@ VL_MODULE(Vcpu_top___024root) {
         QData/*63:0*/ cpu_top__DOT__alu_e__DOT__slldw_result;
         QData/*63:0*/ cpu_top__DOT__alu_e__DOT__dword_result;
         VlUnpacked<QData/*63:0*/, 3> cpu_top__DOT__nextpc_64bit_3sel__DOT__sel_data;
-        VlUnpacked<QData/*63:0*/, 3> cpu_top__DOT__regin_64bit_3sel__DOT__sel_data;
-        VlUnpacked<QData/*63:0*/, 32> cpu_top__DOT__gpr_e__DOT__gpr;
     };
     struct {
+        VlUnpacked<QData/*63:0*/, 3> cpu_top__DOT__regin_64bit_3sel__DOT__sel_data;
+        VlUnpacked<QData/*63:0*/, 32> cpu_top__DOT__gpr_e__DOT__gpr;
         VlUnpacked<CData/*0:0*/, 32> cpu_top__DOT__gpr_e__DOT__wen;
         VlUnpacked<QData/*63:0*/, 3> cpu_top__DOT__alu_op1_64bit_3sel__DOT__sel_data;
         VlUnpacked<QData/*63:0*/, 2> cpu_top__DOT__alu_op2_64bit_2sel__DOT__sel_data;

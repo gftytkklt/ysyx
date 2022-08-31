@@ -103,7 +103,7 @@ module alu(
     assign adder2 = (op_sub | op_slt | op_sltu) ? ~I_op2 : I_op2;
     assign cin = (op_sub | op_slt | op_sltu) ? 1 : 0;
     assign {cout, result} = adder1+adder2+cin;
-    assign {cout, result} = adder1+adder2;
+    //assign {cout, result} = adder1+adder2;
     assign add_sub_result = result;
     assign slt_result[63:1] = 0;
     assign slt_result[0] = (I_op1[63] & ~I_op2[63]) | (~(I_op1[63] ^ I_op2[63]) & result[63]);

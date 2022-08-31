@@ -14,8 +14,8 @@
 //#define N 32
 //#define CONFIG_FTRACE
 //#define CONFIG_ITRACE
-#define CONFIG_DIFFTEST
-//#define CONFIG_WAVEFORM
+//#define CONFIG_DIFFTEST
+#define CONFIG_WAVEFORM
 #define ASNI_FG_RED     "\33[1;31m"
 #define ASNI_FG_GREEN   "\33[1;32m"
 #define ASNI_NONE       "\33[0m"
@@ -208,18 +208,22 @@ int main(int argc, char** argv, char** env) {
 	  else if((sim_time % 6) == 3){cpu->I_sys_clk = 0;}
 	  if(((sim_time % 6) == 0) && (cpu->I_rst == 0)){valid_posedge = true;}
 	  else{valid_posedge = false;}
-	  //if(((sim_time % 6) == 0)&&(cpu->I_rst==0)){}
-	  //pmem_read(cpu->O_pc, inst);
-	  //cpu->I_inst = pmem_read(cpu->O_pc);
 	  pc = cpu->O_pc;
-	  //printf("t1\n");
-	  pmem_read(pc, inst64);
+	  if(valid_posedge){
+	  	if(cpu->O_pc_valid){
+	  		pmem_read(pc, inst64);
+	  		cpu->I_inst = (pc % 8) ? *((unsigned*)(inst64)+1) : *((unsigned*)inst64);
+	  		cpu->I_inst_valid = 1;
+	  	}
+	  	else{cpu->I_inst_valid = 0;}
+	  }
+	  //pmem_read(pc, inst64);
 	  //printf("%016lx\n", *inst64);
 	  //printf("t2\n");
-	  cpu->I_inst = (pc % 8) ? *((unsigned*)(inst64)+1) : *((unsigned*)inst64);
+	  //cpu->I_inst = (pc % 8) ? *((unsigned*)(inst64)+1) : *((unsigned*)inst64);
 	  if(cpu->O_mem_rd_en){
 	  	//fprintf(logfp,"rd data %lx from %lx\n", cpu->I_mem_rd_data, cpu->O_mem_addr);
-	  	pmem_read(cpu->O_mem_addr, &(cpu->I_mem_rd_data));
+	  	//pmem_read(cpu->O_mem_addr, &(cpu->I_mem_rd_data));
 	  }
 	  
 	  cpu->eval();
@@ -233,7 +237,7 @@ int main(int argc, char** argv, char** env) {
 	  	#ifdef CONFIG_ITRACE
 	  	fprintf(logfp,"rd data %lx from %lx\n", cpu->I_mem_rd_data, cpu->O_mem_addr);
 	  	#endif
-	  	//pmem_read(cpu->O_mem_addr, &(cpu->I_mem_rd_data));
+	  	pmem_read(cpu->O_mem_addr, &(cpu->I_mem_rd_data));
 	  }
 	  if(cpu->O_mem_wen){
 	  	#ifdef CONFIG_ITRACE
@@ -259,6 +263,8 @@ int main(int argc, char** argv, char** env) {
 	  tfp->dump(sim_time);
 	  #endif
 	  sim_time++;
+	  // test dummy
+	  //if(sim_time == 200){printf("dummy timeout!\n");break;}
   }
   //printf("a\n");
   cpu->final();

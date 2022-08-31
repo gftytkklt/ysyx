@@ -14,7 +14,9 @@ Vcpu_top::Vcpu_top(VerilatedContext* _vcontextp__, const char* _vcname__)
     , I_sys_clk{vlSymsp->TOP.I_sys_clk}
     , I_rst{vlSymsp->TOP.I_rst}
     , I_inst{vlSymsp->TOP.I_inst}
+    , I_inst_valid{vlSymsp->TOP.I_inst_valid}
     , O_pc{vlSymsp->TOP.O_pc}
+    , O_pc_valid{vlSymsp->TOP.O_pc_valid}
     , O_mem_addr{vlSymsp->TOP.O_mem_addr}
     , O_mem_rd_en{vlSymsp->TOP.O_mem_rd_en}
     , O_mem_wen{vlSymsp->TOP.O_mem_wen}
@@ -68,7 +70,7 @@ static void _eval_initial_loop(Vcpu_top__Syms* __restrict vlSymsp) {
             Verilated::debug(1);
             __Vchange = Vcpu_top___024root___change_request(&(vlSymsp->TOP));
             Verilated::debug(__Vsaved_debug);
-            VL_FATAL_MT("/home/gftyt/ysyx-workbench/npc/vsrc/cpu_top.v", 23, "",
+            VL_FATAL_MT("/home/gftyt/ysyx-workbench/npc/vsrc_pipline/cpu_top.v", 23, "",
                 "Verilated model didn't DC converge\n"
                 "- See https://verilator.org/warn/DIDNOTCONVERGE");
         } else {
@@ -99,7 +101,7 @@ void Vcpu_top::eval_step() {
             Verilated::debug(1);
             __Vchange = Vcpu_top___024root___change_request(&(vlSymsp->TOP));
             Verilated::debug(__Vsaved_debug);
-            VL_FATAL_MT("/home/gftyt/ysyx-workbench/npc/vsrc/cpu_top.v", 23, "",
+            VL_FATAL_MT("/home/gftyt/ysyx-workbench/npc/vsrc_pipline/cpu_top.v", 23, "",
                 "Verilated model didn't converge\n"
                 "- See https://verilator.org/warn/DIDNOTCONVERGE");
         } else {
