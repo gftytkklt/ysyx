@@ -189,6 +189,7 @@ int main(int argc, char** argv, char** env) {
   char logbuf[256] = {};
   bool valid_posedge = false;
   unsigned long pc, dnpc;
+  bool pc_valid;
   unsigned long *inst64 = (unsigned long*)malloc(sizeof(unsigned long));
   while (!finish){
 	  //int a = rand() & 1;
@@ -209,27 +210,21 @@ int main(int argc, char** argv, char** env) {
 	  if(((sim_time % 6) == 0) && (cpu->I_rst == 0)){valid_posedge = true;}
 	  else{valid_posedge = false;}
 	  pc = cpu->O_pc;
+	  pc_valid = cpu->O_pc_valid;
+	  //pmem_read(pc, inst64);
+	  //printf("%016lx\n", *inst64);
+	  //printf("t2\n");
+	  //cpu->I_inst = (pc % 8) ? *((unsigned*)(inst64)+1) : *((unsigned*)inst64);
+	  cpu->eval();
+	  dnpc = cpu->O_pc;
 	  if(valid_posedge){
-	  	if(cpu->O_pc_valid){
+	  //printf("dut exec\n");
+	  	if(pc_valid){
 	  		pmem_read(pc, inst64);
 	  		cpu->I_inst = (pc % 8) ? *((unsigned*)(inst64)+1) : *((unsigned*)inst64);
 	  		cpu->I_inst_valid = 1;
 	  	}
 	  	else{cpu->I_inst_valid = 0;}
-	  }
-	  //pmem_read(pc, inst64);
-	  //printf("%016lx\n", *inst64);
-	  //printf("t2\n");
-	  //cpu->I_inst = (pc % 8) ? *((unsigned*)(inst64)+1) : *((unsigned*)inst64);
-	  if(cpu->O_mem_rd_en){
-	  	//fprintf(logfp,"rd data %lx from %lx\n", cpu->I_mem_rd_data, cpu->O_mem_addr);
-	  	//pmem_read(cpu->O_mem_addr, &(cpu->I_mem_rd_data));
-	  }
-	  
-	  cpu->eval();
-	  dnpc = cpu->O_pc;
-	  if(valid_posedge){
-	  //printf("dut exec\n");
 	  #ifdef CONFIG_ITRACE
 	  fprintf(logfp,"time: %lu\n", sim_time);
 	  #endif
@@ -264,7 +259,7 @@ int main(int argc, char** argv, char** env) {
 	  #endif
 	  sim_time++;
 	  // test dummy
-	  //if(sim_time == 200){printf("dummy timeout!\n");break;}
+	  if(sim_time == 200){printf("dummy timeout!\n");break;}
   }
   //printf("a\n");
   cpu->final();

@@ -19,6 +19,7 @@
 // control signal is generated in this module!
 // dnpc: 
 //////////////////////////////////////////////////////////////////////////////////
+// `include "global_def.v"
 import "DPI-C" function void sim_end();
 import "DPI-C" function void set_inst_ptr(input logic [31:0] a []);
 module decoder(
@@ -38,7 +39,7 @@ module decoder(
     //output O_mem_ren,
     //output [2:0] O_funct3,
     //output [6:0] O_funct7,
-    output [2:0] O_dnpc_sel,
+    output [3:0] O_dnpc_sel,
     output [2:0] O_regin_sel,
     output [2:0] O_opnum1_sel,
     output [1:0] O_opnum2_sel,
@@ -257,8 +258,9 @@ module decoder(
     assign lt = ($signed(I_rs1_data)) < ($signed(I_rs2_data));
     assign ge = ~lt;
     assign typeB_jr = (BEQ&eq) | (BNE&neq) | (BLT&lt) | (BGE&ge) | (BLTU&ltu) | (BGEU&geu);
-    assign O_dnpc_sel[2] = JALR;
-    assign O_dnpc_sel[1] = JAL | typeB_jr;
+    assign O_dnpc_sel[3] = JALR;
+    assign O_dnpc_sel[2] = JAL;
+    assign O_dnpc_sel[1] = typeB_jr;
     assign O_dnpc_sel[0] = ~(JALR | JAL | typeB_jr);
     // alu op
     localparam OP_ADD = 15'b000_0000_0000_0001;

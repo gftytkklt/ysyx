@@ -39,7 +39,7 @@ module cpu_top(
     wire [63:0] imm,wr_data,rs1_data,rs2_data,alu_op1,alu_op2,alu_out,mem_in,mem_out,mem_addr;
     wire [4:0] rs1_addr,rs2_addr,rd_addr;
     //wire [2:0] funct3;
-    wire [2:0] dnpc_sel;
+    wire [3:0] dnpc_sel;
     wire [2:0] regin_sel;
     wire [2:0] opnum1_sel;
     wire [1:0] opnum2_sel;
@@ -50,124 +50,229 @@ module cpu_top(
     wire reg_wen,mem_wen;
     wire word_op_mask;
     wire [1:0] alu_op_sext;
+    //IF_ID
+    wire [63:0] pc_IF_ID;
+    wire [31:0] inst_IF_ID;
+    wire IF_ID_valid;
+    //ID_EX
+    wire [63:0] ID_EX_imm, ID_EX_pc, ID_EX_rs1, ID_EX_rs2;
+    wire [4:0] ID_EX_rd_addr;
+    wire [7:0] ID_EX_wstrb;
+    wire [8:0] ID_EX_rstrb;
+    wire [2:0] ID_EX_dnpc_sel,ID_EX_regin_sel,ID_EX_op1_sel;
+    wire [1:0] ID_EX_op2_sel,ID_EX_alu_sext;
+    wire [14:0] ID_EX_alu_op_sel;
+    wire ID_EX_reg_wen, ID_EX_mem_wen;
+    wire ID_EX_word_op_mask;
+    wire ID_EX_valid;
+    //EX_MEM
+    wire EX_MEM_valid;
+    wire [8:0] EX_MEM_rstrb;
+    wire [7:0] EX_MEM_wstrb;
+    wire [63:0] EX_MEM_alu_out, EX_MEM_mem_addr, EX_MEM_rs2;
+    wire EX_MEM_mem_wen;
+    wire [63:0] EX_MEM_pc;
+    wire EX_MEM_reg_wen;
+    wire [4:0] EX_MEM_rd_addr;
+    wire [2:0] EX_MEM_regin_sel;
+    //MEM_WB
     assign snpc = current_pc + 4;
     //assign O_pc = current_pc;
     assign O_pc = dnpc;
     //assign mem_in = I_mem_rd_data;
-    assign O_mem_rd_en = regin_sel[1];
+    assign O_mem_rd_en = EX_MEM_regin_sel[1];
     //assign O_mem_wr_data = mem_out;
-    assign O_mem_addr = mem_addr;
-    assign O_mem_wen = mem_wen;
-    assign O_mem_wr_strb = mem_wstrb << mem_addr[2:0];
+    assign O_mem_addr = EX_MEM_mem_addr;
+    assign O_mem_wen = EX_MEM_mem_wen;
+    assign O_mem_wr_strb = EX_MEM_wstrb << EX_MEM_mem_addr[2:0];
     //assign mem_rmask = mem_rstrb[7:0] << mem_addr[2:0];
-    assign mem_out = rs2_data;
-    mux_Nbit_Msel #(64, 3)
+    assign mem_out = EX_MEM_rs2;
+    /*mux_Nbit_Msel #(64, 3)
     nextpc_64bit_3sel (
 	.I_sel_data({{alu_out[63:1],1'b0},alu_out,snpc}),
 	.I_sel(dnpc_sel),
 	.O_sel_data(dnpc)
+    );*/
+    
+    npc npc_e(
+    	.I_rs1_data(rs1_data),
+    	.I_rs2_data(rs2_data),
+    	.I_imm(imm),
+    	.I_pc(current_pc),
+    	.I_snpc(snpc),
+    	.I_dnpc_sel(dnpc_sel),
+    	.O_dnpc(dnpc)
     );
-//    reg dnpc_en;
-//    always @(posedge I_sys_clk)
-//	if(I_rst)
-//	    dnpc_en <= 0;
-//	else
-//	    dnpc_en <= O_pc_valid;
-//	    dnpc_en <= ~dnpc_en;
+    
     pc pc_e(
         .I_sys_clk(I_sys_clk),
-	.I_rst(I_rst),
-	.I_dnpc(dnpc),
-	.I_dnpc_en(I_inst_valid),
-	.O_pc(current_pc),
-	.O_pc_valid(O_pc_valid)
+		.I_rst(I_rst),
+		.I_dnpc(dnpc),
+		.I_dnpc_en(I_inst_valid),
+		.O_pc(current_pc),
+		.O_pc_valid(O_pc_valid)
     );
-    wire [63:0] pc_IF_ID;
-    wire [31:0] inst_IF_ID;
-    wire IF_ID_valid;
+    
     IF_ID_reg IF_ID_reg_e(
-	.I_sys_clk(I_sys_clk),
-	.I_rst(I_rst),
-	.I_pc(current_pc),
-	.I_inst(I_inst),
-	.I_IF_ID_valid(I_inst_valid),
-	.O_pc(pc_IF_ID),
-	.O_inst(inst_IF_ID),
-	.O_IF_ID_valid(IF_ID_valid)
+		.I_sys_clk(I_sys_clk),
+		.I_rst(I_rst),
+		.I_pc(dnpc),
+		.I_inst(I_inst),
+		.I_IF_ID_valid(I_inst_valid),
+		.O_pc(pc_IF_ID),
+		.O_inst(inst_IF_ID),
+		.O_IF_ID_valid(IF_ID_valid)
     );
-    data_ld mem_ld_e(
-	.I_data_in(I_mem_rd_data),
-	.I_rd_strb(mem_rstrb),
-	.I_rd_shamt(mem_addr[2:0]),
-	.O_load_data(mem_in)
-    );
-    data_sd mem_sd_e(
-	.I_data_in(mem_out),
-	.I_wr_strb(mem_wstrb),
-	.O_sd_data(O_mem_wr_data)
-    );
-    //assign imm[63:32] = 0;
-    mux_Nbit_Msel #(64, 3)
-    regin_64bit_3sel (
-	.I_sel_data({snpc,mem_in,alu_out}),
-	.I_sel(regin_sel),
-	.O_sel_data(wr_data)
-    );
-    gpr gpr_e(
-	.I_sys_clk(I_sys_clk),
-	.I_rst(I_rst),
-	.I_wr_data(wr_data),
-	.I_wen(reg_wen),
-	.I_rd_addr(rd_addr),
-	.I_rs1_addr(rs1_addr),
-	.O_rs1_data(rs1_data),
-	.I_rs2_addr(rs2_addr),
-	.O_rs2_data(rs2_data)
-    );
+    
     decoder decoder_e(
-	.I_sys_clk(I_sys_clk),
-	.I_rst(I_rst),
-	.I_inst(I_inst),
-	.O_imm(imm),
-	.I_rs1_data(rs1_data),
-	.O_rs1(rs1_addr),
-	.I_rs2_data(rs2_data),
-	.O_rs2(rs2_addr),
-	.O_rd(rd_addr),
-	.O_reg_wen(reg_wen),
-	.O_mem_wen(mem_wen),
-	.O_mem_wstrb(mem_wstrb),
-	.O_mem_rstrb(mem_rstrb),
-	//.O_funct3(funct3),
-	//.O_funct7(funct7),
-	.O_dnpc_sel(dnpc_sel),
-	.O_regin_sel(regin_sel),
-	.O_opnum1_sel(opnum1_sel),
-	.O_opnum2_sel(opnum2_sel),
-	.O_alu_op_sel(alu_op_sel),
-	.O_alu_op_sext(alu_op_sext),
-	.O_word_op_mask(word_op_mask)
-	//.O_sim_end(O_sim_end)
+		.I_sys_clk(I_sys_clk),
+		.I_rst(I_rst),
+		.I_inst(inst_IF_ID),
+		//.I_inst_valid(IF_ID_valid),
+		.O_imm(imm),
+		.I_rs1_data(rs1_data),
+		.O_rs1(rs1_addr),
+		.I_rs2_data(rs2_data),
+		.O_rs2(rs2_addr),
+		.O_rd(rd_addr),
+		.O_reg_wen(reg_wen),
+		.O_mem_wen(mem_wen),
+		.O_mem_wstrb(mem_wstrb),
+		.O_mem_rstrb(mem_rstrb),
+		//.O_funct3(funct3),
+		//.O_funct7(funct7),
+		.O_dnpc_sel(dnpc_sel),
+		.O_regin_sel(regin_sel),
+		.O_opnum1_sel(opnum1_sel),
+		.O_opnum2_sel(opnum2_sel),
+		.O_alu_op_sel(alu_op_sel),
+		.O_alu_op_sext(alu_op_sext),
+		.O_word_op_mask(word_op_mask)
+		//.O_sim_end(O_sim_end)
     );
+    
+    ID_EX_reg ID_EX_reg_e(
+		// ctrl signal
+		.I_sys_clk(I_sys_clk),
+		.I_rst(I_rst),
+		.I_ID_EX_valid(IF_ID_valid),
+		.O_ID_EX_valid(ID_EX_valid),
+		// ID_EX signal
+		.I_imm(imm),
+		.I_rs1(rs1_data),
+		.I_rs2(rs2_data),
+		.I_rd_addr(rd_addr),
+		.I_wstrb(mem_wstrb),
+		.I_rstrb(mem_rstrb),
+		//.I_dnpc_sel(dnpc_sel),
+		.I_regin_sel(regin_sel),
+		.I_op1_sel(opnum1_sel),
+		.I_op2_sel(opnum2_sel),
+		.I_alu_sext(alu_op_sext),
+		.I_alu_op_sel(alu_op_sel),
+		.I_word_op_mask(word_op_mask),
+		.O_imm(ID_EX_imm),
+		.O_rs1(ID_EX_rs1),
+		.O_rs2(ID_EX_rs2),
+		.O_rd_addr(ID_EX_rd_addr),
+		.O_reg_wen(ID_EX_reg_wen),
+		.O_mem_wen(ID_EX_mem_wen),
+		.O_wstrb(ID_EX_wstrb),
+		.O_rstrb(ID_EX_rstrb),
+		//.O_dnpc_sel(ID_EX_dnpc_sel),
+		.O_regin_sel(ID_EX_regin_sel),
+		.O_op1_sel(ID_EX_op1_sel),
+		.O_op2_sel(ID_EX_op2_sel),
+		.O_alu_sext(ID_EX_alu_sext),
+		.O_alu_op_sel(ID_EX_alu_op_sel),
+		.O_word_op_mask(ID_EX_word_op_mask),
+		// IF_ID signal
+		.I_pc(pc_IF_ID),
+		.O_pc(ID_EX_pc)
+    );
+
     mux_Nbit_Msel #(64, 3)
     alu_op1_64bit_3sel (
-	.I_sel_data({64'b0,current_pc,rs1_data}),
-	.I_sel(opnum1_sel),
-	.O_sel_data(alu_op1)
+		.I_sel_data({64'b0,ID_EX_pc,ID_EX_rs1}),
+		.I_sel(ID_EX_op1_sel),
+		.O_sel_data(alu_op1)
     );
+    
     mux_Nbit_Msel #(64, 2)
     alu_op2_64bit_2sel (
-	.I_sel_data({imm,rs2_data}),
-	.I_sel(opnum2_sel),
-	.O_sel_data(alu_op2)
+		.I_sel_data({ID_EX_imm,ID_EX_rs2}),
+		.I_sel(ID_EX_op2_sel),
+		.O_sel_data(alu_op2)
     );
+    
     alu alu_e(
-	.I_op1(alu_op1),
-	.I_op2(alu_op2),
-	.I_alu_op_sel(alu_op_sel),
-	.I_alu_op_sext(alu_op_sext),
-	.I_word_op_mask(word_op_mask),
-	.O_mem_addr(mem_addr),
-	.O_result(alu_out)
+		.I_op1(alu_op1),
+		.I_op2(alu_op2),
+		.I_alu_op_sel(ID_EX_alu_op_sel),
+		.I_alu_op_sext(ID_EX_alu_sext),
+		.I_word_op_mask(ID_EX_word_op_mask),
+		.O_mem_addr(mem_addr),
+		.O_result(alu_out)
+    );
+    
+	EX_MEM_reg EX_MEM_reg_e(
+		.I_sys_clk(I_sys_clk),
+		.I_rst(I_rst),
+		.I_EX_MEM_valid(ID_EX_valid),
+		.O_EX_MEM_valid(EX_MEM_valid),
+		.I_rstrb(ID_EX_rstrb),
+		.I_wstrb(ID_EX_wstrb),
+		.I_alu_out(alu_out),
+		.I_mem_addr(mem_addr),
+		.I_mem_wen(ID_EX_mem_wen),
+		.I_rs2_data(ID_EX_rs2),
+		.I_pc(ID_EX_pc),
+		.I_reg_wen(ID_EX_reg_wen),
+		.I_rd_addr(ID_EX_rd_addr),
+		.I_regin_sel(ID_EX_regin_sel),
+		.O_rstrb(EX_MEM_rstrb),
+		.O_wstrb(EX_MEM_wstrb),
+		.O_alu_out(EX_MEM_alu_out),
+		.O_mem_addr(EX_MEM_mem_addr),
+		.O_mem_wen(EX_MEM_mem_wen),
+		.O_rs2_data(EX_MEM_rs2),
+		.O_pc(EX_MEM_pc),
+		.O_reg_wen(EX_MEM_reg_wen),
+		.O_rd_addr(EX_MEM_rd_addr),
+		.O_regin_sel(EX_MEM_regin_sel)
+	);
+    
+    // valid sd data from alu is aligned with EX_MEM_valid
+    data_sd mem_sd_e(
+		.I_data_in(mem_out),
+		.I_wr_strb(EX_MEM_wstrb),
+		.O_sd_data(O_mem_wr_data)
+    );
+    
+    // valid ld data from mem is aligned with MEM_WB_valid
+	data_ld mem_ld_e(
+		.I_data_in(I_mem_rd_data),
+		.I_rd_strb(EX_MEM_rstrb),
+		.I_rd_shamt(mem_addr[2:0]),
+		.O_load_data(mem_in)
+    );
+    
+    mux_Nbit_Msel #(64, 3)
+    regin_64bit_3sel (
+		.I_sel_data({snpc,mem_in,alu_out}),
+		.I_sel(regin_sel),
+		.O_sel_data(wr_data)
+    );
+    
+    gpr gpr_e(
+		.I_sys_clk(I_sys_clk),
+		.I_rst(I_rst),
+		.I_wr_data(wr_data),
+		.I_wen(reg_wen),
+		.I_rd_addr(rd_addr),
+		.I_rs1_addr(rs1_addr),
+		.O_rs1_data(rs1_data),
+		.I_rs2_addr(rs2_addr),
+		.O_rs2_data(rs2_data)
     );
 endmodule
