@@ -18,7 +18,7 @@ Context* __am_irq_handle(Context *c) {
     asm volatile("csrw mscratch, %0" : : "r"(ksp));
     
     switch (c->mcause) {
-      case 0x0b: c->mepc += 4;ev.event = (c->gpr[17] == -1) ? EVENT_YIELD : EVENT_SYSCALL; break;
+      case 0x0b: /*c->mepc += 4;*/ev.event = (c->gpr[17] == -1) ? EVENT_YIELD : EVENT_SYSCALL; break;
       case 0x8000000000000007: ev.event = EVENT_IRQ_TIMER; break;
       default: ev.event = EVENT_ERROR; break;
     }
