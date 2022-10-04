@@ -6,7 +6,8 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc) {
    */
   //printf("\nisa_raise_intr begin, NO = %lx, epc = %lx, pc=%lx\n",NO,epc,cpu.pc);
   word_t mie = BITS(cpu.csr[1],3,3);
-  cpu.csr[0] = (NO == IRQ_TIMER) ? epc : epc + 4;// mepc = epc
+  //cpu.csr[0] = (NO == IRQ_TIMER) ? epc : epc + 4;// mepc = epc
+  cpu.csr[0] = epc;
   //printf("mstatus before: %lx\n",cpu.csr[1]);
   cpu.csr[1] = (cpu.csr[1] & (~0x88ul)) | (mie << 7);
   //cpu.csr[1] = 

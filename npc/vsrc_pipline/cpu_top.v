@@ -244,7 +244,7 @@ module cpu_top(
     
     // valid sd data from alu is aligned with EX_MEM_valid
     data_sd mem_sd_e(
-		.I_data_in(mem_out),
+		.I_data_in(mem_out),// EX_MEM_rs2
 		.I_wr_strb(EX_MEM_wstrb),
 		.O_sd_data(O_mem_wr_data)
     );
@@ -253,7 +253,7 @@ module cpu_top(
 	data_ld mem_ld_e(
 		.I_data_in(I_mem_rd_data),
 		.I_rd_strb(EX_MEM_rstrb),
-		.I_rd_shamt(mem_addr[2:0]),
+		.I_rd_shamt(EX_MEM_mem_addr[2:0]),// 
 		.O_load_data(mem_in)
     );
     
