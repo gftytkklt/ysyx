@@ -39,6 +39,7 @@ class Vcpu_top VL_NOT_FINAL {
     VL_OUT8(&O_mem_rd_en,0,0);
     VL_OUT8(&O_mem_wen,0,0);
     VL_IN64(&I_mem_rd_data,63,0);
+    VL_IN8(&I_mem_rd_data_valid,0,0);
     VL_OUT64(&O_mem_wr_data,63,0);
     VL_OUT8(&O_mem_wr_strb,7,0);
 

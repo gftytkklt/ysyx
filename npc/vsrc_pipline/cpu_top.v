@@ -19,7 +19,6 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-
 module cpu_top(
     input I_sys_clk,
     input I_rst,
@@ -31,6 +30,7 @@ module cpu_top(
     output O_mem_rd_en,
     output O_mem_wen,
     input [63:0] I_mem_rd_data,
+    input I_mem_rd_data_valid,
     output [63:0] O_mem_wr_data,
     output [7:0] O_mem_wr_strb  
     //output O_sim_end
@@ -51,8 +51,8 @@ module cpu_top(
     wire word_op_mask;
     wire [1:0] alu_op_sext;
     //IF_ID
-    wire [63:0] pc_IF_ID;
-    wire [31:0] inst_IF_ID;
+    wire [63:0] IF_ID_pc;
+    wire [31:0] IF_ID_inst;
     wire IF_ID_valid;
     //ID_EX
     wire [63:0] ID_EX_imm, ID_EX_pc, ID_EX_rs1, ID_EX_rs2;
@@ -75,7 +75,18 @@ module cpu_top(
     wire EX_MEM_reg_wen;
     wire [4:0] EX_MEM_rd_addr;
     wire [2:0] EX_MEM_regin_sel;
+    wire [2:0] EX_MEM_shamt;// mem wr shamt
     //MEM_WB
+    wire [63:0] MEM_WB_pc;
+    wire MEM_WB_valid;
+    wire [63:0] MEM_WB_mem_data;
+    wire [8:0] MEM_WB_mem_rstrb;
+    wire [63:0] MEM_WB_alu_out;
+    wire MEM_WB_reg_wen;
+    wire [4:0] MEM_WB_rd_addr;
+    wire [2:0] MEM_WB_regin_sel;
+    wire [2:0] MEM_WB_shamt;// mem rd shamt
+    //top layer signal
     assign snpc = current_pc + 4;
     //assign O_pc = current_pc;
     assign O_pc = dnpc;
@@ -84,7 +95,8 @@ module cpu_top(
     //assign O_mem_wr_data = mem_out;
     assign O_mem_addr = EX_MEM_mem_addr;
     assign O_mem_wen = EX_MEM_mem_wen;
-    assign O_mem_wr_strb = EX_MEM_wstrb << EX_MEM_mem_addr[2:0];
+    assign EX_MEM_shamt = EX_MEM_mem_addr[2:0];
+    assign O_mem_wr_strb = EX_MEM_wstrb << EX_MEM_shamt;
     //assign mem_rmask = mem_rstrb[7:0] << mem_addr[2:0];
     assign mem_out = EX_MEM_rs2;
     /*mux_Nbit_Msel #(64, 3)
@@ -119,15 +131,15 @@ module cpu_top(
 		.I_pc(dnpc),
 		.I_inst(I_inst),
 		.I_IF_ID_valid(I_inst_valid),
-		.O_pc(pc_IF_ID),
-		.O_inst(inst_IF_ID),
+		.O_pc(IF_ID_pc),
+		.O_inst(IF_ID_inst),
 		.O_IF_ID_valid(IF_ID_valid)
     );
     
     decoder decoder_e(
 		.I_sys_clk(I_sys_clk),
 		.I_rst(I_rst),
-		.I_inst(inst_IF_ID),
+		.I_inst(IF_ID_inst),
 		//.I_inst_valid(IF_ID_valid),
 		.O_imm(imm),
 		.I_rs1_data(rs1_data),
@@ -162,6 +174,8 @@ module cpu_top(
 		.I_rs1(rs1_data),
 		.I_rs2(rs2_data),
 		.I_rd_addr(rd_addr),
+		.I_reg_wen(reg_wen),
+		.I_mem_wen(mem_wen),
 		.I_wstrb(mem_wstrb),
 		.I_rstrb(mem_rstrb),
 		//.I_dnpc_sel(dnpc_sel),
@@ -187,7 +201,7 @@ module cpu_top(
 		.O_alu_op_sel(ID_EX_alu_op_sel),
 		.O_word_op_mask(ID_EX_word_op_mask),
 		// IF_ID signal
-		.I_pc(pc_IF_ID),
+		.I_pc(IF_ID_pc),
 		.O_pc(ID_EX_pc)
     );
 
@@ -249,18 +263,41 @@ module cpu_top(
 		.O_sd_data(O_mem_wr_data)
     );
     
+    MEM_WB_reg MEM_WB_reg_e(
+    	.I_sys_clk(I_sys_clk),
+    	.I_rst(I_rst),
+    	.I_EX_MEM_valid(EX_MEM_valid),
+    	.O_MEM_WB_valid(MEM_WB_valid),
+    	.I_pc(EX_MEM_pc),
+    	.I_mem_shamt(EX_MEM_shamt),
+    	.I_mem_data(I_mem_rd_data),
+    	.I_mem_data_valid(I_mem_rd_data_valid),
+    	.I_mem_rstrb(EX_MEM_rstrb),
+    	.I_alu_out(EX_MEM_alu_out),
+    	.I_reg_wen(EX_MEM_reg_wen),
+    	.I_rd_addr(EX_MEM_rd_addr),
+    	.I_regin_sel(EX_MEM_regin_sel),
+    	.O_pc(MEM_WB_pc),
+    	.O_mem_data(MEM_WB_mem_data),
+    	.O_mem_rstrb(MEM_WB_mem_rstrb),
+    	.O_mem_shamt(MEM_WB_shamt),
+    	.O_alu_out(MEM_WB_alu_out),
+    	.O_reg_wen(MEM_WB_reg_wen),
+    	.O_rd_addr(MEM_WB_rd_addr),
+    	.O_regin_sel(MEM_WB_regin_sel)
+    );
     // valid ld data from mem is aligned with MEM_WB_valid
 	data_ld mem_ld_e(
-		.I_data_in(I_mem_rd_data),
-		.I_rd_strb(EX_MEM_rstrb),
-		.I_rd_shamt(EX_MEM_mem_addr[2:0]),// 
+		.I_data_in(MEM_WB_mem_data),
+		.I_rd_strb(MEM_WB_mem_rstrb),
+		.I_rd_shamt(MEM_WB_shamt),// 
 		.O_load_data(mem_in)
     );
     
     mux_Nbit_Msel #(64, 3)
     regin_64bit_3sel (
-		.I_sel_data({snpc,mem_in,alu_out}),
-		.I_sel(regin_sel),
+		.I_sel_data({(MEM_WB_pc + 4),mem_in,MEM_WB_alu_out}),
+		.I_sel(MEM_WB_regin_sel),
 		.O_sel_data(wr_data)
     );
     
@@ -268,8 +305,8 @@ module cpu_top(
 		.I_sys_clk(I_sys_clk),
 		.I_rst(I_rst),
 		.I_wr_data(wr_data),
-		.I_wen(reg_wen),
-		.I_rd_addr(rd_addr),
+		.I_wen(MEM_WB_reg_wen),
+		.I_rd_addr(MEM_WB_rd_addr),
 		.I_rs1_addr(rs1_addr),
 		.O_rs1_data(rs1_data),
 		.I_rs2_addr(rs2_addr),
