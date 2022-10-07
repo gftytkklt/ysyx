@@ -211,7 +211,7 @@ int main(int argc, char** argv, char** env) {
 	  //printf("%016lx\n", *inst64);
 	  //printf("t2\n");
 	  //cpu->I_inst = (pc % 8) ? *((unsigned*)(inst64)+1) : *((unsigned*)inst64);
-	  //cpu->eval();
+	  cpu->eval();
 	  if(valid_posedge){
 	  		if(pc_valid){
 	  			pmem_read(pc, inst64);
@@ -234,7 +234,7 @@ int main(int argc, char** argv, char** env) {
 	  			pmem_write(cpu->O_mem_addr, cpu->O_mem_wr_data, cpu->O_mem_wr_strb);
 	  		}
 	  }
-	  cpu->eval();
+	  //cpu->eval();
 	  dnpc = cpu->O_pc;
 	  if(valid_posedge){
 	  //printf("dut exec\n");

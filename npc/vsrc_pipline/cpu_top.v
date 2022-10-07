@@ -90,7 +90,7 @@ module cpu_top(
     //top layer signal
     assign snpc = current_pc + 4;
     //assign O_pc = current_pc;
-    assign O_pc = current_pc;
+    assign O_pc = dnpc;
     //assign mem_in = I_mem_rd_data;
     assign O_mem_rd_en = EX_MEM_regin_sel[1];
     //assign O_mem_wr_data = mem_out;

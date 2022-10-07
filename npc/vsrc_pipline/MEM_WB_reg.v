@@ -13,7 +13,7 @@ module MEM_WB_reg(
     input I_reg_wen,
     input [4:0] I_rd_addr,
     input [2:0] I_regin_sel,
-    output [63:0] O_pc,
+    output reg [63:0] O_pc,
     output reg [63:0] O_mem_data,
     output reg [8:0] O_mem_rstrb,
     output reg [2:0] O_mem_shamt,
