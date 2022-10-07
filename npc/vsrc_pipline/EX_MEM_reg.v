@@ -31,70 +31,84 @@ module EX_MEM_reg(
     	else
     		O_EX_MEM_valid <= I_EX_MEM_valid;
     always @(posedge I_sys_clk)
-    	if(!I_rst)
-    		O_rstrb <= 0;
-    	else if(I_EX_MEM_valid)
-    		O_rstrb <= I_rstrb;
-    	else
-    		O_rstrb <= O_rstrb;
-    always @(posedge I_sys_clk)
-    	if(!I_rst)
-    		O_wstrb <= 0;
-    	else if(I_EX_MEM_valid)
-    		O_wstrb <= I_wstrb;
-    	else
-    		O_wstrb <= O_wstrb;
-    always @(posedge I_sys_clk)
-    	if(!I_rst)
-    		O_alu_out <= 0;
-    	else if(I_EX_MEM_valid)
-    		O_alu_out <= I_alu_out;
-    	else
-    		O_alu_out <= O_alu_out;
-    always @(posedge I_sys_clk)
-    	if(!I_rst)
-    		O_mem_addr <= 0;
-    	else if(I_EX_MEM_valid)
-    		O_mem_addr <= I_mem_addr;
-    	else
-    		O_mem_addr <= O_mem_addr;
-    always @(posedge I_sys_clk)
-    	if(!I_rst)
-    		O_rs2_data <= 0;
-    	else if(I_EX_MEM_valid)
-    		O_rs2_data <= I_rs2_data;
-    	else
-    		O_rs2_data <= O_rs2_data;
-    always @(posedge I_sys_clk)
-    	if(!I_rst)
-    		O_mem_wen <= 0;
-    	else if(I_EX_MEM_valid)
-    		O_mem_wen <= I_mem_wen;
-    	else
-    		O_mem_wen <= O_mem_wen;
-    always @(posedge I_sys_clk)
-    	if(!I_rst)
-    		O_pc <= 0;
-    	else if(I_EX_MEM_valid)
-    		O_pc <= I_pc;
-    	else
-    		O_pc <= O_pc;
-    always @(posedge I_sys_clk)
-    	if(!I_rst)
+    	if(I_rst)
     		O_reg_wen <= 0;
     	else if(I_EX_MEM_valid)
     		O_reg_wen <= I_reg_wen;
     	else
     		O_reg_wen <= O_reg_wen;
     always @(posedge I_sys_clk)
-    	if(!I_rst)
+    	if(I_rst)
+    		O_rstrb <= 0;
+    	else if(I_EX_MEM_valid)
+    		O_rstrb <= I_rstrb;
+    	else
+    		O_rstrb <= O_rstrb;
+    always @(posedge I_sys_clk)
+    	if(I_rst)
+    		O_pc <= 0;
+    	else if(I_EX_MEM_valid)
+    		O_pc <= I_pc;
+    	else
+    		O_pc <= O_pc;
+    always @(posedge I_sys_clk)
+    	if(I_rst)
+    		O_wstrb <= 0;
+    	else if(I_EX_MEM_valid)
+    		O_wstrb <= I_wstrb;
+    	else
+    		O_wstrb <= O_wstrb;
+    always @(posedge I_sys_clk)
+    	if(I_rst)
+    		O_alu_out <= 0;
+    	else if(I_EX_MEM_valid)
+    		O_alu_out <= I_alu_out;
+    	else
+    		O_alu_out <= O_alu_out;
+    always @(posedge I_sys_clk)
+    	if(I_rst)
+    		O_mem_addr <= 0;
+    	else if(I_EX_MEM_valid)
+    		O_mem_addr <= I_mem_addr;
+    	else
+    		O_mem_addr <= O_mem_addr;
+    always @(posedge I_sys_clk)
+    	if(I_rst)
+    		O_rs2_data <= 0;
+    	else if(I_EX_MEM_valid)
+    		O_rs2_data <= I_rs2_data;
+    	else
+    		O_rs2_data <= O_rs2_data;
+    always @(posedge I_sys_clk)
+    	if(I_rst)
+    		O_mem_wen <= 0;
+    	else if(I_EX_MEM_valid)
+    		O_mem_wen <= I_mem_wen;
+    	else
+    		O_mem_wen <= O_mem_wen;
+    always @(posedge I_sys_clk)
+    	if(I_rst)
+    		O_pc <= 0;
+    	else if(I_EX_MEM_valid)
+    		O_pc <= I_pc;
+    	else
+    		O_pc <= O_pc;
+    always @(posedge I_sys_clk)
+    	if(I_rst)
+    		O_reg_wen <= 0;
+    	else if(I_EX_MEM_valid)
+    		O_reg_wen <= I_reg_wen;
+    	else
+    		O_reg_wen <= O_reg_wen;
+    always @(posedge I_sys_clk)
+    	if(I_rst)
     		O_rd_addr <= 0;
     	else if(I_EX_MEM_valid)
     		O_rd_addr <= I_rd_addr;
     	else
     		O_rd_addr <= O_rd_addr;
     always @(posedge I_sys_clk)
-    	if(!I_rst)
+    	if(I_rst)
     		O_regin_sel <= 0;
     	else if(I_EX_MEM_valid)
     		O_regin_sel <= I_regin_sel;

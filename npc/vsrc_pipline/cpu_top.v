@@ -24,6 +24,7 @@ module cpu_top(
     input I_rst,
     input [31:0] I_inst,
     input I_inst_valid,
+    input I_inst_addr_ready,
     output [63:0] O_pc,
     output O_pc_valid,
     output [63:0] O_mem_addr,
@@ -89,7 +90,7 @@ module cpu_top(
     //top layer signal
     assign snpc = current_pc + 4;
     //assign O_pc = current_pc;
-    assign O_pc = dnpc;
+    assign O_pc = current_pc;
     //assign mem_in = I_mem_rd_data;
     assign O_mem_rd_en = EX_MEM_regin_sel[1];
     //assign O_mem_wr_data = mem_out;
@@ -115,12 +116,14 @@ module cpu_top(
     	.I_dnpc_sel(dnpc_sel),
     	.O_dnpc(dnpc)
     );
-    
+    // debug
+    wire inst_ready;
+    assign inst_ready = 1;
     pc pc_e(
         .I_sys_clk(I_sys_clk),
 		.I_rst(I_rst),
 		.I_dnpc(dnpc),
-		.I_dnpc_en(I_inst_valid),
+		.I_dnpc_en(inst_ready),
 		.O_pc(current_pc),
 		.O_pc_valid(O_pc_valid)
     );
@@ -128,7 +131,7 @@ module cpu_top(
     IF_ID_reg IF_ID_reg_e(
 		.I_sys_clk(I_sys_clk),
 		.I_rst(I_rst),
-		.I_pc(dnpc),
+		.I_pc(current_pc),
 		.I_inst(I_inst),
 		.I_IF_ID_valid(I_inst_valid),
 		.O_pc(IF_ID_pc),

@@ -13,7 +13,7 @@
 #include "Vcpu_top__Dpi.h"
 //#define N 32
 //#define CONFIG_FTRACE
-//#define CONFIG_ITRACE
+#define CONFIG_ITRACE
 //#define CONFIG_DIFFTEST
 #define CONFIG_WAVEFORM
 #define ASNI_FG_RED     "\33[1;31m"
@@ -192,10 +192,6 @@ int main(int argc, char** argv, char** env) {
   bool pc_valid;
   unsigned long *inst64 = (unsigned long*)malloc(sizeof(unsigned long));
   while (!finish){
-	  //int a = rand() & 1;
-	  //int b = rand() & 1;
-	  //printf("%ld\n", sim_time);
-	  //single_cycle();
 	  if(sim_time == 1){
 	  #ifdef CONFIG_DIFFTEST
 	  //printf("%lu\n", sim_time);
@@ -215,20 +211,43 @@ int main(int argc, char** argv, char** env) {
 	  //printf("%016lx\n", *inst64);
 	  //printf("t2\n");
 	  //cpu->I_inst = (pc % 8) ? *((unsigned*)(inst64)+1) : *((unsigned*)inst64);
+	  //cpu->eval();
+	  if(valid_posedge){
+	  		if(pc_valid){
+	  			pmem_read(pc, inst64);
+	  			cpu->I_inst = (pc % 8) ? *((unsigned*)(inst64)+1) : *((unsigned*)inst64);
+	  			cpu->I_inst_valid = 1;
+	  		}
+	  		else{cpu->I_inst_valid = 0;}
+	  		if(cpu->O_mem_rd_en){
+	  			#ifdef CONFIG_ITRACE
+	  			fprintf(logfp,"rd data %lx from %lx\n", cpu->I_mem_rd_data, cpu->O_mem_addr);
+	  			#endif
+	  			pmem_read(cpu->O_mem_addr, &(cpu->I_mem_rd_data));
+	  			cpu->I_mem_rd_data_valid = 1;
+	  		}
+	  		else{cpu->I_mem_rd_data_valid = 0;}
+	  		if(cpu->O_mem_wen){
+	  			#ifdef CONFIG_ITRACE
+	  			fprintf(logfp,"wr data %lx to %lx\n", cpu->O_mem_wr_data, cpu->O_mem_addr);
+	  			#endif
+	  			pmem_write(cpu->O_mem_addr, cpu->O_mem_wr_data, cpu->O_mem_wr_strb);
+	  		}
+	  }
 	  cpu->eval();
 	  dnpc = cpu->O_pc;
 	  if(valid_posedge){
 	  //printf("dut exec\n");
-	  	if(pc_valid){
+	  	/*if(pc_valid){
 	  		pmem_read(pc, inst64);
 	  		cpu->I_inst = (pc % 8) ? *((unsigned*)(inst64)+1) : *((unsigned*)inst64);
 	  		cpu->I_inst_valid = 1;
 	  	}
-	  	else{cpu->I_inst_valid = 0;}
+	  	else{cpu->I_inst_valid = 0;}*/
 	  #ifdef CONFIG_ITRACE
 	  fprintf(logfp,"time: %lu\n", sim_time);
 	  #endif
-	  if(cpu->O_mem_rd_en){
+	  /*if(cpu->O_mem_rd_en){
 	  	#ifdef CONFIG_ITRACE
 	  	fprintf(logfp,"rd data %lx from %lx\n", cpu->I_mem_rd_data, cpu->O_mem_addr);
 	  	#endif
@@ -239,7 +258,7 @@ int main(int argc, char** argv, char** env) {
 	  	fprintf(logfp,"wr data %lx to %lx\n", cpu->O_mem_wr_data, cpu->O_mem_addr);
 	  	#endif
 	  	pmem_write(cpu->O_mem_addr, cpu->O_mem_wr_data, cpu->O_mem_wr_strb);
-	  }
+	  }*/
 	  
 	  #ifdef CONFIG_ITRACE
 	  //printf("start disasm\n");
@@ -251,7 +270,7 @@ int main(int argc, char** argv, char** env) {
 	  print_ftrace(pc, dnpc, cpu->I_inst, logfp);
 	  #endif
 	  #ifdef CONFIG_DIFFTEST
-	  difftest_step(dnpc, cpu_gpr, sim_time);
+	  //if(cpu->MEM_WB_valid) difftest_step(dnpc, cpu_gpr, sim_time);
 	  #endif
 	  }
 	  #ifdef CONFIG_WAVEFORM

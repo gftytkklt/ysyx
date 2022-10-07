@@ -15,6 +15,7 @@ Vcpu_top::Vcpu_top(VerilatedContext* _vcontextp__, const char* _vcname__)
     , I_rst{vlSymsp->TOP.I_rst}
     , I_inst{vlSymsp->TOP.I_inst}
     , I_inst_valid{vlSymsp->TOP.I_inst_valid}
+    , I_inst_addr_ready{vlSymsp->TOP.I_inst_addr_ready}
     , O_pc{vlSymsp->TOP.O_pc}
     , O_pc_valid{vlSymsp->TOP.O_pc_valid}
     , O_mem_addr{vlSymsp->TOP.O_mem_addr}
