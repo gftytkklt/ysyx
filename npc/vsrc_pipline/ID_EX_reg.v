@@ -38,118 +38,58 @@ module ID_EX_reg(
     output reg [63:0] O_pc
 );
     always @(posedge I_sys_clk)
-		if(I_rst)
+		if(I_rst) begin
 			O_imm <= 0;
-		else if(I_ID_EX_valid)
-			O_imm <= I_imm;
-		else
-			O_imm <= O_imm;
-    always @(posedge I_sys_clk)
-		if(I_rst)
 			O_rs1 <= 0;
-		else if(I_ID_EX_valid)
-			O_rs1 <= I_rs1;
-		else
-			O_rs1 <= O_rs1;
-    always @(posedge I_sys_clk)
-		if(I_rst)
 			O_rs2 <= 0;
-		else if(I_ID_EX_valid)
-			O_rs2 <= I_rs2;
-		else
-			O_rs2 <= O_rs2;
-    always @(posedge I_sys_clk)
-		if(I_rst)
 			O_rd_addr <= 0;
-		else if(I_ID_EX_valid)
-			O_rd_addr <= I_rd_addr;
-		else
-			O_rd_addr <= O_rd_addr;
-	always @(posedge I_sys_clk)
-		if(I_rst)
 			O_reg_wen <= 0;
-		else if(I_ID_EX_valid)
-			O_reg_wen <= I_reg_wen;
-		else
-			O_reg_wen <= O_reg_wen;
-	always @(posedge I_sys_clk)
-		if(I_rst)
 			O_mem_wen <= 0;
-		else if(I_ID_EX_valid)
-			O_mem_wen <= I_mem_wen;
-		else
-			O_mem_wen <= O_mem_wen;
-    always @(posedge I_sys_clk)
-		if(I_rst)
 			O_wstrb <= 0;
-		else if(I_ID_EX_valid)
-			O_wstrb <= I_wstrb;
-		else
-			O_wstrb <= O_wstrb;
-    always @(posedge I_sys_clk)
-		if(I_rst)
 			O_rstrb <= 0;
-		else if(I_ID_EX_valid)
-			O_rstrb <= I_rstrb;
-		else
-			O_rstrb <= O_rstrb;
-    /*always @(posedge I_sys_clk)
-	if(I_rst)
-	    O_dnpc_sel <= 0;
-	else if(I_ID_EX_valid)
-	    O_dnpc_sel <= I_dnpc_sel;
-	else
-	    O_dnpc_sel <= O_dnpc_sel;*/
-    always @(posedge I_sys_clk)
-		if(I_rst)
 			O_regin_sel <= 0;
-		else if(I_ID_EX_valid)
-			O_regin_sel <= I_regin_sel;
-		else
-			O_regin_sel <= O_regin_sel;
-    always @(posedge I_sys_clk)
-		if(I_rst)
 			O_op1_sel <= 0;
-		else if(I_ID_EX_valid)
-			O_op1_sel <= I_op1_sel;
-		else
-			O_op1_sel <= O_op1_sel;
-    always @(posedge I_sys_clk)
-		if(I_rst)
 			O_op2_sel <= 0;
-		else if(I_ID_EX_valid)
-			O_op2_sel <= I_op2_sel;
-		else
-			O_op2_sel <= O_op2_sel;
-    always @(posedge I_sys_clk)
-		if(I_rst)
 			O_alu_sext <= 0;
-		else if(I_ID_EX_valid)
-			O_alu_sext <= I_alu_sext;
-		else
-			O_alu_sext <= O_alu_sext;
-    always @(posedge I_sys_clk)
-		if(I_rst)
 			O_alu_op_sel <= 0;
-		else if(I_ID_EX_valid)
-			O_alu_op_sel <= I_alu_op_sel;
-		else
-			O_alu_op_sel <= O_alu_op_sel;
-	always @(posedge I_sys_clk)
-		if(I_rst)
 			O_word_op_mask <= 0;
-		else if(I_ID_EX_valid)
+			O_pc <= 0;
+		end
+		else if(I_ID_EX_valid) begin
+			O_imm <= I_imm;
+			O_rs1 <= I_rs1;
+			O_rs2 <= I_rs2;
+			O_rd_addr <= I_rd_addr;
+			O_reg_wen <= I_reg_wen;
+			O_mem_wen <= I_mem_wen;
+			O_wstrb <= I_wstrb;
+			O_rstrb <= I_rstrb;
+			O_regin_sel <= I_regin_sel;
+			O_op1_sel <= I_op1_sel;
+			O_op2_sel <= I_op2_sel;
+			O_alu_sext <= I_alu_sext;
+			O_alu_op_sel <= I_alu_op_sel;
 			O_word_op_mask <= I_word_op_mask;
-		else
-		    O_word_op_mask <= O_word_op_mask;
-    always @(posedge I_sys_clk)
-		if(I_rst)
-	    	O_pc <= 0;
-		else if(I_ID_EX_valid)
-	    	O_pc <= I_pc;
-		else
-	    	O_pc <= O_pc;
-
+			O_pc <= I_pc;
+		end
+		else begin
+			O_imm <= O_imm;
+			O_rs1 <= O_rs1;
+			O_rs2 <= O_rs2;
+			O_rd_addr <= O_rd_addr;
+			O_reg_wen <= O_reg_wen;
+			O_mem_wen <= O_mem_wen;
+			O_wstrb <= O_wstrb;
+			O_rstrb <= O_rstrb;
+			O_regin_sel <= O_regin_sel;
+			O_op1_sel <= O_op1_sel;
+			O_op2_sel <= O_op2_sel;
+			O_alu_sext <= O_alu_sext;
+			O_alu_op_sel <= O_alu_op_sel;
+			O_word_op_mask <= O_word_op_mask;
+			O_pc <= O_pc;
+		end
+		
     always @(posedge I_sys_clk)
 		if(I_rst)
 	    	O_ID_EX_valid <= 0;

@@ -188,8 +188,8 @@ int main(int argc, char** argv, char** env) {
   // sim
   char logbuf[256] = {};
   bool valid_posedge = false;
-  unsigned long pc, dnpc;
-  bool pc_valid;
+  unsigned long pc, dnpc, raddr;
+  bool pc_valid, rd_en, wr_en;
   unsigned long *inst64 = (unsigned long*)malloc(sizeof(unsigned long));
   while (!finish){
 	  if(sim_time == 1){
@@ -207,31 +207,42 @@ int main(int argc, char** argv, char** env) {
 	  else{valid_posedge = false;}
 	  pc = cpu->O_pc;
 	  pc_valid = cpu->O_pc_valid;
+	  rd_en = cpu->O_mem_rd_en;
+	  raddr = cpu->O_mem_addr;
+	  //wr_en = cpu->O_mem_wen;
+	  
 	  //pmem_read(pc, inst64);
 	  //printf("%016lx\n", *inst64);
 	  //printf("t2\n");
 	  //cpu->I_inst = (pc % 8) ? *((unsigned*)(inst64)+1) : *((unsigned*)inst64);
 	  cpu->eval();
 	  if(valid_posedge){
+	  		// IF: inst_valid must be high AFTER posedge clk, 1 clk delay after pc_valid
 	  		if(pc_valid){
 	  			pmem_read(pc, inst64);
 	  			cpu->I_inst = (pc % 8) ? *((unsigned*)(inst64)+1) : *((unsigned*)inst64);
 	  			cpu->I_inst_valid = 1;
 	  		}
 	  		else{cpu->I_inst_valid = 0;}
-	  		if(cpu->O_mem_rd_en){
-	  			#ifdef CONFIG_ITRACE
-	  			fprintf(logfp,"rd data %lx from %lx\n", cpu->I_mem_rd_data, cpu->O_mem_addr);
-	  			#endif
-	  			pmem_read(cpu->O_mem_addr, &(cpu->I_mem_rd_data));
+	  		//if(cpu->O_mem_rd_en){
+	  		// MEM RD: valid must be high AFTER posedge clk, 1 clk delay after rd_valid
+	  		if(rd_en){
+	  			//pmem_read(cpu->O_mem_addr, &(cpu->I_mem_rd_data));
+	  			pmem_read(raddr, &(cpu->I_mem_rd_data));
 	  			cpu->I_mem_rd_data_valid = 1;
+	  			#ifdef CONFIG_ITRACE
+	  			//fprintf(logfp,"rd data %lx from %lx\n", cpu->I_mem_rd_data, cpu->O_mem_addr);
+	  			fprintf(logfp,"rd data %lx from %lx\n", cpu->I_mem_rd_data, raddr);
+	  			#endif
 	  		}
 	  		else{cpu->I_mem_rd_data_valid = 0;}
+	  		// MEM WR: simple wr simulation
 	  		if(cpu->O_mem_wen){
+	  		//if(wr_en){
+	  			pmem_write(cpu->O_mem_addr, cpu->O_mem_wr_data, cpu->O_mem_wr_strb);
 	  			#ifdef CONFIG_ITRACE
 	  			fprintf(logfp,"wr data %lx to %lx\n", cpu->O_mem_wr_data, cpu->O_mem_addr);
 	  			#endif
-	  			pmem_write(cpu->O_mem_addr, cpu->O_mem_wr_data, cpu->O_mem_wr_strb);
 	  		}
 	  }
 	  //cpu->eval();
@@ -244,9 +255,6 @@ int main(int argc, char** argv, char** env) {
 	  		cpu->I_inst_valid = 1;
 	  	}
 	  	else{cpu->I_inst_valid = 0;}*/
-	  #ifdef CONFIG_ITRACE
-	  fprintf(logfp,"time: %lu\n", sim_time);
-	  #endif
 	  /*if(cpu->O_mem_rd_en){
 	  	#ifdef CONFIG_ITRACE
 	  	fprintf(logfp,"rd data %lx from %lx\n", cpu->I_mem_rd_data, cpu->O_mem_addr);
@@ -262,9 +270,12 @@ int main(int argc, char** argv, char** env) {
 	  
 	  #ifdef CONFIG_ITRACE
 	  //printf("start disasm\n");
+	  if(pc_valid){
+	  fprintf(logfp,"time: %lu\n", sim_time);
 	  fprintf(logfp, "%lx: %08x ",pc, cpu->I_inst);
 	  disassemble(logbuf, 128, pc, (uint8_t *)&cpu->I_inst, 4);
 	  fprintf(logfp, "%s\n",logbuf);
+	  }
 	  #endif
 	  #ifdef CONFIG_FTRACE
 	  print_ftrace(pc, dnpc, cpu->I_inst, logfp);

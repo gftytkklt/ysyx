@@ -108,6 +108,7 @@ VL_MODULE(Vcpu_top___024root) {
     struct {
         VlWide<3>/*64:0*/ cpu_top__DOT__alu_e__DOT__op2_sext;
         QData/*63:0*/ cpu_top__DOT__current_pc;
+        QData/*63:0*/ cpu_top__DOT__dnpc;
         QData/*63:0*/ cpu_top__DOT__imm;
         QData/*63:0*/ cpu_top__DOT__wr_data;
         QData/*63:0*/ cpu_top__DOT__rs1_data;

@@ -19,40 +19,33 @@ void Vcpu_top___024root__traceChgTop0(void* voidSelf, VerilatedVcd* tracep) {
 void Vcpu_top___024root__traceChgSub0(Vcpu_top___024root* vlSelf, VerilatedVcd* tracep) {
     if (false && vlSelf) {}  // Prevent unused
     Vcpu_top__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VlWide<3>/*95:0*/ __Vtemp124;
     VlWide<3>/*95:0*/ __Vtemp125;
     VlWide<3>/*95:0*/ __Vtemp126;
     VlWide<3>/*95:0*/ __Vtemp127;
     VlWide<3>/*95:0*/ __Vtemp128;
-    VlWide<4>/*127:0*/ __Vtemp130;
+    VlWide<3>/*95:0*/ __Vtemp129;
     VlWide<4>/*127:0*/ __Vtemp131;
     VlWide<4>/*127:0*/ __Vtemp132;
     VlWide<4>/*127:0*/ __Vtemp133;
     VlWide<4>/*127:0*/ __Vtemp134;
     VlWide<4>/*127:0*/ __Vtemp135;
-    VlWide<3>/*95:0*/ __Vtemp137;
-    VlWide<3>/*95:0*/ __Vtemp140;
-    VlWide<3>/*95:0*/ __Vtemp143;
-    VlWide<3>/*95:0*/ __Vtemp146;
-    VlWide<3>/*95:0*/ __Vtemp149;
+    VlWide<4>/*127:0*/ __Vtemp136;
+    VlWide<3>/*95:0*/ __Vtemp138;
+    VlWide<3>/*95:0*/ __Vtemp141;
+    VlWide<3>/*95:0*/ __Vtemp144;
+    VlWide<3>/*95:0*/ __Vtemp147;
     VlWide<3>/*95:0*/ __Vtemp150;
     VlWide<3>/*95:0*/ __Vtemp151;
     VlWide<3>/*95:0*/ __Vtemp152;
     VlWide<3>/*95:0*/ __Vtemp153;
+    VlWide<3>/*95:0*/ __Vtemp154;
     vluint32_t* const oldp = tracep->oldp(vlSymsp->__Vm_baseCode + 1);
     if (false && oldp) {}  // Prevent unused
     // Body
     {
         if (VL_UNLIKELY(vlSelf->__Vm_traceActivity[1U])) {
             tracep->chgQData(oldp+0,(vlSelf->cpu_top__DOT__current_pc),64);
-            tracep->chgQData(oldp+2,(((0xfffffffffffffffeULL 
-                                       & vlSelf->cpu_top__DOT__npc_e__DOT__dnpc) 
-                                      | (QData)((IData)(
-                                                        (1U 
-                                                         & ((IData)(vlSelf->cpu_top__DOT__npc_e__DOT__dnpc) 
-                                                            & (~ 
-                                                               ((IData)(vlSelf->cpu_top__DOT__dnpc_sel) 
-                                                                >> 3U)))))))),64);
+            tracep->chgQData(oldp+2,(vlSelf->cpu_top__DOT__dnpc),64);
             tracep->chgQData(oldp+4,((4ULL + vlSelf->cpu_top__DOT__current_pc)),64);
             tracep->chgQData(oldp+6,(vlSelf->cpu_top__DOT__imm),64);
             tracep->chgQData(oldp+8,(vlSelf->cpu_top__DOT__wr_data),64);
@@ -1055,16 +1048,16 @@ void Vcpu_top___024root__traceChgSub0(Vcpu_top___024root* vlSelf, VerilatedVcd* 
             tracep->chgBit(oldp+240,((1U & ((IData)(vlSelf->cpu_top__DOT__ID_EX_alu_op_sel) 
                                             >> 0xdU))));
             tracep->chgQData(oldp+241,(vlSelf->cpu_top__DOT__alu_e__DOT__slt_result),64);
-            VL_EXTEND_WQ(65,64, __Vtemp124, vlSelf->cpu_top__DOT__alu_op1);
-            VL_EXTEND_WQ(65,64, __Vtemp125, vlSelf->cpu_top__DOT__alu_e__DOT__adder2);
-            VL_ADD_W(3, __Vtemp126, __Vtemp124, __Vtemp125);
-            VL_EXTEND_WQ(65,64, __Vtemp127, vlSelf->cpu_top__DOT__alu_e__DOT__cin);
-            VL_ADD_W(3, __Vtemp128, __Vtemp126, __Vtemp127);
+            VL_EXTEND_WQ(65,64, __Vtemp125, vlSelf->cpu_top__DOT__alu_op1);
+            VL_EXTEND_WQ(65,64, __Vtemp126, vlSelf->cpu_top__DOT__alu_e__DOT__adder2);
+            VL_ADD_W(3, __Vtemp127, __Vtemp125, __Vtemp126);
+            VL_EXTEND_WQ(65,64, __Vtemp128, vlSelf->cpu_top__DOT__alu_e__DOT__cin);
+            VL_ADD_W(3, __Vtemp129, __Vtemp127, __Vtemp128);
             tracep->chgQData(oldp+243,((QData)((IData)(
                                                        (1U 
                                                         & (~ 
                                                            (1U 
-                                                            & __Vtemp128[2U])))))),64);
+                                                            & __Vtemp129[2U])))))),64);
             tracep->chgQData(oldp+245,((vlSelf->cpu_top__DOT__alu_op1 
                                         ^ vlSelf->cpu_top__DOT__alu_op2)),64);
             tracep->chgQData(oldp+247,((vlSelf->cpu_top__DOT__alu_op1 
@@ -1097,34 +1090,34 @@ void Vcpu_top___024root__traceChgSub0(Vcpu_top___024root* vlSelf, VerilatedVcd* 
                                              : (~ (0xffffffffffffffffULL 
                                                    >> (IData)(vlSelf->cpu_top__DOT__alu_e__DOT__shamt))))) 
                                         | vlSelf->cpu_top__DOT__alu_e__DOT__shift_result)),64);
-            VL_EXTENDS_WW(128,65, __Vtemp130, vlSelf->cpu_top__DOT__alu_e__DOT__op1_sext);
-            VL_EXTENDS_WW(128,65, __Vtemp131, vlSelf->cpu_top__DOT__alu_e__DOT__op2_sext);
-            VL_MULS_WWW(128,128,128, __Vtemp132, __Vtemp130, __Vtemp131);
+            VL_EXTENDS_WW(128,65, __Vtemp131, vlSelf->cpu_top__DOT__alu_e__DOT__op1_sext);
+            VL_EXTENDS_WW(128,65, __Vtemp132, vlSelf->cpu_top__DOT__alu_e__DOT__op2_sext);
+            VL_MULS_WWW(128,128,128, __Vtemp133, __Vtemp131, __Vtemp132);
             tracep->chgQData(oldp+257,((((QData)((IData)(
-                                                         __Vtemp132[1U])) 
+                                                         __Vtemp133[1U])) 
                                          << 0x20U) 
                                         | (QData)((IData)(
-                                                          __Vtemp132[0U])))),64);
-            VL_EXTENDS_WW(128,65, __Vtemp133, vlSelf->cpu_top__DOT__alu_e__DOT__op1_sext);
-            VL_EXTENDS_WW(128,65, __Vtemp134, vlSelf->cpu_top__DOT__alu_e__DOT__op2_sext);
-            VL_MULS_WWW(128,128,128, __Vtemp135, __Vtemp133, __Vtemp134);
+                                                          __Vtemp133[0U])))),64);
+            VL_EXTENDS_WW(128,65, __Vtemp134, vlSelf->cpu_top__DOT__alu_e__DOT__op1_sext);
+            VL_EXTENDS_WW(128,65, __Vtemp135, vlSelf->cpu_top__DOT__alu_e__DOT__op2_sext);
+            VL_MULS_WWW(128,128,128, __Vtemp136, __Vtemp134, __Vtemp135);
             tracep->chgQData(oldp+259,((((QData)((IData)(
-                                                         __Vtemp135[3U])) 
+                                                         __Vtemp136[3U])) 
                                          << 0x20U) 
                                         | (QData)((IData)(
-                                                          __Vtemp135[2U])))),64);
-            VL_DIVS_WWW(65, __Vtemp137, vlSelf->cpu_top__DOT__alu_e__DOT__op1_sext, vlSelf->cpu_top__DOT__alu_e__DOT__op2_sext);
+                                                          __Vtemp136[2U])))),64);
+            VL_DIVS_WWW(65, __Vtemp138, vlSelf->cpu_top__DOT__alu_e__DOT__op1_sext, vlSelf->cpu_top__DOT__alu_e__DOT__op2_sext);
             tracep->chgQData(oldp+261,((((QData)((IData)(
-                                                         __Vtemp137[1U])) 
+                                                         __Vtemp138[1U])) 
                                          << 0x20U) 
                                         | (QData)((IData)(
-                                                          __Vtemp137[0U])))),64);
-            VL_MODDIVS_WWW(65, __Vtemp140, vlSelf->cpu_top__DOT__alu_e__DOT__op1_sext, vlSelf->cpu_top__DOT__alu_e__DOT__op2_sext);
+                                                          __Vtemp138[0U])))),64);
+            VL_MODDIVS_WWW(65, __Vtemp141, vlSelf->cpu_top__DOT__alu_e__DOT__op1_sext, vlSelf->cpu_top__DOT__alu_e__DOT__op2_sext);
             tracep->chgQData(oldp+263,((((QData)((IData)(
-                                                         __Vtemp140[1U])) 
+                                                         __Vtemp141[1U])) 
                                          << 0x20U) 
                                         | (QData)((IData)(
-                                                          __Vtemp140[0U])))),64);
+                                                          __Vtemp141[0U])))),64);
             tracep->chgWData(oldp+265,(vlSelf->cpu_top__DOT__alu_e__DOT__op1_sext),65);
             tracep->chgWData(oldp+268,(vlSelf->cpu_top__DOT__alu_e__DOT__op2_sext),65);
             tracep->chgBit(oldp+271,((1U & ((IData)(vlSelf->cpu_top__DOT__ID_EX_word_op_mask)
@@ -1143,18 +1136,18 @@ void Vcpu_top___024root__traceChgSub0(Vcpu_top___024root* vlSelf, VerilatedVcd* 
                                                         >> 0x3fU))))));
             tracep->chgBit(oldp+273,(vlSelf->cpu_top__DOT__alu_e__DOT__sext1));
             tracep->chgBit(oldp+274,(vlSelf->cpu_top__DOT__alu_e__DOT__sext2));
-            VL_DIVS_WWW(65, __Vtemp143, vlSelf->cpu_top__DOT__alu_e__DOT__op1_sext, vlSelf->cpu_top__DOT__alu_e__DOT__op2_sext);
-            tracep->chgBit(oldp+275,((1U & __Vtemp143[2U])));
-            VL_MODDIVS_WWW(65, __Vtemp146, vlSelf->cpu_top__DOT__alu_e__DOT__op1_sext, vlSelf->cpu_top__DOT__alu_e__DOT__op2_sext);
-            tracep->chgBit(oldp+276,((1U & __Vtemp146[2U])));
+            VL_DIVS_WWW(65, __Vtemp144, vlSelf->cpu_top__DOT__alu_e__DOT__op1_sext, vlSelf->cpu_top__DOT__alu_e__DOT__op2_sext);
+            tracep->chgBit(oldp+275,((1U & __Vtemp144[2U])));
+            VL_MODDIVS_WWW(65, __Vtemp147, vlSelf->cpu_top__DOT__alu_e__DOT__op1_sext, vlSelf->cpu_top__DOT__alu_e__DOT__op2_sext);
+            tracep->chgBit(oldp+276,((1U & __Vtemp147[2U])));
             tracep->chgQData(oldp+277,(vlSelf->cpu_top__DOT__alu_e__DOT__adder2),64);
             tracep->chgQData(oldp+279,(vlSelf->cpu_top__DOT__alu_e__DOT__cin),64);
-            VL_EXTEND_WQ(65,64, __Vtemp149, vlSelf->cpu_top__DOT__alu_op1);
-            VL_EXTEND_WQ(65,64, __Vtemp150, vlSelf->cpu_top__DOT__alu_e__DOT__adder2);
-            VL_ADD_W(3, __Vtemp151, __Vtemp149, __Vtemp150);
-            VL_EXTEND_WQ(65,64, __Vtemp152, vlSelf->cpu_top__DOT__alu_e__DOT__cin);
-            VL_ADD_W(3, __Vtemp153, __Vtemp151, __Vtemp152);
-            tracep->chgBit(oldp+281,((1U & __Vtemp153[2U])));
+            VL_EXTEND_WQ(65,64, __Vtemp150, vlSelf->cpu_top__DOT__alu_op1);
+            VL_EXTEND_WQ(65,64, __Vtemp151, vlSelf->cpu_top__DOT__alu_e__DOT__adder2);
+            VL_ADD_W(3, __Vtemp152, __Vtemp150, __Vtemp151);
+            VL_EXTEND_WQ(65,64, __Vtemp153, vlSelf->cpu_top__DOT__alu_e__DOT__cin);
+            VL_ADD_W(3, __Vtemp154, __Vtemp152, __Vtemp153);
+            tracep->chgBit(oldp+281,((1U & __Vtemp154[2U])));
             tracep->chgQData(oldp+282,(vlSelf->cpu_top__DOT__alu_e__DOT__reverse_op1),64);
             tracep->chgQData(oldp+284,(vlSelf->cpu_top__DOT__alu_e__DOT__shift_op),64);
             tracep->chgCData(oldp+286,(vlSelf->cpu_top__DOT__alu_e__DOT__shamt),6);
