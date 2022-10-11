@@ -44,7 +44,7 @@ VL_MODULE(Vcpu_top___024root) {
         CData/*2:0*/ cpu_top__DOT__regin_sel;
         CData/*0:0*/ cpu_top__DOT__reg_wen;
         CData/*1:0*/ cpu_top__DOT__alu_op_sext;
-        CData/*0:0*/ cpu_top__DOT__IF_ID_valid;
+        CData/*0:0*/ cpu_top__DOT__IF_ID_allowin;
         CData/*4:0*/ cpu_top__DOT__ID_EX_rd_addr;
         CData/*7:0*/ cpu_top__DOT__ID_EX_wstrb;
         CData/*2:0*/ cpu_top__DOT__ID_EX_dnpc_sel;
@@ -67,6 +67,7 @@ VL_MODULE(Vcpu_top___024root) {
         CData/*4:0*/ cpu_top__DOT__MEM_WB_rd_addr;
         CData/*2:0*/ cpu_top__DOT__MEM_WB_regin_sel;
         CData/*2:0*/ cpu_top__DOT__MEM_WB_shamt;
+        CData/*0:0*/ cpu_top__DOT__IF_ID_reg_e__DOT__input_valid;
         CData/*0:0*/ cpu_top__DOT__decoder_e__DOT__typeI;
         CData/*0:0*/ cpu_top__DOT__decoder_e__DOT__typeR;
         CData/*0:0*/ cpu_top__DOT__decoder_e__DOT__typeU;
@@ -103,9 +104,9 @@ VL_MODULE(Vcpu_top___024root) {
         SData/*12:0*/ cpu_top__DOT__decoder_e__DOT__immB;
         IData/*31:0*/ cpu_top__DOT__IF_ID_inst;
         IData/*20:0*/ cpu_top__DOT__decoder_e__DOT__immJ;
-        VlWide<3>/*64:0*/ cpu_top__DOT__alu_e__DOT__op1_sext;
     };
     struct {
+        VlWide<3>/*64:0*/ cpu_top__DOT__alu_e__DOT__op1_sext;
         VlWide<3>/*64:0*/ cpu_top__DOT__alu_e__DOT__op2_sext;
         QData/*63:0*/ cpu_top__DOT__current_pc;
         QData/*63:0*/ cpu_top__DOT__dnpc;

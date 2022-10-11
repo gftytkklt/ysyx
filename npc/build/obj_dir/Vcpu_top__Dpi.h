@@ -13,13 +13,13 @@ extern "C" {
 
 
     // DPI IMPORTS
-    // DPI import at /home/gftyt/ysyx-workbench/npc/vsrc_pipline/gpr.v:35:34
+    // DPI import at /home/gftyt/ysyx-workbench/npc/vsrc_fullpipline/gpr.v:35:34
     extern void set_gpr_ptr(const svOpenArrayHandle a);
-    // DPI import at /home/gftyt/ysyx-workbench/npc/vsrc_pipline/decoder.v:24:30
+    // DPI import at /home/gftyt/ysyx-workbench/npc/vsrc_fullpipline/decoder.v:24:30
     extern void set_inst_ptr(const svOpenArrayHandle a);
-    // DPI import at /home/gftyt/ysyx-workbench/npc/vsrc_pipline/pc.v:31:34
+    // DPI import at /home/gftyt/ysyx-workbench/npc/vsrc_fullpipline/pc.v:32:34
     extern void set_pc_ptr(const svOpenArrayHandle a);
-    // DPI import at /home/gftyt/ysyx-workbench/npc/vsrc_pipline/decoder.v:23:30
+    // DPI import at /home/gftyt/ysyx-workbench/npc/vsrc_fullpipline/decoder.v:23:30
     extern void sim_end();
 
 #ifdef __cplusplus

@@ -32,20 +32,20 @@ void Vcpu_top___024root___settle__TOP__2(Vcpu_top___024root* vlSelf) {
     Vcpu_top__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vcpu_top___024root___settle__TOP__2\n"); );
     // Variables
-    VlWide<4>/*127:0*/ __Vtemp60;
-    VlWide<3>/*95:0*/ __Vtemp74;
+    VlWide<4>/*127:0*/ __Vtemp61;
     VlWide<3>/*95:0*/ __Vtemp75;
     VlWide<3>/*95:0*/ __Vtemp76;
     VlWide<3>/*95:0*/ __Vtemp77;
     VlWide<3>/*95:0*/ __Vtemp78;
-    VlWide<4>/*127:0*/ __Vtemp80;
+    VlWide<3>/*95:0*/ __Vtemp79;
     VlWide<4>/*127:0*/ __Vtemp81;
     VlWide<4>/*127:0*/ __Vtemp82;
     VlWide<4>/*127:0*/ __Vtemp83;
     VlWide<4>/*127:0*/ __Vtemp84;
     VlWide<4>/*127:0*/ __Vtemp85;
-    VlWide<3>/*95:0*/ __Vtemp87;
-    VlWide<3>/*95:0*/ __Vtemp90;
+    VlWide<4>/*127:0*/ __Vtemp86;
+    VlWide<3>/*95:0*/ __Vtemp88;
+    VlWide<3>/*95:0*/ __Vtemp91;
     // Body
     vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0U] = 0U;
     vlSelf->O_mem_rd_en = (1U & ((IData)(vlSelf->cpu_top__DOT__EX_MEM_regin_sel) 
@@ -467,20 +467,21 @@ void Vcpu_top___024root___settle__TOP__2(Vcpu_top___024root* vlSelf) {
     vlSelf->cpu_top__DOT____Vcellinp__alu_op2_64bit_2sel__I_sel_data[3U] 
         = (IData)((vlSelf->cpu_top__DOT__ID_EX_imm 
                    >> 0x20U));
-    VL_EXTEND_WQ(128,64, __Vtemp60, vlSelf->cpu_top__DOT__ID_EX_pc);
+    VL_EXTEND_WQ(128,64, __Vtemp61, vlSelf->cpu_top__DOT__ID_EX_pc);
     vlSelf->cpu_top__DOT____Vcellinp__alu_op1_64bit_3sel__I_sel_data[0U] 
         = (IData)(vlSelf->cpu_top__DOT__ID_EX_rs1);
     vlSelf->cpu_top__DOT____Vcellinp__alu_op1_64bit_3sel__I_sel_data[1U] 
         = (IData)((vlSelf->cpu_top__DOT__ID_EX_rs1 
                    >> 0x20U));
     vlSelf->cpu_top__DOT____Vcellinp__alu_op1_64bit_3sel__I_sel_data[2U] 
-        = __Vtemp60[0U];
+        = __Vtemp61[0U];
     vlSelf->cpu_top__DOT____Vcellinp__alu_op1_64bit_3sel__I_sel_data[3U] 
-        = __Vtemp60[1U];
+        = __Vtemp61[1U];
     vlSelf->cpu_top__DOT____Vcellinp__alu_op1_64bit_3sel__I_sel_data[4U] 
-        = __Vtemp60[2U];
+        = __Vtemp61[2U];
     vlSelf->cpu_top__DOT____Vcellinp__alu_op1_64bit_3sel__I_sel_data[5U] 
-        = __Vtemp60[3U];
+        = __Vtemp61[3U];
+    vlSelf->cpu_top__DOT__IF_ID_allowin = 1U;
     vlSelf->cpu_top__DOT__mem_rstrb = (((((IData)(vlSelf->cpu_top__DOT__decoder_e__DOT__LW) 
                                           | (IData)(vlSelf->cpu_top__DOT__decoder_e__DOT__LH)) 
                                          | (IData)(vlSelf->cpu_top__DOT__decoder_e__DOT__LB)) 
@@ -1605,19 +1606,19 @@ void Vcpu_top___024root___settle__TOP__2(Vcpu_top___024root* vlSelf) {
                                                         & (~ 
                                                            ((IData)(vlSelf->cpu_top__DOT__dnpc_sel) 
                                                             >> 3U)))))));
-    VL_EXTEND_WQ(65,64, __Vtemp74, vlSelf->cpu_top__DOT__alu_op1);
-    VL_EXTEND_WQ(65,64, __Vtemp75, vlSelf->cpu_top__DOT__alu_e__DOT__adder2);
-    VL_ADD_W(3, __Vtemp76, __Vtemp74, __Vtemp75);
-    VL_EXTEND_WQ(65,64, __Vtemp77, vlSelf->cpu_top__DOT__alu_e__DOT__cin);
-    VL_ADD_W(3, __Vtemp78, __Vtemp76, __Vtemp77);
-    VL_EXTENDS_WW(128,65, __Vtemp80, vlSelf->cpu_top__DOT__alu_e__DOT__op1_sext);
-    VL_EXTENDS_WW(128,65, __Vtemp81, vlSelf->cpu_top__DOT__alu_e__DOT__op2_sext);
-    VL_MULS_WWW(128,128,128, __Vtemp82, __Vtemp80, __Vtemp81);
-    VL_EXTENDS_WW(128,65, __Vtemp83, vlSelf->cpu_top__DOT__alu_e__DOT__op1_sext);
-    VL_EXTENDS_WW(128,65, __Vtemp84, vlSelf->cpu_top__DOT__alu_e__DOT__op2_sext);
-    VL_MULS_WWW(128,128,128, __Vtemp85, __Vtemp83, __Vtemp84);
-    VL_DIVS_WWW(65, __Vtemp87, vlSelf->cpu_top__DOT__alu_e__DOT__op1_sext, vlSelf->cpu_top__DOT__alu_e__DOT__op2_sext);
-    VL_MODDIVS_WWW(65, __Vtemp90, vlSelf->cpu_top__DOT__alu_e__DOT__op1_sext, vlSelf->cpu_top__DOT__alu_e__DOT__op2_sext);
+    VL_EXTEND_WQ(65,64, __Vtemp75, vlSelf->cpu_top__DOT__alu_op1);
+    VL_EXTEND_WQ(65,64, __Vtemp76, vlSelf->cpu_top__DOT__alu_e__DOT__adder2);
+    VL_ADD_W(3, __Vtemp77, __Vtemp75, __Vtemp76);
+    VL_EXTEND_WQ(65,64, __Vtemp78, vlSelf->cpu_top__DOT__alu_e__DOT__cin);
+    VL_ADD_W(3, __Vtemp79, __Vtemp77, __Vtemp78);
+    VL_EXTENDS_WW(128,65, __Vtemp81, vlSelf->cpu_top__DOT__alu_e__DOT__op1_sext);
+    VL_EXTENDS_WW(128,65, __Vtemp82, vlSelf->cpu_top__DOT__alu_e__DOT__op2_sext);
+    VL_MULS_WWW(128,128,128, __Vtemp83, __Vtemp81, __Vtemp82);
+    VL_EXTENDS_WW(128,65, __Vtemp84, vlSelf->cpu_top__DOT__alu_e__DOT__op1_sext);
+    VL_EXTENDS_WW(128,65, __Vtemp85, vlSelf->cpu_top__DOT__alu_e__DOT__op2_sext);
+    VL_MULS_WWW(128,128,128, __Vtemp86, __Vtemp84, __Vtemp85);
+    VL_DIVS_WWW(65, __Vtemp88, vlSelf->cpu_top__DOT__alu_e__DOT__op1_sext, vlSelf->cpu_top__DOT__alu_e__DOT__op2_sext);
+    VL_MODDIVS_WWW(65, __Vtemp91, vlSelf->cpu_top__DOT__alu_e__DOT__op1_sext, vlSelf->cpu_top__DOT__alu_e__DOT__op2_sext);
     vlSelf->cpu_top__DOT__alu_e__DOT__dword_result 
         = ((((((((((((((- (QData)((IData)((0U != (3U 
                                                   & (IData)(vlSelf->cpu_top__DOT__ID_EX_alu_op_sel)))))) 
@@ -1629,7 +1630,7 @@ void Vcpu_top___024root___settle__TOP__2(Vcpu_top___024root* vlSelf) {
                                                   >> 3U))))) 
                         & (QData)((IData)((1U & (~ 
                                                  (1U 
-                                                  & __Vtemp78[2U]))))))) 
+                                                  & __Vtemp79[2U]))))))) 
                     | ((- (QData)((IData)((1U & ((IData)(vlSelf->cpu_top__DOT__ID_EX_alu_op_sel) 
                                                  >> 4U))))) 
                        & (vlSelf->cpu_top__DOT__alu_op1 
@@ -1671,35 +1672,35 @@ void Vcpu_top___024root___settle__TOP__2(Vcpu_top___024root* vlSelf) {
                      | vlSelf->cpu_top__DOT__alu_e__DOT__shift_result))) 
               | ((- (QData)((IData)((1U & ((IData)(vlSelf->cpu_top__DOT__ID_EX_alu_op_sel) 
                                            >> 0xaU))))) 
-                 & (((QData)((IData)(__Vtemp82[1U])) 
-                     << 0x20U) | (QData)((IData)(__Vtemp82[0U]))))) 
+                 & (((QData)((IData)(__Vtemp83[1U])) 
+                     << 0x20U) | (QData)((IData)(__Vtemp83[0U]))))) 
              | ((- (QData)((IData)((1U & ((IData)(vlSelf->cpu_top__DOT__ID_EX_alu_op_sel) 
                                           >> 0xbU))))) 
-                & (((QData)((IData)(__Vtemp85[3U])) 
-                    << 0x20U) | (QData)((IData)(__Vtemp85[2U]))))) 
+                & (((QData)((IData)(__Vtemp86[3U])) 
+                    << 0x20U) | (QData)((IData)(__Vtemp86[2U]))))) 
             | ((- (QData)((IData)((1U & ((IData)(vlSelf->cpu_top__DOT__ID_EX_alu_op_sel) 
                                          >> 0xcU))))) 
-               & (((QData)((IData)(__Vtemp87[1U])) 
-                   << 0x20U) | (QData)((IData)(__Vtemp87[0U]))))) 
+               & (((QData)((IData)(__Vtemp88[1U])) 
+                   << 0x20U) | (QData)((IData)(__Vtemp88[0U]))))) 
            | ((- (QData)((IData)((1U & ((IData)(vlSelf->cpu_top__DOT__ID_EX_alu_op_sel) 
                                         >> 0xdU))))) 
-              & (((QData)((IData)(__Vtemp90[1U])) << 0x20U) 
-                 | (QData)((IData)(__Vtemp90[0U])))));
+              & (((QData)((IData)(__Vtemp91[1U])) << 0x20U) 
+                 | (QData)((IData)(__Vtemp91[0U])))));
     vlSelf->O_pc = vlSelf->cpu_top__DOT__dnpc;
 }
 
+void Vcpu_top___024root____Vdpiimwrap_cpu_top__DOT__pc_e__DOT__set_pc_ptr__Vdpioc2_TOP(const QData/*63:0*/ &a);
 void Vcpu_top___024unit____Vdpiimwrap_set_inst_ptr__Vdpioc2_TOP____024unit(const IData/*31:0*/ &a);
 void Vcpu_top___024root____Vdpiimwrap_cpu_top__DOT__gpr_e__DOT__set_gpr_ptr__Vdpioc2_TOP(const VlUnpacked<QData/*63:0*/, 32> &a);
-void Vcpu_top___024root____Vdpiimwrap_cpu_top__DOT__pc_e__DOT__set_pc_ptr__Vdpioc2_TOP(const QData/*63:0*/ &a);
 
 void Vcpu_top___024root___initial__TOP__3(Vcpu_top___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     Vcpu_top__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vcpu_top___024root___initial__TOP__3\n"); );
     // Body
+    Vcpu_top___024root____Vdpiimwrap_cpu_top__DOT__pc_e__DOT__set_pc_ptr__Vdpioc2_TOP(vlSelf->cpu_top__DOT__current_pc);
     Vcpu_top___024unit____Vdpiimwrap_set_inst_ptr__Vdpioc2_TOP____024unit(vlSelf->cpu_top__DOT__IF_ID_inst);
     Vcpu_top___024root____Vdpiimwrap_cpu_top__DOT__gpr_e__DOT__set_gpr_ptr__Vdpioc2_TOP(vlSelf->cpu_top__DOT__gpr_e__DOT__gpr);
-    Vcpu_top___024root____Vdpiimwrap_cpu_top__DOT__pc_e__DOT__set_pc_ptr__Vdpioc2_TOP(vlSelf->cpu_top__DOT__current_pc);
 }
 
 void Vcpu_top___024root___eval_initial(Vcpu_top___024root* vlSelf) {
@@ -1762,7 +1763,7 @@ void Vcpu_top___024root___ctor_var_reset(Vcpu_top___024root* vlSelf) {
     vlSelf->cpu_top__DOT__alu_op_sext = 0;
     vlSelf->cpu_top__DOT__IF_ID_pc = 0;
     vlSelf->cpu_top__DOT__IF_ID_inst = 0;
-    vlSelf->cpu_top__DOT__IF_ID_valid = 0;
+    vlSelf->cpu_top__DOT__IF_ID_allowin = 0;
     vlSelf->cpu_top__DOT__ID_EX_imm = 0;
     vlSelf->cpu_top__DOT__ID_EX_pc = 0;
     vlSelf->cpu_top__DOT__ID_EX_rs1 = 0;
@@ -1809,6 +1810,7 @@ void Vcpu_top___024root___ctor_var_reset(Vcpu_top___024root* vlSelf) {
     for (int __Vi0=0; __Vi0<2; ++__Vi0) {
         vlSelf->cpu_top__DOT__npc_e__DOT__nextpc_64bit_2sel__DOT__sel_data[__Vi0] = 0;
     }
+    vlSelf->cpu_top__DOT__IF_ID_reg_e__DOT__input_valid = 0;
     vlSelf->cpu_top__DOT__decoder_e__DOT__immS = 0;
     vlSelf->cpu_top__DOT__decoder_e__DOT__immB = 0;
     vlSelf->cpu_top__DOT__decoder_e__DOT__immJ = 0;
