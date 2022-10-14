@@ -14,7 +14,7 @@
 //#define N 32
 //#define CONFIG_FTRACE
 #define CONFIG_ITRACE
-//#define CONFIG_DIFFTEST
+#define CONFIG_DIFFTEST
 #define CONFIG_WAVEFORM
 #define ASNI_FG_RED     "\33[1;31m"
 #define ASNI_FG_GREEN   "\33[1;32m"
@@ -38,7 +38,10 @@ struct cpu_context {
 static struct cpu_context context = {};
 static uint64_t *cpu_gpr = NULL;
 static uint64_t *cpu_pc = NULL;
+static uint64_t *wb_pc = NULL;
 static uint32_t *inst = NULL;
+static bool *wb_valid = NULL;
+static bool *wb_bubble = NULL;
 #ifdef CONFIG_ITRACE
 void init_disasm(const char *triple);
 void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
@@ -60,8 +63,19 @@ extern "C" void set_pc_ptr(const svOpenArrayHandle r) {
   cpu_pc = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
   //cpu_context->pc = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
+extern "C" void set_wb_ptr(const svOpenArrayHandle r) {
+  wb_valid = (bool *)(((VerilatedDpiOpenVar*)r)->datap());
+  //cpu_context->pc = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
+}
+extern "C" void set_wb_pc_ptr(const svOpenArrayHandle r) {
+  wb_pc = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
+  //cpu_context->pc = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
+}
 extern "C" void set_inst_ptr(const svOpenArrayHandle r) {
   inst = (uint32_t *)(((VerilatedDpiOpenVar*)r)->datap());
+}
+extern "C" void set_wb_bubble_ptr(const svOpenArrayHandle r) {
+  wb_bubble = (bool *)(((VerilatedDpiOpenVar*)r)->datap());
 }
 double sc_time_stamp(){
 	return sim_time;
@@ -71,10 +85,10 @@ void sim_end(){
   //set_gpr_ptr(10);
   //printf("%ld\n", cpu_gpr[10]);
   if(cpu_gpr[10]){
-    printf("%s at pc = 0x%016lx\n", ASNI_FMT("HIT BAD TRAP", ASNI_FG_RED), *cpu_pc);
+    printf("%s at pc = 0x%016lx\n", ASNI_FMT("HIT BAD TRAP", ASNI_FG_RED), *wb_pc);
   }
   else{
-    printf("%s at pc = 0x%016lx\n", ASNI_FMT("HIT GOOD TRAP", ASNI_FG_GREEN), *cpu_pc);
+    printf("%s at pc = 0x%016lx\n", ASNI_FMT("HIT GOOD TRAP", ASNI_FG_GREEN), *wb_pc);
   }
   //printf(" C: Im called fronm Scope :: %s \n\n ",svGetNameFromScope(svGetScope() ));
   //Vcpu_top::check();
@@ -191,6 +205,8 @@ int main(int argc, char** argv, char** env) {
   unsigned long pc, dnpc, raddr;
   bool pc_valid, rd_en, wr_en;
   unsigned long *inst64 = (unsigned long*)malloc(sizeof(unsigned long));
+  bool wb_valid_difftest;
+  uint64_t wb_pc_difftest;
   while (!finish){
 	  if(sim_time == 1){
 	  #ifdef CONFIG_DIFFTEST
@@ -215,6 +231,13 @@ int main(int argc, char** argv, char** env) {
 	  //printf("%016lx\n", *inst64);
 	  //printf("t2\n");
 	  //cpu->I_inst = (pc % 8) ? *((unsigned*)(inst64)+1) : *((unsigned*)inst64);
+	  if(wb_valid){
+	  	wb_valid_difftest = *wb_valid & ~*wb_bubble;
+	  	wb_pc_difftest = *wb_pc;
+	  }
+	  
+	  //bool wb_valid_difftest = 0;
+	  //uint64_t wb_pc_difftest = 0;
 	  cpu->eval();
 	  if(valid_posedge){
 	  		// IF: inst_valid must be high AFTER posedge clk, 1 clk delay after pc_valid
@@ -281,7 +304,10 @@ int main(int argc, char** argv, char** env) {
 	  print_ftrace(pc, dnpc, cpu->I_inst, logfp);
 	  #endif
 	  #ifdef CONFIG_DIFFTEST
-	  //if(cpu->MEM_WB_valid) difftest_step(dnpc, cpu_gpr, sim_time);
+	  if(wb_valid_difftest) {
+	  	//printf("exec difftest at %lu(pc = %lx)\n",sim_time, wb_pc_difftest);
+	  	difftest_step(wb_pc_difftest, cpu_gpr, sim_time);
+	  }
 	  #endif
 	  }
 	  #ifdef CONFIG_WAVEFORM
@@ -289,7 +315,7 @@ int main(int argc, char** argv, char** env) {
 	  #endif
 	  sim_time++;
 	  // test dummy
-	  if(sim_time == 200){printf("dummy timeout!\n");break;}
+	  //if(sim_time == 400){printf("dummy timeout!\n");break;}
   }
   //printf("a\n");
   cpu->final();

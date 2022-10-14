@@ -2,8 +2,10 @@
 module ID_EX_reg(
     input I_sys_clk,
     input I_rst,
-    input I_ID_EX_valid,
-    output reg O_ID_EX_valid,
+    input I_ID_EX_valid,// mem data valid
+    input I_ID_EX_allowout,// receive EX_MEM input en
+    output O_ID_EX_allowin,// send ID_EX input en
+    output O_ID_EX_valid,
     input [63:0] I_imm,
     input [63:0] I_rs1,
     input [63:0] I_rs2,
@@ -19,6 +21,7 @@ module ID_EX_reg(
     input [1:0] I_alu_sext,
     input [14:0] I_alu_op_sel,
     input I_word_op_mask,
+    //input I_ID_EX_block,
     output reg [63:0] O_imm,
     output reg [63:0] O_rs1,
     output reg [63:0] O_rs2,
@@ -35,8 +38,24 @@ module ID_EX_reg(
     output reg [14:0] O_alu_op_sel,
     output reg O_word_op_mask,
     input [63:0] I_pc,
-    output reg [63:0] O_pc
+    output reg [63:0] O_pc,
+    input [31:0] I_inst_debug,
+    output reg [31:0] O_inst_debug,
+    input I_bubble_inst_debug,
+    output reg O_bubble_inst_debug
 );
+	reg input_valid;
+	wire output_valid;
+	assign output_valid = 1;// decoder valid once inst valid
+	assign O_ID_EX_allowin = !input_valid || (output_valid && I_ID_EX_allowout);
+	assign O_ID_EX_valid = input_valid && output_valid;
+	always @(posedge I_sys_clk)
+		if(I_rst)
+			input_valid <= 0;
+		else if(O_ID_EX_allowin)
+			input_valid <= I_ID_EX_valid;
+		else
+			input_valid <= input_valid;
     always @(posedge I_sys_clk)
 		if(I_rst) begin
 			O_imm <= 0;
@@ -54,8 +73,10 @@ module ID_EX_reg(
 			O_alu_op_sel <= 0;
 			O_word_op_mask <= 0;
 			O_pc <= 0;
+			O_inst_debug <= 0;
+			O_bubble_inst_debug <= 0;
 		end
-		else if(I_ID_EX_valid) begin
+		else if(I_ID_EX_valid && O_ID_EX_allowin) begin
 			O_imm <= I_imm;
 			O_rs1 <= I_rs1;
 			O_rs2 <= I_rs2;
@@ -71,6 +92,8 @@ module ID_EX_reg(
 			O_alu_op_sel <= I_alu_op_sel;
 			O_word_op_mask <= I_word_op_mask;
 			O_pc <= I_pc;
+			O_inst_debug <= I_inst_debug;
+			O_bubble_inst_debug <= I_bubble_inst_debug;
 		end
 		else begin
 			O_imm <= O_imm;
@@ -88,11 +111,7 @@ module ID_EX_reg(
 			O_alu_op_sel <= O_alu_op_sel;
 			O_word_op_mask <= O_word_op_mask;
 			O_pc <= O_pc;
+			O_inst_debug <= O_inst_debug;
+			O_bubble_inst_debug <= O_bubble_inst_debug;
 		end
-		
-    always @(posedge I_sys_clk)
-		if(I_rst)
-	    	O_ID_EX_valid <= 0;
-		else
-	    	O_ID_EX_valid <= I_ID_EX_valid;
 endmodule

@@ -9,6 +9,44 @@
 
 //==========
 
+extern "C" void set_wb_ptr(const svOpenArrayHandle a);
+
+VL_INLINE_OPT void Vcpu_top___024root____Vdpiimwrap_cpu_top__DOT__set_wb_ptr__Vdpioc2_TOP(const CData/*0:0*/ &a) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vcpu_top___024root____Vdpiimwrap_cpu_top__DOT__set_wb_ptr__Vdpioc2_TOP\n"); );
+    // Body
+    static const VerilatedVarProps a__Vopenprops(VLVT_UINT8, VLVD_IN, VerilatedVarProps::Packed(), 0, 0);
+    VerilatedDpiOpenVar a__Vopenarray (&a__Vopenprops, &a);
+    set_wb_ptr(&a__Vopenarray);
+}
+
+extern "C" void set_wb_bubble_ptr(const svOpenArrayHandle a);
+
+VL_INLINE_OPT void Vcpu_top___024root____Vdpiimwrap_cpu_top__DOT__set_wb_bubble_ptr__Vdpioc2_TOP(const CData/*0:0*/ &a) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vcpu_top___024root____Vdpiimwrap_cpu_top__DOT__set_wb_bubble_ptr__Vdpioc2_TOP\n"); );
+    // Body
+    static const VerilatedVarProps a__Vopenprops(VLVT_UINT8, VLVD_IN, VerilatedVarProps::Packed(), 0, 0);
+    VerilatedDpiOpenVar a__Vopenarray (&a__Vopenprops, &a);
+    set_wb_bubble_ptr(&a__Vopenarray);
+}
+
+extern "C" void set_wb_pc_ptr(const svOpenArrayHandle a);
+
+VL_INLINE_OPT void Vcpu_top___024root____Vdpiimwrap_cpu_top__DOT__set_wb_pc_ptr__Vdpioc2_TOP(const QData/*63:0*/ &a) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vcpu_top___024root____Vdpiimwrap_cpu_top__DOT__set_wb_pc_ptr__Vdpioc2_TOP\n"); );
+    // Body
+    static const VerilatedVarProps a__Vopenprops(VLVT_UINT64, VLVD_IN, VerilatedVarProps::Packed(), 63, 0);
+    VerilatedDpiOpenVar a__Vopenarray (&a__Vopenprops, &a);
+    set_wb_pc_ptr(&a__Vopenarray);
+}
+
+extern "C" void sim_end();
+
+VL_INLINE_OPT void Vcpu_top___024root____Vdpiimwrap_cpu_top__DOT__sim_end_TOP() {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vcpu_top___024root____Vdpiimwrap_cpu_top__DOT__sim_end_TOP\n"); );
+    // Body
+    sim_end();
+}
+
 extern "C" void set_pc_ptr(const svOpenArrayHandle a);
 
 VL_INLINE_OPT void Vcpu_top___024root____Vdpiimwrap_cpu_top__DOT__pc_e__DOT__set_pc_ptr__Vdpioc2_TOP(const QData/*63:0*/ &a) {
@@ -30,37 +68,40 @@ VL_INLINE_OPT void Vcpu_top___024root____Vdpiimwrap_cpu_top__DOT__gpr_e__DOT__se
     set_gpr_ptr(&a__Vopenarray);
 }
 
-void Vcpu_top___024unit____Vdpiimwrap_sim_end_TOP____024unit();
-
 VL_INLINE_OPT void Vcpu_top___024root___sequent__TOP__1(Vcpu_top___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     Vcpu_top__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vcpu_top___024root___sequent__TOP__1\n"); );
     // Variables
-    CData/*0:0*/ __Vdly__cpu_top__DOT__IF_ID_reg_e__DOT__input_valid;
+    CData/*0:0*/ __Vdly__cpu_top__DOT__ID_EX_reg_e__DOT__input_valid;
     CData/*1:0*/ __Vdly__cpu_top__DOT__ID_EX_alu_sext;
     CData/*0:0*/ __Vdly__cpu_top__DOT__ID_EX_reg_wen;
     CData/*2:0*/ __Vdly__cpu_top__DOT__ID_EX_regin_sel;
-    CData/*0:0*/ __Vdly__cpu_top__DOT__EX_MEM_reg_wen;
+    CData/*0:0*/ __Vdly__cpu_top__DOT__ID_EX_bubble;
+    CData/*0:0*/ __Vdly__cpu_top__DOT__EX_MEM_reg_e__DOT__input_valid;
+    CData/*0:0*/ __Vdly__cpu_top__DOT__EX_MEM_bubble;
+    CData/*2:0*/ __Vdly__cpu_top__DOT__EX_MEM_regin_sel;
     CData/*4:0*/ __Vdly__cpu_top__DOT__EX_MEM_rd_addr;
+    CData/*0:0*/ __Vdly__cpu_top__DOT__EX_MEM_reg_wen;
     SData/*8:0*/ __Vdly__cpu_top__DOT__ID_EX_rstrb;
     SData/*8:0*/ __Vdly__cpu_top__DOT__EX_MEM_rstrb;
     IData/*31:0*/ __Vdly__cpu_top__DOT__IF_ID_inst;
-    SData/*31:0*/ __Vtemp18;
-    VlWide<4>/*127:0*/ __Vtemp28;
-    VlWide<3>/*95:0*/ __Vtemp42;
-    VlWide<3>/*95:0*/ __Vtemp43;
-    VlWide<3>/*95:0*/ __Vtemp44;
-    VlWide<3>/*95:0*/ __Vtemp45;
-    VlWide<3>/*95:0*/ __Vtemp46;
-    VlWide<4>/*127:0*/ __Vtemp48;
-    VlWide<4>/*127:0*/ __Vtemp49;
-    VlWide<4>/*127:0*/ __Vtemp50;
-    VlWide<4>/*127:0*/ __Vtemp51;
-    VlWide<4>/*127:0*/ __Vtemp52;
-    VlWide<4>/*127:0*/ __Vtemp53;
-    VlWide<3>/*95:0*/ __Vtemp55;
+    IData/*31:0*/ __Vdly__cpu_top__DOT__EX_MEM_inst;
+    SData/*31:0*/ __Vtemp30;
+    VlWide<4>/*127:0*/ __Vtemp43;
+    VlWide<3>/*95:0*/ __Vtemp57;
     VlWide<3>/*95:0*/ __Vtemp58;
+    VlWide<3>/*95:0*/ __Vtemp59;
+    VlWide<3>/*95:0*/ __Vtemp60;
+    VlWide<3>/*95:0*/ __Vtemp61;
+    VlWide<4>/*127:0*/ __Vtemp63;
+    VlWide<4>/*127:0*/ __Vtemp64;
+    VlWide<4>/*127:0*/ __Vtemp65;
+    VlWide<4>/*127:0*/ __Vtemp66;
+    VlWide<4>/*127:0*/ __Vtemp67;
+    VlWide<4>/*127:0*/ __Vtemp68;
+    VlWide<3>/*95:0*/ __Vtemp70;
+    VlWide<3>/*95:0*/ __Vtemp73;
     QData/*63:0*/ __Vdly__cpu_top__DOT__IF_ID_pc;
     QData/*63:0*/ __Vdly__cpu_top__DOT__EX_MEM_mem_addr;
     QData/*63:0*/ __Vdlyvval__cpu_top__DOT__gpr_e__DOT__gpr__v0;
@@ -96,136 +137,232 @@ VL_INLINE_OPT void Vcpu_top___024root___sequent__TOP__1(Vcpu_top___024root* vlSe
     QData/*63:0*/ __Vdlyvval__cpu_top__DOT__gpr_e__DOT__gpr__v30;
     QData/*63:0*/ __Vdlyvval__cpu_top__DOT__gpr_e__DOT__gpr__v31;
     // Body
+    __Vdly__cpu_top__DOT__ID_EX_bubble = vlSelf->cpu_top__DOT__ID_EX_bubble;
     __Vdly__cpu_top__DOT__ID_EX_regin_sel = vlSelf->cpu_top__DOT__ID_EX_regin_sel;
     __Vdly__cpu_top__DOT__ID_EX_rstrb = vlSelf->cpu_top__DOT__ID_EX_rstrb;
-    __Vdly__cpu_top__DOT__IF_ID_reg_e__DOT__input_valid 
-        = vlSelf->cpu_top__DOT__IF_ID_reg_e__DOT__input_valid;
     __Vdly__cpu_top__DOT__ID_EX_reg_wen = vlSelf->cpu_top__DOT__ID_EX_reg_wen;
-    __Vdly__cpu_top__DOT__EX_MEM_rd_addr = vlSelf->cpu_top__DOT__EX_MEM_rd_addr;
-    __Vdly__cpu_top__DOT__EX_MEM_rstrb = vlSelf->cpu_top__DOT__EX_MEM_rstrb;
     __Vdly__cpu_top__DOT__EX_MEM_reg_wen = vlSelf->cpu_top__DOT__EX_MEM_reg_wen;
+    __Vdly__cpu_top__DOT__EX_MEM_rstrb = vlSelf->cpu_top__DOT__EX_MEM_rstrb;
+    __Vdly__cpu_top__DOT__EX_MEM_inst = vlSelf->cpu_top__DOT__EX_MEM_inst;
+    __Vdly__cpu_top__DOT__EX_MEM_bubble = vlSelf->cpu_top__DOT__EX_MEM_bubble;
+    __Vdly__cpu_top__DOT__EX_MEM_regin_sel = vlSelf->cpu_top__DOT__EX_MEM_regin_sel;
     __Vdly__cpu_top__DOT__EX_MEM_mem_addr = vlSelf->cpu_top__DOT__EX_MEM_mem_addr;
-    __Vdly__cpu_top__DOT__IF_ID_pc = vlSelf->cpu_top__DOT__IF_ID_pc;
     __Vdly__cpu_top__DOT__ID_EX_alu_sext = vlSelf->cpu_top__DOT__ID_EX_alu_sext;
+    __Vdly__cpu_top__DOT__ID_EX_reg_e__DOT__input_valid 
+        = vlSelf->cpu_top__DOT__ID_EX_reg_e__DOT__input_valid;
+    __Vdly__cpu_top__DOT__EX_MEM_rd_addr = vlSelf->cpu_top__DOT__EX_MEM_rd_addr;
+    __Vdly__cpu_top__DOT__EX_MEM_reg_e__DOT__input_valid 
+        = vlSelf->cpu_top__DOT__EX_MEM_reg_e__DOT__input_valid;
+    __Vdly__cpu_top__DOT__IF_ID_pc = vlSelf->cpu_top__DOT__IF_ID_pc;
     __Vdly__cpu_top__DOT__IF_ID_inst = vlSelf->cpu_top__DOT__IF_ID_inst;
-    if (((0x100073U == vlSelf->cpu_top__DOT__IF_ID_inst) 
+    if (((0x100073U == vlSelf->cpu_top__DOT__MEM_WB_inst) 
          & (~ (IData)(vlSelf->I_rst)))) {
-        Vcpu_top___024unit____Vdpiimwrap_sim_end_TOP____024unit();
+        Vcpu_top___024root____Vdpiimwrap_cpu_top__DOT__sim_end_TOP();
     }
-    vlSelf->cpu_top__DOT__MEM_WB_valid = ((~ (IData)(vlSelf->I_rst)) 
-                                          & (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_e__DOT__WB_data_valid));
+    vlSelf->cpu_top__DOT__pc_e__DOT__inst_cache = ((IData)(vlSelf->I_rst)
+                                                    ? 0U
+                                                    : 
+                                                   ((IData)(vlSelf->cpu_top__DOT__pc_e__DOT__ifetch_valid)
+                                                     ? vlSelf->I_inst
+                                                     : vlSelf->cpu_top__DOT__pc_e__DOT__inst_cache));
+    vlSelf->cpu_top__DOT__pc_e__DOT__pc_valid = ((~ (IData)(vlSelf->I_rst)) 
+                                                 & (IData)(vlSelf->cpu_top__DOT__pc_e__DOT__IF_allowin));
+    vlSelf->cpu_top__DOT__pc_e__DOT__input_valid = 
+        ((~ (IData)(vlSelf->I_rst)) & (IData)(vlSelf->O_pc_valid));
+    __Vdly__cpu_top__DOT__ID_EX_bubble = ((~ (IData)(vlSelf->I_rst)) 
+                                          & (((IData)(vlSelf->cpu_top__DOT__IF_ID_valid) 
+                                              & (IData)(vlSelf->cpu_top__DOT__ID_EX_allowin))
+                                              ? (IData)(vlSelf->cpu_top__DOT__IF_ID_bubble)
+                                              : (IData)(vlSelf->cpu_top__DOT__ID_EX_bubble)));
     if (vlSelf->I_rst) {
         __Vdly__cpu_top__DOT__ID_EX_regin_sel = 0U;
         __Vdly__cpu_top__DOT__ID_EX_rstrb = 0U;
     } else {
-        __Vdly__cpu_top__DOT__ID_EX_regin_sel = ((IData)(vlSelf->cpu_top__DOT__IF_ID_reg_e__DOT__input_valid)
+        __Vdly__cpu_top__DOT__ID_EX_regin_sel = (((IData)(vlSelf->cpu_top__DOT__IF_ID_valid) 
+                                                  & (IData)(vlSelf->cpu_top__DOT__ID_EX_allowin))
                                                   ? (IData)(vlSelf->cpu_top__DOT__regin_sel)
                                                   : (IData)(vlSelf->cpu_top__DOT__ID_EX_regin_sel));
-        __Vdly__cpu_top__DOT__ID_EX_rstrb = ((IData)(vlSelf->cpu_top__DOT__IF_ID_reg_e__DOT__input_valid)
+        __Vdly__cpu_top__DOT__ID_EX_rstrb = (((IData)(vlSelf->cpu_top__DOT__IF_ID_valid) 
+                                              & (IData)(vlSelf->cpu_top__DOT__ID_EX_allowin))
                                               ? (IData)(vlSelf->cpu_top__DOT__mem_rstrb)
                                               : (IData)(vlSelf->cpu_top__DOT__ID_EX_rstrb));
     }
-    __Vdly__cpu_top__DOT__IF_ID_reg_e__DOT__input_valid 
-        = ((~ (IData)(vlSelf->I_rst)) & ((IData)(vlSelf->cpu_top__DOT__IF_ID_allowin)
-                                          ? (IData)(vlSelf->I_inst_valid)
-                                          : (IData)(vlSelf->cpu_top__DOT__IF_ID_reg_e__DOT__input_valid)));
     __Vdly__cpu_top__DOT__ID_EX_reg_wen = ((~ (IData)(vlSelf->I_rst)) 
-                                           & ((IData)(vlSelf->cpu_top__DOT__IF_ID_reg_e__DOT__input_valid)
+                                           & (((IData)(vlSelf->cpu_top__DOT__IF_ID_valid) 
+                                               & (IData)(vlSelf->cpu_top__DOT__ID_EX_allowin))
                                                ? (IData)(vlSelf->cpu_top__DOT__reg_wen)
                                                : (IData)(vlSelf->cpu_top__DOT__ID_EX_reg_wen)));
+    vlSelf->cpu_top__DOT__IF_ID_reg_e__DOT__input_valid 
+        = ((~ (IData)(vlSelf->I_rst)) & ((IData)(vlSelf->cpu_top__DOT__IF_ID_allowin)
+                                          ? (IData)(vlSelf->cpu_top__DOT__IF_valid)
+                                          : (IData)(vlSelf->cpu_top__DOT__IF_ID_reg_e__DOT__input_valid)));
     if (vlSelf->I_rst) {
-        vlSelf->cpu_top__DOT__MEM_WB_regin_sel = 0U;
-        __Vdly__cpu_top__DOT__EX_MEM_rd_addr = 0U;
-        __Vdly__cpu_top__DOT__EX_MEM_rstrb = 0U;
+        __Vdly__cpu_top__DOT__EX_MEM_reg_wen = 0U;
+        __Vdly__cpu_top__DOT__EX_MEM_reg_wen = 0U;
+    } else if (((IData)(vlSelf->cpu_top__DOT__ID_EX_reg_e__DOT__input_valid) 
+                & (IData)(vlSelf->cpu_top__DOT__EX_MEM_allowin))) {
+        __Vdly__cpu_top__DOT__EX_MEM_reg_wen = vlSelf->cpu_top__DOT__ID_EX_reg_wen;
+        __Vdly__cpu_top__DOT__EX_MEM_reg_wen = vlSelf->cpu_top__DOT__ID_EX_reg_wen;
     } else {
-        vlSelf->cpu_top__DOT__MEM_WB_regin_sel = ((IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_e__DOT__WB_data_valid)
-                                                   ? (IData)(vlSelf->cpu_top__DOT__EX_MEM_regin_sel)
-                                                   : (IData)(vlSelf->cpu_top__DOT__MEM_WB_regin_sel));
-        __Vdly__cpu_top__DOT__EX_MEM_rd_addr = ((IData)(vlSelf->cpu_top__DOT__ID_EX_valid)
-                                                 ? (IData)(vlSelf->cpu_top__DOT__ID_EX_rd_addr)
-                                                 : (IData)(vlSelf->cpu_top__DOT__EX_MEM_rd_addr));
-        __Vdly__cpu_top__DOT__EX_MEM_rstrb = ((IData)(vlSelf->cpu_top__DOT__ID_EX_valid)
+        __Vdly__cpu_top__DOT__EX_MEM_reg_wen = vlSelf->cpu_top__DOT__EX_MEM_reg_wen;
+        __Vdly__cpu_top__DOT__EX_MEM_reg_wen = vlSelf->cpu_top__DOT__EX_MEM_reg_wen;
+    }
+    if (vlSelf->I_rst) {
+        __Vdly__cpu_top__DOT__EX_MEM_rstrb = 0U;
+        __Vdly__cpu_top__DOT__EX_MEM_inst = 0U;
+    } else {
+        __Vdly__cpu_top__DOT__EX_MEM_rstrb = (((IData)(vlSelf->cpu_top__DOT__ID_EX_reg_e__DOT__input_valid) 
+                                               & (IData)(vlSelf->cpu_top__DOT__EX_MEM_allowin))
                                                ? (IData)(vlSelf->cpu_top__DOT__ID_EX_rstrb)
                                                : (IData)(vlSelf->cpu_top__DOT__EX_MEM_rstrb));
+        __Vdly__cpu_top__DOT__EX_MEM_inst = (((IData)(vlSelf->cpu_top__DOT__ID_EX_reg_e__DOT__input_valid) 
+                                              & (IData)(vlSelf->cpu_top__DOT__EX_MEM_allowin))
+                                              ? vlSelf->cpu_top__DOT__ID_EX_inst
+                                              : vlSelf->cpu_top__DOT__EX_MEM_inst);
     }
-    if (vlSelf->I_rst) {
-        __Vdly__cpu_top__DOT__EX_MEM_reg_wen = 0U;
-        __Vdly__cpu_top__DOT__EX_MEM_reg_wen = 0U;
-    } else if (vlSelf->cpu_top__DOT__ID_EX_valid) {
-        __Vdly__cpu_top__DOT__EX_MEM_reg_wen = vlSelf->cpu_top__DOT__ID_EX_reg_wen;
-        __Vdly__cpu_top__DOT__EX_MEM_reg_wen = vlSelf->cpu_top__DOT__ID_EX_reg_wen;
-    } else {
-        __Vdly__cpu_top__DOT__EX_MEM_reg_wen = vlSelf->cpu_top__DOT__EX_MEM_reg_wen;
-        __Vdly__cpu_top__DOT__EX_MEM_reg_wen = vlSelf->cpu_top__DOT__EX_MEM_reg_wen;
-    }
-    vlSelf->cpu_top__DOT__EX_MEM_valid = ((~ (IData)(vlSelf->I_rst)) 
-                                          & (IData)(vlSelf->cpu_top__DOT__ID_EX_valid));
+    __Vdly__cpu_top__DOT__EX_MEM_bubble = ((~ (IData)(vlSelf->I_rst)) 
+                                           & (((IData)(vlSelf->cpu_top__DOT__ID_EX_reg_e__DOT__input_valid) 
+                                               & (IData)(vlSelf->cpu_top__DOT__EX_MEM_allowin))
+                                               ? (IData)(vlSelf->cpu_top__DOT__ID_EX_bubble)
+                                               : (IData)(vlSelf->cpu_top__DOT__EX_MEM_bubble)));
     vlSelf->cpu_top__DOT__EX_MEM_mem_wen = ((~ (IData)(vlSelf->I_rst)) 
-                                            & ((IData)(vlSelf->cpu_top__DOT__ID_EX_valid)
+                                            & (((IData)(vlSelf->cpu_top__DOT__ID_EX_reg_e__DOT__input_valid) 
+                                                & (IData)(vlSelf->cpu_top__DOT__EX_MEM_allowin))
                                                 ? (IData)(vlSelf->cpu_top__DOT__ID_EX_mem_wen)
                                                 : (IData)(vlSelf->cpu_top__DOT__EX_MEM_mem_wen)));
     if (vlSelf->I_rst) {
+        __Vdly__cpu_top__DOT__EX_MEM_regin_sel = 0U;
         vlSelf->cpu_top__DOT__EX_MEM_wstrb = 0U;
-        vlSelf->cpu_top__DOT__EX_MEM_regin_sel = 0U;
         __Vdly__cpu_top__DOT__EX_MEM_mem_addr = 0ULL;
-        __Vdly__cpu_top__DOT__IF_ID_pc = 0ULL;
-        vlSelf->cpu_top__DOT__MEM_WB_alu_out = 0ULL;
-        vlSelf->cpu_top__DOT__MEM_WB_pc = 0ULL;
         __Vdly__cpu_top__DOT__ID_EX_alu_sext = 0U;
-        vlSelf->cpu_top__DOT__MEM_WB_mem_rstrb = 0U;
-        vlSelf->cpu_top__DOT__current_pc = 0x7ffffffcULL;
-        vlSelf->cpu_top__DOT__MEM_WB_mem_data = 0ULL;
-        vlSelf->cpu_top__DOT__MEM_WB_shamt = 0U;
-        vlSelf->cpu_top__DOT__MEM_WB_rd_addr = 0U;
+        vlSelf->cpu_top__DOT__MEM_WB_inst = 0U;
     } else {
-        vlSelf->cpu_top__DOT__EX_MEM_wstrb = ((IData)(vlSelf->cpu_top__DOT__ID_EX_valid)
-                                               ? (IData)(vlSelf->cpu_top__DOT__ID_EX_wstrb)
-                                               : (IData)(vlSelf->cpu_top__DOT__EX_MEM_wstrb));
-        vlSelf->cpu_top__DOT__EX_MEM_regin_sel = ((IData)(vlSelf->cpu_top__DOT__ID_EX_valid)
+        __Vdly__cpu_top__DOT__EX_MEM_regin_sel = (((IData)(vlSelf->cpu_top__DOT__ID_EX_reg_e__DOT__input_valid) 
+                                                   & (IData)(vlSelf->cpu_top__DOT__EX_MEM_allowin))
                                                    ? (IData)(vlSelf->cpu_top__DOT__ID_EX_regin_sel)
                                                    : (IData)(vlSelf->cpu_top__DOT__EX_MEM_regin_sel));
-        __Vdly__cpu_top__DOT__EX_MEM_mem_addr = ((IData)(vlSelf->cpu_top__DOT__ID_EX_valid)
+        vlSelf->cpu_top__DOT__EX_MEM_wstrb = (((IData)(vlSelf->cpu_top__DOT__ID_EX_reg_e__DOT__input_valid) 
+                                               & (IData)(vlSelf->cpu_top__DOT__EX_MEM_allowin))
+                                               ? (IData)(vlSelf->cpu_top__DOT__ID_EX_wstrb)
+                                               : (IData)(vlSelf->cpu_top__DOT__EX_MEM_wstrb));
+        __Vdly__cpu_top__DOT__EX_MEM_mem_addr = (((IData)(vlSelf->cpu_top__DOT__ID_EX_reg_e__DOT__input_valid) 
+                                                  & (IData)(vlSelf->cpu_top__DOT__EX_MEM_allowin))
                                                   ? vlSelf->cpu_top__DOT__alu_e__DOT__result
                                                   : vlSelf->cpu_top__DOT__EX_MEM_mem_addr);
-        __Vdly__cpu_top__DOT__IF_ID_pc = (((IData)(vlSelf->I_inst_valid) 
-                                           & (IData)(vlSelf->cpu_top__DOT__IF_ID_allowin))
-                                           ? vlSelf->cpu_top__DOT__current_pc
-                                           : vlSelf->cpu_top__DOT__IF_ID_pc);
-        vlSelf->cpu_top__DOT__MEM_WB_alu_out = ((IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_e__DOT__WB_data_valid)
-                                                 ? vlSelf->cpu_top__DOT__EX_MEM_alu_out
-                                                 : vlSelf->cpu_top__DOT__MEM_WB_alu_out);
-        vlSelf->cpu_top__DOT__MEM_WB_pc = ((IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_e__DOT__WB_data_valid)
-                                            ? vlSelf->cpu_top__DOT__EX_MEM_pc
-                                            : vlSelf->cpu_top__DOT__MEM_WB_pc);
-        __Vdly__cpu_top__DOT__ID_EX_alu_sext = ((IData)(vlSelf->cpu_top__DOT__IF_ID_reg_e__DOT__input_valid)
+        __Vdly__cpu_top__DOT__ID_EX_alu_sext = (((IData)(vlSelf->cpu_top__DOT__IF_ID_valid) 
+                                                 & (IData)(vlSelf->cpu_top__DOT__ID_EX_allowin))
                                                  ? (IData)(vlSelf->cpu_top__DOT__alu_op_sext)
                                                  : (IData)(vlSelf->cpu_top__DOT__ID_EX_alu_sext));
-        vlSelf->cpu_top__DOT__MEM_WB_mem_rstrb = ((IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_e__DOT__WB_data_valid)
+        vlSelf->cpu_top__DOT__MEM_WB_inst = (((IData)(vlSelf->cpu_top__DOT__MEM_WB_allowin) 
+                                              & (IData)(vlSelf->cpu_top__DOT__EX_MEM_reg_e__DOT__input_valid))
+                                              ? vlSelf->cpu_top__DOT__EX_MEM_inst
+                                              : vlSelf->cpu_top__DOT__MEM_WB_inst);
+    }
+    vlSelf->cpu_top__DOT__MEM_WB_bubble = ((~ (IData)(vlSelf->I_rst)) 
+                                           & (((IData)(vlSelf->cpu_top__DOT__MEM_WB_allowin) 
+                                               & (IData)(vlSelf->cpu_top__DOT__EX_MEM_reg_e__DOT__input_valid))
+                                               ? (IData)(vlSelf->cpu_top__DOT__EX_MEM_bubble)
+                                               : (IData)(vlSelf->cpu_top__DOT__MEM_WB_bubble)));
+    vlSelf->cpu_top__DOT__IF_ID_bubble = (1U & ((~ (IData)(vlSelf->I_rst)) 
+                                                & (((IData)(vlSelf->cpu_top__DOT__IF_valid) 
+                                                    & (IData)(vlSelf->cpu_top__DOT__IF_ID_allowin))
+                                                    ? 
+                                                   (~ (IData)(vlSelf->cpu_top__DOT__dnpc_sel))
+                                                    : (IData)(vlSelf->cpu_top__DOT__IF_ID_bubble))));
+    __Vdly__cpu_top__DOT__ID_EX_reg_e__DOT__input_valid 
+        = ((~ (IData)(vlSelf->I_rst)) & ((IData)(vlSelf->cpu_top__DOT__ID_EX_allowin)
+                                          ? (IData)(vlSelf->cpu_top__DOT__IF_ID_valid)
+                                          : (IData)(vlSelf->cpu_top__DOT__ID_EX_reg_e__DOT__input_valid)));
+    if (vlSelf->I_rst) {
+        __Vdly__cpu_top__DOT__EX_MEM_rd_addr = 0U;
+        vlSelf->cpu_top__DOT__MEM_WB_alu_out = 0ULL;
+        vlSelf->cpu_top__DOT__MEM_WB_pc = 0ULL;
+        vlSelf->cpu_top__DOT__MEM_WB_mem_rstrb = 0U;
+    } else {
+        __Vdly__cpu_top__DOT__EX_MEM_rd_addr = (((IData)(vlSelf->cpu_top__DOT__ID_EX_reg_e__DOT__input_valid) 
+                                                 & (IData)(vlSelf->cpu_top__DOT__EX_MEM_allowin))
+                                                 ? (IData)(vlSelf->cpu_top__DOT__ID_EX_rd_addr)
+                                                 : (IData)(vlSelf->cpu_top__DOT__EX_MEM_rd_addr));
+        vlSelf->cpu_top__DOT__MEM_WB_alu_out = (((IData)(vlSelf->cpu_top__DOT__MEM_WB_allowin) 
+                                                 & (IData)(vlSelf->cpu_top__DOT__EX_MEM_reg_e__DOT__input_valid))
+                                                 ? vlSelf->cpu_top__DOT__EX_MEM_alu_out
+                                                 : vlSelf->cpu_top__DOT__MEM_WB_alu_out);
+        vlSelf->cpu_top__DOT__MEM_WB_pc = (((IData)(vlSelf->cpu_top__DOT__MEM_WB_allowin) 
+                                            & (IData)(vlSelf->cpu_top__DOT__EX_MEM_reg_e__DOT__input_valid))
+                                            ? vlSelf->cpu_top__DOT__EX_MEM_pc
+                                            : vlSelf->cpu_top__DOT__MEM_WB_pc);
+        vlSelf->cpu_top__DOT__MEM_WB_mem_rstrb = (((IData)(vlSelf->cpu_top__DOT__MEM_WB_allowin) 
+                                                   & (IData)(vlSelf->cpu_top__DOT__EX_MEM_reg_e__DOT__input_valid))
                                                    ? (IData)(vlSelf->cpu_top__DOT__EX_MEM_rstrb)
                                                    : (IData)(vlSelf->cpu_top__DOT__MEM_WB_mem_rstrb));
-        vlSelf->cpu_top__DOT__current_pc = ((IData)(vlSelf->O_pc_valid)
-                                             ? vlSelf->cpu_top__DOT__dnpc
-                                             : vlSelf->cpu_top__DOT__current_pc);
-        vlSelf->cpu_top__DOT__MEM_WB_mem_data = ((IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_e__DOT__WB_data_valid)
+    }
+    __Vdly__cpu_top__DOT__EX_MEM_reg_e__DOT__input_valid 
+        = ((~ (IData)(vlSelf->I_rst)) & ((IData)(vlSelf->cpu_top__DOT__EX_MEM_allowin)
+                                          ? (IData)(vlSelf->cpu_top__DOT__ID_EX_reg_e__DOT__input_valid)
+                                          : (IData)(vlSelf->cpu_top__DOT__EX_MEM_reg_e__DOT__input_valid)));
+    if (vlSelf->I_rst) {
+        vlSelf->cpu_top__DOT__MEM_WB_mem_data = 0ULL;
+        vlSelf->cpu_top__DOT__MEM_WB_shamt = 0U;
+    } else {
+        vlSelf->cpu_top__DOT__MEM_WB_mem_data = (((IData)(vlSelf->cpu_top__DOT__MEM_WB_allowin) 
+                                                  & (IData)(vlSelf->cpu_top__DOT__EX_MEM_reg_e__DOT__input_valid))
                                                   ? vlSelf->I_mem_rd_data
                                                   : vlSelf->cpu_top__DOT__MEM_WB_mem_data);
         vlSelf->cpu_top__DOT__MEM_WB_shamt = (7U & 
-                                              ((IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_e__DOT__WB_data_valid)
+                                              (((IData)(vlSelf->cpu_top__DOT__MEM_WB_allowin) 
+                                                & (IData)(vlSelf->cpu_top__DOT__EX_MEM_reg_e__DOT__input_valid))
                                                 ? (IData)(vlSelf->cpu_top__DOT__EX_MEM_mem_addr)
                                                 : (IData)(vlSelf->cpu_top__DOT__MEM_WB_shamt)));
-        vlSelf->cpu_top__DOT__MEM_WB_rd_addr = ((IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_e__DOT__WB_data_valid)
+    }
+    vlSelf->cpu_top__DOT__pc_e__DOT__cache_valid = 
+        ((~ (IData)(vlSelf->I_rst)) & (((IData)(vlSelf->cpu_top__DOT__pc_e__DOT__ifetch_valid) 
+                                        & (~ (IData)(vlSelf->cpu_top__DOT__pc_e__DOT__IF_allowin))) 
+                                       | ((~ ((IData)(vlSelf->cpu_top__DOT__pc_e__DOT__cache_valid) 
+                                              & (IData)(vlSelf->cpu_top__DOT__IF_ID_allowin))) 
+                                          & (IData)(vlSelf->cpu_top__DOT__pc_e__DOT__cache_valid))));
+    if (vlSelf->I_rst) {
+        __Vdly__cpu_top__DOT__IF_ID_pc = 0ULL;
+        vlSelf->cpu_top__DOT__pc_e__DOT__pc_cache = 0ULL;
+        vlSelf->cpu_top__DOT__MEM_WB_rd_addr = 0U;
+    } else {
+        __Vdly__cpu_top__DOT__IF_ID_pc = (((IData)(vlSelf->cpu_top__DOT__IF_valid) 
+                                           & (IData)(vlSelf->cpu_top__DOT__IF_ID_allowin))
+                                           ? (((QData)((IData)(
+                                                               ((1U 
+                                                                 & (IData)(vlSelf->cpu_top__DOT__dnpc_sel))
+                                                                 ? (IData)(
+                                                                           (vlSelf->cpu_top__DOT__current_pc 
+                                                                            >> 0x20U))
+                                                                 : (IData)(
+                                                                           (vlSelf->cpu_top__DOT__current_pc 
+                                                                            >> 0x20U))))) 
+                                               << 0x20U) 
+                                              | (QData)((IData)(
+                                                                ((1U 
+                                                                  & (IData)(vlSelf->cpu_top__DOT__dnpc_sel))
+                                                                  ? (IData)(vlSelf->cpu_top__DOT__current_pc)
+                                                                  : (IData)(vlSelf->cpu_top__DOT__current_pc)))))
+                                           : vlSelf->cpu_top__DOT__IF_ID_pc);
+        vlSelf->cpu_top__DOT__pc_e__DOT__pc_cache = 
+            ((IData)(vlSelf->cpu_top__DOT__pc_e__DOT__ifetch_valid)
+              ? vlSelf->cpu_top__DOT__pc_e__DOT__pc
+              : vlSelf->cpu_top__DOT__pc_e__DOT__pc_cache);
+        vlSelf->cpu_top__DOT__MEM_WB_rd_addr = (((IData)(vlSelf->cpu_top__DOT__MEM_WB_allowin) 
+                                                 & (IData)(vlSelf->cpu_top__DOT__EX_MEM_reg_e__DOT__input_valid))
                                                  ? (IData)(vlSelf->cpu_top__DOT__EX_MEM_rd_addr)
                                                  : (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr));
     }
     vlSelf->cpu_top__DOT__MEM_WB_reg_wen = ((~ (IData)(vlSelf->I_rst)) 
-                                            & ((IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_e__DOT__WB_data_valid)
+                                            & (((IData)(vlSelf->cpu_top__DOT__MEM_WB_allowin) 
+                                                & (IData)(vlSelf->cpu_top__DOT__EX_MEM_reg_e__DOT__input_valid))
                                                 ? (IData)(vlSelf->cpu_top__DOT__EX_MEM_reg_wen)
                                                 : (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_wen)));
     if (vlSelf->I_rst) {
         vlSelf->cpu_top__DOT__EX_MEM_alu_out = 0ULL;
-        vlSelf->cpu_top__DOT__ID_EX_rd_addr = 0U;
+        vlSelf->cpu_top__DOT__MEM_WB_regin_sel = 0U;
     } else {
-        vlSelf->cpu_top__DOT__EX_MEM_alu_out = ((IData)(vlSelf->cpu_top__DOT__ID_EX_valid)
+        vlSelf->cpu_top__DOT__EX_MEM_alu_out = (((IData)(vlSelf->cpu_top__DOT__ID_EX_reg_e__DOT__input_valid) 
+                                                 & (IData)(vlSelf->cpu_top__DOT__EX_MEM_allowin))
                                                  ? 
                                                 ((IData)(vlSelf->cpu_top__DOT__ID_EX_word_op_mask)
                                                   ? 
@@ -250,50 +387,76 @@ VL_INLINE_OPT void Vcpu_top___024root___sequent__TOP__1(Vcpu_top___024root* vlSe
                                                   | (QData)((IData)(vlSelf->cpu_top__DOT__alu_e__DOT__dword_result)))
                                                   : vlSelf->cpu_top__DOT__alu_e__DOT__dword_result)
                                                  : vlSelf->cpu_top__DOT__EX_MEM_alu_out);
-        vlSelf->cpu_top__DOT__ID_EX_rd_addr = (0x1fU 
-                                               & ((IData)(vlSelf->cpu_top__DOT__IF_ID_reg_e__DOT__input_valid)
-                                                   ? 
-                                                  (vlSelf->cpu_top__DOT__IF_ID_inst 
-                                                   >> 7U)
-                                                   : (IData)(vlSelf->cpu_top__DOT__ID_EX_rd_addr)));
+        vlSelf->cpu_top__DOT__MEM_WB_regin_sel = (((IData)(vlSelf->cpu_top__DOT__MEM_WB_allowin) 
+                                                   & (IData)(vlSelf->cpu_top__DOT__EX_MEM_reg_e__DOT__input_valid))
+                                                   ? (IData)(vlSelf->cpu_top__DOT__EX_MEM_regin_sel)
+                                                   : (IData)(vlSelf->cpu_top__DOT__MEM_WB_regin_sel));
     }
+    vlSelf->cpu_top__DOT__MEM_WB_reg_e__DOT__input_valid 
+        = ((~ (IData)(vlSelf->I_rst)) & ((IData)(vlSelf->cpu_top__DOT__MEM_WB_allowin)
+                                          ? (IData)(vlSelf->cpu_top__DOT__EX_MEM_reg_e__DOT__input_valid)
+                                          : (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_e__DOT__input_valid)));
+    vlSelf->cpu_top__DOT__ID_EX_inst = ((IData)(vlSelf->I_rst)
+                                         ? 0U : (((IData)(vlSelf->cpu_top__DOT__IF_ID_valid) 
+                                                  & (IData)(vlSelf->cpu_top__DOT__ID_EX_allowin))
+                                                  ? vlSelf->cpu_top__DOT__IF_ID_inst
+                                                  : vlSelf->cpu_top__DOT__ID_EX_inst));
     vlSelf->cpu_top__DOT__ID_EX_mem_wen = ((~ (IData)(vlSelf->I_rst)) 
-                                           & ((IData)(vlSelf->cpu_top__DOT__IF_ID_reg_e__DOT__input_valid)
+                                           & (((IData)(vlSelf->cpu_top__DOT__IF_ID_valid) 
+                                               & (IData)(vlSelf->cpu_top__DOT__ID_EX_allowin))
                                                ? (0x23U 
                                                   == 
                                                   (0x7fU 
                                                    & vlSelf->cpu_top__DOT__IF_ID_inst))
                                                : (IData)(vlSelf->cpu_top__DOT__ID_EX_mem_wen)));
-    vlSelf->cpu_top__DOT__ID_EX_wstrb = ((IData)(vlSelf->I_rst)
-                                          ? 0U : (0xffU 
-                                                  & ((IData)(vlSelf->cpu_top__DOT__IF_ID_reg_e__DOT__input_valid)
-                                                      ? 
-                                                     ((((- (IData)((IData)(
-                                                                           (0x3023U 
+    if (vlSelf->I_rst) {
+        vlSelf->cpu_top__DOT__ID_EX_wstrb = 0U;
+        vlSelf->cpu_top__DOT__ID_EX_rd_addr = 0U;
+        vlSelf->cpu_top__DOT__EX_MEM_rs2 = 0ULL;
+    } else {
+        vlSelf->cpu_top__DOT__ID_EX_wstrb = (0xffU 
+                                             & (((IData)(vlSelf->cpu_top__DOT__IF_ID_valid) 
+                                                 & (IData)(vlSelf->cpu_top__DOT__ID_EX_allowin))
+                                                 ? 
+                                                ((((- (IData)((IData)(
+                                                                      (0x3023U 
+                                                                       == 
+                                                                       (0x707fU 
+                                                                        & vlSelf->cpu_top__DOT__IF_ID_inst))))) 
+                                                   | (0xfU 
+                                                      & (- (IData)((IData)(
+                                                                           (0x2023U 
                                                                             == 
                                                                             (0x707fU 
-                                                                             & vlSelf->cpu_top__DOT__IF_ID_inst))))) 
-                                                        | (0xfU 
-                                                           & (- (IData)((IData)(
-                                                                                (0x2023U 
-                                                                                == 
-                                                                                (0x707fU 
-                                                                                & vlSelf->cpu_top__DOT__IF_ID_inst))))))) 
-                                                       | (3U 
-                                                          & (- (IData)((IData)(
-                                                                               (0x1023U 
-                                                                                == 
-                                                                                (0x707fU 
-                                                                                & vlSelf->cpu_top__DOT__IF_ID_inst))))))) 
-                                                      | (1U 
-                                                         & (- (IData)((IData)(
-                                                                              (0x23U 
-                                                                               == 
-                                                                               (0x707fU 
-                                                                                & vlSelf->cpu_top__DOT__IF_ID_inst)))))))
-                                                      : (IData)(vlSelf->cpu_top__DOT__ID_EX_wstrb))));
+                                                                             & vlSelf->cpu_top__DOT__IF_ID_inst))))))) 
+                                                  | (3U 
+                                                     & (- (IData)((IData)(
+                                                                          (0x1023U 
+                                                                           == 
+                                                                           (0x707fU 
+                                                                            & vlSelf->cpu_top__DOT__IF_ID_inst))))))) 
+                                                 | (1U 
+                                                    & (- (IData)((IData)(
+                                                                         (0x23U 
+                                                                          == 
+                                                                          (0x707fU 
+                                                                           & vlSelf->cpu_top__DOT__IF_ID_inst)))))))
+                                                 : (IData)(vlSelf->cpu_top__DOT__ID_EX_wstrb)));
+        vlSelf->cpu_top__DOT__ID_EX_rd_addr = (0x1fU 
+                                               & (((IData)(vlSelf->cpu_top__DOT__IF_ID_valid) 
+                                                   & (IData)(vlSelf->cpu_top__DOT__ID_EX_allowin))
+                                                   ? 
+                                                  (vlSelf->cpu_top__DOT__IF_ID_inst 
+                                                   >> 7U)
+                                                   : (IData)(vlSelf->cpu_top__DOT__ID_EX_rd_addr)));
+        vlSelf->cpu_top__DOT__EX_MEM_rs2 = (((IData)(vlSelf->cpu_top__DOT__ID_EX_reg_e__DOT__input_valid) 
+                                             & (IData)(vlSelf->cpu_top__DOT__EX_MEM_allowin))
+                                             ? vlSelf->cpu_top__DOT__ID_EX_rs2
+                                             : vlSelf->cpu_top__DOT__EX_MEM_rs2);
+    }
     vlSelf->cpu_top__DOT__ID_EX_word_op_mask = ((~ (IData)(vlSelf->I_rst)) 
-                                                & ((IData)(vlSelf->cpu_top__DOT__IF_ID_reg_e__DOT__input_valid)
+                                                & (((IData)(vlSelf->cpu_top__DOT__IF_ID_valid) 
+                                                    & (IData)(vlSelf->cpu_top__DOT__ID_EX_allowin))
                                                     ? 
                                                    ((0x1bU 
                                                      == 
@@ -304,7 +467,8 @@ VL_INLINE_OPT void Vcpu_top___024root___sequent__TOP__1(Vcpu_top___024root* vlSe
                                                        (0x7fU 
                                                         & vlSelf->cpu_top__DOT__IF_ID_inst)))
                                                     : (IData)(vlSelf->cpu_top__DOT__ID_EX_word_op_mask)));
-    __Vtemp18 = ((IData)(vlSelf->I_rst) ? 0U : ((IData)(vlSelf->cpu_top__DOT__IF_ID_reg_e__DOT__input_valid)
+    __Vtemp30 = ((IData)(vlSelf->I_rst) ? 0U : (((IData)(vlSelf->cpu_top__DOT__IF_ID_valid) 
+                                                 & (IData)(vlSelf->cpu_top__DOT__ID_EX_allowin))
                                                  ? 
                                                 ((((((((((((((1U 
                                                               & (- (IData)((IData)(vlSelf->cpu_top__DOT__decoder_e__DOT__add_flag)))) 
@@ -584,14 +748,14 @@ VL_INLINE_OPT void Vcpu_top___024root___sequent__TOP__1(Vcpu_top___024root* vlSe
                                                                                 (vlSelf->cpu_top__DOT__IF_ID_inst 
                                                                                 >> 0x19U)))))))))
                                                  : (IData)(vlSelf->cpu_top__DOT__ID_EX_alu_op_sel)));
-    vlSelf->cpu_top__DOT__ID_EX_alu_op_sel = __Vtemp18;
+    vlSelf->cpu_top__DOT__ID_EX_alu_op_sel = __Vtemp30;
     if (vlSelf->I_rst) {
         vlSelf->cpu_top__DOT__ID_EX_op2_sel = 0U;
-        vlSelf->cpu_top__DOT__EX_MEM_rs2 = 0ULL;
         __Vdly__cpu_top__DOT__IF_ID_inst = 0U;
         vlSelf->cpu_top__DOT__ID_EX_imm = 0ULL;
         vlSelf->cpu_top__DOT__ID_EX_rs2 = 0ULL;
         vlSelf->cpu_top__DOT__ID_EX_op1_sel = 0U;
+        vlSelf->cpu_top__DOT__EX_MEM_pc = 0ULL;
         __Vdlyvval__cpu_top__DOT__gpr_e__DOT__gpr__v0 = 0ULL;
         __Vdlyvval__cpu_top__DOT__gpr_e__DOT__gpr__v1 = 0ULL;
         __Vdlyvval__cpu_top__DOT__gpr_e__DOT__gpr__v2 = 0ULL;
@@ -624,11 +788,11 @@ VL_INLINE_OPT void Vcpu_top___024root___sequent__TOP__1(Vcpu_top___024root* vlSe
         __Vdlyvval__cpu_top__DOT__gpr_e__DOT__gpr__v29 = 0ULL;
         __Vdlyvval__cpu_top__DOT__gpr_e__DOT__gpr__v30 = 0ULL;
         __Vdlyvval__cpu_top__DOT__gpr_e__DOT__gpr__v31 = 0ULL;
-        vlSelf->cpu_top__DOT__EX_MEM_pc = 0ULL;
         vlSelf->cpu_top__DOT__ID_EX_pc = 0ULL;
         vlSelf->cpu_top__DOT__ID_EX_rs1 = 0ULL;
     } else {
-        vlSelf->cpu_top__DOT__ID_EX_op2_sel = ((IData)(vlSelf->cpu_top__DOT__IF_ID_reg_e__DOT__input_valid)
+        vlSelf->cpu_top__DOT__ID_EX_op2_sel = (((IData)(vlSelf->cpu_top__DOT__IF_ID_valid) 
+                                                & (IData)(vlSelf->cpu_top__DOT__ID_EX_allowin))
                                                 ? (
                                                    (1U 
                                                     & (- (IData)((IData)(vlSelf->cpu_top__DOT__decoder_e__DOT__typeR)))) 
@@ -649,20 +813,23 @@ VL_INLINE_OPT void Vcpu_top___024root___sequent__TOP__1(Vcpu_top___024root* vlSe
                                                                          & vlSelf->cpu_top__DOT__IF_ID_inst))) 
                                                                     | (IData)(vlSelf->cpu_top__DOT__decoder_e__DOT__typeU))))))
                                                 : (IData)(vlSelf->cpu_top__DOT__ID_EX_op2_sel));
-        vlSelf->cpu_top__DOT__EX_MEM_rs2 = ((IData)(vlSelf->cpu_top__DOT__ID_EX_valid)
-                                             ? vlSelf->cpu_top__DOT__ID_EX_rs2
-                                             : vlSelf->cpu_top__DOT__EX_MEM_rs2);
-        __Vdly__cpu_top__DOT__IF_ID_inst = (((IData)(vlSelf->I_inst_valid) 
+        __Vdly__cpu_top__DOT__IF_ID_inst = (((IData)(vlSelf->cpu_top__DOT__IF_valid) 
                                              & (IData)(vlSelf->cpu_top__DOT__IF_ID_allowin))
-                                             ? vlSelf->I_inst
+                                             ? ((1U 
+                                                 & (IData)(vlSelf->cpu_top__DOT__dnpc_sel))
+                                                 ? vlSelf->cpu_top__DOT__current_inst
+                                                 : 0x37U)
                                              : vlSelf->cpu_top__DOT__IF_ID_inst);
-        vlSelf->cpu_top__DOT__ID_EX_imm = ((IData)(vlSelf->cpu_top__DOT__IF_ID_reg_e__DOT__input_valid)
+        vlSelf->cpu_top__DOT__ID_EX_imm = (((IData)(vlSelf->cpu_top__DOT__IF_ID_valid) 
+                                            & (IData)(vlSelf->cpu_top__DOT__ID_EX_allowin))
                                             ? vlSelf->cpu_top__DOT__imm
                                             : vlSelf->cpu_top__DOT__ID_EX_imm);
-        vlSelf->cpu_top__DOT__ID_EX_rs2 = ((IData)(vlSelf->cpu_top__DOT__IF_ID_reg_e__DOT__input_valid)
+        vlSelf->cpu_top__DOT__ID_EX_rs2 = (((IData)(vlSelf->cpu_top__DOT__IF_ID_valid) 
+                                            & (IData)(vlSelf->cpu_top__DOT__ID_EX_allowin))
                                             ? vlSelf->cpu_top__DOT__rs2_data
                                             : vlSelf->cpu_top__DOT__ID_EX_rs2);
-        vlSelf->cpu_top__DOT__ID_EX_op1_sel = ((IData)(vlSelf->cpu_top__DOT__IF_ID_reg_e__DOT__input_valid)
+        vlSelf->cpu_top__DOT__ID_EX_op1_sel = (((IData)(vlSelf->cpu_top__DOT__IF_ID_valid) 
+                                                & (IData)(vlSelf->cpu_top__DOT__ID_EX_allowin))
                                                 ? (
                                                    ((1U 
                                                      & (- (IData)(
@@ -693,6 +860,10 @@ VL_INLINE_OPT void Vcpu_top___024root___sequent__TOP__1(Vcpu_top___024root* vlSe
                                                                     (0x7fU 
                                                                      & vlSelf->cpu_top__DOT__IF_ID_inst))))))
                                                 : (IData)(vlSelf->cpu_top__DOT__ID_EX_op1_sel));
+        vlSelf->cpu_top__DOT__EX_MEM_pc = (((IData)(vlSelf->cpu_top__DOT__ID_EX_reg_e__DOT__input_valid) 
+                                            & (IData)(vlSelf->cpu_top__DOT__EX_MEM_allowin))
+                                            ? vlSelf->cpu_top__DOT__ID_EX_pc
+                                            : vlSelf->cpu_top__DOT__EX_MEM_pc);
         __Vdlyvval__cpu_top__DOT__gpr_e__DOT__gpr__v0 
             = (vlSelf->cpu_top__DOT__gpr_e__DOT__wen
                [0U] ? vlSelf->cpu_top__DOT__wr_data
@@ -853,25 +1024,32 @@ VL_INLINE_OPT void Vcpu_top___024root___sequent__TOP__1(Vcpu_top___024root* vlSe
                [0x1fU] ? vlSelf->cpu_top__DOT__wr_data
                 : vlSelf->cpu_top__DOT__gpr_e__DOT__gpr
                [0x1fU]);
-        vlSelf->cpu_top__DOT__EX_MEM_pc = ((IData)(vlSelf->cpu_top__DOT__ID_EX_valid)
-                                            ? vlSelf->cpu_top__DOT__ID_EX_pc
-                                            : vlSelf->cpu_top__DOT__EX_MEM_pc);
-        vlSelf->cpu_top__DOT__ID_EX_pc = ((IData)(vlSelf->cpu_top__DOT__IF_ID_reg_e__DOT__input_valid)
+        vlSelf->cpu_top__DOT__ID_EX_pc = (((IData)(vlSelf->cpu_top__DOT__IF_ID_valid) 
+                                           & (IData)(vlSelf->cpu_top__DOT__ID_EX_allowin))
                                            ? vlSelf->cpu_top__DOT__IF_ID_pc
                                            : vlSelf->cpu_top__DOT__ID_EX_pc);
-        vlSelf->cpu_top__DOT__ID_EX_rs1 = ((IData)(vlSelf->cpu_top__DOT__IF_ID_reg_e__DOT__input_valid)
+        vlSelf->cpu_top__DOT__ID_EX_rs1 = (((IData)(vlSelf->cpu_top__DOT__IF_ID_valid) 
+                                            & (IData)(vlSelf->cpu_top__DOT__ID_EX_allowin))
                                             ? vlSelf->cpu_top__DOT__rs1_data
                                             : vlSelf->cpu_top__DOT__ID_EX_rs1);
     }
-    vlSelf->cpu_top__DOT__ID_EX_rstrb = __Vdly__cpu_top__DOT__ID_EX_rstrb;
     vlSelf->cpu_top__DOT__ID_EX_reg_wen = __Vdly__cpu_top__DOT__ID_EX_reg_wen;
+    vlSelf->cpu_top__DOT__ID_EX_rstrb = __Vdly__cpu_top__DOT__ID_EX_rstrb;
+    vlSelf->cpu_top__DOT__ID_EX_bubble = __Vdly__cpu_top__DOT__ID_EX_bubble;
     vlSelf->cpu_top__DOT__ID_EX_regin_sel = __Vdly__cpu_top__DOT__ID_EX_regin_sel;
+    vlSelf->cpu_top__DOT__EX_MEM_inst = __Vdly__cpu_top__DOT__EX_MEM_inst;
+    vlSelf->cpu_top__DOT__EX_MEM_bubble = __Vdly__cpu_top__DOT__EX_MEM_bubble;
     vlSelf->cpu_top__DOT__EX_MEM_rstrb = __Vdly__cpu_top__DOT__EX_MEM_rstrb;
     vlSelf->cpu_top__DOT__EX_MEM_mem_addr = __Vdly__cpu_top__DOT__EX_MEM_mem_addr;
     vlSelf->cpu_top__DOT__EX_MEM_rd_addr = __Vdly__cpu_top__DOT__EX_MEM_rd_addr;
     vlSelf->cpu_top__DOT__EX_MEM_reg_wen = __Vdly__cpu_top__DOT__EX_MEM_reg_wen;
     vlSelf->cpu_top__DOT__ID_EX_alu_sext = __Vdly__cpu_top__DOT__ID_EX_alu_sext;
+    vlSelf->cpu_top__DOT__EX_MEM_regin_sel = __Vdly__cpu_top__DOT__EX_MEM_regin_sel;
+    vlSelf->cpu_top__DOT__EX_MEM_reg_e__DOT__input_valid 
+        = __Vdly__cpu_top__DOT__EX_MEM_reg_e__DOT__input_valid;
     vlSelf->cpu_top__DOT__IF_ID_inst = __Vdly__cpu_top__DOT__IF_ID_inst;
+    vlSelf->cpu_top__DOT__ID_EX_reg_e__DOT__input_valid 
+        = __Vdly__cpu_top__DOT__ID_EX_reg_e__DOT__input_valid;
     vlSelf->cpu_top__DOT__gpr_e__DOT__gpr[0U] = __Vdlyvval__cpu_top__DOT__gpr_e__DOT__gpr__v0;
     vlSelf->cpu_top__DOT__gpr_e__DOT__gpr[1U] = __Vdlyvval__cpu_top__DOT__gpr_e__DOT__gpr__v1;
     vlSelf->cpu_top__DOT__gpr_e__DOT__gpr[2U] = __Vdlyvval__cpu_top__DOT__gpr_e__DOT__gpr__v2;
@@ -906,183 +1084,17 @@ VL_INLINE_OPT void Vcpu_top___024root___sequent__TOP__1(Vcpu_top___024root* vlSe
     vlSelf->cpu_top__DOT__gpr_e__DOT__gpr[0x1fU] = __Vdlyvval__cpu_top__DOT__gpr_e__DOT__gpr__v31;
     vlSelf->cpu_top__DOT__IF_ID_pc = __Vdly__cpu_top__DOT__IF_ID_pc;
     vlSelf->O_mem_wen = vlSelf->cpu_top__DOT__EX_MEM_mem_wen;
-    vlSelf->O_mem_rd_en = (1U & ((IData)(vlSelf->cpu_top__DOT__EX_MEM_regin_sel) 
-                                 >> 1U));
-    vlSelf->O_pc_valid = ((~ (IData)(vlSelf->I_rst)) 
-                          & (IData)(vlSelf->cpu_top__DOT__IF_ID_allowin));
     vlSelf->O_mem_addr = vlSelf->cpu_top__DOT__EX_MEM_mem_addr;
     vlSelf->O_mem_wr_strb = (0xffU & ((IData)(vlSelf->cpu_top__DOT__EX_MEM_wstrb) 
                                       << (7U & (IData)(vlSelf->cpu_top__DOT__EX_MEM_mem_addr))));
     vlSelf->cpu_top__DOT__mem_ld_e__DOT__ld_data = 
         (vlSelf->cpu_top__DOT__MEM_WB_mem_data >> ((IData)(vlSelf->cpu_top__DOT__MEM_WB_shamt) 
                                                    << 3U));
-    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[1U] = ((1U 
-                                                  == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
-                                                  ? 
-                                                 (1U 
-                                                  & (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_wen))
-                                                  : 0U);
-    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[2U] = ((2U 
-                                                  == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
-                                                  ? 
-                                                 (1U 
-                                                  & (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_wen))
-                                                  : 0U);
-    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[3U] = ((3U 
-                                                  == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
-                                                  ? 
-                                                 (1U 
-                                                  & (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_wen))
-                                                  : 0U);
-    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[4U] = ((4U 
-                                                  == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
-                                                  ? 
-                                                 (1U 
-                                                  & (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_wen))
-                                                  : 0U);
-    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[5U] = ((5U 
-                                                  == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
-                                                  ? 
-                                                 (1U 
-                                                  & (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_wen))
-                                                  : 0U);
-    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[6U] = ((6U 
-                                                  == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
-                                                  ? 
-                                                 (1U 
-                                                  & (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_wen))
-                                                  : 0U);
-    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[7U] = ((7U 
-                                                  == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
-                                                  ? 
-                                                 (1U 
-                                                  & (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_wen))
-                                                  : 0U);
-    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[8U] = ((8U 
-                                                  == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
-                                                  ? 
-                                                 (1U 
-                                                  & (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_wen))
-                                                  : 0U);
-    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[9U] = ((9U 
-                                                  == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
-                                                  ? 
-                                                 (1U 
-                                                  & (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_wen))
-                                                  : 0U);
-    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0xaU] = (
-                                                   (0xaU 
-                                                    == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
-                                                    ? 
-                                                   (1U 
-                                                    & (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_wen))
-                                                    : 0U);
-    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0xbU] = (
-                                                   (0xbU 
-                                                    == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
-                                                    ? 
-                                                   (1U 
-                                                    & (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_wen))
-                                                    : 0U);
-    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0xcU] = (
-                                                   (0xcU 
-                                                    == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
-                                                    ? 
-                                                   (1U 
-                                                    & (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_wen))
-                                                    : 0U);
-    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0xdU] = (
-                                                   (0xdU 
-                                                    == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
-                                                    ? 
-                                                   (1U 
-                                                    & (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_wen))
-                                                    : 0U);
-    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0xeU] = (
-                                                   (0xeU 
-                                                    == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
-                                                    ? 
-                                                   (1U 
-                                                    & (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_wen))
-                                                    : 0U);
-    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0xfU] = (
-                                                   (0xfU 
-                                                    == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
-                                                    ? 
-                                                   (1U 
-                                                    & (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_wen))
-                                                    : 0U);
-    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0x10U] = 
-        ((0x10U == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
-          ? (1U & (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_wen))
-          : 0U);
-    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0x11U] = 
-        ((0x11U == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
-          ? (1U & (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_wen))
-          : 0U);
-    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0x12U] = 
-        ((0x12U == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
-          ? (1U & (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_wen))
-          : 0U);
-    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0x13U] = 
-        ((0x13U == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
-          ? (1U & (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_wen))
-          : 0U);
-    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0x14U] = 
-        ((0x14U == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
-          ? (1U & (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_wen))
-          : 0U);
-    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0x15U] = 
-        ((0x15U == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
-          ? (1U & (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_wen))
-          : 0U);
-    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0x16U] = 
-        ((0x16U == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
-          ? (1U & (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_wen))
-          : 0U);
-    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0x17U] = 
-        ((0x17U == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
-          ? (1U & (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_wen))
-          : 0U);
-    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0x18U] = 
-        ((0x18U == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
-          ? (1U & (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_wen))
-          : 0U);
-    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0x19U] = 
-        ((0x19U == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
-          ? (1U & (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_wen))
-          : 0U);
-    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0x1aU] = 
-        ((0x1aU == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
-          ? (1U & (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_wen))
-          : 0U);
-    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0x1bU] = 
-        ((0x1bU == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
-          ? (1U & (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_wen))
-          : 0U);
-    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0x1cU] = 
-        ((0x1cU == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
-          ? (1U & (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_wen))
-          : 0U);
-    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0x1dU] = 
-        ((0x1dU == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
-          ? (1U & (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_wen))
-          : 0U);
-    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0x1eU] = 
-        ((0x1eU == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
-          ? (1U & (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_wen))
-          : 0U);
-    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0x1fU] = 
-        ((0x1fU == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
-          ? (1U & (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_wen))
-          : 0U);
-    vlSelf->cpu_top__DOT__alu_e__DOT__cin = ((IData)(
-                                                     (0U 
-                                                      != 
-                                                      (0xeU 
-                                                       & (IData)(vlSelf->cpu_top__DOT__ID_EX_alu_op_sel))))
-                                              ? 1ULL
-                                              : 0ULL);
+    vlSelf->cpu_top__DOT__pc_e__DOT__pc = ((IData)(vlSelf->I_rst)
+                                            ? 0x7ffffffcULL
+                                            : vlSelf->cpu_top__DOT__pc_e__DOT__next_pc);
+    vlSelf->O_mem_rd_en = (1U & ((IData)(vlSelf->cpu_top__DOT__EX_MEM_regin_sel) 
+                                 >> 1U));
     vlSelf->O_mem_wr_data = ((0x80U & (IData)(vlSelf->cpu_top__DOT__EX_MEM_wstrb))
                               ? vlSelf->cpu_top__DOT__EX_MEM_rs2
                               : ((8U & (IData)(vlSelf->cpu_top__DOT__EX_MEM_wstrb))
@@ -1135,6 +1147,13 @@ VL_INLINE_OPT void Vcpu_top___024root___sequent__TOP__1(Vcpu_top___024root* vlSe
                                                            | (QData)((IData)(
                                                                              (0xffU 
                                                                               & (IData)(vlSelf->cpu_top__DOT__EX_MEM_rs2))))))))))))));
+    vlSelf->cpu_top__DOT__alu_e__DOT__cin = ((IData)(
+                                                     (0U 
+                                                      != 
+                                                      (0xeU 
+                                                       & (IData)(vlSelf->cpu_top__DOT__ID_EX_alu_op_sel))))
+                                              ? 1ULL
+                                              : 0ULL);
     vlSelf->cpu_top__DOT____Vcellinp__alu_op2_64bit_2sel__I_sel_data[0U] 
         = (IData)(vlSelf->cpu_top__DOT__ID_EX_rs2);
     vlSelf->cpu_top__DOT____Vcellinp__alu_op2_64bit_2sel__I_sel_data[1U] 
@@ -1322,22 +1341,20 @@ VL_INLINE_OPT void Vcpu_top___024root___sequent__TOP__1(Vcpu_top___024root* vlSe
     vlSelf->cpu_top__DOT__rs1_data = vlSelf->cpu_top__DOT__gpr_e__DOT__gpr
         [(0x1fU & (vlSelf->cpu_top__DOT__IF_ID_inst 
                    >> 0xfU))];
-    vlSelf->cpu_top__DOT__ID_EX_valid = ((~ (IData)(vlSelf->I_rst)) 
-                                         & (IData)(vlSelf->cpu_top__DOT__IF_ID_reg_e__DOT__input_valid));
-    VL_EXTEND_WQ(128,64, __Vtemp28, vlSelf->cpu_top__DOT__ID_EX_pc);
+    VL_EXTEND_WQ(128,64, __Vtemp43, vlSelf->cpu_top__DOT__ID_EX_pc);
     vlSelf->cpu_top__DOT____Vcellinp__alu_op1_64bit_3sel__I_sel_data[0U] 
         = (IData)(vlSelf->cpu_top__DOT__ID_EX_rs1);
     vlSelf->cpu_top__DOT____Vcellinp__alu_op1_64bit_3sel__I_sel_data[1U] 
         = (IData)((vlSelf->cpu_top__DOT__ID_EX_rs1 
                    >> 0x20U));
     vlSelf->cpu_top__DOT____Vcellinp__alu_op1_64bit_3sel__I_sel_data[2U] 
-        = __Vtemp28[0U];
+        = __Vtemp43[0U];
     vlSelf->cpu_top__DOT____Vcellinp__alu_op1_64bit_3sel__I_sel_data[3U] 
-        = __Vtemp28[1U];
+        = __Vtemp43[1U];
     vlSelf->cpu_top__DOT____Vcellinp__alu_op1_64bit_3sel__I_sel_data[4U] 
-        = __Vtemp28[2U];
+        = __Vtemp43[2U];
     vlSelf->cpu_top__DOT____Vcellinp__alu_op1_64bit_3sel__I_sel_data[5U] 
-        = __Vtemp28[3U];
+        = __Vtemp43[3U];
     vlSelf->cpu_top__DOT__mem_in = ((vlSelf->cpu_top__DOT__mem_ld_e__DOT__ld_data 
                                      & (((QData)((IData)(
                                                          (((- (IData)(
@@ -1594,8 +1611,6 @@ VL_INLINE_OPT void Vcpu_top___024root___sequent__TOP__1(Vcpu_top___024root* vlSe
     vlSelf->cpu_top__DOT__decoder_e__DOT__ltu = (vlSelf->cpu_top__DOT__rs1_data 
                                                  < vlSelf->cpu_top__DOT__rs2_data);
     vlSelf->cpu_top__DOT__decoder_e__DOT__lt = VL_LTS_IQQ(1,64,64, vlSelf->cpu_top__DOT__rs1_data, vlSelf->cpu_top__DOT__rs2_data);
-    vlSelf->cpu_top__DOT__IF_ID_reg_e__DOT__input_valid 
-        = __Vdly__cpu_top__DOT__IF_ID_reg_e__DOT__input_valid;
     vlSelf->cpu_top__DOT__alu_op1_64bit_3sel__DOT__sel_data[0U] 
         = (((QData)((IData)(vlSelf->cpu_top__DOT____Vcellinp__alu_op1_64bit_3sel__I_sel_data[1U])) 
             << 0x20U) | (QData)((IData)(vlSelf->cpu_top__DOT____Vcellinp__alu_op1_64bit_3sel__I_sel_data[0U])));
@@ -1619,6 +1634,9 @@ VL_INLINE_OPT void Vcpu_top___024root___sequent__TOP__1(Vcpu_top___024root* vlSe
     vlSelf->cpu_top__DOT____Vcellinp__regin_64bit_3sel__I_sel_data[5U] 
         = (IData)(((4ULL + vlSelf->cpu_top__DOT__MEM_WB_pc) 
                    >> 0x20U));
+    vlSelf->cpu_top__DOT__current_pc = ((IData)(vlSelf->cpu_top__DOT__pc_e__DOT__cache_valid)
+                                         ? vlSelf->cpu_top__DOT__pc_e__DOT__pc_cache
+                                         : vlSelf->cpu_top__DOT__pc_e__DOT__pc);
     vlSelf->cpu_top__DOT__alu_op2 = ((- (QData)((IData)(
                                                         (1U 
                                                          & (IData)(vlSelf->cpu_top__DOT__ID_EX_op2_sel))))) 
@@ -1667,7 +1685,6 @@ VL_INLINE_OPT void Vcpu_top___024root___sequent__TOP__1(Vcpu_top___024root* vlSe
                & (IData)(vlSelf->cpu_top__DOT__decoder_e__DOT__ltu))) 
            | ((IData)((0x7063U == (0x707fU & vlSelf->cpu_top__DOT__IF_ID_inst))) 
               & (~ (IData)(vlSelf->cpu_top__DOT__decoder_e__DOT__ltu))));
-    vlSelf->cpu_top__DOT__IF_ID_allowin = 1U;
     vlSelf->cpu_top__DOT__alu_op1 = ((- (QData)((IData)(
                                                         (1U 
                                                          & (IData)(vlSelf->cpu_top__DOT__ID_EX_op1_sel))))) 
@@ -2092,12 +2109,12 @@ VL_INLINE_OPT void Vcpu_top___024root___sequent__TOP__1(Vcpu_top___024root* vlSe
         = (IData)((vlSelf->cpu_top__DOT__imm + ((8U 
                                                  & (IData)(vlSelf->cpu_top__DOT__dnpc_sel))
                                                  ? vlSelf->cpu_top__DOT__rs1_data
-                                                 : vlSelf->cpu_top__DOT__current_pc)));
+                                                 : vlSelf->cpu_top__DOT__IF_ID_pc)));
     vlSelf->cpu_top__DOT__npc_e__DOT____Vcellinp__nextpc_64bit_2sel__I_sel_data[3U] 
         = (IData)(((vlSelf->cpu_top__DOT__imm + ((8U 
                                                   & (IData)(vlSelf->cpu_top__DOT__dnpc_sel))
                                                   ? vlSelf->cpu_top__DOT__rs1_data
-                                                  : vlSelf->cpu_top__DOT__current_pc)) 
+                                                  : vlSelf->cpu_top__DOT__IF_ID_pc)) 
                    >> 0x20U));
     vlSelf->cpu_top__DOT__alu_e__DOT__op1_sext[0U] 
         = (IData)(((IData)(vlSelf->cpu_top__DOT__ID_EX_word_op_mask)
@@ -2465,19 +2482,19 @@ VL_INLINE_OPT void Vcpu_top___024root___sequent__TOP__1(Vcpu_top___024root* vlSe
                                                         & (~ 
                                                            ((IData)(vlSelf->cpu_top__DOT__dnpc_sel) 
                                                             >> 3U)))))));
-    VL_EXTEND_WQ(65,64, __Vtemp42, vlSelf->cpu_top__DOT__alu_op1);
-    VL_EXTEND_WQ(65,64, __Vtemp43, vlSelf->cpu_top__DOT__alu_e__DOT__adder2);
-    VL_ADD_W(3, __Vtemp44, __Vtemp42, __Vtemp43);
-    VL_EXTEND_WQ(65,64, __Vtemp45, vlSelf->cpu_top__DOT__alu_e__DOT__cin);
-    VL_ADD_W(3, __Vtemp46, __Vtemp44, __Vtemp45);
-    VL_EXTENDS_WW(128,65, __Vtemp48, vlSelf->cpu_top__DOT__alu_e__DOT__op1_sext);
-    VL_EXTENDS_WW(128,65, __Vtemp49, vlSelf->cpu_top__DOT__alu_e__DOT__op2_sext);
-    VL_MULS_WWW(128,128,128, __Vtemp50, __Vtemp48, __Vtemp49);
-    VL_EXTENDS_WW(128,65, __Vtemp51, vlSelf->cpu_top__DOT__alu_e__DOT__op1_sext);
-    VL_EXTENDS_WW(128,65, __Vtemp52, vlSelf->cpu_top__DOT__alu_e__DOT__op2_sext);
-    VL_MULS_WWW(128,128,128, __Vtemp53, __Vtemp51, __Vtemp52);
-    VL_DIVS_WWW(65, __Vtemp55, vlSelf->cpu_top__DOT__alu_e__DOT__op1_sext, vlSelf->cpu_top__DOT__alu_e__DOT__op2_sext);
-    VL_MODDIVS_WWW(65, __Vtemp58, vlSelf->cpu_top__DOT__alu_e__DOT__op1_sext, vlSelf->cpu_top__DOT__alu_e__DOT__op2_sext);
+    VL_EXTEND_WQ(65,64, __Vtemp57, vlSelf->cpu_top__DOT__alu_op1);
+    VL_EXTEND_WQ(65,64, __Vtemp58, vlSelf->cpu_top__DOT__alu_e__DOT__adder2);
+    VL_ADD_W(3, __Vtemp59, __Vtemp57, __Vtemp58);
+    VL_EXTEND_WQ(65,64, __Vtemp60, vlSelf->cpu_top__DOT__alu_e__DOT__cin);
+    VL_ADD_W(3, __Vtemp61, __Vtemp59, __Vtemp60);
+    VL_EXTENDS_WW(128,65, __Vtemp63, vlSelf->cpu_top__DOT__alu_e__DOT__op1_sext);
+    VL_EXTENDS_WW(128,65, __Vtemp64, vlSelf->cpu_top__DOT__alu_e__DOT__op2_sext);
+    VL_MULS_WWW(128,128,128, __Vtemp65, __Vtemp63, __Vtemp64);
+    VL_EXTENDS_WW(128,65, __Vtemp66, vlSelf->cpu_top__DOT__alu_e__DOT__op1_sext);
+    VL_EXTENDS_WW(128,65, __Vtemp67, vlSelf->cpu_top__DOT__alu_e__DOT__op2_sext);
+    VL_MULS_WWW(128,128,128, __Vtemp68, __Vtemp66, __Vtemp67);
+    VL_DIVS_WWW(65, __Vtemp70, vlSelf->cpu_top__DOT__alu_e__DOT__op1_sext, vlSelf->cpu_top__DOT__alu_e__DOT__op2_sext);
+    VL_MODDIVS_WWW(65, __Vtemp73, vlSelf->cpu_top__DOT__alu_e__DOT__op1_sext, vlSelf->cpu_top__DOT__alu_e__DOT__op2_sext);
     vlSelf->cpu_top__DOT__alu_e__DOT__dword_result 
         = ((((((((((((((- (QData)((IData)((0U != (3U 
                                                   & (IData)(vlSelf->cpu_top__DOT__ID_EX_alu_op_sel)))))) 
@@ -2489,7 +2506,7 @@ VL_INLINE_OPT void Vcpu_top___024root___sequent__TOP__1(Vcpu_top___024root* vlSe
                                                   >> 3U))))) 
                         & (QData)((IData)((1U & (~ 
                                                  (1U 
-                                                  & __Vtemp46[2U]))))))) 
+                                                  & __Vtemp61[2U]))))))) 
                     | ((- (QData)((IData)((1U & ((IData)(vlSelf->cpu_top__DOT__ID_EX_alu_op_sel) 
                                                  >> 4U))))) 
                        & (vlSelf->cpu_top__DOT__alu_op1 
@@ -2531,20 +2548,20 @@ VL_INLINE_OPT void Vcpu_top___024root___sequent__TOP__1(Vcpu_top___024root* vlSe
                      | vlSelf->cpu_top__DOT__alu_e__DOT__shift_result))) 
               | ((- (QData)((IData)((1U & ((IData)(vlSelf->cpu_top__DOT__ID_EX_alu_op_sel) 
                                            >> 0xaU))))) 
-                 & (((QData)((IData)(__Vtemp50[1U])) 
-                     << 0x20U) | (QData)((IData)(__Vtemp50[0U]))))) 
+                 & (((QData)((IData)(__Vtemp65[1U])) 
+                     << 0x20U) | (QData)((IData)(__Vtemp65[0U]))))) 
              | ((- (QData)((IData)((1U & ((IData)(vlSelf->cpu_top__DOT__ID_EX_alu_op_sel) 
                                           >> 0xbU))))) 
-                & (((QData)((IData)(__Vtemp53[3U])) 
-                    << 0x20U) | (QData)((IData)(__Vtemp53[2U]))))) 
+                & (((QData)((IData)(__Vtemp68[3U])) 
+                    << 0x20U) | (QData)((IData)(__Vtemp68[2U]))))) 
             | ((- (QData)((IData)((1U & ((IData)(vlSelf->cpu_top__DOT__ID_EX_alu_op_sel) 
                                          >> 0xcU))))) 
-               & (((QData)((IData)(__Vtemp55[1U])) 
-                   << 0x20U) | (QData)((IData)(__Vtemp55[0U]))))) 
+               & (((QData)((IData)(__Vtemp70[1U])) 
+                   << 0x20U) | (QData)((IData)(__Vtemp70[0U]))))) 
            | ((- (QData)((IData)((1U & ((IData)(vlSelf->cpu_top__DOT__ID_EX_alu_op_sel) 
                                         >> 0xdU))))) 
-              & (((QData)((IData)(__Vtemp58[1U])) << 0x20U) 
-                 | (QData)((IData)(__Vtemp58[0U])))));
+              & (((QData)((IData)(__Vtemp73[1U])) << 0x20U) 
+                 | (QData)((IData)(__Vtemp73[0U])))));
     vlSelf->O_pc = vlSelf->cpu_top__DOT__dnpc;
 }
 
@@ -2553,10 +2570,235 @@ VL_INLINE_OPT void Vcpu_top___024root___combo__TOP__4(Vcpu_top___024root* vlSelf
     Vcpu_top__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vcpu_top___024root___combo__TOP__4\n"); );
     // Body
-    vlSelf->cpu_top__DOT__MEM_WB_reg_e__DOT__WB_data_valid 
-        = (((IData)(vlSelf->cpu_top__DOT__EX_MEM_valid) 
-            & (~ ((IData)(vlSelf->cpu_top__DOT__EX_MEM_regin_sel) 
-                  >> 1U))) | (IData)(vlSelf->I_mem_rd_data_valid));
+    vlSelf->cpu_top__DOT__pc_e__DOT__ifetch_valid = 
+        ((IData)(vlSelf->cpu_top__DOT__pc_e__DOT__input_valid) 
+         & (IData)(vlSelf->I_inst_valid));
+    vlSelf->cpu_top__DOT__current_inst = ((IData)(vlSelf->cpu_top__DOT__pc_e__DOT__cache_valid)
+                                           ? vlSelf->cpu_top__DOT__pc_e__DOT__inst_cache
+                                           : vlSelf->I_inst);
+    vlSelf->cpu_top__DOT__MEM_WB_reg_e__DOT__output_valid 
+        = ((IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_e__DOT__input_valid) 
+           & ((~ ((IData)(vlSelf->cpu_top__DOT__MEM_WB_regin_sel) 
+                  >> 1U)) | (IData)(vlSelf->I_mem_rd_data_valid)));
+    vlSelf->cpu_top__DOT__IF_valid = ((IData)(vlSelf->cpu_top__DOT__pc_e__DOT__ifetch_valid) 
+                                      | (IData)(vlSelf->cpu_top__DOT__pc_e__DOT__cache_valid));
+    vlSelf->cpu_top__DOT__IF_ID_block = (1U & ((((IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_e__DOT__output_valid)
+                                                  ? 
+                                                 (((0x1fU 
+                                                    & (vlSelf->cpu_top__DOT__IF_ID_inst 
+                                                       >> 0xfU)) 
+                                                   == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr)) 
+                                                  | ((0x1fU 
+                                                      & (vlSelf->cpu_top__DOT__IF_ID_inst 
+                                                         >> 0x14U)) 
+                                                     == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr)))
+                                                  : 0U) 
+                                                | ((IData)(vlSelf->cpu_top__DOT__EX_MEM_reg_e__DOT__input_valid)
+                                                    ? 
+                                                   (((0x1fU 
+                                                      & (vlSelf->cpu_top__DOT__IF_ID_inst 
+                                                         >> 0xfU)) 
+                                                     == (IData)(vlSelf->cpu_top__DOT__EX_MEM_rd_addr)) 
+                                                    | ((0x1fU 
+                                                        & (vlSelf->cpu_top__DOT__IF_ID_inst 
+                                                           >> 0x14U)) 
+                                                       == (IData)(vlSelf->cpu_top__DOT__EX_MEM_rd_addr)))
+                                                    : 0U)) 
+                                               | ((IData)(vlSelf->cpu_top__DOT__ID_EX_reg_e__DOT__input_valid)
+                                                   ? 
+                                                  (((0x1fU 
+                                                     & (vlSelf->cpu_top__DOT__IF_ID_inst 
+                                                        >> 0xfU)) 
+                                                    == (IData)(vlSelf->cpu_top__DOT__ID_EX_rd_addr)) 
+                                                   | ((0x1fU 
+                                                       & (vlSelf->cpu_top__DOT__IF_ID_inst 
+                                                          >> 0x14U)) 
+                                                      == (IData)(vlSelf->cpu_top__DOT__ID_EX_rd_addr)))
+                                                   : 0U)));
+    vlSelf->cpu_top__DOT__MEM_WB_allowin = (1U & ((~ (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_e__DOT__input_valid)) 
+                                                  | (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_e__DOT__output_valid)));
+    vlSelf->cpu_top__DOT____Vcellinp__gpr_e__I_wen 
+        = ((IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_wen) 
+           & (IData)(vlSelf->cpu_top__DOT__MEM_WB_reg_e__DOT__output_valid));
+    vlSelf->cpu_top__DOT__IF_ID_valid = ((IData)(vlSelf->cpu_top__DOT__IF_ID_reg_e__DOT__input_valid) 
+                                         & (~ (IData)(vlSelf->cpu_top__DOT__IF_ID_block)));
+    vlSelf->cpu_top__DOT__EX_MEM_allowin = (1U & ((~ (IData)(vlSelf->cpu_top__DOT__EX_MEM_reg_e__DOT__input_valid)) 
+                                                  | (IData)(vlSelf->cpu_top__DOT__MEM_WB_allowin)));
+    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[1U] = ((1U 
+                                                  == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
+                                                  ? 
+                                                 (1U 
+                                                  & (IData)(vlSelf->cpu_top__DOT____Vcellinp__gpr_e__I_wen))
+                                                  : 0U);
+    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[2U] = ((2U 
+                                                  == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
+                                                  ? 
+                                                 (1U 
+                                                  & (IData)(vlSelf->cpu_top__DOT____Vcellinp__gpr_e__I_wen))
+                                                  : 0U);
+    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[3U] = ((3U 
+                                                  == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
+                                                  ? 
+                                                 (1U 
+                                                  & (IData)(vlSelf->cpu_top__DOT____Vcellinp__gpr_e__I_wen))
+                                                  : 0U);
+    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[4U] = ((4U 
+                                                  == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
+                                                  ? 
+                                                 (1U 
+                                                  & (IData)(vlSelf->cpu_top__DOT____Vcellinp__gpr_e__I_wen))
+                                                  : 0U);
+    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[5U] = ((5U 
+                                                  == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
+                                                  ? 
+                                                 (1U 
+                                                  & (IData)(vlSelf->cpu_top__DOT____Vcellinp__gpr_e__I_wen))
+                                                  : 0U);
+    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[6U] = ((6U 
+                                                  == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
+                                                  ? 
+                                                 (1U 
+                                                  & (IData)(vlSelf->cpu_top__DOT____Vcellinp__gpr_e__I_wen))
+                                                  : 0U);
+    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[7U] = ((7U 
+                                                  == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
+                                                  ? 
+                                                 (1U 
+                                                  & (IData)(vlSelf->cpu_top__DOT____Vcellinp__gpr_e__I_wen))
+                                                  : 0U);
+    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[8U] = ((8U 
+                                                  == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
+                                                  ? 
+                                                 (1U 
+                                                  & (IData)(vlSelf->cpu_top__DOT____Vcellinp__gpr_e__I_wen))
+                                                  : 0U);
+    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[9U] = ((9U 
+                                                  == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
+                                                  ? 
+                                                 (1U 
+                                                  & (IData)(vlSelf->cpu_top__DOT____Vcellinp__gpr_e__I_wen))
+                                                  : 0U);
+    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0xaU] = (
+                                                   (0xaU 
+                                                    == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
+                                                    ? 
+                                                   (1U 
+                                                    & (IData)(vlSelf->cpu_top__DOT____Vcellinp__gpr_e__I_wen))
+                                                    : 0U);
+    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0xbU] = (
+                                                   (0xbU 
+                                                    == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
+                                                    ? 
+                                                   (1U 
+                                                    & (IData)(vlSelf->cpu_top__DOT____Vcellinp__gpr_e__I_wen))
+                                                    : 0U);
+    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0xcU] = (
+                                                   (0xcU 
+                                                    == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
+                                                    ? 
+                                                   (1U 
+                                                    & (IData)(vlSelf->cpu_top__DOT____Vcellinp__gpr_e__I_wen))
+                                                    : 0U);
+    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0xdU] = (
+                                                   (0xdU 
+                                                    == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
+                                                    ? 
+                                                   (1U 
+                                                    & (IData)(vlSelf->cpu_top__DOT____Vcellinp__gpr_e__I_wen))
+                                                    : 0U);
+    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0xeU] = (
+                                                   (0xeU 
+                                                    == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
+                                                    ? 
+                                                   (1U 
+                                                    & (IData)(vlSelf->cpu_top__DOT____Vcellinp__gpr_e__I_wen))
+                                                    : 0U);
+    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0xfU] = (
+                                                   (0xfU 
+                                                    == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
+                                                    ? 
+                                                   (1U 
+                                                    & (IData)(vlSelf->cpu_top__DOT____Vcellinp__gpr_e__I_wen))
+                                                    : 0U);
+    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0x10U] = 
+        ((0x10U == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
+          ? (1U & (IData)(vlSelf->cpu_top__DOT____Vcellinp__gpr_e__I_wen))
+          : 0U);
+    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0x11U] = 
+        ((0x11U == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
+          ? (1U & (IData)(vlSelf->cpu_top__DOT____Vcellinp__gpr_e__I_wen))
+          : 0U);
+    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0x12U] = 
+        ((0x12U == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
+          ? (1U & (IData)(vlSelf->cpu_top__DOT____Vcellinp__gpr_e__I_wen))
+          : 0U);
+    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0x13U] = 
+        ((0x13U == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
+          ? (1U & (IData)(vlSelf->cpu_top__DOT____Vcellinp__gpr_e__I_wen))
+          : 0U);
+    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0x14U] = 
+        ((0x14U == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
+          ? (1U & (IData)(vlSelf->cpu_top__DOT____Vcellinp__gpr_e__I_wen))
+          : 0U);
+    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0x15U] = 
+        ((0x15U == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
+          ? (1U & (IData)(vlSelf->cpu_top__DOT____Vcellinp__gpr_e__I_wen))
+          : 0U);
+    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0x16U] = 
+        ((0x16U == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
+          ? (1U & (IData)(vlSelf->cpu_top__DOT____Vcellinp__gpr_e__I_wen))
+          : 0U);
+    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0x17U] = 
+        ((0x17U == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
+          ? (1U & (IData)(vlSelf->cpu_top__DOT____Vcellinp__gpr_e__I_wen))
+          : 0U);
+    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0x18U] = 
+        ((0x18U == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
+          ? (1U & (IData)(vlSelf->cpu_top__DOT____Vcellinp__gpr_e__I_wen))
+          : 0U);
+    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0x19U] = 
+        ((0x19U == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
+          ? (1U & (IData)(vlSelf->cpu_top__DOT____Vcellinp__gpr_e__I_wen))
+          : 0U);
+    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0x1aU] = 
+        ((0x1aU == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
+          ? (1U & (IData)(vlSelf->cpu_top__DOT____Vcellinp__gpr_e__I_wen))
+          : 0U);
+    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0x1bU] = 
+        ((0x1bU == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
+          ? (1U & (IData)(vlSelf->cpu_top__DOT____Vcellinp__gpr_e__I_wen))
+          : 0U);
+    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0x1cU] = 
+        ((0x1cU == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
+          ? (1U & (IData)(vlSelf->cpu_top__DOT____Vcellinp__gpr_e__I_wen))
+          : 0U);
+    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0x1dU] = 
+        ((0x1dU == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
+          ? (1U & (IData)(vlSelf->cpu_top__DOT____Vcellinp__gpr_e__I_wen))
+          : 0U);
+    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0x1eU] = 
+        ((0x1eU == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
+          ? (1U & (IData)(vlSelf->cpu_top__DOT____Vcellinp__gpr_e__I_wen))
+          : 0U);
+    vlSelf->cpu_top__DOT__gpr_e__DOT__wen[0x1fU] = 
+        ((0x1fU == (IData)(vlSelf->cpu_top__DOT__MEM_WB_rd_addr))
+          ? (1U & (IData)(vlSelf->cpu_top__DOT____Vcellinp__gpr_e__I_wen))
+          : 0U);
+    vlSelf->cpu_top__DOT__ID_EX_allowin = (1U & ((~ (IData)(vlSelf->cpu_top__DOT__ID_EX_reg_e__DOT__input_valid)) 
+                                                 | (IData)(vlSelf->cpu_top__DOT__EX_MEM_allowin)));
+    vlSelf->cpu_top__DOT__IF_ID_allowin = (1U & ((~ (IData)(vlSelf->cpu_top__DOT__IF_ID_reg_e__DOT__input_valid)) 
+                                                 | ((~ (IData)(vlSelf->cpu_top__DOT__IF_ID_block)) 
+                                                    & (IData)(vlSelf->cpu_top__DOT__ID_EX_allowin))));
+    vlSelf->cpu_top__DOT__pc_e__DOT__IF_allowin = (1U 
+                                                   & ((~ (IData)(vlSelf->cpu_top__DOT__pc_e__DOT__input_valid)) 
+                                                      | ((IData)(vlSelf->I_inst_valid) 
+                                                         & (IData)(vlSelf->cpu_top__DOT__IF_ID_allowin))));
+    vlSelf->O_pc_valid = ((IData)(vlSelf->cpu_top__DOT__pc_e__DOT__pc_valid) 
+                          & (IData)(vlSelf->cpu_top__DOT__IF_ID_allowin));
+    vlSelf->cpu_top__DOT__pc_e__DOT__next_pc = (((IData)(vlSelf->O_pc_valid) 
+                                                 & (IData)(vlSelf->cpu_top__DOT__IF_ID_allowin))
+                                                 ? vlSelf->cpu_top__DOT__dnpc
+                                                 : vlSelf->cpu_top__DOT__pc_e__DOT__pc);
 }
 
 void Vcpu_top___024root___eval(Vcpu_top___024root* vlSelf) {
@@ -2569,6 +2811,7 @@ void Vcpu_top___024root___eval(Vcpu_top___024root* vlSelf) {
         vlSelf->__Vm_traceActivity[1U] = 1U;
     }
     Vcpu_top___024root___combo__TOP__4(vlSelf);
+    vlSelf->__Vm_traceActivity[2U] = 1U;
     // Final
     vlSelf->__Vclklast__TOP__I_sys_clk = vlSelf->I_sys_clk;
 }

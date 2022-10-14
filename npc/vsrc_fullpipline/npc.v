@@ -3,8 +3,8 @@ module npc(
     input [63:0] I_rs1_data,
     input [63:0] I_rs2_data,
     input [63:0] I_imm,
-    input [63:0] I_pc,
-    input [63:0] I_snpc,
+    input [63:0] I_pc,// IF_ID_pc actually, use for jmps cal
+    input [63:0] I_snpc,// snpc
     input [3:0] I_dnpc_sel,
     output [63:0] O_dnpc
     );
