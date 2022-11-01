@@ -30,7 +30,7 @@ module pc(
     );
     import "DPI-C" function void set_pc_ptr(input logic [63:0] a []);
     initial set_pc_ptr(O_pc);
-    localparam PC_RESET = 64'h7FFFFFF8;
+    localparam PC_RESET = 64'h7FFFFFFC;
     always @(posedge I_sys_clk)
         if(I_rst)
             O_pc <= PC_RESET;

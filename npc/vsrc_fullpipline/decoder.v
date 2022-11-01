@@ -20,7 +20,7 @@
 // dnpc: 
 //////////////////////////////////////////////////////////////////////////////////
 // `include "global_def.v"
-import "DPI-C" function void sim_end();
+//import "DPI-C" function void sim_end();
 import "DPI-C" function void set_inst_ptr(input logic [31:0] a []);
 module decoder(
     input I_sys_clk,
@@ -246,9 +246,6 @@ module decoder(
     assign O_mem_rstrb[0] = LD | LW | LWU | LH | LHU | LB | LBU;
     //assign O_mem_ren = (opcode == 7'b0000011);
     // dnpc
-    localparam SNPC = 3'd1;
-    localparam DNPC = 3'd2;
-    localparam JALR_DNPC = 3'd4;
     wire typeB_jr;
     wire eq, neq, lt, ge, ltu, geu;
     assign eq = I_rs1_data == I_rs2_data;
@@ -346,8 +343,8 @@ module decoder(
     assign O_opnum2_sel = OP2_RS2 & {2{rs2_flag}}
                         | OP2_IMM & {2{imm_flag}};
     // ebreak signal gen
-    always @(posedge I_sys_clk)
-    	if ((I_inst == 32'h00100073) && !I_rst)
-    	    sim_end();
+    //always @(posedge I_sys_clk)
+    //	if ((I_inst == 32'h00100073) && !I_rst)
+    //	    sim_end();
     //assign O_sim_end = (I_inst == 32'h00100073) ? 1:0;
 endmodule

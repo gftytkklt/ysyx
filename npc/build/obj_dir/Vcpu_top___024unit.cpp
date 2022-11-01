@@ -9,14 +9,6 @@
 
 //==========
 
-extern "C" void sim_end();
-
-VL_INLINE_OPT void Vcpu_top___024unit____Vdpiimwrap_sim_end_TOP____024unit() {
-    VL_DEBUG_IF(VL_DBG_MSGF("+        Vcpu_top___024unit____Vdpiimwrap_sim_end_TOP____024unit\n"); );
-    // Body
-    sim_end();
-}
-
 extern "C" void set_inst_ptr(const svOpenArrayHandle a);
 
 VL_INLINE_OPT void Vcpu_top___024unit____Vdpiimwrap_set_inst_ptr__Vdpioc2_TOP____024unit(const IData/*31:0*/ &a) {
