@@ -13,33 +13,35 @@ module IF_ID_reg(
     output reg [63:0] O_pc,
     output reg [31:0] O_inst,
     output reg O_bubble_inst_debug,
+    output O_IF_ID_input_valid,// data in IF_ID valid
     output O_IF_ID_valid// corresponding to pip1_to_pip2_valid
     );
     reg input_valid;// input data valid
     wire output_valid;// output data valid
     assign output_valid = ~I_IF_ID_block;// one cycle decoder
+    assign O_IF_ID_input_valid = input_valid;
     assign O_IF_ID_allowin = !input_valid || (output_valid && I_IF_ID_allowout);// no valid input data or output data trans enable
-    assign O_IF_ID_valid = input_valid && output_valid;// I think output_valid is enough? output valid should only be triggered by input valid?
+    assign O_IF_ID_valid = input_valid && output_valid;
     always @(posedge I_sys_clk)
     	if(I_rst)
     	    input_valid <= 0;
     	else if(O_IF_ID_allowin)
-    	    input_valid <= I_IF_ID_valid;// bug here
+    	    input_valid <= I_IF_ID_valid;
     	else
     	    input_valid <= input_valid;
     always @(posedge I_sys_clk)
-		if(I_rst)
-			{O_pc, O_inst} <= {64'h0, 32'h0};
-		// if inst jump, induce a bubble
-		else if(I_IF_ID_valid && O_IF_ID_allowin)
-			{O_pc, O_inst} <= I_IF_ID_jmp ? {I_pc, 32'h00000037} : {I_pc, I_inst};
-		else
-			{O_pc, O_inst} <= {O_pc, O_inst};
-	always @(posedge I_sys_clk)
-		if(I_rst)
-			O_bubble_inst_debug <= 0;
-		else if(I_IF_ID_valid && O_IF_ID_allowin)
-			O_bubble_inst_debug <= I_IF_ID_jmp;
-		else
-			O_bubble_inst_debug <= O_bubble_inst_debug;
+	if(I_rst)
+	    {O_pc, O_inst} <= {64'h0, 32'h0};
+	    // if inst jump, induce a bubble
+	else if(I_IF_ID_valid && O_IF_ID_allowin)
+	    {O_pc, O_inst} <= I_IF_ID_jmp ? {O_pc, 32'h00000037} : {I_pc, I_inst};
+	else
+	    {O_pc, O_inst} <= {O_pc, O_inst};
+    always @(posedge I_sys_clk)
+	if(I_rst)
+	    O_bubble_inst_debug <= 0;
+	else if(I_IF_ID_valid && O_IF_ID_allowin)
+	    O_bubble_inst_debug <= I_IF_ID_jmp;
+	else
+	    O_bubble_inst_debug <= O_bubble_inst_debug;
 endmodule

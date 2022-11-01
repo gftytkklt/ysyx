@@ -40,6 +40,7 @@ static uint64_t *cpu_gpr = NULL;
 static uint64_t *cpu_pc = NULL;
 static uint64_t *wb_pc = NULL;
 static uint32_t *inst = NULL;
+static uint32_t *wb_inst = NULL;
 static bool *wb_valid = NULL;
 static bool *wb_bubble = NULL;
 #ifdef CONFIG_ITRACE
@@ -73,6 +74,9 @@ extern "C" void set_wb_pc_ptr(const svOpenArrayHandle r) {
 }
 extern "C" void set_inst_ptr(const svOpenArrayHandle r) {
   inst = (uint32_t *)(((VerilatedDpiOpenVar*)r)->datap());
+}
+extern "C" void set_wb_inst_ptr(const svOpenArrayHandle r) {
+  wb_inst = (uint32_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
 extern "C" void set_wb_bubble_ptr(const svOpenArrayHandle r) {
   wb_bubble = (bool *)(((VerilatedDpiOpenVar*)r)->datap());
@@ -207,6 +211,7 @@ int main(int argc, char** argv, char** env) {
   unsigned long *inst64 = (unsigned long*)malloc(sizeof(unsigned long));
   bool wb_valid_difftest;
   uint64_t wb_pc_difftest;
+  uint32_t wb_inst_difftest;
   while (!finish){
 	  if(sim_time == 1){
 	  #ifdef CONFIG_DIFFTEST
@@ -234,6 +239,7 @@ int main(int argc, char** argv, char** env) {
 	  if(wb_valid){
 	  	wb_valid_difftest = *wb_valid & ~*wb_bubble;
 	  	wb_pc_difftest = *wb_pc;
+	  	wb_inst_difftest = *wb_inst;
 	  }
 	  
 	  //bool wb_valid_difftest = 0;
@@ -255,7 +261,8 @@ int main(int argc, char** argv, char** env) {
 	  			cpu->I_mem_rd_data_valid = 1;
 	  			#ifdef CONFIG_ITRACE
 	  			//fprintf(logfp,"rd data %lx from %lx\n", cpu->I_mem_rd_data, cpu->O_mem_addr);
-	  			fprintf(logfp,"rd data %lx from %lx\n", cpu->I_mem_rd_data, raddr);
+	  			fprintf(logfp,"time: %lu\nrd data %lx from %lx\n",sim_time, cpu->I_mem_rd_data, raddr);
+	  			//printf("time: %lu\nrd data %lx from %lx\n",sim_time, cpu->I_mem_rd_data, raddr);
 	  			#endif
 	  		}
 	  		else{cpu->I_mem_rd_data_valid = 0;}
@@ -264,7 +271,8 @@ int main(int argc, char** argv, char** env) {
 	  		//if(wr_en){
 	  			pmem_write(cpu->O_mem_addr, cpu->O_mem_wr_data, cpu->O_mem_wr_strb);
 	  			#ifdef CONFIG_ITRACE
-	  			fprintf(logfp,"wr data %lx to %lx\n", cpu->O_mem_wr_data, cpu->O_mem_addr);
+	  			fprintf(logfp,"time: %lu\nwr data %lx to %lx\n",sim_time, cpu->O_mem_wr_data, cpu->O_mem_addr);
+	  			//printf("time: %lu\nwr data %lx to %lx\n",sim_time, cpu->O_mem_wr_data, cpu->O_mem_addr);
 	  			#endif
 	  		}
 	  }
@@ -293,10 +301,10 @@ int main(int argc, char** argv, char** env) {
 	  
 	  #ifdef CONFIG_ITRACE
 	  //printf("start disasm\n");
-	  if(pc_valid){
+	  if(wb_valid_difftest){
 	  fprintf(logfp,"time: %lu\n", sim_time);
-	  fprintf(logfp, "%lx: %08x ",pc, cpu->I_inst);
-	  disassemble(logbuf, 128, pc, (uint8_t *)&cpu->I_inst, 4);
+	  fprintf(logfp, "%lx: %08x ",wb_pc_difftest, wb_inst_difftest);
+	  disassemble(logbuf, 128, wb_pc_difftest, (uint8_t *)&wb_inst_difftest, 4);
 	  fprintf(logfp, "%s\n",logbuf);
 	  }
 	  #endif
@@ -315,7 +323,7 @@ int main(int argc, char** argv, char** env) {
 	  #endif
 	  sim_time++;
 	  // test dummy
-	  //if(sim_time == 400){printf("dummy timeout!\n");break;}
+	  //if(sim_time == 5000){printf("timeout!\n");break;}
   }
   //printf("a\n");
   cpu->final();

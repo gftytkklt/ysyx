@@ -39,79 +39,81 @@ module ID_EX_reg(
     output reg O_word_op_mask,
     input [63:0] I_pc,
     output reg [63:0] O_pc,
+    output O_ID_EX_input_valid,
     input [31:0] I_inst_debug,
     output reg [31:0] O_inst_debug,
     input I_bubble_inst_debug,
     output reg O_bubble_inst_debug
-);
-	reg input_valid;
-	wire output_valid;
-	assign output_valid = 1;// decoder valid once inst valid
-	assign O_ID_EX_allowin = !input_valid || (output_valid && I_ID_EX_allowout);
-	assign O_ID_EX_valid = input_valid && output_valid;
-	always @(posedge I_sys_clk)
-		if(I_rst)
-			input_valid <= 0;
-		else if(O_ID_EX_allowin)
-			input_valid <= I_ID_EX_valid;
-		else
-			input_valid <= input_valid;
+    );
+    reg input_valid;
+    wire output_valid;
+    assign O_ID_EX_input_valid = input_valid;
+    assign output_valid = 1;// single cycle alu
+    assign O_ID_EX_allowin = !input_valid || (output_valid && I_ID_EX_allowout);
+    assign O_ID_EX_valid = input_valid && output_valid;
     always @(posedge I_sys_clk)
-		if(I_rst) begin
-			O_imm <= 0;
-			O_rs1 <= 0;
-			O_rs2 <= 0;
-			O_rd_addr <= 0;
-			O_reg_wen <= 0;
-			O_mem_wen <= 0;
-			O_wstrb <= 0;
-			O_rstrb <= 0;
-			O_regin_sel <= 0;
-			O_op1_sel <= 0;
-			O_op2_sel <= 0;
-			O_alu_sext <= 0;
-			O_alu_op_sel <= 0;
-			O_word_op_mask <= 0;
-			O_pc <= 0;
-			O_inst_debug <= 0;
-			O_bubble_inst_debug <= 0;
-		end
-		else if(I_ID_EX_valid && O_ID_EX_allowin) begin
-			O_imm <= I_imm;
-			O_rs1 <= I_rs1;
-			O_rs2 <= I_rs2;
-			O_rd_addr <= I_rd_addr;
-			O_reg_wen <= I_reg_wen;
-			O_mem_wen <= I_mem_wen;
-			O_wstrb <= I_wstrb;
-			O_rstrb <= I_rstrb;
-			O_regin_sel <= I_regin_sel;
-			O_op1_sel <= I_op1_sel;
-			O_op2_sel <= I_op2_sel;
-			O_alu_sext <= I_alu_sext;
-			O_alu_op_sel <= I_alu_op_sel;
-			O_word_op_mask <= I_word_op_mask;
-			O_pc <= I_pc;
-			O_inst_debug <= I_inst_debug;
-			O_bubble_inst_debug <= I_bubble_inst_debug;
-		end
-		else begin
-			O_imm <= O_imm;
-			O_rs1 <= O_rs1;
-			O_rs2 <= O_rs2;
-			O_rd_addr <= O_rd_addr;
-			O_reg_wen <= O_reg_wen;
-			O_mem_wen <= O_mem_wen;
-			O_wstrb <= O_wstrb;
-			O_rstrb <= O_rstrb;
-			O_regin_sel <= O_regin_sel;
-			O_op1_sel <= O_op1_sel;
-			O_op2_sel <= O_op2_sel;
-			O_alu_sext <= O_alu_sext;
-			O_alu_op_sel <= O_alu_op_sel;
-			O_word_op_mask <= O_word_op_mask;
-			O_pc <= O_pc;
-			O_inst_debug <= O_inst_debug;
-			O_bubble_inst_debug <= O_bubble_inst_debug;
-		end
+    	if(I_rst)
+    	    input_valid <= 0;
+	else if(O_ID_EX_allowin)
+	    input_valid <= I_ID_EX_valid;
+	else
+	    input_valid <= input_valid;
+    always @(posedge I_sys_clk)
+	if(I_rst) begin
+	    O_imm <= 0;
+	    O_rs1 <= 0;
+	    O_rs2 <= 0;
+	    O_rd_addr <= 0;
+	    O_reg_wen <= 0;
+	    O_mem_wen <= 0;
+	    O_wstrb <= 0;
+	    O_rstrb <= 0;
+	    O_regin_sel <= 0;
+	    O_op1_sel <= 0;
+	    O_op2_sel <= 0;
+	    O_alu_sext <= 0;
+	    O_alu_op_sel <= 0;
+	    O_word_op_mask <= 0;
+	    O_pc <= 0;
+	    O_inst_debug <= 0;
+	    O_bubble_inst_debug <= 0;
+	end
+    	else if(I_ID_EX_valid && O_ID_EX_allowin) begin
+	    O_imm <= I_imm;
+	    O_rs1 <= I_rs1;
+	    O_rs2 <= I_rs2;
+	    O_rd_addr <= I_rd_addr;
+	    O_reg_wen <= I_reg_wen;
+	    O_mem_wen <= I_mem_wen;
+	    O_wstrb <= I_wstrb;
+	    O_rstrb <= I_rstrb;
+	    O_regin_sel <= I_regin_sel;
+	    O_op1_sel <= I_op1_sel;
+	    O_op2_sel <= I_op2_sel;
+	    O_alu_sext <= I_alu_sext;
+	    O_alu_op_sel <= I_alu_op_sel;
+	    O_word_op_mask <= I_word_op_mask;
+	    O_pc <= I_pc;
+	    O_inst_debug <= I_inst_debug;
+	    O_bubble_inst_debug <= I_bubble_inst_debug;
+	end
+	else begin
+	    O_imm <= O_imm;
+	    O_rs1 <= O_rs1;
+	    O_rs2 <= O_rs2;
+	    O_rd_addr <= O_rd_addr;
+	    O_reg_wen <= O_reg_wen;
+	    O_mem_wen <= O_mem_wen;
+	    O_wstrb <= O_wstrb;
+	    O_rstrb <= O_rstrb;
+	    O_regin_sel <= O_regin_sel;
+	    O_op1_sel <= O_op1_sel;
+	    O_op2_sel <= O_op2_sel;
+	    O_alu_sext <= O_alu_sext;
+	    O_alu_op_sel <= O_alu_op_sel;
+	    O_word_op_mask <= O_word_op_mask;
+	    O_pc <= O_pc;
+	    O_inst_debug <= O_inst_debug;
+	    O_bubble_inst_debug <= O_bubble_inst_debug;
+	end
 endmodule
