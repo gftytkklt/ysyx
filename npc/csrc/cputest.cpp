@@ -8,19 +8,19 @@
 #include "verilated.h"
 #include "verilated_dpi.h"
 #include "verilated_vcd_c.h"
-#include "Vcpu_top.h"
+#include "Vysyx_22040750_cpu_top.h"
 #include "svdpi.h"
-#include "Vcpu_top__Dpi.h"
+#include "Vysyx_22040750_cpu_top__Dpi.h"
 //#define N 32
 //#define CONFIG_FTRACE
-#define CONFIG_ITRACE
+//#define CONFIG_ITRACE
 #define CONFIG_DIFFTEST
-#define CONFIG_WAVEFORM
+//#define CONFIG_WAVEFORM
 #define ASNI_FG_RED     "\33[1;31m"
 #define ASNI_FG_GREEN   "\33[1;32m"
 #define ASNI_NONE       "\33[0m"
 #define ASNI_FMT(str, fmt) fmt str ASNI_NONE
-static Vcpu_top* cpu;
+static Vysyx_22040750_cpu_top* cpu;
 static int mem_size = 0x8000000;
 static uint8_t* mem = NULL;
 static bool finish = false;
@@ -39,6 +39,7 @@ static struct cpu_context context = {};
 static uint64_t *cpu_gpr = NULL;
 static uint64_t *cpu_pc = NULL;
 static uint64_t *wb_pc = NULL;
+static uint64_t *skip_pc = NULL;
 static uint32_t *inst = NULL;
 static uint32_t *wb_inst = NULL;
 static bool *wb_valid = NULL;
@@ -53,8 +54,8 @@ void print_ftrace(unsigned long pc, unsigned long dnpc, unsigned inst, FILE* fp)
 #endif
 #ifdef CONFIG_DIFFTEST
 void init_difftest(char *ref_so_file, long img_size, uint8_t* mem, uint64_t *cpu_gpr);
-void difftest_step(uint64_t pc, uint64_t* dut, uint64_t sim_time);
-void difftest_skip_ref();
+void difftest_step(uint64_t pc, uint64_t* dut, uint64_t sim_time, bool* error);
+void difftest_skip_ref(uint64_t pc);
 #endif
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
@@ -70,6 +71,10 @@ extern "C" void set_wb_ptr(const svOpenArrayHandle r) {
 }
 extern "C" void set_wb_pc_ptr(const svOpenArrayHandle r) {
   wb_pc = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
+  //cpu_context->pc = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
+}
+extern "C" void set_skip_pc_ptr(const svOpenArrayHandle r) {
+  skip_pc = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
   //cpu_context->pc = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
 extern "C" void set_inst_ptr(const svOpenArrayHandle r) {
@@ -102,7 +107,8 @@ void sim_end(){
 static void pmem_read(unsigned long raddr, unsigned long* rdata) {
 	if (raddr == 0xa0000048) {
 		#ifdef CONFIG_DIFFTEST
-		difftest_skip_ref();
+		//printf("pc=%lx, mmio rd\n",*skip_pc);
+		difftest_skip_ref(*skip_pc);
 		#endif
 	        struct timeval now;
   		gettimeofday(&now, NULL);
@@ -131,7 +137,8 @@ static void pmem_write(unsigned long waddr, unsigned long wdata, unsigned char w
 		if(wmask & 0x01){
 			if(waddr == 0xa00003f8) {
 				#ifdef CONFIG_DIFFTEST
-				difftest_skip_ref();
+				//printf("pc=%lx, mmio wr\n",*skip_pc);
+				difftest_skip_ref(*skip_pc);
 				#endif
 				//printf("serial write\n");
 				//printf("%c", *data_pt);
@@ -176,7 +183,7 @@ static long load_img() {
 int main(int argc, char** argv, char** env) {
   printf("Hello, ysyx!\n");
   Verilated::commandArgs(argc, argv);
-  cpu = new Vcpu_top;
+  cpu = new Vysyx_22040750_cpu_top;
   //const svScope scope = svGetScopeFromName("TOP.cpu_top");
   //const svScope scope = svGetScope();
   //assert(scope);
@@ -212,6 +219,7 @@ int main(int argc, char** argv, char** env) {
   bool wb_valid_difftest;
   uint64_t wb_pc_difftest;
   uint32_t wb_inst_difftest;
+  bool difftest_error = false;
   while (!finish){
 	  if(sim_time == 1){
 	  #ifdef CONFIG_DIFFTEST
@@ -314,7 +322,8 @@ int main(int argc, char** argv, char** env) {
 	  #ifdef CONFIG_DIFFTEST
 	  if(wb_valid_difftest) {
 	  	//printf("exec difftest at %lu(pc = %lx)\n",sim_time, wb_pc_difftest);
-	  	difftest_step(wb_pc_difftest, cpu_gpr, sim_time);
+	  	difftest_step(wb_pc_difftest, cpu_gpr, sim_time, &difftest_error);
+	  	if(difftest_error){printf("check dut design!\n\n");break;}
 	  }
 	  #endif
 	  }
@@ -323,7 +332,7 @@ int main(int argc, char** argv, char** env) {
 	  #endif
 	  sim_time++;
 	  // test dummy
-	  //if(sim_time == 5000){printf("timeout!\n");break;}
+	  //if(sim_time == 50000){printf("timeout!\n");break;}
   }
   //printf("a\n");
   cpu->final();
