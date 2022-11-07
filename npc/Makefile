@@ -1,3 +1,4 @@
+-include $(NEMU_HOME)/../Makefile
 VSRC = $(shell find $(abspath ./vsrc_fullpipline) -name "*.v")
 CSRC = $(abspath ./csrc/cputest.cpp)
 CSRC += $(shell find $(abspath ./csrc/util) -name "*.cpp")
