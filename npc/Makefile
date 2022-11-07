@@ -2,7 +2,7 @@ VSRC = $(shell find $(abspath ./vsrc_fullpipline) -name "*.v")
 CSRC = $(abspath ./csrc/cputest.cpp)
 CSRC += $(shell find $(abspath ./csrc/util) -name "*.cpp")
 WAVEFILE = addcpu_sim
-TOPNAME = cpu_top
+TOPNAME = ysyx_22040750_cpu_top
 #NXDC_FILES = constr/example.nxdc
 INC_PATH ?=
 # debug config(in place of Kconfig)
