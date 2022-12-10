@@ -203,6 +203,7 @@ module ysyx_22040750_cpu_top(
 		.I_EX_rd_addr(ID_EX_rd_addr),// 
 		.I_EX_valid(ID_EX_input_valid),// ID_EX input valid
 		.I_EX_mem_rd_en(ID_EX_regin_sel[1]),
+		.I_EX_alu_multcycle(|ID_EX_alu_op_sel[13:10]),
 		.I_MEM_rd_addr(EX_MEM_rd_addr),// 
 		.I_MEM_valid(EX_MEM_input_valid),// EX_MEM input valid
 		.I_MEM_mem_rd_en(EX_MEM_regin_sel[1]),
