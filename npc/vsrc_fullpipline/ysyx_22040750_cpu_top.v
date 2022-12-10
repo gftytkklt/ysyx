@@ -39,6 +39,7 @@ module ysyx_22040750_cpu_top(
     wire [63:0] current_pc,dnpc,snpc;
     wire [31:0] current_inst;
     wire [63:0] imm,wr_data,rs1_data,rs2_data,alu_op1,alu_op2,alu_out,mem_in,mem_out,mem_addr;
+    wire alu_out_valid;
     wire [4:0] rs1_addr,rs2_addr,rd_addr;
     //wire [2:0] funct3;
     wire [3:0] dnpc_sel;
@@ -270,6 +271,7 @@ module ysyx_22040750_cpu_top(
 		.I_rst(I_rst),
 		.I_ID_EX_valid(IF_ID_valid),
 		.I_ID_EX_allowout(EX_MEM_allowin),
+		.I_alu_out_valid(alu_out_valid),
 		.O_ID_EX_allowin(ID_EX_allowin),
 		.O_ID_EX_valid(ID_EX_valid),
 		// ID_EX signal
@@ -330,13 +332,18 @@ module ysyx_22040750_cpu_top(
     );
     
     ysyx_22040750_alu alu_e(
+		.I_sys_clk(I_sys_clk),
+		.I_rst(I_rst),
 		.I_op1(alu_op1),
 		.I_op2(alu_op2),
 		.I_alu_op_sel(ID_EX_alu_op_sel),
 		.I_alu_op_sext(ID_EX_alu_sext),
 		.I_word_op_mask(ID_EX_word_op_mask),
+		.I_alu_valid(ID_EX_input_valid),
+		.I_EX_MEM_ready(EX_MEM_allowin),
 		.O_mem_addr(mem_addr),
-		.O_result(alu_out)
+		.O_result(alu_out),
+		.O_result_valid(alu_out_valid)
     );
     
     ysyx_22040750_EX_MEM_reg EX_MEM_reg_e(

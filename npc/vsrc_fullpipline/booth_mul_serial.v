@@ -74,7 +74,7 @@ module booth_mul_serial(
             mid_result <= S;
     // 132 bit adder
     assign Ci = partial_c;
-    assign S = partial_sum + mid_result + Ci;
+    assign S = partial_sum + mid_result + {131'b0,Ci};
 //    always @(posedge clk)
 //        if(rst)
 //            S <= 0;
