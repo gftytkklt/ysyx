@@ -100,16 +100,16 @@ module ysyx_22040750_alu(
     assign or_result = I_op1 | I_op2;
     
     // single cycle mul/div
-    assign mul_out_valid = |I_alu_op_sel[11:10];
+    /*assign mul_out_valid = |I_alu_op_sel[11:10];
     assign div_out_valid = |I_alu_op_sel[13:12];
     assign {mulh_result, mul_result} = ($signed(op1_sext)) * ($signed(op2_sext));
     wire div_sink, rem_sink;
     assign {div_sink, div_result} = ($signed(op1_sext)) / ($signed(op2_sext));
-    assign {rem_sink, rem_result} = ($signed(op1_sext)) % ($signed(op2_sext));
+    assign {rem_sink, rem_result} = ($signed(op1_sext)) % ($signed(op2_sext));*/
     
     // multicycle mul/div
     // select mul / div
-    /*assign mul_flag = op_mul | op_mulh;
+    assign mul_flag = op_mul | op_mulh;
     assign div_flag = op_div | op_rem;
     assign mul_valid = mul_flag & I_multicycle;
     assign div_valid = div_flag & I_multicycle;
@@ -136,7 +136,7 @@ module ysyx_22040750_alu(
 		.quotient(div_result),
 		.remainder(rem_result),
 		.Q_valid(div_out_valid)
-    );*/
+    );
     // if MEM & WB blocked, cache data & valid flag
     always @(posedge I_sys_clk)
     	if(I_rst)
