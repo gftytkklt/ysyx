@@ -52,7 +52,7 @@ module ysyx_22040750_ID_EX_reg(
     wire multicycle;
     assign multicycle = |I_alu_op_sel[13:10];
     assign O_ID_EX_input_valid = input_valid;
-    assign output_valid = I_alu_out_valid;// single cycle alu, for multicycle case, use alu_valid signal
+    assign output_valid = 1;// single cycle alu, for multicycle case, use alu_valid signal
     assign O_ID_EX_allowin = !input_valid || (output_valid && I_ID_EX_allowout);
     assign O_ID_EX_valid = input_valid && output_valid;
     always @(posedge I_sys_clk)
