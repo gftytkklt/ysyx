@@ -448,14 +448,20 @@ VL_INLINE_OPT void Vysyx_22040750_cpu_top___024root___sequent__TOP__1(Vysyx_2204
         vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__mul_reg 
             = (((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__mul_out_valid) 
                 & (~ (IData)(vlSelf->ysyx_22040750_cpu_top__DOT__EX_MEM_allowin)))
-                ? (((QData)((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__booth_mul_serial_e__DOT__S[1U])) 
-                    << 0x20U) | (QData)((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__booth_mul_serial_e__DOT__S[0U])))
+                ? (((QData)((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__booth_mul_serial_e__DOT__S[2U])) 
+                    << 0x3fU) | (((QData)((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__booth_mul_serial_e__DOT__S[1U])) 
+                                  << 0x1fU) | ((QData)((IData)(
+                                                               vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__booth_mul_serial_e__DOT__S[0U])) 
+                                               >> 1U)))
                 : vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__mul_reg);
         vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__mulh_reg 
             = (((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__mul_out_valid) 
                 & (~ (IData)(vlSelf->ysyx_22040750_cpu_top__DOT__EX_MEM_allowin)))
-                ? (((QData)((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__booth_mul_serial_e__DOT__S[3U])) 
-                    << 0x20U) | (QData)((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__booth_mul_serial_e__DOT__S[2U])))
+                ? (((QData)((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__booth_mul_serial_e__DOT__S[4U])) 
+                    << 0x3fU) | (((QData)((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__booth_mul_serial_e__DOT__S[3U])) 
+                                  << 0x1fU) | ((QData)((IData)(
+                                                               vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__booth_mul_serial_e__DOT__S[2U])) 
+                                               >> 1U)))
                 : vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__mulh_reg);
         vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__rem_reg 
             = (((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__div_out_valid) 
@@ -3055,21 +3061,33 @@ VL_INLINE_OPT void Vysyx_22040750_cpu_top___024root___sequent__TOP__1(Vysyx_2204
                  & (((QData)((IData)(((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__mul_reg_valid)
                                        ? (IData)((vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__mul_reg 
                                                   >> 0x20U))
-                                       : vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__booth_mul_serial_e__DOT__S[1U]))) 
+                                       : ((vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__booth_mul_serial_e__DOT__S[2U] 
+                                           << 0x1fU) 
+                                          | (vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__booth_mul_serial_e__DOT__S[1U] 
+                                             >> 1U))))) 
                      << 0x20U) | (QData)((IData)(((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__mul_reg_valid)
                                                    ? (IData)(vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__mul_reg)
                                                    : 
-                                                  vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__booth_mul_serial_e__DOT__S[0U])))))) 
+                                                  ((vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__booth_mul_serial_e__DOT__S[1U] 
+                                                    << 0x1fU) 
+                                                   | (vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__booth_mul_serial_e__DOT__S[0U] 
+                                                      >> 1U)))))))) 
              | ((- (QData)((IData)((1U & ((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__ID_EX_alu_op_sel) 
                                           >> 0xbU))))) 
                 & (((QData)((IData)(((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__mul_reg_valid)
                                       ? (IData)((vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__mulh_reg 
                                                  >> 0x20U))
-                                      : vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__booth_mul_serial_e__DOT__S[3U]))) 
+                                      : ((vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__booth_mul_serial_e__DOT__S[4U] 
+                                          << 0x1fU) 
+                                         | (vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__booth_mul_serial_e__DOT__S[3U] 
+                                            >> 1U))))) 
                     << 0x20U) | (QData)((IData)(((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__mul_reg_valid)
                                                   ? (IData)(vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__mulh_reg)
                                                   : 
-                                                 vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__booth_mul_serial_e__DOT__S[2U])))))) 
+                                                 ((vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__booth_mul_serial_e__DOT__S[3U] 
+                                                   << 0x1fU) 
+                                                  | (vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__booth_mul_serial_e__DOT__S[2U] 
+                                                     >> 1U)))))))) 
             | ((- (QData)((IData)((1U & ((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__ID_EX_alu_op_sel) 
                                          >> 0xcU))))) 
                & (((QData)((IData)(((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__div_reg_valid)
