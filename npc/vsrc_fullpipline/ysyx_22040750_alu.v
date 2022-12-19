@@ -28,7 +28,7 @@ module ysyx_22040750_alu(
     input [14:0] I_alu_op_sel,
     input [1:0] I_alu_op_sext,
     input I_word_op_mask,
-    input I_alu_valid,// ID_EX input valid
+    input I_multicycle,// ID_EX input valid
     input I_EX_MEM_ready,// EX_MEM ready for multicycle result
     output [63:0] O_mem_addr,
     output [63:0] O_result,
@@ -98,7 +98,7 @@ module ysyx_22040750_alu(
     //assign {rem_sink, rem_result} = ($signed(op1_sext)) % ($signed(op2_sext));
     
     // multicycle mul/div
-    reg alu_valid_d;
+    reg mul_valid_d, div_valid_d;
     wire mul_flag, div_flag;
     wire mul_valid, div_valid;
     wire mul_out_valid, div_out_valid;
@@ -108,10 +108,9 @@ module ysyx_22040750_alu(
     // select mul / div
     assign mul_flag = op_mul | op_mulh;
     assign div_flag = op_div | op_rem;
-    always @(posedge I_sys_clk)
-    	alu_valid_d <= I_alu_valid;
-    assign mul_valid = mul_flag & I_alu_valid & ~alu_valid_d;
-    assign div_valid = div_flag & I_alu_valid & ~alu_valid_d;
+    assign mul_valid = mul_flag & I_multicycle;
+    assign div_valid = div_flag & I_multicycle;
+
     // mul / div inst
     booth_mul_serial booth_mul_serial_e(
     	.clk(I_sys_clk),

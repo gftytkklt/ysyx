@@ -41,6 +41,7 @@ module ysyx_22040750_ID_EX_reg(
     input [63:0] I_pc,
     output reg [63:0] O_pc,
     output O_ID_EX_input_valid,
+    output reg O_alu_multicycle,// single cycle pulse
     input [31:0] I_inst_debug,
     output reg [31:0] O_inst_debug,
     input I_bubble_inst_debug,
@@ -48,37 +49,46 @@ module ysyx_22040750_ID_EX_reg(
     );
     reg input_valid;
     wire output_valid;
+    wire multicycle;
+    assign multicycle = |I_alu_op_sel[13:10];
     assign O_ID_EX_input_valid = input_valid;
     assign output_valid = I_alu_out_valid;// single cycle alu, for multicycle case, use alu_valid signal
     assign O_ID_EX_allowin = !input_valid || (output_valid && I_ID_EX_allowout);
     assign O_ID_EX_valid = input_valid && output_valid;
     always @(posedge I_sys_clk)
     	if(I_rst)
-    	    input_valid <= 0;
-	else if(O_ID_EX_allowin)
-	    input_valid <= I_ID_EX_valid;
-	else
-	    input_valid <= input_valid;
+    		O_alu_multicycle <= 0;
+    	else if(I_ID_EX_valid && O_ID_EX_allowin && multicycle)
+    		O_alu_multicycle <= 1;
+    	else
+    		O_alu_multicycle <= 0;
     always @(posedge I_sys_clk)
-	if(I_rst) begin
-	    O_imm <= 0;
-	    O_rs1 <= 0;
-	    O_rs2 <= 0;
-	    O_rd_addr <= 0;
-	    O_reg_wen <= 0;
-	    O_mem_wen <= 0;
-	    O_wstrb <= 0;
-	    O_rstrb <= 0;
-	    O_regin_sel <= 0;
-	    O_op1_sel <= 0;
-	    O_op2_sel <= 0;
-	    O_alu_sext <= 0;
-	    O_alu_op_sel <= 0;
-	    O_word_op_mask <= 0;
-	    O_pc <= 0;
-	    O_inst_debug <= 0;
-	    O_bubble_inst_debug <= 0;
-	end
+    	if(I_rst)
+    	    input_valid <= 0;
+		else if(O_ID_EX_allowin)
+			input_valid <= I_ID_EX_valid;
+		else
+			input_valid <= input_valid;
+    always @(posedge I_sys_clk)
+		if(I_rst) begin
+			O_imm <= 0;
+			O_rs1 <= 0;
+			O_rs2 <= 0;
+			O_rd_addr <= 0;
+			O_reg_wen <= 0;
+			O_mem_wen <= 0;
+			O_wstrb <= 0;
+			O_rstrb <= 0;
+			O_regin_sel <= 0;
+			O_op1_sel <= 0;
+			O_op2_sel <= 0;
+			O_alu_sext <= 0;
+			O_alu_op_sel <= 0;
+			O_word_op_mask <= 0;
+			O_pc <= 0;
+			O_inst_debug <= 0;
+			O_bubble_inst_debug <= 0;
+		end
     	else if(I_ID_EX_valid && O_ID_EX_allowin) begin
 	    O_imm <= I_imm;
 	    O_rs1 <= I_rs1;
