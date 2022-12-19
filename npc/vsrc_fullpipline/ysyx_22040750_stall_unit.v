@@ -6,6 +6,7 @@ module ysyx_22040750_stall_unit(
     input [4:0] I_EX_rd_addr,// 
     input I_EX_valid,// ID_EX input valid
     input I_EX_mem_rd_en,
+    input I_EX_alu_multcycle,
     input [4:0] I_MEM_rd_addr,// 
     input I_MEM_valid,// EX_MEM input valid
     input I_MEM_mem_rd_en,
@@ -36,7 +37,11 @@ module ysyx_22040750_stall_unit(
     */
     // forward code
     wire [1:0] EX_stall, MEM_stall, WB_stall;
-    assign O_ID_stall = I_ID_valid & ((|O_EX_stall & I_EX_mem_rd_en) | (|O_MEM_stall & I_MEM_mem_rd_en));
+    // stall cause
+    wire mem_rd, multicycle_alu_op;
+    assign mem_rd = (|O_EX_stall & I_EX_mem_rd_en) | (|O_MEM_stall & I_MEM_mem_rd_en);
+    assign multicycle_alu_op = |O_EX_stall & I_EX_alu_multcycle;
+    assign O_ID_stall = I_ID_valid & (mem_rd | multicycle_alu_op);
     assign EX_stall = {((I_rs1_addr == I_EX_rd_addr) & I_stall_en[1]), ((I_rs2_addr == I_EX_rd_addr) & I_stall_en[0])};
     assign MEM_stall = {((I_rs1_addr == I_MEM_rd_addr) & I_stall_en[1]), ((I_rs2_addr == I_MEM_rd_addr) & I_stall_en[0])};
     assign WB_stall = {((I_rs1_addr == I_WB_rd_addr) & I_stall_en[1]), ((I_rs2_addr == I_WB_rd_addr) & I_stall_en[0])};

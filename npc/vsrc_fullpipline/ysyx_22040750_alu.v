@@ -21,13 +21,18 @@
 
 
 module ysyx_22040750_alu(
+    input I_sys_clk,
+    input I_rst,
     input [63:0] I_op1,
     input [63:0] I_op2,
     input [14:0] I_alu_op_sel,
     input [1:0] I_alu_op_sext,
     input I_word_op_mask,
+    input I_multicycle,// ID_EX input valid
+    input I_EX_MEM_ready,// EX_MEM ready for multicycle result
     output [63:0] O_mem_addr,
-    output [63:0] O_result
+    output [63:0] O_result,
+    output O_result_valid
     );
     // op
     wire op_add,op_sub,op_slt,op_sltu,op_xor,op_or,op_and,op_sll,op_srl,op_sra,op_mul,op_mulh,op_div,op_rem;
@@ -66,6 +71,14 @@ module ysyx_22040750_alu(
     wire [64:0] op1_sext, op2_sext;
     wire sign_bit1, sign_bit2;
     wire sext1, sext2;
+    
+    reg mul_valid_d, div_valid_d;
+    wire mul_flag, div_flag;
+    wire mul_valid, div_valid;
+    wire mul_out_valid, div_out_valid;
+    reg [63:0] mulh_reg, mul_reg, div_reg, rem_reg;
+    reg mul_reg_valid, div_reg_valid;
+    wire [63:0] mulh_final, mul_final, div_final, rem_final;
     // if sext, use sign bit to extend bit[64](bit[64:32] for w case)
     // sign bit sel
     assign sign_bit1 = I_word_op_mask ? I_op1[31] : I_op1[63];
@@ -85,15 +98,80 @@ module ysyx_22040750_alu(
     assign and_result = I_op1 & I_op2;
     assign xor_result = I_op1 ^ I_op2;
     assign or_result = I_op1 | I_op2;
+    
+    // single cycle mul/div
+    /*assign mul_out_valid = |I_alu_op_sel[11:10];
+    assign div_out_valid = |I_alu_op_sel[13:12];
     assign {mulh_result, mul_result} = ($signed(op1_sext)) * ($signed(op2_sext));
     wire div_sink, rem_sink;
     assign {div_sink, div_result} = ($signed(op1_sext)) / ($signed(op2_sext));
-    assign {rem_sink, rem_result} = ($signed(op1_sext)) % ($signed(op2_sext));
-    //assign mul_result = ($signed(I_op1)) * ($signed(I_op2));
-    //assign div_result = ($signed(I_op1)) / ($signed(I_op2));
-    //assign divu_result = I_op1 / I_op2;
-    //assign rem_result = ($signed(I_op1)) % ($signed(I_op2));
-    //assign remu_result = I_op1 % I_op2;
+    assign {rem_sink, rem_result} = ($signed(op1_sext)) % ($signed(op2_sext));*/
+    
+    // multicycle mul/div
+    // select mul / div
+    assign mul_flag = op_mul | op_mulh;
+    assign div_flag = op_div | op_rem;
+    assign mul_valid = mul_flag & I_multicycle;
+    assign div_valid = div_flag & I_multicycle;
+
+    // mul / div inst
+    booth_mul_serial booth_mul_serial_e(
+    	.clk(I_sys_clk),
+    	.rst(I_rst),
+    	.mul1(op1_sext[63:0]),
+    	.mul2(op2_sext[63:0]),
+    	.is_signed(sext1),
+    	.mul_valid(mul_valid),
+    	.P_valid(mul_out_valid),
+    	.P({mulh_result, mul_result})
+    );
+    radix2_div radix2_div_e(
+		.clk(I_sys_clk),
+		.rst(I_rst),
+		// out = dividend / divisor
+		.dividend(op1_sext[63:0]),
+		.divisor(op2_sext[63:0]),
+		.is_signed(sext1),
+		.div_valid(div_valid),
+		.quotient(div_result),
+		.remainder(rem_result),
+		.Q_valid(div_out_valid)
+    );
+    // if MEM & WB blocked, cache data & valid flag
+    always @(posedge I_sys_clk)
+    	if(I_rst)
+    		{mulh_reg, mul_reg} <= 128'b0;
+    	else if(mul_out_valid & ~I_EX_MEM_ready)
+    		{mulh_reg, mul_reg} <= {mulh_result, mul_result};
+    	else
+    		{mulh_reg, mul_reg} <= {mulh_reg, mul_reg};
+    always @(posedge I_sys_clk)
+    	if(I_rst)
+    		mul_reg_valid <= 0;
+    	else if(mul_out_valid & ~I_EX_MEM_ready)
+    		mul_reg_valid <= 1;
+    	else if(mul_reg_valid & I_EX_MEM_ready)
+    		mul_reg_valid <= 0;
+    	else
+    		mul_reg_valid <= mul_reg_valid;
+    always @(posedge I_sys_clk)
+    	if(I_rst)
+    		{div_reg, rem_reg} <= 128'b0;
+    	else if(div_out_valid & ~I_EX_MEM_ready)
+    		{div_reg, rem_reg} <= {div_result, rem_result};
+    	else
+    		{div_reg, rem_reg} <= {div_reg, rem_reg};
+    always @(posedge I_sys_clk)
+    	if(I_rst)
+    		div_reg_valid <= 0;
+    	else if(div_out_valid & ~I_EX_MEM_ready)
+    		div_reg_valid <= 1;
+    	else if(div_reg_valid & I_EX_MEM_ready)
+    		div_reg_valid <= 0;
+    	else
+    		div_reg_valid <= div_reg_valid;
+    assign {mulh_final, mul_final} = mul_reg_valid ? {mulh_reg, mul_reg} : {mulh_result, mul_result};
+    assign {div_final, rem_final} = div_reg_valid ? {div_reg, rem_reg} : {div_result, rem_result};
     // add, sub, slt, sltu
     wire [63:0] adder1, adder2, result;
     wire [63:0] cin;
@@ -160,15 +238,16 @@ module ysyx_22040750_alu(
                         | ({64{op_sll}} & sll_result)
                         | ({64{op_srl}} & srl_result)
                         | ({64{op_sra}} & sra_result)
-                        | ({64{op_mul}} & mul_result)
-                        | ({64{op_mulh}} & mulh_result)
-                        | ({64{op_div}} & div_result)
+                        | ({64{op_mul}} & mul_final)
+                        | ({64{op_mulh}} & mulh_final)
+                        | ({64{op_div}} & div_final)
                         //| ({64{op_divu}} & divu_result)
-                        | ({64{op_rem}} & rem_result);
+                        | ({64{op_rem}} & rem_final);
                         //| ({64{op_remu}} & remu_result);
     // only divuw and remuw produce 0 sext
     wire word_sext;
     assign word_sext = ((op_div | op_rem) && (~|I_alu_op_sext)) ? 0 : dword_result[31];
     assign word_sext_result = {{32{word_sext}}, dword_result[31:0]};
     assign O_result = I_word_op_mask ? word_sext_result : dword_result;
+    assign O_result_valid = |I_alu_op_sel[13:10] ? (div_out_valid | mul_out_valid | mul_reg_valid | div_reg_valid) : 1;
 endmodule

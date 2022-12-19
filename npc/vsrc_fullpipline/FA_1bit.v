@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 2022/06/10 19:26:13
+// Create Date: 2022/11/29 11:33:13
 // Design Name: 
-// Module Name: data_sd
+// Module Name: FA_1bit
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -19,10 +19,11 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-module data_sd(
-    input [63:0] I_data_in,
-    input [7:0] I_wr_strb,
-    output [63:0] O_sd_data
+
+module FA_1bit(
+    input [2:0] a,
+    output s,
+    output c
     );
-    assign O_sd_data = I_wr_strb[7] ? I_data_in : I_wr_strb[3] ? {2{I_data_in[31:0]}} : I_wr_strb[1] ? {4{I_data_in[15:0]}} : {8{I_data_in[7:0]}};
+    assign {c,s}=a[2]+a[1]+a[0];
 endmodule
