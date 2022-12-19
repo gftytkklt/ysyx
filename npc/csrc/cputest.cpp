@@ -323,7 +323,7 @@ int main(int argc, char** argv, char** env) {
 	  if(wb_valid_difftest) {
 	  	//printf("exec difftest at %lu(pc = %lx)\n",sim_time, wb_pc_difftest);
 	  	difftest_step(wb_pc_difftest, cpu_gpr, sim_time, &difftest_error);
-	  	if(difftest_error){printf("check dut design!\n\n");break;}
+	  	if(difftest_error){printf("error pc at %lx!\n\n", wb_pc_difftest);break;}
 	  }
 	  #endif
 	  }
