@@ -71,6 +71,14 @@ module ysyx_22040750_alu(
     wire [64:0] op1_sext, op2_sext;
     wire sign_bit1, sign_bit2;
     wire sext1, sext2;
+    
+    reg mul_valid_d, div_valid_d;
+    wire mul_flag, div_flag;
+    wire mul_valid, div_valid;
+    wire mul_out_valid, div_out_valid;
+    reg [63:0] mulh_reg, mul_reg, div_reg, rem_reg;
+    reg mul_reg_valid, div_reg_valid;
+    wire [63:0] mulh_final, mul_final, div_final, rem_final;
     // if sext, use sign bit to extend bit[64](bit[64:32] for w case)
     // sign bit sel
     assign sign_bit1 = I_word_op_mask ? I_op1[31] : I_op1[63];
@@ -92,21 +100,16 @@ module ysyx_22040750_alu(
     assign or_result = I_op1 | I_op2;
     
     // single cycle mul/div
-    //assign {mulh_result, mul_result} = ($signed(op1_sext)) * ($signed(op2_sext));
-    //wire div_sink, rem_sink;
-    //assign {div_sink, div_result} = ($signed(op1_sext)) / ($signed(op2_sext));
-    //assign {rem_sink, rem_result} = ($signed(op1_sext)) % ($signed(op2_sext));
+    assign mul_out_valid = |I_alu_op_sel[11:10];
+    assign div_out_valid = |I_alu_op_sel[13:12];
+    assign {mulh_result, mul_result} = ($signed(op1_sext)) * ($signed(op2_sext));
+    wire div_sink, rem_sink;
+    assign {div_sink, div_result} = ($signed(op1_sext)) / ($signed(op2_sext));
+    assign {rem_sink, rem_result} = ($signed(op1_sext)) % ($signed(op2_sext));
     
     // multicycle mul/div
-    reg mul_valid_d, div_valid_d;
-    wire mul_flag, div_flag;
-    wire mul_valid, div_valid;
-    wire mul_out_valid, div_out_valid;
-    reg [63:0] mulh_reg, mul_reg, div_reg, rem_reg;
-    reg mul_reg_valid, div_reg_valid;
-    wire [63:0] mulh_final, mul_final, div_final, rem_final;
     // select mul / div
-    assign mul_flag = op_mul | op_mulh;
+    /*assign mul_flag = op_mul | op_mulh;
     assign div_flag = op_div | op_rem;
     assign mul_valid = mul_flag & I_multicycle;
     assign div_valid = div_flag & I_multicycle;
@@ -133,7 +136,7 @@ module ysyx_22040750_alu(
 		.quotient(div_result),
 		.remainder(rem_result),
 		.Q_valid(div_out_valid)
-    );
+    );*/
     // if MEM & WB blocked, cache data & valid flag
     always @(posedge I_sys_clk)
     	if(I_rst)
