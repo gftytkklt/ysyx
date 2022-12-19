@@ -80,7 +80,7 @@ module booth_mul_serial(
 //            S <= 0;
 //        else
 //            S <= partial_sum + S + Ci;
-    assign P = S[128:1];
+    assign P = S[127:0];
     // output valid
     always @(posedge clk)
         if(rst)
