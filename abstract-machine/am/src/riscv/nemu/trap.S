@@ -67,6 +67,7 @@ __am_asm_save_context:
   #ld a0, 0(zero)
   csrw mstatus, t1
   csrw mepc, t2
+  li zero, 0
   ld a0, 0(zero)
   MAP(REGS, POP)
   LOAD sp, OFFSET_SP(sp)
