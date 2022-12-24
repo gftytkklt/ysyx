@@ -64,10 +64,10 @@ __am_asm_save_context:
   
   LOAD t1, OFFSET_STATUS(sp)
   LOAD t2, OFFSET_EPC(sp)
-  ld a0, 0(zero)
+  #ld a0, 0(zero)
   csrw mstatus, t1
   csrw mepc, t2
-  
+  ld a0, 0(zero)
   MAP(REGS, POP)
   LOAD sp, OFFSET_SP(sp)
   #addi sp, sp, CONTEXT_SIZE
