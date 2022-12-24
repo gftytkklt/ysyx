@@ -85,7 +85,7 @@ Context* schedule(Context *prev) {
   //i++;
   //current = (i%100) ? fg_pcb : &pcb[0];
   //1224 add
-  current = (current == &pcb[0]) ? &pcb[1] : &pcb[0];
+  current = (current == &pcb[1]) ? &pcb[0] : &pcb[1];
   
   //if(current == &pcb[0]){printf("after: current pcb: pcb0\n");}
   //else if(current == &pcb[1]){printf("after: current pcb: pcb1\n");}
