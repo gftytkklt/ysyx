@@ -55,18 +55,18 @@ void init_proc() {
   char * envp[]={NULL};
   
   // 1224 zhushi
-  //context_uload(&pcb[0],"/bin/hello", argv, envp);
-  //context_uload(&pcb[1],"/bin/pal", argv, envp);
-  //context_uload(&pcb[2],"/bin/nslider", argv, envp);
-  //1224 add
-  context_kload(&pcb[0],hello_fun,"arg0");
-  //context_kload(&pcb[1],hello_fun,"arg1");
+  context_uload(&pcb[0],"/bin/hello", argv, envp);
   context_uload(&pcb[1],"/bin/pal", argv, envp);
+  context_uload(&pcb[2],"/bin/nslider", argv, envp);
+  //1224 add
+  //context_kload(&pcb[0],hello_fun,"arg0");
+  //context_kload(&pcb[1],hello_fun,"arg1");
+  //context_uload(&pcb[1],"/bin/pal", argv, envp);
   
-  fg_pcb = &pcb[0];
+  fg_pcb = &pcb[1];
   //Log("proc end at %lx\n",pcb[0].max_brk);
 }
-//static int i = 0;
+static int i = 0;
 Context* schedule(Context *prev) {
   // save the context pointer
   //printf("schedule begin, cp: %p\n",prev);
@@ -82,10 +82,10 @@ Context* schedule(Context *prev) {
   //current = (i%100) ? &pcb[1] : &pcb[0];
   
   //1224 zhushi
-  //i++;
-  //current = (i%100) ? fg_pcb : &pcb[0];
+  i++;
+  current = (i%100) ? fg_pcb : &pcb[0];
   //1224 add
-  current = (current == &pcb[1]) ? &pcb[0] : &pcb[1];
+  //current = (current == &pcb[1]) ? &pcb[0] : &pcb[1];
   
   //if(current == &pcb[0]){printf("after: current pcb: pcb0\n");}
   //else if(current == &pcb[1]){printf("after: current pcb: pcb1\n");}
