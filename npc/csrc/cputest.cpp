@@ -220,20 +220,16 @@ int main(int argc, char** argv, char** env) {
   uint64_t wb_pc_difftest;
   uint32_t wb_inst_difftest;
   bool difftest_error = false;
-  #ifdef CONFIG_DIFFTEST
-    printf("difftest: %s\n",ASNI_FMT("ON", ASNI_FG_GREEN));
-    ref_so_file = argv[3];
-    init_difftest(ref_so_file, img_size, mem, cpu_gpr);
-  #endif
+  
   while (!finish){
-	  /*if(sim_time == 1){
+	  if(sim_time == 1){
 	  #ifdef CONFIG_DIFFTEST
 	  //printf("%lu\n", sim_time);
 	  printf("difftest: %s\n",ASNI_FMT("ON", ASNI_FG_GREEN));
   	  ref_so_file = argv[3];
 	  init_difftest(ref_so_file, img_size, mem, cpu_gpr);
 	  #endif
-	  }*/
+	  }
 	  if(sim_time < 10){cpu->I_rst = 1;}
 	  else{cpu->I_rst = 0;}
 	  if((sim_time % 6) == 0){cpu->I_sys_clk = 1;}
