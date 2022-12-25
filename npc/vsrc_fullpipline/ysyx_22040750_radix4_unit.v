@@ -5,7 +5,7 @@
 // 
 // Create Date: 2022/11/25 18:11:44
 // Design Name: 
-// Module Name: radix4_unit
+// Module Name: ysyx_22040750_radix4_unit
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module radix4_unit(
+module ysyx_22040750_radix4_unit(
     input [2:0] booth,
     //input [64:0] X,
     input [131:0] X,
@@ -28,7 +28,7 @@ module radix4_unit(
     output c
     //output reg [65:0] Y
     );
-//////// a correct version£¨LESS LUT£©
+//////// a correct versionï¿½ï¿½LESS LUTï¿½ï¿½
 //    wire [127:0] X_sext, X_comp;
 //    reg [127:0] Y;
 //    assign P=Y;
