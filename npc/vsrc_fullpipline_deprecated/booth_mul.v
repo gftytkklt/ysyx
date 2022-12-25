@@ -93,12 +93,12 @@ module booth_mul(
 //            Ci_R <= partial_c_R[31];
         end
     generate for(i=0;i<=32;i=i+1) begin: booth_gen
-        radix4_unit radix4_unit_e(booth_mul1[i*2 +: 3],{booth_mul2[0 +: (132-2*i)],{2*i{1'b0}}},partial_sum[i],partial_c[i]);
+        ysyx_22040750_radix4_unit radix4_unit_e(booth_mul1[i*2 +: 3],{booth_mul2[0 +: (132-2*i)],{2*i{1'b0}}},partial_sum[i],partial_c[i]);
         for(j=0;j<132;j=j+1) begin: transpose
             assign wallace_in[j][i] = partial_sum[i][j];
 //            assign wallace_in[j][i] = partial_sum_R[i][j];
         end
-        //radix4_unit radix4_unit_e(booth_mul1[i*2 +: 3],booth_mul2,partial_sum[i]);
+        //ysyx_22040750_radix4_unit radix4_unit_e(booth_mul1[i*2 +: 3],booth_mul2,partial_sum[i]);
         //assign partial_sum[i] = booth_sum[i] << (2*i);
         //assign partial_sum[i] = {booth_sum[i][0 +: (128-2*i)],{2*i{1'b0}}};
     end

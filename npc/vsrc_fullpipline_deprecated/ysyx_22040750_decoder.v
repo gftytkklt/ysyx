@@ -21,6 +21,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 // `include "global_def.v"
 //import "DPI-C" function void sim_end();
+`include "ysyx_22040750_global_def.vh"
 import "DPI-C" function void set_inst_ptr(input logic [31:0] a []);
 module ysyx_22040750_decoder(
     input I_sys_clk,
@@ -40,9 +41,9 @@ module ysyx_22040750_decoder(
     //output [2:0] O_funct3,
     //output [6:0] O_funct7,
     output [3:0] O_dnpc_sel,
-    output [1:0] O_regin_sel,
+    output [2:0] O_regin_sel,
     output [2:0] O_opnum1_sel,
-    output [2:0] O_opnum2_sel,
+    output [1:0] O_opnum2_sel,
     output [14:0] O_alu_op_sel,
     output [1:0] O_alu_op_sext,
     output O_word_op_mask,
@@ -233,9 +234,9 @@ module ysyx_22040750_decoder(
     // reg wr en
     wire regin_from_mem = (opcode == 7'b0000011);
     // O_regin_sel: 4 for snpc, 2 for memory in, 1 for alu in
-    //assign O_regin_sel[2] = O_reg_wen & (JAL | JALR);
+    assign O_regin_sel[2] = O_reg_wen & (JAL | JALR);
     assign O_regin_sel[1] = O_reg_wen & regin_from_mem;
-    assign O_regin_sel[0] = O_reg_wen & (~regin_from_mem);
+    assign O_regin_sel[0] = O_reg_wen & (~(regin_from_mem | JAL | JALR));
     assign O_reg_wen = typeR | typeI | typeU | typeJ;
     assign O_mem_wen = typeS;
     assign O_mem_wstrb = ({8{SD}} & 8'b11111111)
@@ -331,24 +332,20 @@ module ysyx_22040750_decoder(
     localparam OP1_PC = 3'd2;
     localparam OP1_ZERO = 3'd4;
     wire rs1_flag, pc_flag, zero_flag;
-    assign rs1_flag = typeR | (typeI & (~JALR)) | typeS;
-    assign pc_flag = typeB | typeJ | AUIPC | JALR;
+    assign rs1_flag = typeR | typeI | typeS;
+    assign pc_flag = typeB | typeJ | AUIPC;
     assign zero_flag = LUI;
     assign O_opnum1_sel = OP1_RS1 & {3{rs1_flag}}
                         | OP1_PC & {3{pc_flag}}
                         | OP1_ZERO & {3{zero_flag}};
     // op_num2
-    localparam OP2_RS2 = 3'd1;
-    localparam OP2_IMM = 3'd2;
-    localparam OP2_FOUR = 3'd4;
-    //TODO: add alu cal pc+4 datapath, also adjust wb sel
-    wire rs2_flag, imm_flag, four_flag;
+    localparam OP2_RS2 = 2'd1;
+    localparam OP2_IMM = 2'd2;
+    wire rs2_flag, imm_flag;
     assign rs2_flag = typeR;
-    assign imm_flag = typeI | typeS | typeB | typeU;
-    assign four_flag = JALR | typeJ;
-    assign O_opnum2_sel = OP2_RS2 & {3{rs2_flag}}
-                        | OP2_IMM & {3{imm_flag}}
-                        | OP2_FOUR & {3{four_flag}};
+    assign imm_flag = typeI | typeS | typeB | typeJ | typeU;
+    assign O_opnum2_sel = OP2_RS2 & {2{rs2_flag}}
+                        | OP2_IMM & {2{imm_flag}};
     // ebreak signal gen
     //always @(posedge I_sys_clk)
     //	if ((I_inst == 32'h00100073) && !I_rst)

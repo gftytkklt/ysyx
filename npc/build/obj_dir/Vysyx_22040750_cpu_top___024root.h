@@ -40,9 +40,7 @@ VL_MODULE(Vysyx_22040750_cpu_top___024root) {
     // LOCAL SIGNALS
     // Anonymous structures to workaround compiler member-count bugs
     struct {
-        CData/*0:0*/ ysyx_22040750_cpu_top__DOT__alu_out_valid;
         CData/*3:0*/ ysyx_22040750_cpu_top__DOT__dnpc_sel;
-        CData/*2:0*/ ysyx_22040750_cpu_top__DOT__regin_sel;
         CData/*0:0*/ ysyx_22040750_cpu_top__DOT__reg_wen;
         CData/*1:0*/ ysyx_22040750_cpu_top__DOT__alu_op_sext;
         CData/*0:0*/ ysyx_22040750_cpu_top__DOT__IF_valid;
@@ -53,9 +51,9 @@ VL_MODULE(Vysyx_22040750_cpu_top___024root) {
         CData/*4:0*/ ysyx_22040750_cpu_top__DOT__ID_EX_rd_addr;
         CData/*7:0*/ ysyx_22040750_cpu_top__DOT__ID_EX_wstrb;
         CData/*2:0*/ ysyx_22040750_cpu_top__DOT__ID_EX_dnpc_sel;
-        CData/*2:0*/ ysyx_22040750_cpu_top__DOT__ID_EX_regin_sel;
+        CData/*2:0*/ ysyx_22040750_cpu_top__DOT__ID_EX_op2_sel;
         CData/*2:0*/ ysyx_22040750_cpu_top__DOT__ID_EX_op1_sel;
-        CData/*1:0*/ ysyx_22040750_cpu_top__DOT__ID_EX_op2_sel;
+        CData/*1:0*/ ysyx_22040750_cpu_top__DOT__ID_EX_regin_sel;
         CData/*1:0*/ ysyx_22040750_cpu_top__DOT__ID_EX_alu_sext;
         CData/*0:0*/ ysyx_22040750_cpu_top__DOT__ID_EX_reg_wen;
         CData/*0:0*/ ysyx_22040750_cpu_top__DOT__ID_EX_mem_wen;
@@ -65,18 +63,19 @@ VL_MODULE(Vysyx_22040750_cpu_top___024root) {
         CData/*1:0*/ ysyx_22040750_cpu_top__DOT__ID_EX_stall;
         CData/*0:0*/ ysyx_22040750_cpu_top__DOT__ID_EX_bubble;
         CData/*0:0*/ ysyx_22040750_cpu_top__DOT__ID_EX_alu_multicycle;
+        CData/*0:0*/ ysyx_22040750_cpu_top__DOT__alu_out_valid;
         CData/*0:0*/ ysyx_22040750_cpu_top__DOT__EX_MEM_valid;
         CData/*7:0*/ ysyx_22040750_cpu_top__DOT__EX_MEM_wstrb;
         CData/*0:0*/ ysyx_22040750_cpu_top__DOT__EX_MEM_mem_wen;
         CData/*0:0*/ ysyx_22040750_cpu_top__DOT__EX_MEM_reg_wen;
         CData/*4:0*/ ysyx_22040750_cpu_top__DOT__EX_MEM_rd_addr;
-        CData/*2:0*/ ysyx_22040750_cpu_top__DOT__EX_MEM_regin_sel;
+        CData/*1:0*/ ysyx_22040750_cpu_top__DOT__EX_MEM_regin_sel;
         CData/*0:0*/ ysyx_22040750_cpu_top__DOT__EX_MEM_allowin;
         CData/*1:0*/ ysyx_22040750_cpu_top__DOT__EX_MEM_stall;
         CData/*0:0*/ ysyx_22040750_cpu_top__DOT__EX_MEM_bubble;
         CData/*0:0*/ ysyx_22040750_cpu_top__DOT__MEM_WB_reg_wen;
         CData/*4:0*/ ysyx_22040750_cpu_top__DOT__MEM_WB_rd_addr;
-        CData/*2:0*/ ysyx_22040750_cpu_top__DOT__MEM_WB_regin_sel;
+        CData/*1:0*/ ysyx_22040750_cpu_top__DOT__MEM_WB_regin_sel;
         CData/*2:0*/ ysyx_22040750_cpu_top__DOT__MEM_WB_shamt;
         CData/*0:0*/ ysyx_22040750_cpu_top__DOT__MEM_WB_allowin;
         CData/*0:0*/ ysyx_22040750_cpu_top__DOT__MEM_WB_bubble;
@@ -104,9 +103,9 @@ VL_MODULE(Vysyx_22040750_cpu_top___024root) {
         CData/*0:0*/ ysyx_22040750_cpu_top__DOT__decoder_e__DOT__REM;
         CData/*0:0*/ ysyx_22040750_cpu_top__DOT__decoder_e__DOT__MULW;
         CData/*0:0*/ ysyx_22040750_cpu_top__DOT__decoder_e__DOT__DIVW;
+        CData/*0:0*/ ysyx_22040750_cpu_top__DOT__decoder_e__DOT__REMW;
     };
     struct {
-        CData/*0:0*/ ysyx_22040750_cpu_top__DOT__decoder_e__DOT__REMW;
         CData/*0:0*/ ysyx_22040750_cpu_top__DOT__decoder_e__DOT__typeB_jr;
         CData/*0:0*/ ysyx_22040750_cpu_top__DOT__decoder_e__DOT__eq;
         CData/*0:0*/ ysyx_22040750_cpu_top__DOT__decoder_e__DOT__lt;
@@ -170,9 +169,9 @@ VL_MODULE(Vysyx_22040750_cpu_top___024root) {
         QData/*63:0*/ ysyx_22040750_cpu_top__DOT__alu_op2;
         QData/*63:0*/ ysyx_22040750_cpu_top__DOT__alu_out;
         QData/*63:0*/ ysyx_22040750_cpu_top__DOT__mem_in;
+        QData/*63:0*/ ysyx_22040750_cpu_top__DOT__IF_ID_pc;
     };
     struct {
-        QData/*63:0*/ ysyx_22040750_cpu_top__DOT__IF_ID_pc;
         QData/*63:0*/ ysyx_22040750_cpu_top__DOT__ID_EX_imm;
         QData/*63:0*/ ysyx_22040750_cpu_top__DOT__ID_EX_pc;
         QData/*63:0*/ ysyx_22040750_cpu_top__DOT__ID_EX_rs1;
@@ -207,8 +206,8 @@ VL_MODULE(Vysyx_22040750_cpu_top___024root) {
         QData/*63:0*/ ysyx_22040750_cpu_top__DOT__mem_ld_e__DOT__ld_data;
         VlUnpacked<QData/*63:0*/, 2> ysyx_22040750_cpu_top__DOT__npc_e__DOT__nextpc_64bit_2sel__DOT__sel_data;
         VlUnpacked<QData/*63:0*/, 3> ysyx_22040750_cpu_top__DOT__alu_op1_64bit_3sel__DOT__sel_data;
-        VlUnpacked<QData/*63:0*/, 2> ysyx_22040750_cpu_top__DOT__alu_op2_64bit_2sel__DOT__sel_data;
-        VlUnpacked<QData/*63:0*/, 3> ysyx_22040750_cpu_top__DOT__regin_64bit_3sel__DOT__sel_data;
+        VlUnpacked<QData/*63:0*/, 3> ysyx_22040750_cpu_top__DOT__alu_op2_64bit_3sel__DOT__sel_data;
+        VlUnpacked<QData/*63:0*/, 2> ysyx_22040750_cpu_top__DOT__regin_64bit_3sel__DOT__sel_data;
         VlUnpacked<QData/*63:0*/, 32> ysyx_22040750_cpu_top__DOT__gpr_e__DOT__gpr;
         VlUnpacked<CData/*0:0*/, 32> ysyx_22040750_cpu_top__DOT__gpr_e__DOT__wen;
     };
@@ -219,8 +218,8 @@ VL_MODULE(Vysyx_22040750_cpu_top___024root) {
     CData/*1:0*/ ysyx_22040750_cpu_top__DOT__npc_e__DOT____Vcellinp__nextpc_64bit_2sel__I_sel;
     CData/*0:0*/ __Vclklast__TOP__I_sys_clk;
     VlWide<6>/*191:0*/ ysyx_22040750_cpu_top__DOT____Vcellinp__alu_op1_64bit_3sel__I_sel_data;
-    VlWide<4>/*127:0*/ ysyx_22040750_cpu_top__DOT____Vcellinp__alu_op2_64bit_2sel__I_sel_data;
-    VlWide<6>/*191:0*/ ysyx_22040750_cpu_top__DOT____Vcellinp__regin_64bit_3sel__I_sel_data;
+    VlWide<6>/*191:0*/ ysyx_22040750_cpu_top__DOT____Vcellinp__alu_op2_64bit_3sel__I_sel_data;
+    VlWide<4>/*127:0*/ ysyx_22040750_cpu_top__DOT____Vcellinp__regin_64bit_3sel__I_sel_data;
     VlWide<4>/*127:0*/ ysyx_22040750_cpu_top__DOT__npc_e__DOT____Vcellinp__nextpc_64bit_2sel__I_sel_data;
     VlUnpacked<CData/*0:0*/, 3> __Vm_traceActivity;
 
