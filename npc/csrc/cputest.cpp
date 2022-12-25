@@ -191,23 +191,32 @@ int main(int argc, char** argv, char** env) {
   
   #ifdef CONFIG_WAVEFORM
   // waveform file pointer
+  printf("waveform: %s\n",ASNI_FMT("ON", ASNI_FG_GREEN));
   Verilated::traceEverOn(true);
   VerilatedVcdC* tfp = new VerilatedVcdC;
   // waveform gen
   cpu->trace(tfp,99);
   tfp->open("cpu_sim.vcd");
+  #else
+  printf("waveform: %s\n",ASNI_FMT("OFF", ASNI_FG_RED));
   #endif
   
   // init imgfile
   img_file=argv[1];
   img_size = load_img();
   #ifdef CONFIG_ITRACE
+  printf("itrace: %s\n",ASNI_FMT("ON", ASNI_FG_GREEN));
   FILE* logfp = fopen("npc-log.txt","w");
   init_disasm("riscv64" "-pc-linux-gnu");
+  #else
+  printf("itrace: %s\n",ASNI_FMT("OFF", ASNI_FG_RED));
   #endif
   #ifdef CONFIG_FTRACE
+  printf("ftrace: %s\n",ASNI_FMT("ON", ASNI_FG_GREEN));
   elf_file = argv[2];
   init_elf(elf_file);
+  #else
+  printf("ftrace: %s\n",ASNI_FMT("OFF", ASNI_FG_RED));
   #endif
   //inst_gen(false);
   // sim
@@ -228,6 +237,8 @@ int main(int argc, char** argv, char** env) {
 	  printf("difftest: %s\n",ASNI_FMT("ON", ASNI_FG_GREEN));
   	  ref_so_file = argv[3];
 	  init_difftest(ref_so_file, img_size, mem, cpu_gpr);
+	  #else
+	  printf("difftest: %s\n",ASNI_FMT("OFF", ASNI_FG_RED));
 	  #endif
 	  }
 	  if(sim_time < 10){cpu->I_rst = 1;}
