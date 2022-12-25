@@ -224,6 +224,7 @@ int main(int argc, char** argv, char** env) {
 	  if(sim_time == 1){
 	  #ifdef CONFIG_DIFFTEST
 	  //printf("%lu\n", sim_time);
+	  printf("difftest: %s\n",ASNI_FMT("ON", ASNI_FG_GREEN));
   	  ref_so_file = argv[3];
 	  init_difftest(ref_so_file, img_size, mem, cpu_gpr);
 	  #endif
