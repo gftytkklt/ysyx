@@ -85,7 +85,8 @@ Context* schedule(Context *prev) {
   
   //1224 zhushi
   i++;
-  current = (i%100) ? fg_pcb : &pcb[0];
+  //current = (i%100) ? fg_pcb : &pcb[0];
+  current = fg_pcb;
   //1224 add
   //current = (current == &pcb[1]) ? &pcb[0] : &pcb[1];
   
