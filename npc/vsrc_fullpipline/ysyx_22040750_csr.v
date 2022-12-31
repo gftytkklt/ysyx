@@ -8,6 +8,10 @@ module ysyx_22040750_csr(
     input [63:0] I_wr_data,
     output [63:0] O_rd_data
 );
+    localparam MEPC = 12'h341;
+    localparam MSTATUS = 12'h300;
+    localparam MTVEC = 12'h305;
+    localparam MCAUSE = 12'h342;
     reg [63:0] mepc, mstatus, mtvec, mcause;
     reg [63:0] mip, mie, mtime, mtimecmp;
 endmodule
