@@ -65,6 +65,7 @@ void init_proc() {
   
   fg_pcb = &pcb[1];
   //Log("proc end at %lx\n",pcb[0].max_brk);
+  naive_uload(NULL, "/bin/cpp-test");
 }
 static int i = 0;
 Context* schedule(Context *prev) {
