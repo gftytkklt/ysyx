@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <stdio.h>
-
+void __libc_init_array(void);
 int main(int argc, char *argv[], char *envp[]);
 extern char **environ;
 void call_main(uintptr_t *args) {
@@ -19,6 +19,7 @@ void call_main(uintptr_t *args) {
   environ = envp;
   //printf("main start\n");
   //asm volatile("ld a0, 0(zero)");
+  __libc_init_array();
   exit(main(argc, argv, envp));
   //main(argc, argv, envp);
   
