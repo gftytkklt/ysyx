@@ -16,7 +16,7 @@
 // Revision:
 // Revision 0.01 - File Created
 // Additional Comments:
-// 
+// This core is for cpu core top only, for top module with standard interface, use a new top module.
 //////////////////////////////////////////////////////////////////////////////////
 
 module ysyx_22040750_cpu_top(
@@ -42,7 +42,7 @@ module ysyx_22040750_cpu_top(
     wire [4:0] rs1_addr,rs2_addr,rd_addr;
     //wire [2:0] funct3;
     wire [3:0] dnpc_sel;
-    wire [1:0] regin_sel;
+    wire [2:0] regin_sel;
     wire [2:0] opnum1_sel;
     wire [2:0] opnum2_sel;
     wire [14:0] alu_op_sel;
@@ -66,8 +66,8 @@ module ysyx_22040750_cpu_top(
     wire [4:0] ID_EX_rd_addr;
     wire [7:0] ID_EX_wstrb;
     wire [8:0] ID_EX_rstrb;
-    wire [2:0] ID_EX_dnpc_sel,ID_EX_op2_sel,ID_EX_op1_sel;
-    wire [1:0] ID_EX_regin_sel,ID_EX_alu_sext;
+    wire [2:0] ID_EX_dnpc_sel,ID_EX_op2_sel,ID_EX_op1_sel,ID_EX_regin_sel;
+    wire [1:0] ID_EX_alu_sext;
     wire [14:0] ID_EX_alu_op_sel;
     wire ID_EX_reg_wen, ID_EX_mem_wen;
     wire ID_EX_word_op_mask;
@@ -89,7 +89,7 @@ module ysyx_22040750_cpu_top(
     wire [63:0] EX_MEM_mem_data;
     wire EX_MEM_reg_wen;
     wire [4:0] EX_MEM_rd_addr;
-    wire [1:0] EX_MEM_regin_sel;
+    wire [2:0] EX_MEM_regin_sel;
     wire [2:0] EX_MEM_shamt;// mem wr shamt
     wire EX_MEM_allowin;
     wire [1:0] EX_MEM_stall;
@@ -105,7 +105,7 @@ module ysyx_22040750_cpu_top(
     wire [63:0] MEM_WB_alu_out;
     wire MEM_WB_reg_wen;
     wire [4:0] MEM_WB_rd_addr;
-    wire [1:0] MEM_WB_regin_sel;
+    wire [2:0] MEM_WB_regin_sel;
     wire [2:0] MEM_WB_shamt;// mem rd shamt
     wire MEM_WB_allowin;
     wire [31:0] MEM_WB_inst;
@@ -261,6 +261,10 @@ module ysyx_22040750_cpu_top(
 		.O_opnum2_sel(opnum2_sel),
 		.O_alu_op_sel(alu_op_sel),
 		.O_alu_op_sext(alu_op_sext),
+		.O_csr_op_sel(),
+		.O_csr_imm(),
+		.O_csr_addr(),
+		.O_csr_wen(),
 		.O_word_op_mask(word_op_mask),
 		.O_stall_en(stall_en)
     );

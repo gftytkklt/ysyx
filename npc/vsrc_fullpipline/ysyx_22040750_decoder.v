@@ -17,7 +17,7 @@
 // Revision 0.01 - File Created
 // Additional Comments:
 // control signal is generated in this module!
-// dnpc: 
+// TODO: modify regin_sel to [2:0], add csr typeC impl, 
 //////////////////////////////////////////////////////////////////////////////////
 // `include "global_def.v"
 //import "DPI-C" function void sim_end();
@@ -40,12 +40,16 @@ module ysyx_22040750_decoder(
     //output [2:0] O_funct3,
     //output [6:0] O_funct7,
     output [3:0] O_dnpc_sel,
-    output [1:0] O_regin_sel,
+    output [2:0] O_regin_sel,
     output [2:0] O_opnum1_sel,
     output [2:0] O_opnum2_sel,
     output [14:0] O_alu_op_sel,
     output [1:0] O_alu_op_sext,
     output O_word_op_mask,
+    output [2:0] O_csr_op_sel,
+    output [4:0] O_csr_imm,
+    output [11:0] O_csr_addr,
+    output O_csr_wen,
     output [1:0] O_stall_en// en[1] for rs1, en[2] for rs2
     //output O_sim_end
     );
@@ -58,7 +62,7 @@ module ysyx_22040750_decoder(
     wire [12:0] immB;
     wire [31:0] immU;
     wire [20:0] immJ;
-    wire typeI, typeS, typeR, typeB, typeU, typeJ;
+    wire typeI, typeS, typeR, typeB, typeU, typeJ, typeC;
     // inst var parsing
     assign O_stall_en[1] = (typeI | typeS | typeR | typeB) && (rs1 != 0);
     assign O_stall_en[0] = (typeS | typeR | typeB) && (rs2 != 0);
@@ -77,6 +81,10 @@ module ysyx_22040750_decoder(
     assign O_rs1 = rs1;
     assign O_rs2 = rs2;
     assign O_rd = rd;
+    // csr data
+    assign O_csr_addr = I_inst[31:20];
+    assign O_csr_imm = I_inst[19:15];
+    assign O_csr_op_sel = I_inst[14:12];
     //assign O_funct3 = funct3;
     //assign O_funct7 = funct7;
     // inst type
@@ -86,6 +94,7 @@ module ysyx_22040750_decoder(
     assign typeU = (opcode == 7'b0010111) || (opcode == 7'b0110111);
     assign typeJ = (opcode == 7'b1101111);
     assign typeR = (opcode == 7'b0110011) || (opcode == 7'b0111011);
+    assign typeC = (opcode == 7'b1110011);
     
     // O_imm
     assign O_imm = ({64{typeI}} & {{52{immI[11]}},immI})
@@ -229,11 +238,28 @@ module ysyx_22040750_decoder(
     assign ECALL = (I_inst == 32'h00000073);
     wire EBREAK;
     assign EBREAK = (I_inst == 32'h00100073);
+    // csr op
+    wire CSRRW;
+    assign CSRRW = (opcode == 7'b1110011) && (funct3 == 3'b001);
+    wire CSRRS;
+    assign CSRRS = (opcode == 7'b1110011) && (funct3 == 3'b010);
+    wire CSRRC;
+    assign CSRRC = (opcode == 7'b1110011) && (funct3 == 3'b011);
+    wire CSRRWI;
+    assign CSRRWI = (opcode == 7'b1110011) && (funct3 == 3'b101);
+    wire CSRRSI;
+    assign CSRRSI = (opcode == 7'b1110011) && (funct3 == 3'b110);
+    wire CSRRCI;
+    assign CSRRCI = (opcode == 7'b1110011) && (funct3 == 3'b111);
     // ctrl signal gen
+    // csr wr en
+    assign O_csr_wen = typeC;
     // reg wr en
-    wire regin_from_mem = (opcode == 7'b0000011);
-    // O_regin_sel: 4 for snpc, 2 for memory in, 1 for alu in
+    wire regin_from_mem;
+    assign regin_from_mem = (opcode == 7'b0000011);
+    // O_regin_sel: 4 for csr, 2 for memory in, 1 for alu in
     //assign O_regin_sel[2] = O_reg_wen & (JAL | JALR);
+
     assign O_regin_sel[1] = O_reg_wen & regin_from_mem;
     assign O_regin_sel[0] = O_reg_wen & (~regin_from_mem);
     assign O_reg_wen = typeR | typeI | typeU | typeJ;
