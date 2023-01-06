@@ -157,6 +157,20 @@ static int cmd_detach(char *args) {
   return 0;
 }
 
+static int cmd_save(char *args) {
+  //const char *dst = strtok("NULL", " ");
+  //FILE *fp = fopen(dst, "w");
+  return 0;
+}
+
+static int cmd_load(char *args) {
+  //const char *dst = strtok("NULL", " ");
+  //FILE *fp = fopen(dst, "r");
+  return 0;
+}
+
+
+
 static int cmd_help(char *args);
 
 static struct {
@@ -177,7 +191,8 @@ static struct {
   {"d", "Delete watchpoints", cmd_d},
   {"attach", "Start difftest", cmd_attach},
   {"detach", "Pause difftest", cmd_detach},
-  
+  {"save", "Save nemu status", cmd_save},
+  {"load", "Load nemu status", cmd_load},
 };
 
 #define NR_CMD ARRLEN(cmd_table)
