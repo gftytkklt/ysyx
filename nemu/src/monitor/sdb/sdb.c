@@ -137,6 +137,25 @@ static int cmd_d(char *args) {
   return 0;
 }
 
+static int cmd_attach(char *args) {
+  #ifdef CONFIG_DIFFTEST
+  is_difftest_attached = true;
+  isa_difftest_attach();
+  return 0;
+  #endif
+  printf("Enable difftest in menuconfig first!\n");
+  return 0;
+}
+
+static int cmd_detach(char *args) {
+  #ifdef CONFIG_DIFFTEST
+  is_difftest_attached = false;
+  return 0;
+  #endif
+  printf("Enable difftest in menuconfig first!\n");
+  return 0;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -155,6 +174,9 @@ static struct {
   {"p", "Expr evaluation", cmd_p},
   {"w", "Set watchpoints", cmd_w},
   {"d", "Delete watchpoints", cmd_d},
+  {"attach", "Start difftest", cmd_attach},
+  {"detach", "Pause difftest", cmd_detach},
+  
 };
 
 #define NR_CMD ARRLEN(cmd_table)

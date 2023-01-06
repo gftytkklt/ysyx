@@ -265,6 +265,9 @@ module ysyx_22040750_cpu_top(
 		.O_csr_imm(),
 		.O_csr_addr(),
 		.O_csr_wen(),
+		.O_csr_intr(),
+		.O_csr_intr_no(),
+		.O_csr_mret(),
 		.O_word_op_mask(word_op_mask),
 		.O_stall_en(stall_en)
     );

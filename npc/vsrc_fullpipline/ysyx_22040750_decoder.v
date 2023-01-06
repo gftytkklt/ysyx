@@ -50,6 +50,9 @@ module ysyx_22040750_decoder(
     output [4:0] O_csr_imm,
     output [11:0] O_csr_addr,
     output O_csr_wen,
+    output O_csr_intr,
+    output [63:0] O_csr_intr_no,
+    output O_csr_mret,
     output [1:0] O_stall_en// en[1] for rs1, en[2] for rs2
     //output O_sim_end
     );
@@ -251,9 +254,16 @@ module ysyx_22040750_decoder(
     assign CSRRSI = (opcode == 7'b1110011) && (funct3 == 3'b110);
     wire CSRRCI;
     assign CSRRCI = (opcode == 7'b1110011) && (funct3 == 3'b111);
+    wire MRET;
+    assign MRET = (I_inst == 32'h30200073);
     // ctrl signal gen
     // csr wr en
+    wire NO;
+    assign NO = ECALL ? 'hb : EBREAK ? 'h4 : 0;
     assign O_csr_wen = typeC;
+    assign O_csr_intr = ECALL | EBREAK;
+    assign O_csr_intr_no = NO;
+    assign O_csr_mret = MRET;
     // reg wr en
     wire regin_from_mem;
     assign regin_from_mem = (opcode == 7'b0000011);
