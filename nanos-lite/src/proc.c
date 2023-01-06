@@ -13,6 +13,7 @@ void switch_boot_pcb() {
 void switch_fg_pcb(int keycode){
   if(keycode == 2){fg_pcb = &pcb[1];}
   else if(keycode == 3){fg_pcb = &pcb[2];}
+  else if(keycode == 4){fg_pcb = &pcb[3];}
 }
 
 void hello_fun(void *arg) {
