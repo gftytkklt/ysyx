@@ -6,6 +6,7 @@
 
 
 static int is_batch_mode = false;
+bool is_difftest_attached = true;
 
 void init_regex();
 //void init_wp_pool();
