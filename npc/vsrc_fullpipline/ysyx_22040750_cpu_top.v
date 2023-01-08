@@ -278,13 +278,13 @@ module ysyx_22040750_cpu_top(
 		.O_opnum2_sel(opnum2_sel),
 		.O_alu_op_sel(alu_op_sel),
 		.O_alu_op_sext(alu_op_sext),
-		.O_csr_op_sel(),
-		.O_csr_imm(),
-		.O_csr_addr(),
-		.O_csr_wen(),
-		.O_csr_intr(),
-		.O_csr_intr_no(),
-		.O_csr_mret(),
+		.O_csr_op_sel(),// EX
+		.O_csr_imm(),// EX
+		.O_csr_addr(),// ID & WB
+		.O_csr_wen(),// WB
+		.O_csr_intr(),// ID & WB
+		.O_csr_intr_no(),// WB
+		.O_csr_mret(),// ID & WB
 		.O_word_op_mask(word_op_mask),
 		.O_stall_en(stall_en)
     );
@@ -298,7 +298,6 @@ module ysyx_22040750_cpu_top(
 		.O_ID_EX_allowin(ID_EX_allowin),
 		.O_ID_EX_valid(ID_EX_valid),
 		.I_alu_output_valid(alu_out_valid),
-		.I_csr_output_valid(),
 		// ID_EX signal
 		.I_imm(imm),
 		// pipeline stall code
@@ -318,6 +317,20 @@ module ysyx_22040750_cpu_top(
 		.I_alu_sext(alu_op_sext),
 		.I_alu_op_sel(alu_op_sel),
 		.I_word_op_mask(word_op_mask),
+		.I_csr_op_sel(),
+		.I_csr_imm(),
+		.I_csr_addr(),
+		.I_csr_wen(),
+		.I_csr_intr(),
+		.I_csr_intr_no(),
+		.I_csr_mret(),
+		.O_csr_op_sel(),
+		.O_csr_imm(),
+		.O_csr_addr(),
+		.O_csr_wen(),
+		.O_csr_intr(),
+		.O_csr_intr_no(),
+		.O_csr_mret(),
 		.O_imm(ID_EX_imm),
 		.O_rs1(ID_EX_rs1),
 		.O_rs2(ID_EX_rs2),
@@ -418,6 +431,20 @@ module ysyx_22040750_cpu_top(
 		.I_rd_addr(ID_EX_rd_addr),
 		.I_regin_sel(ID_EX_regin_sel),
 		.I_mem_data_valid(I_mem_rd_data_valid),
+		//.I_csr_op_sel(),
+		//.I_csr_imm(),
+		.I_csr_addr(),
+		.I_csr_wen(),
+		.I_csr_intr(),
+		.I_csr_intr_no(),
+		.I_csr_mret(),
+		//.O_csr_op_sel(),
+		//.O_csr_imm(),
+		.O_csr_addr(),
+		.O_csr_wen(),
+		.O_csr_intr(),
+		.O_csr_intr_no(),
+		.O_csr_mret(),
 		.O_rstrb(EX_MEM_rstrb),
 		.O_wstrb(EX_MEM_wstrb),
 		.O_alu_out(EX_MEM_alu_out),
@@ -457,6 +484,20 @@ module ysyx_22040750_cpu_top(
     	.I_reg_wen(EX_MEM_reg_wen),
     	.I_rd_addr(EX_MEM_rd_addr),
     	.I_regin_sel(EX_MEM_regin_sel),
+		//.I_csr_op_sel(),
+		//.I_csr_imm(),
+		.I_csr_addr(),
+		.I_csr_wen(),
+		.I_csr_intr(),
+		.I_csr_intr_no(),
+		.I_csr_mret(),
+		//.O_csr_op_sel(),
+		//.O_csr_imm(),
+		.O_csr_addr(),
+		.O_csr_wen(),
+		.O_csr_intr(),
+		.O_csr_intr_no(),
+		.O_csr_mret(),
     	.O_pc(MEM_WB_pc),
     	.O_mem_data(MEM_WB_mem_data),
     	.O_mem_rstrb(MEM_WB_mem_rstrb),
@@ -498,4 +539,21 @@ module ysyx_22040750_cpu_top(
 		.I_rs2_addr(rs2_addr),
 		.O_rs2_data(rs2_data)
     );
+	// signal_rd from decoder directly
+	// signal_wr from WB pipeline
+	ysyx_22040750_csr csr_e(
+		.I_sys_clk(I_sys_clk),
+		.I_rst(I_rst),
+		.I_csr_wen(),
+		.I_csr_intr_wr(),
+		.I_csr_intr_rd(),
+		.I_intr_pc(),
+		.I_csr_intr_no(),
+		.I_csr_mret_wr(),
+		.I_csr_mret_rd(),
+		.I_wr_addr(),
+		.I_rd_addr(),
+		.I_wr_data(),
+		.O_rd_data()
+	);
 endmodule

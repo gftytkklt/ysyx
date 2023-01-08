@@ -3,10 +3,12 @@ module ysyx_22040750_csr(
     input I_sys_clk,
     input I_rst,
     input I_csr_wen,
-    input I_csr_intr,
+    input I_csr_intr_wr,
+    input I_csr_intr_rd,
     input [63:0] I_intr_pc,
     input [63:0] I_csr_intr_no,
-    input I_csr_mret,
+    input I_csr_mret_wr,
+    input I_csr_mret_rd,
     input [11:0] I_wr_addr,
     input [11:0] I_rd_addr,
     input [63:0] I_wr_data,
@@ -40,14 +42,14 @@ module ysyx_22040750_csr(
                 MSCRATCH: mscratch <= I_wr_data;
                 default:;
             endcase
-        else if(I_csr_intr) begin
+        else if(I_csr_intr_wr) begin
             mcause <= I_csr_intr_no;
             mepc <= I_intr_pc;
             mstatus <= mstatus;
             mtvec <= mtvec;
             mscratch <= mscratch;
         end
-        else if(I_csr_mret) begin
+        else if(I_csr_mret_wr) begin
             mcause <= mcause;
             mepc <= mepc;
             mstatus <= {mstatus[63:8],1'b1,mstatus[6:4],mpie,mstatus[2:0]};
@@ -62,7 +64,7 @@ module ysyx_22040750_csr(
             mscratch <= mscratch;
         end
     always @(*)
-        case({I_csr_intr, I_csr_mret})
+        case({I_csr_intr_rd, I_csr_mret_rd})
             2'b10: rd_data = mtvec;
             2'b01: rd_data = mepc;
             2'b00:

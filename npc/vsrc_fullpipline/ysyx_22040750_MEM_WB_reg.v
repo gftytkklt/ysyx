@@ -13,6 +13,22 @@ module ysyx_22040750_MEM_WB_reg(
     input I_reg_wen,
     input [4:0] I_rd_addr,
     input [2:0] I_regin_sel,
+	//input [6:0] I_csr_op_sel,
+	//input [4:0] I_csr_imm,
+	input [11:0] I_csr_addr,
+	input I_csr_wen,
+	input I_csr_intr,
+	input [63:0] I_csr_intr_no,
+	input I_csr_mret,
+
+	// output reg [6:0] O_csr_op_sel,
+	// output reg [4:0] O_csr_imm,
+	output reg [11:0] O_csr_addr,
+	output reg O_csr_wen,
+	output reg O_csr_intr,
+	output reg [63:0] O_csr_intr_no,
+	output reg O_csr_mret,
+
     output reg [63:0] O_pc,
     output reg [63:0] O_mem_data,
     output reg [8:0] O_mem_rstrb,
@@ -46,39 +62,54 @@ module ysyx_22040750_MEM_WB_reg(
     	    input_valid <= input_valid;
     always @(posedge I_sys_clk)
         if(I_rst) begin
-	    O_pc <= 0;
-	    O_mem_data <= 0;
-	    O_mem_rstrb <= 0;
-	    O_mem_shamt <= 0;
-	    O_alu_out <= 0;
-	    O_reg_wen <= 0;
-	    O_rd_addr <= 0;
-	    O_regin_sel <= 0;
-	    O_inst_debug <= 0;
-	    O_bubble_inst_debug <= 0;
-	end
-	else if(O_MEM_WB_allowin && I_MEM_WB_valid) begin
-	    O_pc <= I_pc;
-	    O_mem_data <= I_mem_data;
-	    O_mem_rstrb <= I_mem_rstrb;
-	    O_mem_shamt <= I_mem_shamt;
-	    O_alu_out <= I_alu_out;
-	    O_reg_wen <= I_reg_wen;
-	    O_rd_addr <= I_rd_addr;
-	    O_regin_sel <= I_regin_sel;
-	    O_inst_debug <= I_inst_debug;
-	    O_bubble_inst_debug <= I_bubble_inst_debug;
-	end
-	else begin
-	    O_pc <= O_pc;
-	    O_mem_data <= O_mem_data;
-    	    O_mem_rstrb <= O_mem_rstrb;
-    	    O_mem_shamt <= O_mem_shamt;
-    	    O_alu_out <= O_alu_out;
-    	    O_reg_wen <= O_reg_wen;
-    	    O_rd_addr <= O_rd_addr;
-    	    O_regin_sel <= O_regin_sel;
-    	    O_inst_debug <= O_inst_debug;
-    	    O_bubble_inst_debug <= O_bubble_inst_debug;
-	end
+			O_pc <= 0;
+			O_mem_data <= 0;
+			O_mem_rstrb <= 0;
+			O_mem_shamt <= 0;
+			O_alu_out <= 0;
+			O_reg_wen <= 0;
+			O_rd_addr <= 0;
+			O_regin_sel <= 0;
+			O_inst_debug <= 0;
+			O_bubble_inst_debug <= 0;
+			O_csr_addr <= 0;
+			O_csr_wen <= 0;
+			O_csr_intr <= 0;
+			O_csr_intr_no <= 0;
+			O_csr_mret <= 0;
+		end
+		else if(O_MEM_WB_allowin && I_MEM_WB_valid) begin
+			O_pc <= I_pc;
+			O_mem_data <= I_mem_data;
+			O_mem_rstrb <= I_mem_rstrb;
+			O_mem_shamt <= I_mem_shamt;
+			O_alu_out <= I_alu_out;
+			O_reg_wen <= I_reg_wen;
+			O_rd_addr <= I_rd_addr;
+			O_regin_sel <= I_regin_sel;
+			O_inst_debug <= I_inst_debug;
+			O_bubble_inst_debug <= I_bubble_inst_debug;
+			O_csr_addr <= I_csr_addr;
+			O_csr_wen <= I_csr_wen;
+			O_csr_intr <= I_csr_intr;
+			O_csr_intr_no <= I_csr_intr_no;
+			O_csr_mret <= I_csr_mret;
+		end
+		else begin
+			O_pc <= O_pc;
+			O_mem_data <= O_mem_data;
+			O_mem_rstrb <= O_mem_rstrb;
+			O_mem_shamt <= O_mem_shamt;
+			O_alu_out <= O_alu_out;
+			O_reg_wen <= O_reg_wen;
+			O_rd_addr <= O_rd_addr;
+			O_regin_sel <= O_regin_sel;
+			O_inst_debug <= O_inst_debug;
+			O_bubble_inst_debug <= O_bubble_inst_debug;
+			O_csr_addr <= O_csr_addr;
+			O_csr_wen <= O_csr_wen;
+			O_csr_intr <= O_csr_intr;
+			O_csr_intr_no <= O_csr_intr_no;
+			O_csr_mret <= O_csr_mret;
+		end
 endmodule
