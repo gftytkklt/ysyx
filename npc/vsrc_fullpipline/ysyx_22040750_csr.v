@@ -27,15 +27,15 @@ module ysyx_22040750_csr(
     always @(posedge I_sys_clk)
         if(I_rst) begin
             {mepc, mtvec, mcause} <= 'h0;
-            mstatus <= 'ha00001800;
+            mstatus <= 64'ha00001800;
         end
         // these ena signals will not occur at the same time
         else if(I_csr_wen) 
             case(I_wr_addr)
-                `MEPC: mepc <= I_wr_data;
-                `MSTATUS: mstatus <= I_wr_data;
-                `MTVEC: mtvec <= I_wr_data;
-                `MCAUSE: mcause <= I_wr_data;
+                MEPC: mepc <= I_wr_data;
+                MSTATUS: mstatus <= I_wr_data;
+                MTVEC: mtvec <= I_wr_data;
+                MCAUSE: mcause <= I_wr_data;
                 default:;
             endcase
         else if(I_csr_intr) begin
@@ -62,10 +62,10 @@ module ysyx_22040750_csr(
             2'b01: rd_data = mepc;
             2'b00:
                 case(I_rd_addr)
-                    `MEPC: rd_data = mepc;
-                    `MSTATUS: rd_data = mstatus;
-                    `MTVEC: rd_data = mtvec;
-                    `MCAUSE: rd_data = mcause;
+                    MEPC: rd_data = mepc;
+                    MSTATUS: rd_data = mstatus;
+                    MTVEC: rd_data = mtvec;
+                    MCAUSE: rd_data = mcause;
                     default: rd_data = 'h0;
                 endcase
             default: rd_data = 'h0;// should not reach here!

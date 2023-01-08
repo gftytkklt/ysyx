@@ -341,10 +341,9 @@ module ysyx_22040750_cpu_top(
 		.O_sel_data(alu_op2)
     );
     
-    ysyx_22040750_gpr_alu gpr_alu_e(
-    	.I_sys_clk(I_sys_clk),
-    	.I_rst(I_rst),
-		.I_csr_data(),
+	ysyx_22040750_alu alu_e(
+		.I_sys_clk(I_sys_clk),
+		.I_rst(I_rst),
 		.I_op1(alu_op1),
 		.I_op2(alu_op2),
 		.I_alu_op_sel(ID_EX_alu_op_sel),
@@ -352,18 +351,38 @@ module ysyx_22040750_cpu_top(
 		.I_word_op_mask(ID_EX_word_op_mask),
 		.I_multicycle(ID_EX_alu_multicycle),
 		.I_EX_MEM_ready(EX_MEM_allowin),
-		.O_mem_addr(mem_addr),
-		.O_result(alu_out),
-		.O_result_valid(alu_out_valid)
-    );
-
-	ysyx_22040750_csr_alu csr_alu_e(
 		.I_csr_data(),
-		.I_rs_data(),
 		.I_uimm(),
 		.I_csr_op_sel(),
-		.O_csr_data()
+		.O_mem_addr(mem_addr),
+		.O_result(alu_out),
+		.O_csr_data(),
+		.O_result_valid(alu_out_valid)
 	);
+
+    // ysyx_22040750_gpr_alu gpr_alu_e(
+    // 	.I_sys_clk(I_sys_clk),
+    // 	.I_rst(I_rst),
+	// 	.I_csr_data(),
+	// 	.I_op1(alu_op1),
+	// 	.I_op2(alu_op2),
+	// 	.I_alu_op_sel(ID_EX_alu_op_sel),
+	// 	.I_alu_op_sext(ID_EX_alu_sext),
+	// 	.I_word_op_mask(ID_EX_word_op_mask),
+	// 	.I_multicycle(ID_EX_alu_multicycle),
+	// 	.I_EX_MEM_ready(EX_MEM_allowin),
+	// 	.O_mem_addr(mem_addr),
+	// 	.O_result(alu_out),
+	// 	.O_result_valid(alu_out_valid)
+    // );
+
+	// ysyx_22040750_csr_alu csr_alu_e(
+	// 	.I_csr_data(),
+	// 	.I_rs_data(),
+	// 	.I_uimm(),
+	// 	.I_csr_op_sel(),
+	// 	.O_csr_data()
+	// );
     
     ysyx_22040750_EX_MEM_reg EX_MEM_reg_e(
 		.I_sys_clk(I_sys_clk),

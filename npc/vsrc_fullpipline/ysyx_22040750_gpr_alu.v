@@ -244,7 +244,7 @@ module ysyx_22040750_gpr_alu(
                         | ({64{op_mulh}} & mulh_final)
                         | ({64{op_div}} & div_final)
                         //| ({64{op_divu}} & divu_result)
-                        | ({64{op_rem}} & rem_final);
+                        | ({64{op_rem}} & rem_final)
                         | ({64{op_csr}} & csr_result);
     // only divuw and remuw produce 0 sext
     wire word_sext;
