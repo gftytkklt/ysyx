@@ -235,6 +235,22 @@ module ysyx_22040750_cpu_top(
     	.O_ID_EX_rs1_data(rs1_forward_data),
     	.O_ID_EX_rs2_data(rs2_forward_data)
 	);
+
+	ysyx_22040750_csr_foward csr_foward_e(
+		.I_csr_ID(),
+		.I_csr_EX(),
+		.I_csr_MEM(),
+		.I_csr_WB(),
+		.I_csr_addr_ID(),
+		.I_csr_addr_EX(),
+		.I_csr_addr_MEM(),
+		.I_csr_addr_WB(),
+		.I_csr_wen_ID(),
+		.I_csr_wen_EX(),
+		.I_csr_wen_MEM(),
+		.I_csr_wen_WB(),
+		.O_csr_foward_data()
+	);
 	
     ysyx_22040750_decoder decoder_e(
 		.I_sys_clk(I_sys_clk),

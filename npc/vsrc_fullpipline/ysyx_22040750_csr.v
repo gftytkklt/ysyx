@@ -17,7 +17,8 @@ module ysyx_22040750_csr(
     localparam MSTATUS = 12'h300;
     localparam MTVEC = 12'h305;
     localparam MCAUSE = 12'h342;
-    reg [63:0] mepc, mstatus, mtvec, mcause;
+    localparam MSCRATCH = 12'h340;
+    reg [63:0] mepc, mstatus, mtvec, mcause, mscratch;
     reg [63:0] rd_data;
     wire mie, mpie;
     assign mie = mstatus[3];
@@ -26,7 +27,7 @@ module ysyx_22040750_csr(
     //reg [63:0] mip, mie, mtime, mtimecmp; clint as mmio p
     always @(posedge I_sys_clk)
         if(I_rst) begin
-            {mepc, mtvec, mcause} <= 'h0;
+            {mepc, mtvec, mcause, mscratch} <= 'h0;
             mstatus <= 64'ha00001800;
         end
         // these ena signals will not occur at the same time
@@ -36,6 +37,7 @@ module ysyx_22040750_csr(
                 MSTATUS: mstatus <= I_wr_data;
                 MTVEC: mtvec <= I_wr_data;
                 MCAUSE: mcause <= I_wr_data;
+                MSCRATCH: mscratch <= I_wr_data;
                 default:;
             endcase
         else if(I_csr_intr) begin
@@ -43,18 +45,21 @@ module ysyx_22040750_csr(
             mepc <= I_intr_pc;
             mstatus <= mstatus;
             mtvec <= mtvec;
+            mscratch <= mscratch;
         end
         else if(I_csr_mret) begin
             mcause <= mcause;
             mepc <= mepc;
             mstatus <= {mstatus[63:8],1'b1,mstatus[6:4],mpie,mstatus[2:0]};
             mtvec <= mtvec;
+            mscratch <= mscratch;
         end
         else begin
             mepc <= mepc;
             mstatus <= mstatus;
             mtvec <= mtvec;
             mcause <= mcause;
+            mscratch <= mscratch;
         end
     always @(*)
         case({I_csr_intr, I_csr_mret})
@@ -66,6 +71,7 @@ module ysyx_22040750_csr(
                     MSTATUS: rd_data = mstatus;
                     MTVEC: rd_data = mtvec;
                     MCAUSE: rd_data = mcause;
+                    MSCRATCH: rd_data = mscratch;
                     default: rd_data = 'h0;
                 endcase
             default: rd_data = 'h0;// should not reach here!
