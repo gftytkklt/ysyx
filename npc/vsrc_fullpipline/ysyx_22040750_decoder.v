@@ -39,14 +39,14 @@ module ysyx_22040750_decoder(
     //output O_mem_ren,
     //output [2:0] O_funct3,
     //output [6:0] O_funct7,
-    output [3:0] O_dnpc_sel,
+    output [4:0] O_dnpc_sel,
     output [2:0] O_regin_sel,
     output [2:0] O_opnum1_sel,
     output [2:0] O_opnum2_sel,
     output [14:0] O_alu_op_sel,
     output [1:0] O_alu_op_sext,
     output O_word_op_mask,
-    output [2:0] O_csr_op_sel,
+    output [6:0] O_csr_op_sel,
     output [4:0] O_csr_imm,
     output [11:0] O_csr_addr,
     output O_csr_wen,
@@ -87,7 +87,7 @@ module ysyx_22040750_decoder(
     // csr data
     assign O_csr_addr = I_inst[31:20];
     assign O_csr_imm = I_inst[19:15];
-    assign O_csr_op_sel = I_inst[14:12];
+    //assign O_csr_op_sel = I_inst[14:12];
     //assign O_funct3 = funct3;
     //assign O_funct7 = funct7;
     // inst type
@@ -257,22 +257,25 @@ module ysyx_22040750_decoder(
     wire MRET;
     assign MRET = (I_inst == 32'h30200073);
     // ctrl signal gen
+    assign O_csr_op_sel[6] = ECALL | EBREAK | MRET;
+    assign O_csr_op_sel[5:0] = {CSRRW, CSRRS, CSRRC, CSRRWI, CSRRSI, CSRRCI};
     // csr wr en
     wire NO;
     assign NO = ECALL ? 'hb : EBREAK ? 'h4 : 0;
-    assign O_csr_wen = typeC;
+    assign O_csr_wen = CSRRW | CSRRS | CSRRC | CSRRWI | CSRRSI | CSRRCI;
     assign O_csr_intr = ECALL | EBREAK;
     assign O_csr_intr_no = NO;
     assign O_csr_mret = MRET;
     // reg wr en
     wire regin_from_mem;
     assign regin_from_mem = (opcode == 7'b0000011);
-    // O_regin_sel: 4 for csr, 2 for memory in, 1 for alu in
+    // O_regin_sel: 4 for reserved, 2 for memory in, 1 for alu in
+    // csr data to gpr is merged into alu
     //assign O_regin_sel[2] = O_reg_wen & (JAL | JALR);
-
+    assign O_regin_sel[2] = 0;
     assign O_regin_sel[1] = O_reg_wen & regin_from_mem;
     assign O_regin_sel[0] = O_reg_wen & (~regin_from_mem);
-    assign O_reg_wen = typeR | typeI | typeU | typeJ;
+    assign O_reg_wen = typeR | typeI | typeU | typeJ | O_csr_wen;
     assign O_mem_wen = typeS;
     assign O_mem_wstrb = ({8{SD}} & 8'b11111111)
     		       | ({8{SW}} & 8'b00001111)
@@ -294,6 +297,7 @@ module ysyx_22040750_decoder(
     assign lt = ($signed(I_rs1_data)) < ($signed(I_rs2_data));
     assign ge = ~lt;
     assign typeB_jr = (BEQ&eq) | (BNE&neq) | (BLT&lt) | (BGE&ge) | (BLTU&ltu) | (BGEU&geu);
+    assign O_dnpc_sel[4] = ECALL | EBREAK | MRET;
     assign O_dnpc_sel[3] = JALR;
     assign O_dnpc_sel[2] = JAL;
     assign O_dnpc_sel[1] = typeB_jr;
@@ -314,7 +318,7 @@ module ysyx_22040750_decoder(
     localparam OP_DIV = 15'b001_0000_0000_0000;
     //localparam OP_DIVU = 15'b001_0000_0000_0000;
     localparam OP_REM = 15'b010_0000_0000_0000;
-    //localparam OP_REMU = 15'b100_0000_0000_0000;
+    localparam OP_CSR = 15'b100_0000_0000_0000;
     assign O_word_op_mask = (opcode == 7'b0011011) || (opcode == 7'b0111011);
     assign O_alu_op_sext[1] = MUL | MULH | MULHSU | DIV | REM | MULW | DIVW | REMW;
     assign O_alu_op_sext[0] = MUL | MULH | DIV | REM | MULW | DIVW | REMW;
@@ -348,6 +352,8 @@ module ysyx_22040750_decoder(
     assign div_flag = DIV | DIVU | DIVW | DIVUW;
     wire rem_flag;
     assign rem_flag = REM | REMU | REMW | REMUW;
+    wire csr_flag;
+    assign csr_flag = typeC;
     assign O_alu_op_sel = (OP_ADD & {15{add_flag}})
     			| (OP_SUB & {15{sub_flag}})
     			| (OP_SLT & {15{slt_flag}})
@@ -361,13 +367,14 @@ module ysyx_22040750_decoder(
     			| (OP_MUL & {15{mul_flag}})
     			| (OP_MULH & {15{mulh_flag}})
     			| (OP_DIV & {15{div_flag}})
-    			| (OP_REM & {15{rem_flag}});
+    			| (OP_REM & {15{rem_flag}})
+                | (OP_CSR & {15{csr_flag}});
     // op_num1
     localparam OP1_RS1 = 3'd1;
     localparam OP1_PC = 3'd2;
     localparam OP1_ZERO = 3'd4;
     wire rs1_flag, pc_flag, zero_flag;
-    assign rs1_flag = typeR | (typeI & (~JALR)) | typeS;
+    assign rs1_flag = typeR | (typeI & (~JALR)) | typeS | typeC;
     assign pc_flag = typeB | typeJ | AUIPC | JALR;
     assign zero_flag = LUI;
     assign O_opnum1_sel = OP1_RS1 & {3{rs1_flag}}

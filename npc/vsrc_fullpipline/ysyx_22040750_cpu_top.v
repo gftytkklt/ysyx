@@ -41,7 +41,7 @@ module ysyx_22040750_cpu_top(
     wire [63:0] imm,wr_data,rs1_data,rs2_data,alu_op1,alu_op2,alu_out,mem_in,mem_out,mem_addr;
     wire [4:0] rs1_addr,rs2_addr,rd_addr;
     //wire [2:0] funct3;
-    wire [3:0] dnpc_sel;
+    wire [4:0] dnpc_sel;
     wire [2:0] regin_sel;
     wire [2:0] opnum1_sel;
     wire [2:0] opnum2_sel;
@@ -66,7 +66,7 @@ module ysyx_22040750_cpu_top(
     wire [4:0] ID_EX_rd_addr;
     wire [7:0] ID_EX_wstrb;
     wire [8:0] ID_EX_rstrb;
-    wire [2:0] ID_EX_dnpc_sel,ID_EX_op2_sel,ID_EX_op1_sel,ID_EX_regin_sel;
+    wire [2:0] ID_EX_op2_sel,ID_EX_op1_sel,ID_EX_regin_sel;
     wire [1:0] ID_EX_alu_sext;
     wire [14:0] ID_EX_alu_op_sel;
     wire ID_EX_reg_wen, ID_EX_mem_wen;
@@ -157,6 +157,7 @@ module ysyx_22040750_cpu_top(
     	// forward
     	.I_rs1_data(rs1_forward_data),
     	.I_rs2_data(rs2_forward_data),
+		.I_intr_pc(),
     	.I_imm(imm),
     	.I_pc(IF_ID_pc),// for jal addr cal
     	.I_snpc(snpc),
@@ -281,6 +282,7 @@ module ysyx_22040750_cpu_top(
 		.O_ID_EX_allowin(ID_EX_allowin),
 		.O_ID_EX_valid(ID_EX_valid),
 		.I_alu_output_valid(alu_out_valid),
+		.I_csr_output_valid(),
 		// ID_EX signal
 		.I_imm(imm),
 		// pipeline stall code
@@ -339,9 +341,10 @@ module ysyx_22040750_cpu_top(
 		.O_sel_data(alu_op2)
     );
     
-    ysyx_22040750_alu alu_e(
-    		.I_sys_clk(I_sys_clk),
-    		.I_rst(I_rst),
+    ysyx_22040750_gpr_alu gpr_alu_e(
+    	.I_sys_clk(I_sys_clk),
+    	.I_rst(I_rst),
+		.I_csr_data(),
 		.I_op1(alu_op1),
 		.I_op2(alu_op2),
 		.I_alu_op_sel(ID_EX_alu_op_sel),
@@ -353,6 +356,14 @@ module ysyx_22040750_cpu_top(
 		.O_result(alu_out),
 		.O_result_valid(alu_out_valid)
     );
+
+	ysyx_22040750_csr_alu csr_alu_e(
+		.I_csr_data(),
+		.I_rs_data(),
+		.I_uimm(),
+		.I_csr_op_sel(),
+		.O_csr_data()
+	);
     
     ysyx_22040750_EX_MEM_reg EX_MEM_reg_e(
 		.I_sys_clk(I_sys_clk),
@@ -435,9 +446,9 @@ module ysyx_22040750_cpu_top(
     );
     
     ysyx_22040750_mux_Nbit_Msel #(64, 2)
-    regin_64bit_3sel (
+    regin_64bit_2sel (
 		.I_sel_data({mem_in,MEM_WB_alu_out}),
-		.I_sel(MEM_WB_regin_sel),
+		.I_sel(MEM_WB_regin_sel[1:0]),
 		.O_sel_data(wr_data)
     );
     

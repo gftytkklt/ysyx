@@ -20,9 +20,10 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module ysyx_22040750_alu(
+module ysyx_22040750_gpr_alu(
     input I_sys_clk,
     input I_rst,
+    input [63:0] I_csr_data,
     input [63:0] I_op1,
     input [63:0] I_op2,
     input [14:0] I_alu_op_sel,
@@ -35,7 +36,7 @@ module ysyx_22040750_alu(
     output O_result_valid
     );
     // op
-    wire op_add,op_sub,op_slt,op_sltu,op_xor,op_or,op_and,op_sll,op_srl,op_sra,op_mul,op_mulh,op_div,op_rem;
+    wire op_add,op_sub,op_slt,op_sltu,op_xor,op_or,op_and,op_sll,op_srl,op_sra,op_mul,op_mulh,op_div,op_rem,op_csr;
     assign op_add = I_alu_op_sel[0];
     assign op_sub = I_alu_op_sel[1];
     assign op_slt = I_alu_op_sel[2];
@@ -51,7 +52,7 @@ module ysyx_22040750_alu(
     assign op_div = I_alu_op_sel[12];
     //assign op_divu = I_alu_op_sel[12];
     assign op_rem = I_alu_op_sel[13];
-    //assign op_remu = I_alu_op_sel[14];
+    assign op_csr = I_alu_op_sel[14];
     // result
     wire [63:0] add_sub_result;
     wire [63:0] slt_result;
@@ -67,7 +68,7 @@ module ysyx_22040750_alu(
     wire [63:0] div_result;
     //wire [63:0] divu_result;
     wire [63:0] rem_result;
-    //wire [63:0] remu_result;
+    wire [63:0] csr_result;
     wire [64:0] op1_sext, op2_sext;
     wire sign_bit1, sign_bit2;
     wire sext1, sext2;
@@ -228,6 +229,7 @@ module ysyx_22040750_alu(
     end
     endgenerate
     assign O_mem_addr = add_sub_result;
+    assign csr_result = I_csr_data;
     wire [63:0] dword_result, word_sext_result;
     assign dword_result = ({64{op_add | op_sub}} & add_sub_result)
                         | ({64{op_slt}} & slt_result)
@@ -243,7 +245,7 @@ module ysyx_22040750_alu(
                         | ({64{op_div}} & div_final)
                         //| ({64{op_divu}} & divu_result)
                         | ({64{op_rem}} & rem_final);
-                        //| ({64{op_remu}} & remu_result);
+                        | ({64{op_csr}} & csr_result);
     // only divuw and remuw produce 0 sext
     wire word_sext;
     assign word_sext = ((op_div | op_rem) && (~|I_alu_op_sext)) ? 0 : dword_result[31];

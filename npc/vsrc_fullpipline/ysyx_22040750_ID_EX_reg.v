@@ -7,6 +7,7 @@ module ysyx_22040750_ID_EX_reg(
     output O_ID_EX_allowin,// send ID_EX input en
     output O_ID_EX_valid,
     input I_alu_output_valid,
+	input I_csr_output_valid,
     input [63:0] I_imm,
     input [63:0] I_rs1,
     input [63:0] I_rs2,
@@ -50,7 +51,7 @@ module ysyx_22040750_ID_EX_reg(
     reg input_valid;
     wire output_valid;
     assign O_ID_EX_input_valid = input_valid;
-    assign output_valid = I_alu_output_valid;// single cycle alu, for multicycle case, use alu_valid signal
+    assign output_valid = I_alu_output_valid | I_csr_output_valid;// single cycle alu, for multicycle case, use alu_valid signal
     assign O_ID_EX_allowin = !input_valid || (output_valid && I_ID_EX_allowout);
     assign O_ID_EX_valid = input_valid && output_valid;
     always @(posedge I_sys_clk)
