@@ -78,5 +78,7 @@ void difftest_step(uint64_t pc, uint64_t* dut, uint64_t sim_time, bool* error){
 	for(int i=0;i<32;i++){
 		if(dut[i] != ref_data[i]){printf("time: %ld, pc: %lx, reg %s does not match! ref: %lx, dut: %lx\n", sim_time, pc, regs[i], ref_data[i], dut[i]);*error = true;}
 	}
+	printf("test\n");
 	nemu_difftest_ref_display();
+	printf("test1\n");
 }
