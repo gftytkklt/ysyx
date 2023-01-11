@@ -55,7 +55,7 @@ Context *kcontext(Area kstack, void (*entry)(void *), void *arg) {
   //printf("kernel entry: %lx\n",cp->mepc);
   cp->gpr[10] = (uintptr_t)arg;
   //cp->gpr[2] = (uintptr_t)cp;
-  cp->gpr[2] = (uintptr_t)kstack.end - 10000;
+  cp->gpr[2] = (uintptr_t)kstack.end;
   cp->np = KERNEL_MODE;
   cp->pdir = NULL;
   return cp;
