@@ -65,7 +65,7 @@ void init_proc() {
   context_kload(&pcb[1],hello_fun,"arg1");
   //context_uload(&pcb[1],"/bin/pal", argv, envp);
   
-  fg_pcb = &pcb[1];
+  //fg_pcb = &pcb[1];
   //Log("proc end at %lx\n",pcb[0].max_brk);
   //naive_uload(NULL, "/bin/cpp-test");
 }
