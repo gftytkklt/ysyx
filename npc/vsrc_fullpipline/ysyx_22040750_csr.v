@@ -45,7 +45,7 @@ module ysyx_22040750_csr(
         else if(I_csr_intr_wr) begin
             mcause <= I_csr_intr_no;
             mepc <= I_intr_pc;
-            mstatus <= mstatus;
+            mstatus <= {mstatus[63:8],mie,mstatus[6:4],1'b0,mstatus[2:0]};
             mtvec <= mtvec;
             mscratch <= mscratch;
         end

@@ -15,7 +15,7 @@
 //#define CONFIG_FTRACE
 #define CONFIG_ITRACE
 #define CONFIG_DIFFTEST
-#define CONFIG_WAVEFORM
+//#define CONFIG_WAVEFORM
 #define ASNI_FG_RED     "\33[1;31m"
 #define ASNI_FG_GREEN   "\33[1;32m"
 #define ASNI_NONE       "\33[0m"
@@ -354,7 +354,8 @@ int main(int argc, char** argv, char** env) {
 	  #endif
 	  }
 	  #ifdef CONFIG_WAVEFORM
-	  if(sim_time > 805000){tfp->dump(sim_time);}
+	  //if(sim_time > 805000){tfp->dump(sim_time);}
+	  tfp->dump(sim_time);
 	  #endif
 	  sim_time++;
 	  // test dummy
