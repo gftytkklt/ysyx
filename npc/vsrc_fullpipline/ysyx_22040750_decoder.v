@@ -289,6 +289,7 @@ module ysyx_22040750_decoder(
     //assign O_mem_ren = (opcode == 7'b0000011);
     // dnpc
     wire typeB_jr;
+    wire csr_jr;
     wire eq, neq, lt, ge, ltu, geu;
     assign eq = I_rs1_data == I_rs2_data;
     assign neq = ~eq;
@@ -297,11 +298,12 @@ module ysyx_22040750_decoder(
     assign lt = ($signed(I_rs1_data)) < ($signed(I_rs2_data));
     assign ge = ~lt;
     assign typeB_jr = (BEQ&eq) | (BNE&neq) | (BLT&lt) | (BGE&ge) | (BLTU&ltu) | (BGEU&geu);
+    assign csr_jr = ECALL | EBREAK | MRET;
     assign O_dnpc_sel[4] = ECALL | EBREAK | MRET;
     assign O_dnpc_sel[3] = JALR;
     assign O_dnpc_sel[2] = JAL;
     assign O_dnpc_sel[1] = typeB_jr;
-    assign O_dnpc_sel[0] = ~(JALR | JAL | typeB_jr);
+    assign O_dnpc_sel[0] = ~(JALR | JAL | typeB_jr | csr_jr);
     // alu op
     localparam OP_ADD = 15'b000_0000_0000_0001;
     localparam OP_SUB = 15'b000_0000_0000_0010;

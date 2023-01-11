@@ -3597,12 +3597,19 @@ VL_INLINE_OPT void Vysyx_22040750_cpu_top___024root___sequent__TOP__1(Vysyx_2204
                                  << 2U) | (((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__typeB_jr) 
                                             << 1U) 
                                            | (1U & 
-                                              (~ (((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__JALR) 
-                                                   | (0x6fU 
-                                                      == 
-                                                      (0x7fU 
-                                                       & vlSelf->ysyx_22040750_cpu_top__DOT__IF_ID_inst))) 
-                                                  | (IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__typeB_jr)))))));
+                                              (~ ((
+                                                   ((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__JALR) 
+                                                    | (0x6fU 
+                                                       == 
+                                                       (0x7fU 
+                                                        & vlSelf->ysyx_22040750_cpu_top__DOT__IF_ID_inst))) 
+                                                   | (IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__typeB_jr)) 
+                                                  | (((0x73U 
+                                                       == vlSelf->ysyx_22040750_cpu_top__DOT__IF_ID_inst) 
+                                                      | (0x100073U 
+                                                         == vlSelf->ysyx_22040750_cpu_top__DOT__IF_ID_inst)) 
+                                                     | (0x30200073U 
+                                                        == vlSelf->ysyx_22040750_cpu_top__DOT__IF_ID_inst))))))));
     vlSelf->ysyx_22040750_cpu_top__DOT__npc_e__DOT____Vcellinp__nextpc_64bit_3sel__I_sel 
         = ((4U & ((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__dnpc_sel) 
                   >> 2U)) | ((2U & ((~ ((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__dnpc_sel) 
