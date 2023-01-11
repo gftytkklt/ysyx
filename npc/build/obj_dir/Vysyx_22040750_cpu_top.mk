@@ -57,6 +57,7 @@ VM_USER_CLASSES = \
 	difftest \
 	disasm \
 	readelf \
+	ringbuf \
 
 # User .cpp directories (from .cpp's on Verilator command line)
 VM_USER_DIR = \
@@ -80,6 +81,8 @@ difftest.o: /home/gftyt/ysyx-workbench/npc/csrc/util/difftest.cpp
 disasm.o: /home/gftyt/ysyx-workbench/npc/csrc/util/disasm.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 readelf.o: /home/gftyt/ysyx-workbench/npc/csrc/util/readelf.cpp
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+ringbuf.o: /home/gftyt/ysyx-workbench/npc/csrc/util/ringbuf.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 
 ### Link rules... (from --exe)

@@ -13,8 +13,8 @@
 #include "Vysyx_22040750_cpu_top__Dpi.h"
 //#define N 32
 //#define CONFIG_FTRACE
-//#define CONFIG_ITRACE
-//#define CONFIG_DIFFTEST
+#define CONFIG_ITRACE
+#define CONFIG_DIFFTEST
 //#define CONFIG_WAVEFORM
 #define ASNI_FG_RED     "\33[1;31m"
 #define ASNI_FG_GREEN   "\33[1;32m"
@@ -47,6 +47,9 @@ static bool *wb_bubble = NULL;
 #ifdef CONFIG_ITRACE
 void init_disasm(const char *triple);
 void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
+void init_ringbuf();
+void write_ringbuf(char *str);
+void inst_hist_display();
 #endif
 #ifdef CONFIG_FTRACE
 void init_elf(char* elf_file);
@@ -208,6 +211,7 @@ int main(int argc, char** argv, char** env) {
   printf("itrace: %s\n",ASNI_FMT("ON", ASNI_FG_GREEN));
   FILE* logfp = fopen("npc-log.txt","w");
   init_disasm("riscv64" "-pc-linux-gnu");
+  init_ringbuf();
   #else
   printf("itrace: %s\n",ASNI_FMT("OFF", ASNI_FG_RED));
   #endif
@@ -327,6 +331,7 @@ int main(int argc, char** argv, char** env) {
 	  fprintf(logfp, "%lx: %08x ",wb_pc_difftest, wb_inst_difftest);
 	  disassemble(logbuf, 128, wb_pc_difftest, (uint8_t *)&wb_inst_difftest, 4);
 	  fprintf(logfp, "%s\n",logbuf);
+	  write_ringbuf(logbuf);
 	  }
 	  #endif
 	  #ifdef CONFIG_FTRACE
@@ -336,7 +341,13 @@ int main(int argc, char** argv, char** env) {
 	  if(wb_valid_difftest) {
 	  	//printf("exec difftest at %lu(pc = %lx)\n",sim_time, wb_pc_difftest);
 	  	difftest_step(wb_pc_difftest, cpu_gpr, sim_time, &difftest_error);
-	  	if(difftest_error){printf("error pc at %lx!\n\n", wb_pc_difftest);break;}
+	  	if(difftest_error){
+	  		printf("error pc at %lx!\n\n", wb_pc_difftest);
+	  		#ifdef CONFIG_ITRACE
+	  			inst_hist_display();
+	  		#endif
+	  		break;
+	  	}
 	  }
 	  #endif
 	  }
