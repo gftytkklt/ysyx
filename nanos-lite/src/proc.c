@@ -61,8 +61,8 @@ void init_proc() {
   //context_uload(&pcb[2],"/bin/nslider", argv, envp);
   //context_uload(&pcb[3],"/bin/cpp-test",argv,envp);
   //1224 add
-  //context_kload(&pcb[0],hello_fun,"arg0");
-  context_kload(&pcb[1],hello_fun,"arg1");
+  context_kload(&pcb[0],hello_fun,"arg0");
+  //context_kload(&pcb[1],hello_fun,"arg1");
   context_uload(&pcb[1],"/bin/pal", argv, envp);
   
   //fg_pcb = &pcb[1];
