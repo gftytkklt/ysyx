@@ -66,45 +66,6 @@ module ysyx_22040750_decoder(
     wire [31:0] immU;
     wire [20:0] immJ;
     wire typeI, typeS, typeR, typeB, typeU, typeJ, typeC;
-    // inst var parsing
-    assign O_stall_en[1] = (typeI | typeS | typeR | typeB) && (rs1 != 0);
-    assign O_stall_en[0] = (typeS | typeR | typeB) && (rs2 != 0);
-    assign funct7 = I_inst[31:25];
-    assign opcode = I_inst[6:0];
-    assign rd = I_inst[11:7];
-    assign funct3 = I_inst[14:12];
-    assign rs1 = I_inst[19:15];
-    assign rs2 = I_inst[24:20];
-    assign immI = I_inst[31:20];
-    assign immS = {I_inst[31:25], I_inst[11:7]};
-    assign immB = {I_inst[31], I_inst[7], I_inst[30:25], I_inst[11:8],1'b0};
-    assign immU = {I_inst[31:12],12'b0};
-    assign immJ = {I_inst[31],I_inst[19:12],I_inst[20],I_inst[30:21],1'b0};
-    // rs1, rs2, rd addr
-    assign O_rs1 = rs1;
-    assign O_rs2 = rs2;
-    assign O_rd = rd;
-    // csr data
-    assign O_csr_addr = I_inst[31:20];
-    assign O_csr_imm = I_inst[19:15];
-    //assign O_csr_op_sel = I_inst[14:12];
-    //assign O_funct3 = funct3;
-    //assign O_funct7 = funct7;
-    // inst type
-    assign typeI = (opcode == 7'b1100111) || (opcode == 7'b0000011) || (opcode == 7'b0010011) || (opcode == 7'b0011011);
-    assign typeS = (opcode == 7'b0100011);
-    assign typeB = (opcode == 7'b1100011);
-    assign typeU = (opcode == 7'b0010111) || (opcode == 7'b0110111);
-    assign typeJ = (opcode == 7'b1101111);
-    assign typeR = (opcode == 7'b0110011) || (opcode == 7'b0111011);
-    assign typeC = (opcode == 7'b1110011);
-    
-    // O_imm
-    assign O_imm = ({64{typeI}} & {{52{immI[11]}},immI})
-                    | ({64{typeS}} & {{52{immS[11]}},immS})
-                    | ({64{typeB}} & {{51{immB[12]}},immB})
-                    | ({64{typeU}} & {{32{immU[31]}},immU})
-                    | ({64{typeJ}} & {{43{immJ[20]}},immJ});
     // inst pattern
     // type U
     wire LUI;
@@ -256,6 +217,48 @@ module ysyx_22040750_decoder(
     assign CSRRCI = (opcode == 7'b1110011) && (funct3 == 3'b111);
     wire MRET;
     assign MRET = (I_inst == 32'h30200073);
+    // inst var parsing
+    wire csr_rd_gpr;
+    assign csr_rd_gpr = CSRRW | CSRRS | CSRRC;
+    assign O_stall_en[1] = (typeI | typeS | typeR | typeB | csr_rd_gpr) && (rs1 != 0);
+    assign O_stall_en[0] = (typeS | typeR | typeB) && (rs2 != 0);
+    assign funct7 = I_inst[31:25];
+    assign opcode = I_inst[6:0];
+    assign rd = I_inst[11:7];
+    assign funct3 = I_inst[14:12];
+    assign rs1 = I_inst[19:15];
+    assign rs2 = I_inst[24:20];
+    assign immI = I_inst[31:20];
+    assign immS = {I_inst[31:25], I_inst[11:7]};
+    assign immB = {I_inst[31], I_inst[7], I_inst[30:25], I_inst[11:8],1'b0};
+    assign immU = {I_inst[31:12],12'b0};
+    assign immJ = {I_inst[31],I_inst[19:12],I_inst[20],I_inst[30:21],1'b0};
+    // rs1, rs2, rd addr
+    assign O_rs1 = rs1;
+    assign O_rs2 = rs2;
+    assign O_rd = rd;
+    // csr data
+    assign O_csr_addr = I_inst[31:20];
+    assign O_csr_imm = I_inst[19:15];
+    //assign O_csr_op_sel = I_inst[14:12];
+    //assign O_funct3 = funct3;
+    //assign O_funct7 = funct7;
+    // inst type
+    assign typeI = (opcode == 7'b1100111) || (opcode == 7'b0000011) || (opcode == 7'b0010011) || (opcode == 7'b0011011);
+    assign typeS = (opcode == 7'b0100011);
+    assign typeB = (opcode == 7'b1100011);
+    assign typeU = (opcode == 7'b0010111) || (opcode == 7'b0110111);
+    assign typeJ = (opcode == 7'b1101111);
+    assign typeR = (opcode == 7'b0110011) || (opcode == 7'b0111011);
+    assign typeC = (opcode == 7'b1110011);
+    
+    // O_imm
+    assign O_imm = ({64{typeI}} & {{52{immI[11]}},immI})
+                    | ({64{typeS}} & {{52{immS[11]}},immS})
+                    | ({64{typeB}} & {{51{immB[12]}},immB})
+                    | ({64{typeU}} & {{32{immU[31]}},immU})
+                    | ({64{typeJ}} & {{43{immJ[20]}},immJ});
+
     // ctrl signal gen
     assign O_csr_op_sel[6] = ECALL | EBREAK | MRET;
     assign O_csr_op_sel[5:0] = {CSRRW, CSRRS, CSRRC, CSRRWI, CSRRSI, CSRRCI};

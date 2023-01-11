@@ -219,12 +219,6 @@ void Vysyx_22040750_cpu_top___024root___settle__TOP__2(Vysyx_22040750_cpu_top___
            | (0x37U == (0x7fU & vlSelf->ysyx_22040750_cpu_top__DOT__IF_ID_inst)));
     vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__JALR 
         = (IData)((0x67U == (0x707fU & vlSelf->ysyx_22040750_cpu_top__DOT__IF_ID_inst)));
-    vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__CSRRW 
-        = (IData)((0x1073U == (0x707fU & vlSelf->ysyx_22040750_cpu_top__DOT__IF_ID_inst)));
-    vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__CSRRS 
-        = (IData)((0x2073U == (0x707fU & vlSelf->ysyx_22040750_cpu_top__DOT__IF_ID_inst)));
-    vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__CSRRC 
-        = (IData)((0x3073U == (0x707fU & vlSelf->ysyx_22040750_cpu_top__DOT__IF_ID_inst)));
     vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__CSRRWI 
         = (IData)((0x5073U == (0x707fU & vlSelf->ysyx_22040750_cpu_top__DOT__IF_ID_inst)));
     vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__CSRRSI 
@@ -255,6 +249,12 @@ void Vysyx_22040750_cpu_top___024root___settle__TOP__2(Vysyx_22040750_cpu_top___
              | (3U == (0x7fU & vlSelf->ysyx_22040750_cpu_top__DOT__IF_ID_inst))) 
             | (0x13U == (0x7fU & vlSelf->ysyx_22040750_cpu_top__DOT__IF_ID_inst))) 
            | (0x1bU == (0x7fU & vlSelf->ysyx_22040750_cpu_top__DOT__IF_ID_inst)));
+    vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__CSRRW 
+        = (IData)((0x1073U == (0x707fU & vlSelf->ysyx_22040750_cpu_top__DOT__IF_ID_inst)));
+    vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__CSRRS 
+        = (IData)((0x2073U == (0x707fU & vlSelf->ysyx_22040750_cpu_top__DOT__IF_ID_inst)));
+    vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__CSRRC 
+        = (IData)((0x3073U == (0x707fU & vlSelf->ysyx_22040750_cpu_top__DOT__IF_ID_inst)));
     vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__gpr_alu_e__DOT__cin 
         = ((IData)((0U != (0xeU & (IData)(vlSelf->ysyx_22040750_cpu_top__DOT__ID_EX_alu_op_sel))))
             ? 1ULL : 0ULL);
@@ -372,26 +372,6 @@ void Vysyx_22040750_cpu_top___024root___settle__TOP__2(Vysyx_22040750_cpu_top___
                                                              == 
                                                              (vlSelf->ysyx_22040750_cpu_top__DOT__IF_ID_inst 
                                                               >> 0x19U)))));
-    vlSelf->ysyx_22040750_cpu_top__DOT__csr_op_sel 
-        = (((((0x73U == vlSelf->ysyx_22040750_cpu_top__DOT__IF_ID_inst) 
-              | (0x100073U == vlSelf->ysyx_22040750_cpu_top__DOT__IF_ID_inst)) 
-             | (0x30200073U == vlSelf->ysyx_22040750_cpu_top__DOT__IF_ID_inst)) 
-            << 6U) | (((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__CSRRW) 
-                       << 5U) | (((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__CSRRS) 
-                                  << 4U) | (((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__CSRRC) 
-                                             << 3U) 
-                                            | (((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__CSRRWI) 
-                                                << 2U) 
-                                               | (((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__CSRRSI) 
-                                                   << 1U) 
-                                                  | (IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__CSRRCI)))))));
-    vlSelf->ysyx_22040750_cpu_top__DOT__csr_wen = (
-                                                   (((((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__CSRRW) 
-                                                       | (IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__CSRRS)) 
-                                                      | (IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__CSRRC)) 
-                                                     | (IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__CSRRWI)) 
-                                                    | (IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__CSRRSI)) 
-                                                   | (IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__CSRRCI));
     vlSelf->ysyx_22040750_cpu_top__DOT__gpr_e__DOT__wen[1U] 
         = ((1U == (IData)(vlSelf->ysyx_22040750_cpu_top__DOT__MEM_WB_rd_addr))
             ? (1U & (IData)(vlSelf->ysyx_22040750_cpu_top__DOT____Vcellinp__gpr_e__I_wen))
@@ -721,11 +701,34 @@ void Vysyx_22040750_cpu_top___024root___settle__TOP__2(Vysyx_22040750_cpu_top___
                                                                              >> 0x14U))))) 
                                                       << 0x15U) 
                                                      | (QData)((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__immJ)))));
+    vlSelf->ysyx_22040750_cpu_top__DOT__csr_op_sel 
+        = (((((0x73U == vlSelf->ysyx_22040750_cpu_top__DOT__IF_ID_inst) 
+              | (0x100073U == vlSelf->ysyx_22040750_cpu_top__DOT__IF_ID_inst)) 
+             | (0x30200073U == vlSelf->ysyx_22040750_cpu_top__DOT__IF_ID_inst)) 
+            << 6U) | (((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__CSRRW) 
+                       << 5U) | (((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__CSRRS) 
+                                  << 4U) | (((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__CSRRC) 
+                                             << 3U) 
+                                            | (((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__CSRRWI) 
+                                                << 2U) 
+                                               | (((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__CSRRSI) 
+                                                   << 1U) 
+                                                  | (IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__CSRRCI)))))));
+    vlSelf->ysyx_22040750_cpu_top__DOT__csr_wen = (
+                                                   (((((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__CSRRW) 
+                                                       | (IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__CSRRS)) 
+                                                      | (IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__CSRRC)) 
+                                                     | (IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__CSRRWI)) 
+                                                    | (IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__CSRRSI)) 
+                                                   | (IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__CSRRCI));
     vlSelf->ysyx_22040750_cpu_top__DOT__stall_en = 
-        (((((((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__typeI) 
-              | (0x23U == (0x7fU & vlSelf->ysyx_22040750_cpu_top__DOT__IF_ID_inst))) 
-             | (IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__typeR)) 
-            | (0x63U == (0x7fU & vlSelf->ysyx_22040750_cpu_top__DOT__IF_ID_inst))) 
+        ((((((((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__typeI) 
+               | (0x23U == (0x7fU & vlSelf->ysyx_22040750_cpu_top__DOT__IF_ID_inst))) 
+              | (IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__typeR)) 
+             | (0x63U == (0x7fU & vlSelf->ysyx_22040750_cpu_top__DOT__IF_ID_inst))) 
+            | (((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__CSRRW) 
+                | (IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__CSRRS)) 
+               | (IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__CSRRC))) 
            & (0U != (0x1fU & (vlSelf->ysyx_22040750_cpu_top__DOT__IF_ID_inst 
                               >> 0xfU)))) << 1U) | 
          ((((0x23U == (0x7fU & vlSelf->ysyx_22040750_cpu_top__DOT__IF_ID_inst)) 
