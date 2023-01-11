@@ -13,9 +13,9 @@
 #include "Vysyx_22040750_cpu_top__Dpi.h"
 //#define N 32
 //#define CONFIG_FTRACE
-#define CONFIG_ITRACE
+//#define CONFIG_ITRACE
 #define CONFIG_DIFFTEST
-//#define CONFIG_WAVEFORM
+#define CONFIG_WAVEFORM
 #define ASNI_FG_RED     "\33[1;31m"
 #define ASNI_FG_GREEN   "\33[1;32m"
 #define ASNI_NONE       "\33[0m"
