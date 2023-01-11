@@ -354,11 +354,11 @@ int main(int argc, char** argv, char** env) {
 	  #endif
 	  }
 	  #ifdef CONFIG_WAVEFORM
-	  if(sim_time > 805000){tfp->dump(sim_time);}
+	  tfp->dump(sim_time);
 	  #endif
 	  sim_time++;
 	  // test dummy
-	  // if(sim_time == 50000){printf("timeout!\n");break;}
+	  if(sim_time == 8000){printf("timeout!\n");break;}
   }
   //printf("a\n");
   cpu->final();
