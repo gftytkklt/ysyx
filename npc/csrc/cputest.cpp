@@ -354,7 +354,7 @@ int main(int argc, char** argv, char** env) {
 	  #endif
 	  }
 	  #ifdef CONFIG_WAVEFORM
-	  if(sim_time > 806000){tfp->dump(sim_time);}
+	  if(sim_time > 805000){tfp->dump(sim_time);}
 	  #endif
 	  sim_time++;
 	  // test dummy
