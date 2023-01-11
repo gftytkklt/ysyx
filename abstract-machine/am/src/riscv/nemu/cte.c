@@ -7,7 +7,7 @@ void __am_get_cur_as(Context *c);
 void __am_switch(Context *c);
 
 Context* __am_irq_handle(Context *c) {
-  printf("yield exec\n");
+  //printf("yield exec\n");
   uintptr_t ksp = 0;
   __am_get_cur_as(c);
   if (user_handler) {
