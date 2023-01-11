@@ -33,12 +33,12 @@ module ysyx_22040750_cpu_top(
     input [63:0] I_mem_rd_data,
     input I_mem_rd_data_valid,
     output [63:0] O_mem_wr_data,
-    output [7:0] O_mem_wr_strb  
+    output [7:0] O_mem_wr_strb
     //output O_sim_end
     );
     wire [63:0] current_pc,dnpc,snpc;
     wire [31:0] current_inst;
-    wire [63:0] imm,wr_data,rs1_data,rs2_data,alu_op1,alu_op2,alu_out,mem_in,mem_out,mem_addr;
+    wire [63:0] imm,wr_data,rs1_data,rs2_data,alu_op1,alu_op2,alu_out,mem_in,mem_out,mem_addr,csr_rd_data,alu_csr_data;
     wire [4:0] rs1_addr,rs2_addr,rd_addr;
     //wire [2:0] funct3;
     wire [4:0] dnpc_sel;
@@ -52,6 +52,12 @@ module ysyx_22040750_cpu_top(
     wire reg_wen,mem_wen;
     wire word_op_mask;
     wire [1:0] alu_op_sext;
+	// csr
+	wire [11:0] csr_addr;
+	wire csr_wen, csr_intr, csr_mret;
+	wire [6:0] csr_op_sel;
+	wire [4:0] csr_uimm;
+	wire [63:0] csr_intr_no;
     //IF_ID
     wire IF_valid;
     wire [63:0] IF_ID_pc;
@@ -62,7 +68,7 @@ module ysyx_22040750_cpu_top(
     wire IF_ID_bubble;
     wire IF_ID_input_valid;
     //ID_EX
-    wire [63:0] ID_EX_imm, ID_EX_pc, ID_EX_rs1, ID_EX_rs2;
+    wire [63:0] ID_EX_imm, ID_EX_pc, ID_EX_rs1, ID_EX_rs2, ID_EX_csr;
     wire [4:0] ID_EX_rd_addr;
     wire [7:0] ID_EX_wstrb;
     wire [8:0] ID_EX_rstrb;
@@ -79,11 +85,16 @@ module ysyx_22040750_cpu_top(
     wire ID_EX_input_valid;
     wire ID_EX_alu_multicycle;
     wire alu_out_valid;
+	wire [11:0] ID_EX_csr_addr;
+	wire ID_EX_csr_wen, ID_EX_csr_intr, ID_EX_csr_mret;
+	wire [6:0] ID_EX_csr_op_sel;
+	wire [4:0] ID_EX_csr_uimm;
+	wire [63:0] ID_EX_csr_intr_no;
     //EX_MEM
     wire EX_MEM_valid;
     wire [8:0] EX_MEM_rstrb;
     wire [7:0] EX_MEM_wstrb;
-    wire [63:0] EX_MEM_alu_out, EX_MEM_mem_addr, EX_MEM_rs2;
+    wire [63:0] EX_MEM_alu_out, EX_MEM_mem_addr, EX_MEM_rs2, EX_MEM_csr;
     wire EX_MEM_mem_wen;
     wire [63:0] EX_MEM_pc;
     wire [63:0] EX_MEM_mem_data;
@@ -96,13 +107,18 @@ module ysyx_22040750_cpu_top(
     wire [31:0] EX_MEM_inst;
     wire EX_MEM_bubble;
     wire EX_MEM_input_valid;
-    
+    wire [11:0] EX_MEM_csr_addr;
+	wire EX_MEM_csr_wen, EX_MEM_csr_intr, EX_MEM_csr_mret;
+	//wire [6:0] EX_MEM_csr_op_sel;
+	//wire [4:0] EX_MEM_csr_uimm;
+	wire [63:0] EX_MEM_csr_intr_no;
     //MEM_WB
     wire [63:0] MEM_WB_pc;
     wire MEM_WB_valid;
     wire [63:0] MEM_WB_mem_data;
     wire [8:0] MEM_WB_mem_rstrb;
     wire [63:0] MEM_WB_alu_out;
+	wire [63:0] MEM_WB_csr;
     wire MEM_WB_reg_wen;
     wire [4:0] MEM_WB_rd_addr;
     wire [2:0] MEM_WB_regin_sel;
@@ -112,10 +128,14 @@ module ysyx_22040750_cpu_top(
     wire MEM_WB_bubble;
     wire MEM_WB_input_valid;
     wire [1:0] MEM_WB_stall;
-    
-    // pipeline stall
+    wire [11:0] MEM_WB_csr_addr;
+	wire MEM_WB_csr_wen, MEM_WB_csr_intr, MEM_WB_csr_mret;
+	//wire [6:0] MEM_WB_csr_op_sel;
+	//wire [4:0] MEM_WB_csr_uimm;
+	wire [63:0] MEM_WB_csr_intr_no;
+    // pipeline stall & forward
     wire [1:0] stall_en;
-    
+    wire [63:0] rs1_forward_data, rs2_forward_data, csr_forward_data;
     import "DPI-C" function void set_wb_ptr(input logic a []);
     initial set_wb_ptr(MEM_WB_valid);
     import "DPI-C" function void set_wb_bubble_ptr(input logic a []);
@@ -157,7 +177,7 @@ module ysyx_22040750_cpu_top(
     	// forward
     	.I_rs1_data(rs1_forward_data),
     	.I_rs2_data(rs2_forward_data),
-		.I_intr_pc(),
+		.I_intr_pc(csr_forward_data),
     	.I_imm(imm),
     	.I_pc(IF_ID_pc),// for jal addr cal
     	.I_snpc(snpc),
@@ -218,7 +238,6 @@ module ysyx_22040750_cpu_top(
 		.O_WB_stall(MEM_WB_stall)
 	);
 	
-	wire [63:0] rs1_forward_data, rs2_forward_data; 
     ysyx_22040750_forward_unit forward_unit_e(
     	.I_ID_rs1_data(rs1_data),// ID_EX out to alu
     	.I_ID_rs2_data(rs2_data),// ID_EX out to alu
@@ -237,19 +256,19 @@ module ysyx_22040750_cpu_top(
 	);
 
 	ysyx_22040750_csr_foward csr_foward_e(
-		.I_csr_ID(),
-		.I_csr_EX(),
-		.I_csr_MEM(),
-		.I_csr_WB(),
-		.I_csr_addr_ID(),
-		.I_csr_addr_EX(),
-		.I_csr_addr_MEM(),
-		.I_csr_addr_WB(),
-		.I_csr_wen_ID(),
-		.I_csr_wen_EX(),
-		.I_csr_wen_MEM(),
-		.I_csr_wen_WB(),
-		.O_csr_foward_data()
+		.I_csr_ID(csr_rd_data),
+		.I_csr_EX(ID_EX_csr),
+		.I_csr_MEM(EX_MEM_csr),
+		.I_csr_WB(MEM_WB_csr),
+		.I_csr_addr_ID(csr_addr),
+		.I_csr_addr_EX(ID_EX_csr_addr),
+		.I_csr_addr_MEM(EX_MEM_csr_addr),
+		.I_csr_addr_WB(MEM_WB_csr_addr),
+		.I_csr_wen_ID(csr_wen),
+		.I_csr_wen_EX(ID_EX_csr_wen),
+		.I_csr_wen_MEM(EX_MEM_csr_wen),
+		.I_csr_wen_WB(MEM_WB_csr_wen),
+		.O_csr_foward_data(csr_forward_data)
 	);
 	
     ysyx_22040750_decoder decoder_e(
@@ -278,13 +297,13 @@ module ysyx_22040750_cpu_top(
 		.O_opnum2_sel(opnum2_sel),
 		.O_alu_op_sel(alu_op_sel),
 		.O_alu_op_sext(alu_op_sext),
-		.O_csr_op_sel(),// EX
-		.O_csr_imm(),// EX
-		.O_csr_addr(),// ID & WB
-		.O_csr_wen(),// WB
-		.O_csr_intr(),// ID & WB
-		.O_csr_intr_no(),// WB
-		.O_csr_mret(),// ID & WB
+		.O_csr_op_sel(csr_op_sel),// EX
+		.O_csr_imm(csr_uimm),// EX
+		.O_csr_addr(csr_addr),// ID & WB
+		.O_csr_wen(csr_wen),// WB
+		.O_csr_intr(csr_intr),// ID & WB
+		.O_csr_intr_no(csr_intr_no),// WB
+		.O_csr_mret(csr_mret),// ID & WB
 		.O_word_op_mask(word_op_mask),
 		.O_stall_en(stall_en)
     );
@@ -317,20 +336,22 @@ module ysyx_22040750_cpu_top(
 		.I_alu_sext(alu_op_sext),
 		.I_alu_op_sel(alu_op_sel),
 		.I_word_op_mask(word_op_mask),
-		.I_csr_op_sel(),
-		.I_csr_imm(),
-		.I_csr_addr(),
-		.I_csr_wen(),
-		.I_csr_intr(),
-		.I_csr_intr_no(),
-		.I_csr_mret(),
-		.O_csr_op_sel(),
-		.O_csr_imm(),
-		.O_csr_addr(),
-		.O_csr_wen(),
-		.O_csr_intr(),
-		.O_csr_intr_no(),
-		.O_csr_mret(),
+		.I_csr_op_sel(csr_op_sel),
+		.I_csr_imm(csr_uimm),
+		.I_csr_addr(csr_addr),
+		.I_csr_wen(csr_wen),
+		.I_csr_intr(csr_intr),
+		.I_csr_intr_no(csr_intr_no),
+		.I_csr(csr_forward_data),
+		.I_csr_mret(csr_mret),
+		.O_csr_op_sel(ID_EX_csr_op_sel),
+		.O_csr_imm(ID_EX_csr_uimm),
+		.O_csr_addr(ID_EX_csr_addr),
+		.O_csr_wen(ID_EX_csr_wen),
+		.O_csr_intr(ID_EX_csr_intr),
+		.O_csr_intr_no(ID_EX_csr_intr_no),
+		.O_csr(ID_EX_csr),
+		.O_csr_mret(ID_EX_csr_mret),
 		.O_imm(ID_EX_imm),
 		.O_rs1(ID_EX_rs1),
 		.O_rs2(ID_EX_rs2),
@@ -380,12 +401,12 @@ module ysyx_22040750_cpu_top(
 		.I_word_op_mask(ID_EX_word_op_mask),
 		.I_multicycle(ID_EX_alu_multicycle),
 		.I_EX_MEM_ready(EX_MEM_allowin),
-		.I_csr_data(),
-		.I_uimm(),
-		.I_csr_op_sel(),
+		.I_csr_data(ID_EX_csr),
+		.I_uimm(ID_EX_csr_uimm),
+		.I_csr_op_sel(ID_EX_csr_op_sel),
 		.O_mem_addr(mem_addr),
 		.O_result(alu_out),
-		.O_csr_data(),
+		.O_csr_data(alu_csr_data),
 		.O_result_valid(alu_out_valid)
 	);
 
@@ -433,18 +454,20 @@ module ysyx_22040750_cpu_top(
 		.I_mem_data_valid(I_mem_rd_data_valid),
 		//.I_csr_op_sel(),
 		//.I_csr_imm(),
-		.I_csr_addr(),
-		.I_csr_wen(),
-		.I_csr_intr(),
-		.I_csr_intr_no(),
-		.I_csr_mret(),
+		.I_csr_addr(ID_EX_csr_addr),
+		.I_csr_wen(ID_EX_csr_wen),
+		.I_csr_intr(ID_EX_csr_intr),
+		.I_csr_intr_no(ID_EX_csr_intr_no),
+		.I_csr_mret(ID_EX_csr_mret),
+		.I_csr(alu_csr_data),
 		//.O_csr_op_sel(),
 		//.O_csr_imm(),
-		.O_csr_addr(),
-		.O_csr_wen(),
-		.O_csr_intr(),
-		.O_csr_intr_no(),
-		.O_csr_mret(),
+		.O_csr_addr(EX_MEM_csr_addr),
+		.O_csr_wen(EX_MEM_csr_wen),
+		.O_csr_intr(EX_MEM_csr_intr),
+		.O_csr_intr_no(EX_MEM_csr_intr_no),
+		.O_csr_mret(EX_MEM_csr_mret),
+		.O_csr(EX_MEM_csr),
 		.O_rstrb(EX_MEM_rstrb),
 		.O_wstrb(EX_MEM_wstrb),
 		.O_alu_out(EX_MEM_alu_out),
@@ -486,18 +509,20 @@ module ysyx_22040750_cpu_top(
     	.I_regin_sel(EX_MEM_regin_sel),
 		//.I_csr_op_sel(),
 		//.I_csr_imm(),
-		.I_csr_addr(),
-		.I_csr_wen(),
-		.I_csr_intr(),
-		.I_csr_intr_no(),
-		.I_csr_mret(),
+		.I_csr_addr(EX_MEM_csr_addr),
+		.I_csr_wen(EX_MEM_csr_wen),
+		.I_csr_intr(EX_MEM_csr_intr),
+		.I_csr_intr_no(EX_MEM_csr_intr_no),
+		.I_csr_mret(EX_MEM_csr_mret),
+		.I_csr(EX_MEM_csr),
 		//.O_csr_op_sel(),
 		//.O_csr_imm(),
-		.O_csr_addr(),
-		.O_csr_wen(),
-		.O_csr_intr(),
-		.O_csr_intr_no(),
-		.O_csr_mret(),
+		.O_csr_addr(MEM_WB_csr_addr),
+		.O_csr_wen(MEM_WB_csr_wen),
+		.O_csr_intr(MEM_WB_csr_intr),
+		.O_csr_intr_no(MEM_WB_csr_intr_no),
+		.O_csr_mret(MEM_WB_csr_mret),
+		.O_csr(MEM_WB_csr),
     	.O_pc(MEM_WB_pc),
     	.O_mem_data(MEM_WB_mem_data),
     	.O_mem_rstrb(MEM_WB_mem_rstrb),
@@ -544,16 +569,16 @@ module ysyx_22040750_cpu_top(
 	ysyx_22040750_csr csr_e(
 		.I_sys_clk(I_sys_clk),
 		.I_rst(I_rst),
-		.I_csr_wen(),
-		.I_csr_intr_wr(),
-		.I_csr_intr_rd(),
-		.I_intr_pc(),
-		.I_csr_intr_no(),
-		.I_csr_mret_wr(),
-		.I_csr_mret_rd(),
-		.I_wr_addr(),
-		.I_rd_addr(),
-		.I_wr_data(),
-		.O_rd_data()
+		.I_csr_wen(MEM_WB_csr_wen),
+		.I_csr_intr_wr(MEM_WB_csr_intr),
+		.I_csr_intr_rd(csr_intr),
+		.I_intr_pc(MEM_WB_pc),
+		.I_csr_intr_no(MEM_WB_csr_intr_no),
+		.I_csr_mret_wr(MEM_WB_csr_mret),
+		.I_csr_mret_rd(csr_mret),
+		.I_wr_addr(MEM_WB_csr_addr),
+		.I_rd_addr(csr_addr),
+		.I_wr_data(MEM_WB_csr),
+		.O_rd_data(csr_rd_data)
 	);
 endmodule
