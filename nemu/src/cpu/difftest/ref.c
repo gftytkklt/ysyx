@@ -53,6 +53,10 @@ void difftest_raise_intr(word_t NO) {
   isa_raise_intr(NO, cpu.pc);
 }
 
+void difftest_ref_display() {
+  isa_reg_display();
+}
+
 void difftest_init() {
   /* Perform ISA dependent initialization. */
   init_isa();
