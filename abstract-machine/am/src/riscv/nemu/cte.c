@@ -49,7 +49,7 @@ bool cte_init(Context*(*handler)(Event, Context*)) {
 Context *kcontext(Area kstack, void (*entry)(void *), void *arg) {
   //Context *cp = (Context*)kstack.end - 1;
   Context *cp = (Context*)((void*)kstack.end - CONTEXT_SIZE);
-  printf("cp addr:%p\n",cp);
+  printf("kstack end addr:%p, cp addr:%p\n",kstack.end,cp);
   cp->mstatus = 0xa00001880;
   cp->mepc = (uintptr_t)entry;
   //printf("kernel entry: %lx\n",cp->mepc);
