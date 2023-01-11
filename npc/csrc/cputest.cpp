@@ -327,9 +327,11 @@ int main(int argc, char** argv, char** env) {
 	  #ifdef CONFIG_ITRACE
 	  //printf("start disasm\n");
 	  if(wb_valid_difftest){
+	  char *p = logbuf;
 	  fprintf(logfp,"time: %lu\n", sim_time);
 	  fprintf(logfp, "%lx: %08x ",wb_pc_difftest, wb_inst_difftest);
-	  disassemble(logbuf, 128, wb_pc_difftest, (uint8_t *)&wb_inst_difftest, 4);
+	  p += sprintf(p, "%lx: %08x ",wb_pc_difftest, wb_inst_difftest);
+	  disassemble(p, 128, wb_pc_difftest, (uint8_t *)&wb_inst_difftest, 4);
 	  fprintf(logfp, "%s\n",logbuf);
 	  write_ringbuf(logbuf);
 	  }

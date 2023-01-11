@@ -2,7 +2,7 @@
 #include <cstring>
 #define RINGBUF_LEN 64
 typedef struct ringbuf{
-  char instlog[128];
+  char instlog[256];
   struct ringbuf* next;
 } ringbuf;
 
@@ -19,7 +19,7 @@ void init_ringbuf() {
 }
 
 void write_ringbuf(char *str){
-  snprintf(current_buf->instlog, 128, "%s", str);
+  snprintf(current_buf->instlog, 256, "%s", str);
   current_buf = current_buf->next;
 }
 void inst_hist_display() {
