@@ -32,6 +32,7 @@ extern const char* regs[];
 //static svBit good = false;
 //extern void check();
 vluint64_t sim_time = 0;
+static uint64_t dump_time = 1771000;
 struct cpu_context {
   uint64_t gpr[32];
   uint64_t *pc;
@@ -339,11 +340,11 @@ int main(int argc, char** argv, char** env) {
 	  //printf("start disasm\n");
 	  if(wb_valid_difftest){
 	  char *p = logbuf;
-	  fprintf(logfp,"time: %lu\n", sim_time);
+	  //fprintf(logfp,"time: %lu\n", sim_time);
 	  //fprintf(logfp, "%lx: %08x ",wb_pc_difftest, wb_inst_difftest);
 	  p += sprintf(p, "%lx: %08x ",wb_pc_difftest, wb_inst_difftest);
 	  disassemble(p, 128, wb_pc_difftest, (uint8_t *)&wb_inst_difftest, 4);
-	  fprintf(logfp, "%s\n",logbuf);
+	  if(sim_time > dump_time){fprintf(logfp, "time: %lu\n%s\n",sim_time,logbuf);}
 	  write_ringbuf(logbuf);
 	  }
 	  #endif
@@ -366,7 +367,7 @@ int main(int argc, char** argv, char** env) {
 	  #endif
 	  }
 	  #ifdef CONFIG_WAVEFORM
-	  //if(sim_time > 805000){tfp->dump(sim_time);}
+	  if(sim_time > dump_time){tfp->dump(sim_time);}
 	  tfp->dump(sim_time);
 	  #endif
 	  sim_time++;
