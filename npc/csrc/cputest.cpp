@@ -299,7 +299,7 @@ int main(int argc, char** argv, char** env) {
 	  			cpu->I_mem_rd_data_valid = 1;
 	  			#ifdef CONFIG_MTRACE
 	  			//fprintf(logfp,"rd data %lx from %lx\n", cpu->I_mem_rd_data, cpu->O_mem_addr);
-	  			fprintf(logfp,"time: %lu\nrd data %lx from %lx\n",sim_time, cpu->I_mem_rd_data, raddr);
+	  			if(sim_time > dump_time){fprintf(logfp,"time: %lu\nrd data %lx from %lx\n",sim_time, cpu->I_mem_rd_data, raddr);}
 	  			//printf("time: %lu\nrd data %lx from %lx\n",sim_time, cpu->I_mem_rd_data, raddr);
 	  			#endif
 	  		}
@@ -309,7 +309,7 @@ int main(int argc, char** argv, char** env) {
 	  		//if(wr_en){
 	  			pmem_write(cpu->O_mem_addr, cpu->O_mem_wr_data, cpu->O_mem_wr_strb);
 	  			#ifdef CONFIG_MTRACE
-	  			fprintf(logfp,"time: %lu\nwr data %lx to %lx\n",sim_time, cpu->O_mem_wr_data, cpu->O_mem_addr);
+	  			if(sim_time > dump_time){fprintf(logfp,"time: %lu\nwr data %lx to %lx\n",sim_time, cpu->O_mem_wr_data, cpu->O_mem_addr);}
 	  			//printf("time: %lu\nwr data %lx to %lx\n",sim_time, cpu->O_mem_wr_data, cpu->O_mem_addr);
 	  			#endif
 	  		}
