@@ -50,8 +50,12 @@ void init_proc() {
 
   Log("Initializing processes...");
   // load program here
-  //naive_uload(NULL,"/bin/pal");
-  char * argv[]={"--skip",NULL};
+  
+  // naive load for npc
+  naive_uload(NULL,"/bin/pal");
+  
+  // pa4 impl
+  /*char * argv[]={"--skip",NULL};
   //char * argv[]={NULL};
   char * envp[]={NULL};
   
@@ -65,7 +69,7 @@ void init_proc() {
   //context_kload(&pcb[1],hello_fun,"arg1");
   //context_uload(&pcb[1],"/bin/pal", argv, envp);
   
-  fg_pcb = &pcb[1];
+  fg_pcb = &pcb[1];*/
   //Log("proc end at %lx\n",pcb[0].max_brk);
   //naive_uload(NULL, "/bin/cpp-test");
 }

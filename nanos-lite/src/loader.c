@@ -49,10 +49,11 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       if((ldvaddr + memsz)>proc_end){proc_end = (ldvaddr + memsz);}
       fs_lseek(fd, ldofft, SEEK_SET);
       // naive version
-      //fs_read(fd, (void *)ldvaddr, filesz);
-      //memset((void *)(ldvaddr + filesz), 0, (memsz-filesz));
+      #ifndef HAS_VME
+      fs_read(fd, (void *)ldvaddr, filesz);
+      memset((void *)(ldvaddr + filesz), 0, (memsz-filesz));
+      #else
       // pte version
-      #ifdef HAS_VME
       void *start = (void*)(ldvaddr & ~0xffful);
       uint64_t start_offt = ldvaddr & 0xffful;
       uint64_t file_end = ldvaddr + filesz;
@@ -91,14 +92,13 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
         //printf("rd %d\n",rd_num);
         //printf("%dth mapping end\n",i);
       }
+      #endif
     }
     current_phoff += phentsize;
   }
+  #ifdef HAS_VME
   pcb->max_brk = proc_end;
   printf("proc end at %lx\n",pcb->max_brk);
-  #else
-  fs_read(fd, (void *)ldvaddr, filesz);
-  memset((void *)(ldvaddr + filesz), 0, (memsz-filesz));
   #endif
   fs_close(fd);
   return ehdr.e_entry;
