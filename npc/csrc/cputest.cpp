@@ -145,7 +145,8 @@ static void pmem_write(unsigned long waddr, unsigned long wdata, unsigned char w
 				#endif
 				//printf("serial write\n");
 				//printf("%c", *data_pt);
-				putchar(*(char*)data_pt);
+				printf("%s", (char*)data_pt);
+				//putchar(*(char*)data_pt);
 			}
 			else if(waddr >= 0x80000000 && waddr <= 0x88000000) {
 				//printf("pmem write\n");
