@@ -6,7 +6,11 @@ static Context* do_event(Event e, Context* c) {
   //printf("do event start, cp = %p\n",c);
   switch (e.event) {
     case EVENT_IRQ_TIMER:
+    #ifdef HAS_VME
     case EVENT_YIELD: return schedule(c);//printf("yield exec\n");break;
+    #else
+    case EVENT_YIELD: printf("yield exec\n");break;
+    #endif
     case EVENT_SYSCALL: do_syscall(c);break;
     //case EVENT_IRQ_TIMER: return schedule(c);
     default: panic("Unhandled event ID = %d", e.event);
