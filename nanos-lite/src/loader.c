@@ -188,8 +188,9 @@ int context_uload(PCB *pcb, const char *filename, char *const argv[], char *cons
 void naive_uload(PCB *pcb, const char *filename) {
   //printf("in uload\n");
   uintptr_t entry = loader(pcb, filename);
-  Log("Jump to entry = %p", entry);
   asm volatile("ld a0, 0(zero)");
+  Log("Jump to entry = %p", entry);
+  
   ((void(*)())entry) ();
 }
 
