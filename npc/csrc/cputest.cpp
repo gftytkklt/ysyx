@@ -32,7 +32,7 @@ extern const char* regs[];
 //static svBit good = false;
 //extern void check();
 vluint64_t sim_time = 0;
-static uint64_t dump_time = 1771000;
+uint64_t dump_time = 1771000;
 struct cpu_context {
   uint64_t gpr[32];
   uint64_t *pc;
