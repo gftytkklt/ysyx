@@ -13,6 +13,7 @@
 #include "Vysyx_22040750_cpu_top__Dpi.h"
 //#define N 32
 //#define CONFIG_FTRACE
+//#define CONFIG_MTRACE
 #define CONFIG_ITRACE
 #define CONFIG_DIFFTEST
 //#define CONFIG_WAVEFORM
@@ -296,7 +297,7 @@ int main(int argc, char** argv, char** env) {
 	  			//pmem_read(cpu->O_mem_addr, &(cpu->I_mem_rd_data));
 	  			pmem_read(raddr, &(cpu->I_mem_rd_data));
 	  			cpu->I_mem_rd_data_valid = 1;
-	  			#ifdef CONFIG_ITRACE
+	  			#ifdef CONFIG_MTRACE
 	  			//fprintf(logfp,"rd data %lx from %lx\n", cpu->I_mem_rd_data, cpu->O_mem_addr);
 	  			fprintf(logfp,"time: %lu\nrd data %lx from %lx\n",sim_time, cpu->I_mem_rd_data, raddr);
 	  			//printf("time: %lu\nrd data %lx from %lx\n",sim_time, cpu->I_mem_rd_data, raddr);
@@ -307,7 +308,7 @@ int main(int argc, char** argv, char** env) {
 	  		if(cpu->O_mem_wen){
 	  		//if(wr_en){
 	  			pmem_write(cpu->O_mem_addr, cpu->O_mem_wr_data, cpu->O_mem_wr_strb);
-	  			#ifdef CONFIG_ITRACE
+	  			#ifdef CONFIG_MTRACE
 	  			fprintf(logfp,"time: %lu\nwr data %lx to %lx\n",sim_time, cpu->O_mem_wr_data, cpu->O_mem_addr);
 	  			//printf("time: %lu\nwr data %lx to %lx\n",sim_time, cpu->O_mem_wr_data, cpu->O_mem_addr);
 	  			#endif
@@ -345,7 +346,7 @@ int main(int argc, char** argv, char** env) {
 	  p += sprintf(p, "%lx: %08x ",wb_pc_difftest, wb_inst_difftest);
 	  disassemble(p, 128, wb_pc_difftest, (uint8_t *)&wb_inst_difftest, 4);
 	  if(sim_time > dump_time){
-	    printf("%lu, %lu\n",sim_time,dump_time);
+	    //printf("%lu, %lu\n",sim_time,dump_time);
 	    fprintf(logfp, "time: %lu\n%s\n",sim_time,logbuf);
 	  }
 	  write_ringbuf(logbuf);
