@@ -8,16 +8,18 @@ void __am_switch(Context *c);
 
 Context* __am_irq_handle(Context *c) {
   //printf("yield exec\n");
+  #ifdef HAS_VME
   uintptr_t ksp = 0;
   __am_get_cur_as(c);
+  #endif
   if (user_handler) {
     Event ev = {0};
-    
+    #ifdef HAS_VME
     asm volatile("csrr %0, mscratch" : "=r"(ksp));
     c->np = (ksp == 0) ? KERNEL_MODE : USER_MODE;
     ksp = 0;
     asm volatile("csrw mscratch, %0" : : "r"(ksp));
-    
+    #endif
     switch (c->mcause) {
       case 0x0b: c->mepc += 4;ev.event = (c->gpr[17] == -1) ? EVENT_YIELD : EVENT_SYSCALL; break;
       case 0x8000000000000007: ev.event = EVENT_IRQ_TIMER; break;
@@ -27,11 +29,13 @@ Context* __am_irq_handle(Context *c) {
     c = user_handler(ev, c);
     assert(c != NULL);
   }
+  #ifdef HAS_VME
   __am_switch(c);
   if(c->np == USER_MODE){
     ksp = (uintptr_t)c + CONTEXT_SIZE;
     asm volatile("csrw mscratch, %0" : : "r"(ksp));
   }
+  #endif
   return c;
 }
 
