@@ -392,7 +392,7 @@ module ysyx_22040750_decoder(
     //TODO: add alu cal pc+4 datapath, also adjust wb sel
     wire rs2_flag, imm_flag, four_flag;
     assign rs2_flag = typeR;
-    assign imm_flag = typeI | typeS | typeB | typeU;
+    assign imm_flag = (typeI & (~JALR)) | typeS | typeB | typeU;
     assign four_flag = JALR | typeJ;
     assign O_opnum2_sel = OP2_RS2 & {3{rs2_flag}}
                         | OP2_IMM & {3{imm_flag}}

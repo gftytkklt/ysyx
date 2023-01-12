@@ -1278,7 +1278,8 @@ VL_INLINE_OPT void Vysyx_22040750_cpu_top___024root___sequent__TOP__1(Vysyx_2204
             = (((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__IF_ID_valid) 
                 & (IData)(vlSelf->ysyx_22040750_cpu_top__DOT__ID_EX_allowin))
                 ? (((1U & (- (IData)((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__typeR)))) 
-                    | (2U & (- (IData)(((((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__typeI) 
+                    | (2U & (- (IData)((((((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__typeI) 
+                                           & (~ (IData)(vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__JALR))) 
                                           | (0x23U 
                                              == (0x7fU 
                                                  & vlSelf->ysyx_22040750_cpu_top__DOT__IF_ID_inst))) 
