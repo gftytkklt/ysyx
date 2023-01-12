@@ -52,7 +52,7 @@ void init_proc() {
   // load program here
   
   // naive load for npc
-  naive_uload(NULL,"/bin/pal");
+  naive_uload(NULL,"/bin/hello");
   
   // pa4 impl
   /*char * argv[]={"--skip",NULL};
