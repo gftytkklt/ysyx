@@ -49,7 +49,12 @@ void difftest_exec(uint64_t n) {
 }
 
 void difftest_raise_intr(word_t NO) {
-  assert(0);
+  //assert(0);
+  isa_raise_intr(NO, cpu.pc);
+}
+
+void difftest_ref_display() {
+  isa_reg_display();
 }
 
 void difftest_init() {

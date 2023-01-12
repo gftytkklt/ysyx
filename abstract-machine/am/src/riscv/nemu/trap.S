@@ -70,4 +70,5 @@ __am_asm_save_context:
   MAP(REGS, POP)
   LOAD sp, OFFSET_SP(sp)
   #addi sp, sp, CONTEXT_SIZE
+  #ld a0, 0(zero)
   mret

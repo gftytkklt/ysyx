@@ -49,8 +49,10 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       if((ldvaddr + memsz)>proc_end){proc_end = (ldvaddr + memsz);}
       fs_lseek(fd, ldofft, SEEK_SET);
       // naive version
-      //fs_read(fd, (void *)ldvaddr, filesz);
-      //memset((void *)(ldvaddr + filesz), 0, (memsz-filesz));
+      #ifndef HAS_VME
+      fs_read(fd, (void *)ldvaddr, filesz);
+      memset((void *)(ldvaddr + filesz), 0, (memsz-filesz));
+      #else
       // pte version
       void *start = (void*)(ldvaddr & ~0xffful);
       uint64_t start_offt = ldvaddr & 0xffful;
@@ -90,11 +92,14 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
         //printf("rd %d\n",rd_num);
         //printf("%dth mapping end\n",i);
       }
+      #endif
     }
     current_phoff += phentsize;
   }
+  #ifdef HAS_VME
   pcb->max_brk = proc_end;
   printf("proc end at %lx\n",pcb->max_brk);
+  #endif
   fs_close(fd);
   return ehdr.e_entry;
 }
@@ -174,7 +179,7 @@ int context_uload(PCB *pcb, const char *filename, char *const argv[], char *cons
   uintptr_t entry = loader(pcb, filename);
   if (entry == -1){return -1;}
   pcb->cp = ucontext(&pcb->as, kstack, (void*)entry);
-  pcb->cp->gpr[10] = (uintptr_t)stacktop;
+  pcb->cp->GPRx = (uintptr_t)stacktop;
   printf("uloader end, entry = %p\n",entry);
   //((void(*)())entry) ();
   return 0;
@@ -183,7 +188,9 @@ int context_uload(PCB *pcb, const char *filename, char *const argv[], char *cons
 void naive_uload(PCB *pcb, const char *filename) {
   //printf("in uload\n");
   uintptr_t entry = loader(pcb, filename);
+  //asm volatile("ld a0, 0(zero)");
   Log("Jump to entry = %p", entry);
+  
   ((void(*)())entry) ();
 }
 

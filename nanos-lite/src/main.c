@@ -5,7 +5,6 @@ void init_ramdisk(void);
 void init_irq(void);
 void init_fs(void);
 void init_proc(void);
-
 int main() {
   extern const char logo[];
   printf("%s", logo);

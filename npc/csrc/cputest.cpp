@@ -13,6 +13,7 @@
 #include "Vysyx_22040750_cpu_top__Dpi.h"
 //#define N 32
 //#define CONFIG_FTRACE
+//#define CONFIG_MTRACE
 //#define CONFIG_ITRACE
 #define CONFIG_DIFFTEST
 //#define CONFIG_WAVEFORM
@@ -28,9 +29,11 @@ static char *img_file = NULL;
 static char *elf_file = NULL;
 static char *ref_so_file = NULL;
 static long img_size = 0;
+extern const char* regs[];
 //static svBit good = false;
 //extern void check();
 vluint64_t sim_time = 0;
+uint64_t dump_time = 0;
 struct cpu_context {
   uint64_t gpr[32];
   uint64_t *pc;
@@ -47,6 +50,9 @@ static bool *wb_bubble = NULL;
 #ifdef CONFIG_ITRACE
 void init_disasm(const char *triple);
 void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
+void init_ringbuf();
+void write_ringbuf(char *str);
+void inst_hist_display();
 #endif
 #ifdef CONFIG_FTRACE
 void init_elf(char* elf_file);
@@ -123,6 +129,7 @@ static void pmem_read(unsigned long raddr, unsigned long* rdata) {
 		*rdata = index > mem_size ? 0 : *((unsigned long*)&mem[index]);
 	}
 	else {
+		difftest_skip_ref(*skip_pc);
 		//printf("invalid raddr %lx\n", raddr);
 		//assert(0);
 	}
@@ -142,13 +149,15 @@ static void pmem_write(unsigned long waddr, unsigned long wdata, unsigned char w
 				#endif
 				//printf("serial write\n");
 				//printf("%c", *data_pt);
-				putchar(*(char*)data_pt);
+				//printf("%s", (char*)data_pt);
+				putchar(*data_pt);
 			}
 			else if(waddr >= 0x80000000 && waddr <= 0x88000000) {
 				//printf("pmem write\n");
 				mem[index] = *data_pt;
 			}
 			else {
+				difftest_skip_ref(*skip_pc);
 				//printf("invalid waddr %lx\n", waddr);
 				//assert(0);
 			}
@@ -180,6 +189,13 @@ static long load_img() {
   return size;
 }
 
+void dut_reg_display(uint64_t* dut){
+  for(int i=0;i<32;i++){
+    printf("%s: %08lx    ", regs[i], dut[i]);
+    if((i%4) == 3){printf("\n");}
+  }
+}
+
 int main(int argc, char** argv, char** env) {
   printf("Hello, ysyx!\n");
   Verilated::commandArgs(argc, argv);
@@ -208,6 +224,7 @@ int main(int argc, char** argv, char** env) {
   printf("itrace: %s\n",ASNI_FMT("ON", ASNI_FG_GREEN));
   FILE* logfp = fopen("npc-log.txt","w");
   init_disasm("riscv64" "-pc-linux-gnu");
+  init_ringbuf();
   #else
   printf("itrace: %s\n",ASNI_FMT("OFF", ASNI_FG_RED));
   #endif
@@ -280,9 +297,9 @@ int main(int argc, char** argv, char** env) {
 	  			//pmem_read(cpu->O_mem_addr, &(cpu->I_mem_rd_data));
 	  			pmem_read(raddr, &(cpu->I_mem_rd_data));
 	  			cpu->I_mem_rd_data_valid = 1;
-	  			#ifdef CONFIG_ITRACE
+	  			#ifdef CONFIG_MTRACE
 	  			//fprintf(logfp,"rd data %lx from %lx\n", cpu->I_mem_rd_data, cpu->O_mem_addr);
-	  			fprintf(logfp,"time: %lu\nrd data %lx from %lx\n",sim_time, cpu->I_mem_rd_data, raddr);
+	  			if(sim_time > dump_time){fprintf(logfp,"time: %lu\nrd data %lx from %lx\n",sim_time, cpu->I_mem_rd_data, raddr);}
 	  			//printf("time: %lu\nrd data %lx from %lx\n",sim_time, cpu->I_mem_rd_data, raddr);
 	  			#endif
 	  		}
@@ -291,8 +308,8 @@ int main(int argc, char** argv, char** env) {
 	  		if(cpu->O_mem_wen){
 	  		//if(wr_en){
 	  			pmem_write(cpu->O_mem_addr, cpu->O_mem_wr_data, cpu->O_mem_wr_strb);
-	  			#ifdef CONFIG_ITRACE
-	  			fprintf(logfp,"time: %lu\nwr data %lx to %lx\n",sim_time, cpu->O_mem_wr_data, cpu->O_mem_addr);
+	  			#ifdef CONFIG_MTRACE
+	  			if(sim_time > dump_time){fprintf(logfp,"time: %lu\nwr data %lx to %lx\n",sim_time, cpu->O_mem_wr_data, cpu->O_mem_addr);}
 	  			//printf("time: %lu\nwr data %lx to %lx\n",sim_time, cpu->O_mem_wr_data, cpu->O_mem_addr);
 	  			#endif
 	  		}
@@ -323,10 +340,16 @@ int main(int argc, char** argv, char** env) {
 	  #ifdef CONFIG_ITRACE
 	  //printf("start disasm\n");
 	  if(wb_valid_difftest){
-	  fprintf(logfp,"time: %lu\n", sim_time);
-	  fprintf(logfp, "%lx: %08x ",wb_pc_difftest, wb_inst_difftest);
-	  disassemble(logbuf, 128, wb_pc_difftest, (uint8_t *)&wb_inst_difftest, 4);
-	  fprintf(logfp, "%s\n",logbuf);
+	  char *p = logbuf;
+	  //fprintf(logfp,"time: %lu\n", sim_time);
+	  //fprintf(logfp, "%lx: %08x ",wb_pc_difftest, wb_inst_difftest);
+	  p += sprintf(p, "%lx: %08x ",wb_pc_difftest, wb_inst_difftest);
+	  disassemble(p, 128, wb_pc_difftest, (uint8_t *)&wb_inst_difftest, 4);
+	  if(sim_time > dump_time){
+	    //printf("%lu, %lu\n",sim_time,dump_time);
+	    fprintf(logfp, "time: %lu\n%s\n",sim_time,logbuf);
+	  }
+	  write_ringbuf(logbuf);
 	  }
 	  #endif
 	  #ifdef CONFIG_FTRACE
@@ -336,16 +359,25 @@ int main(int argc, char** argv, char** env) {
 	  if(wb_valid_difftest) {
 	  	//printf("exec difftest at %lu(pc = %lx)\n",sim_time, wb_pc_difftest);
 	  	difftest_step(wb_pc_difftest, cpu_gpr, sim_time, &difftest_error);
-	  	if(difftest_error){printf("error pc at %lx!\n\n", wb_pc_difftest);break;}
+	  	if(difftest_error){
+	  		printf("error pc at %lx!\n\n", wb_pc_difftest);
+	  		#ifdef CONFIG_ITRACE
+	  			inst_hist_display();
+	  		#endif
+	  		dut_reg_display(cpu_gpr);
+	  		break;
+	  	}
 	  }
 	  #endif
 	  }
 	  #ifdef CONFIG_WAVEFORM
-	  tfp->dump(sim_time);
+	  if(sim_time > dump_time){
+	    tfp->dump(sim_time);
+	  }
 	  #endif
 	  sim_time++;
 	  // test dummy
-	  // if(sim_time == 50000){printf("timeout!\n");break;}
+	  //if(sim_time == 8000){printf("timeout!\n");break;}
   }
   //printf("a\n");
   cpu->final();

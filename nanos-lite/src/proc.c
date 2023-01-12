@@ -11,8 +11,9 @@ void switch_boot_pcb() {
   current = &pcb_boot;
 }
 void switch_fg_pcb(int keycode){
-  if(keycode == 2){fg_pcb = &pcb[1];}
-  else if(keycode == 3){fg_pcb = &pcb[2];}
+  if(keycode == 2){fg_pcb = &pcb[1];}//F1
+  else if(keycode == 3){fg_pcb = &pcb[2];}//F2
+  else if(keycode == 4){fg_pcb = &pcb[3];}//F3
 }
 
 void hello_fun(void *arg) {
@@ -49,7 +50,12 @@ void init_proc() {
 
   Log("Initializing processes...");
   // load program here
-  //naive_uload(NULL,"/bin/pal");
+  
+  // naive load for npc
+  #ifdef TEST_NPC
+  naive_uload(NULL,"/bin/hello");
+  #else
+  // pa4 impl
   char * argv[]={"--skip",NULL};
   //char * argv[]={NULL};
   char * envp[]={NULL};
@@ -58,13 +64,16 @@ void init_proc() {
   context_uload(&pcb[0],"/bin/hello", argv, envp);
   context_uload(&pcb[1],"/bin/pal", argv, envp);
   context_uload(&pcb[2],"/bin/nslider", argv, envp);
+  context_uload(&pcb[3],"/bin/cpp-test",argv,envp);
   //1224 add
   //context_kload(&pcb[0],hello_fun,"arg0");
   //context_kload(&pcb[1],hello_fun,"arg1");
   //context_uload(&pcb[1],"/bin/pal", argv, envp);
   
   fg_pcb = &pcb[1];
+  #endif
   //Log("proc end at %lx\n",pcb[0].max_brk);
+  //naive_uload(NULL, "/bin/cpp-test");
 }
 static int i = 0;
 Context* schedule(Context *prev) {
@@ -84,6 +93,7 @@ Context* schedule(Context *prev) {
   //1224 zhushi
   i++;
   current = (i%100) ? fg_pcb : &pcb[0];
+  //current = fg_pcb;
   //1224 add
   //current = (current == &pcb[1]) ? &pcb[0] : &pcb[1];
   

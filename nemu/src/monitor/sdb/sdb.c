@@ -6,6 +6,7 @@
 
 
 static int is_batch_mode = false;
+bool is_difftest_attached = true;
 
 void init_regex();
 //void init_wp_pool();
@@ -137,6 +138,39 @@ static int cmd_d(char *args) {
   return 0;
 }
 
+static int cmd_attach(char *args) {
+  #ifdef CONFIG_DIFFTEST
+  is_difftest_attached = true;
+  isa_difftest_attach();
+  return 0;
+  #endif
+  printf("Enable difftest in menuconfig first!\n");
+  return 0;
+}
+
+static int cmd_detach(char *args) {
+  #ifdef CONFIG_DIFFTEST
+  is_difftest_attached = false;
+  return 0;
+  #endif
+  printf("Enable difftest in menuconfig first!\n");
+  return 0;
+}
+
+static int cmd_save(char *args) {
+  //const char *dst = strtok("NULL", " ");
+  //FILE *fp = fopen(dst, "w");
+  return 0;
+}
+
+static int cmd_load(char *args) {
+  //const char *dst = strtok("NULL", " ");
+  //FILE *fp = fopen(dst, "r");
+  return 0;
+}
+
+
+
 static int cmd_help(char *args);
 
 static struct {
@@ -155,6 +189,10 @@ static struct {
   {"p", "Expr evaluation", cmd_p},
   {"w", "Set watchpoints", cmd_w},
   {"d", "Delete watchpoints", cmd_d},
+  {"attach", "Start difftest", cmd_attach},
+  {"detach", "Pause difftest", cmd_detach},
+  {"save", "Save nemu status", cmd_save},
+  {"load", "Load nemu status", cmd_load},
 };
 
 #define NR_CMD ARRLEN(cmd_table)

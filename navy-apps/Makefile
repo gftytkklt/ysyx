@@ -89,7 +89,7 @@ CXXFLAGS +=  $(CFLAGS) -ffreestanding -fno-rtti -fno-exceptions
 ASFLAGS  +=  $(CFLAGS)
 
 ## 4. ISA-Specific Configurations
-VME=1
+#VME=1
 ### Paste in ISA-specific configurations (e.g., from `scripts/x86.mk`)
 -include $(NAVY_HOME)/scripts/$(ISA).mk
 
@@ -167,7 +167,7 @@ $(CLEAN_ALL):
 
 ### Build fsimg and ramdisk for Nanos-lite
 APPS = pal nslider
-TESTS = dummy hello
+TESTS = dummy hello cpp-test
 
 fsimg: $(addprefix apps/, $(APPS)) $(addprefix tests/, $(TESTS))
 	-for t in $^; do $(MAKE) -s -C $(NAVY_HOME)/$$t install; done
