@@ -14,9 +14,9 @@
 //#define N 32
 //#define CONFIG_FTRACE
 //#define CONFIG_MTRACE
-#define CONFIG_ITRACE
+//#define CONFIG_ITRACE
 #define CONFIG_DIFFTEST
-#define CONFIG_WAVEFORM
+//#define CONFIG_WAVEFORM
 #define ASNI_FG_RED     "\33[1;31m"
 #define ASNI_FG_GREEN   "\33[1;32m"
 #define ASNI_NONE       "\33[0m"
@@ -33,7 +33,7 @@ extern const char* regs[];
 //static svBit good = false;
 //extern void check();
 vluint64_t sim_time = 0;
-uint64_t dump_time = 1771000;
+uint64_t dump_time = 0;
 struct cpu_context {
   uint64_t gpr[32];
   uint64_t *pc;
