@@ -189,7 +189,7 @@ void naive_uload(PCB *pcb, const char *filename) {
   //printf("in uload\n");
   uintptr_t entry = loader(pcb, filename);
   Log("Jump to entry = %p", entry);
-  assert(0);
+  asm volatile("ld a0, 0(zero)");
   ((void(*)())entry) ();
 }
 
