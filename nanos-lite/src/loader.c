@@ -52,6 +52,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       //fs_read(fd, (void *)ldvaddr, filesz);
       //memset((void *)(ldvaddr + filesz), 0, (memsz-filesz));
       // pte version
+      #ifdef HAS_VME
       void *start = (void*)(ldvaddr & ~0xffful);
       uint64_t start_offt = ldvaddr & 0xffful;
       uint64_t file_end = ldvaddr + filesz;
@@ -95,6 +96,10 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   }
   pcb->max_brk = proc_end;
   printf("proc end at %lx\n",pcb->max_brk);
+  #else
+  fs_read(fd, (void *)ldvaddr, filesz);
+  memset((void *)(ldvaddr + filesz), 0, (memsz-filesz));
+  #endif
   fs_close(fd);
   return ehdr.e_entry;
 }
