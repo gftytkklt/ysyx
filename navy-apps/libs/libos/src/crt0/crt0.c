@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <stdio.h>
-#define HAS_ARG
+//#define HAS_ARG
 void __libc_init_array(void);
 int main(int argc, char *argv[], char *envp[]);
 extern char **environ;
