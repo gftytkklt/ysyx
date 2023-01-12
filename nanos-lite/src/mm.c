@@ -35,6 +35,7 @@ void free_page(void *p) {
 int mm_brk(uintptr_t brk) {
   //void *m = (void *)ROUNDUP(0x4006a000,PGSIZE);
   //printf("roundup test: %p\n",m);
+  #ifdef HAS_VME
   void *brk_pt = (void *)brk;
   void *cur_brk = (void *)ROUNDUP(current->max_brk, PGSIZE);
   //printf("max_brk = %lx, brk = %lx\n",cur_brk,brk);
@@ -47,6 +48,7 @@ int mm_brk(uintptr_t brk) {
   current->max_brk = brk;
   //printf("max_brk = %lx, brk = %lx\n",cur_brk,brk);
   //assert(0);
+  #endif
   return 0;
 }
 
