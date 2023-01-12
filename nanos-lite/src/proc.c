@@ -52,8 +52,9 @@ void init_proc() {
   // load program here
   
   // naive load for npc
-  //naive_uload(NULL,"/bin/hello");
-  
+  #ifdef TEST_NPC
+  naive_uload(NULL,"/bin/hello");
+  #else
   // pa4 impl
   char * argv[]={"--skip",NULL};
   //char * argv[]={NULL};
@@ -70,6 +71,7 @@ void init_proc() {
   //context_uload(&pcb[1],"/bin/pal", argv, envp);
   
   fg_pcb = &pcb[1];
+  #endif
   //Log("proc end at %lx\n",pcb[0].max_brk);
   //naive_uload(NULL, "/bin/cpp-test");
 }
