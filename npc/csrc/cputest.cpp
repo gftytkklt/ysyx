@@ -189,7 +189,7 @@ static long load_img() {
 
 void dut_reg_display(uint64_t* dut){
   for(int i=0;i<32;i++){
-    printf("%s: %lx    ", regs[i], dut[i]);
+    printf("%s: %08lx    ", regs[i], dut[i]);
     if((i%4) == 3){printf("\n");}
   }
 }
