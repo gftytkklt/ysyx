@@ -53,7 +53,7 @@ void init_proc() {
   
   // naive load for npc
   #ifdef TEST_NPC
-  naive_uload(NULL,"/bin/pal");
+  naive_uload(NULL,"/bin/hello");
   #else
   // pa4 impl
   char * argv[]={"--skip",NULL};
