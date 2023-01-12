@@ -28,6 +28,7 @@ static char *img_file = NULL;
 static char *elf_file = NULL;
 static char *ref_so_file = NULL;
 static long img_size = 0;
+extern const char* regs[];
 //static svBit good = false;
 //extern void check();
 vluint64_t sim_time = 0;
@@ -184,6 +185,12 @@ static long load_img() {
   assert(ret == 1);
   fclose(fp);
   return size;
+}
+
+void dut_reg_display(uint64_t* dut){
+  for(int i=0;i<32;i++){
+    printf("%s: %lx\n", regs[i], dut[i]);	
+  }
 }
 
 int main(int argc, char** argv, char** env) {
@@ -351,6 +358,7 @@ int main(int argc, char** argv, char** env) {
 	  		#ifdef CONFIG_ITRACE
 	  			inst_hist_display();
 	  		#endif
+	  		dut_reg_display(cpu_gpr);
 	  		break;
 	  	}
 	  }
