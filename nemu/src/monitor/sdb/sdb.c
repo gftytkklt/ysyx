@@ -74,7 +74,7 @@ static int cmd_p(char *args) {
   char *arg = strtok(NULL, "");
   bool success = true;
   unsigned long result = expr(arg, &success);
-  if(success) {printf("result = %lu\n", result);}
+  if(success) {printf("result = %lu(unsigned), %016lx(hex)\n", result, result);}
   else {printf("invalid expr\n");}
   return 0;
 }
