@@ -1,5 +1,5 @@
 #include <isa.h>
-
+#include <memory/vaddr.h>
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
  */
@@ -221,7 +221,8 @@ static word_t eval(int p, int q, bool *success) {
         value = -value;
       }
       else if((tokens[op_position].type) == '*') {
-        value = *((word_t *)value);
+        //value = *((word_t *)value);
+        value = vaddr_read(value, sizeof(word_t));
       }
     }
     else {
