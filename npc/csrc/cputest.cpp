@@ -1,35 +1,21 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <assert.h>
-#include <malloc.h>
-#include <stdint.h>
-#include <time.h>
-#include <sys/time.h>
 #include "verilated.h"
 #include "verilated_dpi.h"
 #include "verilated_vcd_c.h"
 #include "Vysyx_22040750_cpu_top.h"
 #include "svdpi.h"
 #include "Vysyx_22040750_cpu_top__Dpi.h"
-//#define N 32
-//#define CONFIG_FTRACE
-//#define CONFIG_MTRACE
-//#define CONFIG_ITRACE
-#define CONFIG_DIFFTEST
-//#define CONFIG_WAVEFORM
-#define ASNI_FG_RED     "\33[1;31m"
-#define ASNI_FG_GREEN   "\33[1;32m"
-#define ASNI_NONE       "\33[0m"
-#define ASNI_FMT(str, fmt) fmt str ASNI_NONE
+#include <global.h>
+#include <memory.h>
 static Vysyx_22040750_cpu_top* cpu;
-static int mem_size = 0x8000000;
-static uint8_t* mem = NULL;
+//static int mem_size = 0x8000000;
+//static uint8_t* mem = NULL;
 static bool finish = false;
 static char *img_file = NULL;
 static char *elf_file = NULL;
 static char *ref_so_file = NULL;
 static long img_size = 0;
 extern const char* regs[];
+uint8_t* mem=NULL;
 //static svBit good = false;
 //extern void check();
 vluint64_t sim_time = 0;
@@ -61,7 +47,6 @@ void print_ftrace(unsigned long pc, unsigned long dnpc, unsigned inst, FILE* fp)
 #ifdef CONFIG_DIFFTEST
 void init_difftest(char *ref_so_file, long img_size, uint8_t* mem, uint64_t *cpu_gpr);
 void difftest_step(uint64_t pc, uint64_t* dut, uint64_t sim_time, bool* error);
-void difftest_skip_ref(uint64_t pc);
 #endif
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
@@ -110,63 +95,6 @@ void sim_end(){
   finish = true;
 }
 
-static void pmem_read(unsigned long raddr, unsigned long* rdata) {
-	if (raddr == 0xa0000048) {
-		#ifdef CONFIG_DIFFTEST
-		//printf("pc=%lx, mmio rd\n",*skip_pc);
-		difftest_skip_ref(*skip_pc);
-		#endif
-	        struct timeval now;
-  		gettimeofday(&now, NULL);
-  		*rdata = now.tv_sec * 1000000 + now.tv_usec;
-		//*rdata = get_time();
-		//time((time_t*)rdata);
-		//printf("rtc read: %lu\n", *rdata);
-	}
-	else if(raddr >= 0x80000000 && raddr <= 0x88000000) {
-		//printf("pmem read\n");
-		unsigned index = (raddr-(unsigned long)0x80000000) & ~(0x7ul);
-		*rdata = index > mem_size ? 0 : *((unsigned long*)&mem[index]);
-	}
-	else {
-		difftest_skip_ref(*skip_pc);
-		//printf("invalid raddr %lx\n", raddr);
-		//assert(0);
-	}
-	//return index > img_size ? 0 : *((unsigned *)&mem[index]);
-}
-
-static void pmem_write(unsigned long waddr, unsigned long wdata, unsigned char wmask){
-	unsigned index = (waddr-(unsigned long)0x80000000) & ~(0x7ul);
-	uint8_t *data_pt = (uint8_t*)&wdata;
-	// sim of byte write enable mode
-	while(wmask!=0) {
-		if(wmask & 0x01){
-			if(waddr == 0xa00003f8) {
-				#ifdef CONFIG_DIFFTEST
-				//printf("pc=%lx, mmio wr\n",*skip_pc);
-				difftest_skip_ref(*skip_pc);
-				#endif
-				//printf("serial write\n");
-				//printf("%c", *data_pt);
-				//printf("%s", (char*)data_pt);
-				putchar(*data_pt);
-			}
-			else if(waddr >= 0x80000000 && waddr <= 0x88000000) {
-				//printf("pmem write\n");
-				mem[index] = *data_pt;
-			}
-			else {
-				difftest_skip_ref(*skip_pc);
-				//printf("invalid waddr %lx\n", waddr);
-				//assert(0);
-			}
-		}
-		index++;data_pt++;
-		wmask = wmask >> 1;
-	}
-}
-
 static long load_img() {
   if (img_file == NULL) {
     printf("No image is given. Use the default build-in image.\n");
@@ -180,7 +108,7 @@ static long load_img() {
   long size = ftell(fp);
 
   printf("The image is %s, size = %ld\n", img_file, size);
-  mem = (uint8_t *)malloc(mem_size);
+  mem = (uint8_t *)malloc(MEM_SIZE);
   fseek(fp, 0, SEEK_SET);
   //int ret = fread(guest_to_host(RESET_VECTOR), size, 1, fp);
   int ret = fread(mem, size, 1, fp);
