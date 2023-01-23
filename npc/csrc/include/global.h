@@ -1,3 +1,12 @@
+#ifndef COMMON_H
+#define COMMON_H
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+#include <malloc.h>
+#include <stdint.h>
+#include <time.h>
+#include <sys/time.h>
 //#define CONFIG_FTRACE
 //#define CONFIG_MTRACE
 //#define CONFIG_ITRACE
@@ -8,3 +17,4 @@
 #define ASNI_NONE       "\33[0m"
 #define ASNI_FMT(str, fmt) fmt str ASNI_NONE
 #define MEM_SIZE 0x8000000
+#endif
