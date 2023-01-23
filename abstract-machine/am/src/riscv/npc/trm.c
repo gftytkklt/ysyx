@@ -16,7 +16,7 @@ static const char mainargs[] = MAINARGS;
 
 void putch(char ch) {
   //io_write(AM_UART_TX, ch);
-  *(volatile uint8_t  *)(0xa00003f8) = ch;
+  *(volatile uint8_t  *)(SERIAL_PORT) = ch;
 }
 
 void halt(int code) {
