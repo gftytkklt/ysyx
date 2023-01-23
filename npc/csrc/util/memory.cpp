@@ -25,6 +25,7 @@ void pmem_read(unsigned long raddr, unsigned long* rdata, uint64_t *skip_pc){
     difftest_skip_ref(skip_pc);
     //printf("after: pc = %lx\n",*skip_pc);
     #endif
+    *rdata = 0;
   }
 }
 
