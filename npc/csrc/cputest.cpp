@@ -1,4 +1,3 @@
-
 #include "verilated.h"
 #include "verilated_dpi.h"
 #include "verilated_vcd_c.h"
@@ -48,7 +47,6 @@ void print_ftrace(unsigned long pc, unsigned long dnpc, unsigned inst, FILE* fp)
 #ifdef CONFIG_DIFFTEST
 void init_difftest(char *ref_so_file, long img_size, uint8_t* mem, uint64_t *cpu_gpr);
 void difftest_step(uint64_t pc, uint64_t* dut, uint64_t sim_time, bool* error);
-
 #endif
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());

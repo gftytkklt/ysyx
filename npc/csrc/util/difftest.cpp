@@ -2,8 +2,8 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <cassert>
-
-#define PC_START 0x80000000
+#include <global.h>
+//#define PC_START 0x80000000
 //extern uint8_t* mem;
 //extern uint64_t* cpu_gpr;
 const char *regs[] = {
@@ -41,11 +41,11 @@ void init_difftest(char *ref_so_file, long img_size, uint8_t* mem, uint64_t *cpu
 	assert(nemu_difftest_ref_display);
 	//printf("difftest link end\n");
 	nemu_difftest_init();
-	nemu_difftest_memcpy(PC_START, mem, img_size, DIFFTEST_TO_REF);
+	nemu_difftest_memcpy(MEM_BASE, mem, img_size, DIFFTEST_TO_REF);
 	for(int i = 0;i<32;i++){
 	  cpu_context[i] = cpu_gpr[i];
 	}
-	cpu_context[32] = PC_START;
+	cpu_context[32] = MEM_BASE;
 	nemu_difftest_regcpy(cpu_context, DIFFTEST_TO_REF);
 	//printf("test2\n");
 }

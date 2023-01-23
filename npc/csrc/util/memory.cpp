@@ -1,7 +1,5 @@
 #include <global.h>
 #include <memory.h>
-#include <stdio.h>
-#include <stdint.h>
 #ifdef CONFIG_DIFFTEST
 void difftest_skip_ref(uint64_t pc);
 #endif
@@ -24,6 +22,7 @@ void pmem_read(unsigned long raddr, unsigned long* rdata) {
 		*rdata = index > MEM_SIZE ? 0 : *((unsigned long*)&mem[index]);
 	}
 	else {
+
 		#ifdef CONFIG_DIFFTEST
 		difftest_skip_ref(*skip_pc);
 		#endif
