@@ -6,7 +6,7 @@ void difftest_skip_ref(uint64_t* pc);
 void pmem_read(unsigned long raddr, unsigned long* rdata, uint64_t *skip_pc){
   if (raddr == RTC_ADDR){
     #ifdef CONFIG_DIFFTEST
-    //printf("pc=%lx, mmio rd\n",*skip_pc);
+    printf("pc=%lx, rtc rd\n",*skip_pc);
     difftest_skip_ref(skip_pc);
     #endif
     struct timeval now;
@@ -21,6 +21,7 @@ void pmem_read(unsigned long raddr, unsigned long* rdata, uint64_t *skip_pc){
     //printf("rd unimp addr %lx at pc %lx\n", raddr, *skip_pc);
     #ifdef CONFIG_DIFFTEST
     //printf("before\n");
+    printf("pc=%lx, uimp rd\n",*skip_pc);
     difftest_skip_ref(skip_pc);
     //printf("after: pc = %lx\n",*skip_pc);
     #endif
