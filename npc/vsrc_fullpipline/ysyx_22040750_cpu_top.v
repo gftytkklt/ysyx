@@ -95,7 +95,7 @@ module ysyx_22040750_cpu_top(
     wire [8:0] EX_MEM_rstrb;
     wire [7:0] EX_MEM_wstrb;
     wire [63:0] EX_MEM_alu_out, EX_MEM_mem_addr, EX_MEM_rs2, EX_MEM_csr;
-    wire EX_MEM_mem_wen;
+    wire EX_MEM_mem_wen, EX_MEM_mem_rd_en;
     wire [63:0] EX_MEM_pc;
     wire [63:0] EX_MEM_mem_data;
     wire EX_MEM_reg_wen;
@@ -159,6 +159,7 @@ module ysyx_22040750_cpu_top(
     //assign O_mem_wr_data = mem_out;
     assign O_mem_addr = EX_MEM_mem_addr;
     assign O_mem_wen = EX_MEM_mem_wen & EX_MEM_valid;
+    assign O_mem_rd_en = EX_MEM_mem_rd_en & EX_MEM_valid;
     assign EX_MEM_shamt = EX_MEM_mem_addr[2:0];
     assign O_mem_wr_strb = EX_MEM_wstrb << EX_MEM_shamt;
     //assign mem_rmask = mem_rstrb[7:0] << mem_addr[2:0];
@@ -473,7 +474,7 @@ module ysyx_22040750_cpu_top(
 		.O_alu_out(EX_MEM_alu_out),
 		.O_mem_addr(EX_MEM_mem_addr),
 		.O_mem_wen(EX_MEM_mem_wen),
-		.O_mem_rd_en(O_mem_rd_en),
+		.O_mem_rd_en(EX_MEM_mem_rd_en),
 		.O_rs2_data(EX_MEM_rs2),
 		.O_pc(EX_MEM_pc),
 		.O_reg_wen(EX_MEM_reg_wen),
