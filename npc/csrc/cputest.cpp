@@ -120,7 +120,9 @@ static void pmem_read(unsigned long raddr, unsigned long* rdata) {
 		*rdata = index > MEM_SIZE ? 0 : *((unsigned long*)&mem[index]);
 	}
 	else {
+		#ifdef CONFIG_DIFFTEST
 		difftest_skip_ref(*skip_pc);
+		#endif
 		//printf("invalid raddr %lx\n", raddr);
 		//assert(0);
 	}
@@ -148,7 +150,9 @@ static void pmem_write(unsigned long waddr, unsigned long wdata, unsigned char w
 				mem[index] = *data_pt;
 			}
 			else {
+				#ifdef CONFIG_DIFFTEST
 				difftest_skip_ref(*skip_pc);
+				#endif
 				//printf("invalid waddr %lx\n", waddr);
 				//assert(0);
 			}
