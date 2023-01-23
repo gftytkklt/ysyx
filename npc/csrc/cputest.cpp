@@ -20,6 +20,7 @@ uint8_t* mem=NULL;
 //extern void check();
 vluint64_t sim_time = 0;
 uint64_t dump_time = 0;
+
 struct cpu_context {
   uint64_t gpr[32];
   uint64_t *pc;
@@ -33,6 +34,8 @@ static uint32_t *inst = NULL;
 static uint32_t *wb_inst = NULL;
 static bool *wb_valid = NULL;
 static bool *wb_bubble = NULL;
+static bool *wb_mem_op = NULL;
+static uint64_t *wb_mem_addr = NULL;
 #ifdef CONFIG_ITRACE
 void init_disasm(const char *triple);
 void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
@@ -47,6 +50,7 @@ void print_ftrace(unsigned long pc, unsigned long dnpc, unsigned inst, FILE* fp)
 #ifdef CONFIG_DIFFTEST
 void init_difftest(char *ref_so_file, long img_size, uint8_t* mem, uint64_t *cpu_gpr);
 void difftest_step(uint64_t pc, uint64_t* dut, uint64_t sim_time, bool* error);
+void difftest_skip_ref();
 #endif
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
@@ -77,6 +81,14 @@ extern "C" void set_wb_inst_ptr(const svOpenArrayHandle r) {
 extern "C" void set_wb_bubble_ptr(const svOpenArrayHandle r) {
   wb_bubble = (bool *)(((VerilatedDpiOpenVar*)r)->datap());
 }
+extern "C" void set_wb_memop_ptr(const svOpenArrayHandle r) {
+  wb_mem_op = (bool *)(((VerilatedDpiOpenVar*)r)->datap());
+}
+extern "C" void set_wb_memaddr_ptr(const svOpenArrayHandle r) {
+  wb_mem_addr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
+  //cpu_context->pc = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
+}
+
 double sc_time_stamp(){
 	return sim_time;
 }
@@ -168,144 +180,113 @@ int main(int argc, char** argv, char** env) {
   char logbuf[256] = {};
   bool valid_posedge = false;
   unsigned long pc, dnpc, raddr;
-  bool pc_valid, rd_en, wr_en;
+  bool pc_valid, rd_en;
   unsigned long *inst64 = (unsigned long*)malloc(sizeof(unsigned long));
   bool wb_valid_difftest;
+  bool wb_memop_difftest;
+  uint64_t wb_memaddr_difftest;
   uint64_t wb_pc_difftest;
   uint32_t wb_inst_difftest;
+  bool mmio_op = false;
   bool difftest_error = false;
   
   while (!finish){
-	  if(sim_time == 1){
-	  #ifdef CONFIG_DIFFTEST
-	  //printf("%lu\n", sim_time);
-	  printf("difftest: %s\n",ASNI_FMT("ON", ASNI_FG_GREEN));
-  	  ref_so_file = argv[3];
-	  init_difftest(ref_so_file, img_size, mem, cpu_gpr);
-	  #else
-	  printf("difftest: %s\n",ASNI_FMT("OFF", ASNI_FG_RED));
-	  #endif
-	  }
-	  if(sim_time < 10){cpu->I_rst = 1;}
-	  else{cpu->I_rst = 0;}
-	  if((sim_time % 6) == 0){cpu->I_sys_clk = 1;}
-	  else if((sim_time % 6) == 3){cpu->I_sys_clk = 0;}
-	  if(((sim_time % 6) == 0) && (cpu->I_rst == 0)){valid_posedge = true;}
-	  else{valid_posedge = false;}
-	  pc = cpu->O_pc;
-	  pc_valid = cpu->O_pc_valid;
-	  rd_en = cpu->O_mem_rd_en;
-	  raddr = cpu->O_mem_addr;
-	  //wr_en = cpu->O_mem_wen;
-	  
-	  //pmem_read(pc, inst64);
-	  //printf("%016lx\n", *inst64);
-	  //printf("t2\n");
-	  //cpu->I_inst = (pc % 8) ? *((unsigned*)(inst64)+1) : *((unsigned*)inst64);
-	  if(wb_valid){
-	  	wb_valid_difftest = *wb_valid & ~*wb_bubble;
-	  	wb_pc_difftest = *wb_pc;
-	  	wb_inst_difftest = *wb_inst;
-	  }
-	  
-	  //bool wb_valid_difftest = 0;
-	  //uint64_t wb_pc_difftest = 0;
-	  cpu->eval();
-	  if(valid_posedge){
-	  		// IF: inst_valid must be high AFTER posedge clk, 1 clk delay after pc_valid
-	  		if(pc_valid){
-	  			pmem_read(pc, inst64);
-	  			cpu->I_inst = (pc % 8) ? *((unsigned*)(inst64)+1) : *((unsigned*)inst64);
-	  			cpu->I_inst_valid = 1;
-	  		}
-	  		else{cpu->I_inst_valid = 0;}
-	  		//if(cpu->O_mem_rd_en){
-	  		// MEM RD: valid must be high AFTER posedge clk, 1 clk delay after rd_valid
-	  		if(rd_en){
-	  			//pmem_read(cpu->O_mem_addr, &(cpu->I_mem_rd_data));
-	  			pmem_read(raddr, &(cpu->I_mem_rd_data));
-	  			cpu->I_mem_rd_data_valid = 1;
-	  			#ifdef CONFIG_MTRACE
-	  			//fprintf(logfp,"rd data %lx from %lx\n", cpu->I_mem_rd_data, cpu->O_mem_addr);
-	  			if(sim_time > dump_time){fprintf(logfp,"time: %lu\nrd data %lx from %lx\n",sim_time, cpu->I_mem_rd_data, raddr);}
-	  			//printf("time: %lu\nrd data %lx from %lx\n",sim_time, cpu->I_mem_rd_data, raddr);
-	  			#endif
-	  		}
-	  		else{cpu->I_mem_rd_data_valid = 0;}
-	  		// MEM WR: simple wr simulation
-	  		if(cpu->O_mem_wen){
-	  		//if(wr_en){
-	  			pmem_write(cpu->O_mem_addr, cpu->O_mem_wr_data, cpu->O_mem_wr_strb);
-	  			#ifdef CONFIG_MTRACE
-	  			if(sim_time > dump_time){fprintf(logfp,"time: %lu\nwr data %lx to %lx\n",sim_time, cpu->O_mem_wr_data, cpu->O_mem_addr);}
-	  			//printf("time: %lu\nwr data %lx to %lx\n",sim_time, cpu->O_mem_wr_data, cpu->O_mem_addr);
-	  			#endif
-	  		}
-	  }
-	  //cpu->eval();
-	  dnpc = cpu->O_pc;
-	  if(valid_posedge){
-	  //printf("dut exec\n");
-	  	/*if(pc_valid){
-	  		pmem_read(pc, inst64);
-	  		cpu->I_inst = (pc % 8) ? *((unsigned*)(inst64)+1) : *((unsigned*)inst64);
-	  		cpu->I_inst_valid = 1;
-	  	}
-	  	else{cpu->I_inst_valid = 0;}*/
-	  /*if(cpu->O_mem_rd_en){
-	  	#ifdef CONFIG_ITRACE
-	  	fprintf(logfp,"rd data %lx from %lx\n", cpu->I_mem_rd_data, cpu->O_mem_addr);
-	  	#endif
-	  	pmem_read(cpu->O_mem_addr, &(cpu->I_mem_rd_data));
-	  }
-	  if(cpu->O_mem_wen){
-	  	#ifdef CONFIG_ITRACE
-	  	fprintf(logfp,"wr data %lx to %lx\n", cpu->O_mem_wr_data, cpu->O_mem_addr);
-	  	#endif
-	  	pmem_write(cpu->O_mem_addr, cpu->O_mem_wr_data, cpu->O_mem_wr_strb);
-	  }*/
-	  
-	  #ifdef CONFIG_ITRACE
-	  //printf("start disasm\n");
-	  if(wb_valid_difftest){
-	  char *p = logbuf;
-	  //fprintf(logfp,"time: %lu\n", sim_time);
-	  //fprintf(logfp, "%lx: %08x ",wb_pc_difftest, wb_inst_difftest);
-	  p += sprintf(p, "%lx: %08x ",wb_pc_difftest, wb_inst_difftest);
-	  disassemble(p, 128, wb_pc_difftest, (uint8_t *)&wb_inst_difftest, 4);
-	  if(sim_time > dump_time){
-	    //printf("%lu, %lu\n",sim_time,dump_time);
-	    fprintf(logfp, "time: %lu\n%s\n",sim_time,logbuf);
-	  }
-	  write_ringbuf(logbuf);
-	  }
-	  #endif
-	  #ifdef CONFIG_FTRACE
-	  print_ftrace(pc, dnpc, cpu->I_inst, logfp);
-	  #endif
-	  #ifdef CONFIG_DIFFTEST
-	  if(wb_valid_difftest) {
-	  	//printf("exec difftest at %lu(pc = %lx)\n",sim_time, wb_pc_difftest);
-	  	difftest_step(wb_pc_difftest, cpu_gpr, sim_time, &difftest_error);
-	  	if(difftest_error){
-	  		printf("error pc at %lx!\n\n", wb_pc_difftest);
-	  		#ifdef CONFIG_ITRACE
-	  			inst_hist_display();
-	  		#endif
-	  		dut_reg_display(cpu_gpr);
-	  		break;
-	  	}
-	  }
-	  #endif
-	  }
-	  #ifdef CONFIG_WAVEFORM
-	  if(sim_time > dump_time){
-	    tfp->dump(sim_time);
-	  }
-	  #endif
-	  sim_time++;
-	  // test dummy
-	  //if(sim_time == 8000){printf("timeout!\n");break;}
+    if(sim_time == 1){
+      #ifdef CONFIG_DIFFTEST
+      printf("difftest: %s\n",ASNI_FMT("ON", ASNI_FG_GREEN));
+      ref_so_file = argv[3];
+      init_difftest(ref_so_file, img_size, mem, cpu_gpr);
+      #else
+      printf("difftest: %s\n",ASNI_FMT("OFF", ASNI_FG_RED));
+      #endif
+    }
+    if(sim_time < 10){cpu->I_rst = 1;}
+    else{cpu->I_rst = 0;}
+    if((sim_time % 6) == 0){cpu->I_sys_clk = 1;}
+    else if((sim_time % 6) == 3){cpu->I_sys_clk = 0;}
+    if(((sim_time % 6) == 0) && (cpu->I_rst == 0)){valid_posedge = true;}
+    else{valid_posedge = false;}
+    pc = cpu->O_pc;
+    pc_valid = cpu->O_pc_valid;
+    rd_en = cpu->O_mem_rd_en;
+    raddr = cpu->O_mem_addr;
+    if(wb_valid){
+      wb_valid_difftest = *wb_valid & ~*wb_bubble;
+      wb_pc_difftest = *wb_pc;
+      wb_inst_difftest = *wb_inst;
+      wb_memop_difftest = *wb_mem_op;
+      wb_memaddr_difftest = *wb_mem_addr;
+      mmio_op = wb_memop_difftest && ((wb_memaddr_difftest<MEM_BASE) || (wb_memaddr_difftest>(MEM_BASE+MEM_SIZE)));
+    }
+    cpu->eval();
+    dnpc = cpu->O_pc;
+    if(valid_posedge){
+      // IF: inst_valid must be high AFTER posedge clk, 1 clk delay after pc_valid
+      if(pc_valid){
+        pmem_read(pc, inst64, skip_pc);
+        cpu->I_inst = (pc % 8) ? *((unsigned*)(inst64)+1) : *((unsigned*)inst64);
+        cpu->I_inst_valid = 1;
+      }
+      else{cpu->I_inst_valid = 0;}
+      // MEM RD: valid must be high AFTER posedge clk, 1 clk delay after rd_valid
+      if(rd_en){
+        pmem_read(raddr, &(cpu->I_mem_rd_data), skip_pc);
+        cpu->I_mem_rd_data_valid = 1;
+        #ifdef CONFIG_MTRACE
+        if(sim_time > dump_time){fprintf(logfp,"time: %lu\nrd data %lx from %lx\n",sim_time, cpu->I_mem_rd_data, raddr);}
+        #endif
+      }
+      else{cpu->I_mem_rd_data_valid = 0;}
+      // MEM WR: simple wr simulation
+      if(cpu->O_mem_wen){
+        pmem_write(cpu->O_mem_addr, cpu->O_mem_wr_data, cpu->O_mem_wr_strb, skip_pc);
+        #ifdef CONFIG_MTRACE
+        if(sim_time > dump_time){fprintf(logfp,"time: %lu\nwr data %lx to %lx\n",sim_time, cpu->O_mem_wr_data, cpu->O_mem_addr);}
+        #endif
+      }
+    //}
+    //dnpc = cpu->O_pc;
+    //if(valid_posedge){
+      #ifdef CONFIG_ITRACE
+      if(wb_valid_difftest){
+        char *p = logbuf;
+        p += sprintf(p, "%lx: %08x ",wb_pc_difftest, wb_inst_difftest);
+        disassemble(p, 128, wb_pc_difftest, (uint8_t *)&wb_inst_difftest, 4);
+        if(sim_time > dump_time){
+          fprintf(logfp, "time: %lu\n%s\n",sim_time,logbuf);
+        }
+        write_ringbuf(logbuf);
+      }
+      #endif
+      #ifdef CONFIG_FTRACE
+      print_ftrace(pc, dnpc, cpu->I_inst, logfp);
+      #endif
+      #ifdef CONFIG_DIFFTEST
+      if(wb_valid_difftest) {
+        if(mmio_op){
+          //printf("mmio op at addr %lx, pc %lx\n", wb_pc_difftest, wb_memaddr_difftest);
+          difftest_skip_ref();
+        }
+        difftest_step(wb_pc_difftest, cpu_gpr, sim_time, &difftest_error);
+        if(difftest_error){
+          printf("error pc at %lx!\n\n", wb_pc_difftest);
+          #ifdef CONFIG_ITRACE
+          inst_hist_display();
+          #endif
+          dut_reg_display(cpu_gpr);
+          break;
+        }
+      }
+      #endif
+    }
+    #ifdef CONFIG_WAVEFORM
+    if(sim_time > dump_time){
+      tfp->dump(sim_time);
+    }
+    #endif
+    sim_time++;
+    // test dummy
+    //if(sim_time == 8000){printf("timeout!\n");break;}
   }
   //printf("a\n");
   cpu->final();

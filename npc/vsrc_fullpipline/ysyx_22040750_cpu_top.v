@@ -95,7 +95,7 @@ module ysyx_22040750_cpu_top(
     wire [8:0] EX_MEM_rstrb;
     wire [7:0] EX_MEM_wstrb;
     wire [63:0] EX_MEM_alu_out, EX_MEM_mem_addr, EX_MEM_rs2, EX_MEM_csr;
-    wire EX_MEM_mem_wen;
+    wire EX_MEM_mem_wen, EX_MEM_mem_rd_en;
     wire [63:0] EX_MEM_pc;
     wire [63:0] EX_MEM_mem_data;
     wire EX_MEM_reg_wen;
@@ -136,6 +136,9 @@ module ysyx_22040750_cpu_top(
     // pipeline stall & forward
     wire [1:0] stall_en;
     wire [63:0] rs1_forward_data, rs2_forward_data, csr_forward_data;
+    // debug
+    wire EX_MEM_mem_op, MEM_WB_mem_op;
+    wire [63:0] MEM_WB_mem_addr;
     import "DPI-C" function void set_wb_ptr(input logic a []);
     initial set_wb_ptr(MEM_WB_valid);
     import "DPI-C" function void set_wb_bubble_ptr(input logic a []);
@@ -146,6 +149,10 @@ module ysyx_22040750_cpu_top(
     initial set_skip_pc_ptr(EX_MEM_pc);
     import "DPI-C" function void set_wb_inst_ptr(input logic [31:0] a []);
     initial set_wb_inst_ptr(MEM_WB_inst);
+    import "DPI-C" function void set_wb_memop_ptr(input logic a []);
+    initial set_wb_memop_ptr(MEM_WB_mem_op);
+    import "DPI-C" function void set_wb_memaddr_ptr(input logic [63:0] a []);
+    initial set_wb_memaddr_ptr(MEM_WB_mem_addr);
     import "DPI-C" function void sim_end();
     always @(posedge I_sys_clk)
     	if ((MEM_WB_inst == 32'h00100073) && !I_rst)
@@ -159,6 +166,7 @@ module ysyx_22040750_cpu_top(
     //assign O_mem_wr_data = mem_out;
     assign O_mem_addr = EX_MEM_mem_addr;
     assign O_mem_wen = EX_MEM_mem_wen & EX_MEM_valid;
+    assign O_mem_rd_en = EX_MEM_mem_rd_en;// single cycle rd_en generate internally
     assign EX_MEM_shamt = EX_MEM_mem_addr[2:0];
     assign O_mem_wr_strb = EX_MEM_wstrb << EX_MEM_shamt;
     //assign mem_rmask = mem_rstrb[7:0] << mem_addr[2:0];
@@ -473,7 +481,7 @@ module ysyx_22040750_cpu_top(
 		.O_alu_out(EX_MEM_alu_out),
 		.O_mem_addr(EX_MEM_mem_addr),
 		.O_mem_wen(EX_MEM_mem_wen),
-		.O_mem_rd_en(O_mem_rd_en),
+		.O_mem_rd_en(EX_MEM_mem_rd_en),
 		.O_rs2_data(EX_MEM_rs2),
 		.O_pc(EX_MEM_pc),
 		.O_reg_wen(EX_MEM_reg_wen),
@@ -493,6 +501,7 @@ module ysyx_22040750_cpu_top(
 		.O_sd_data(O_mem_wr_data)
     );
     
+    assign EX_MEM_mem_op = EX_MEM_regin_sel[1] | EX_MEM_mem_wen;
     ysyx_22040750_MEM_WB_reg MEM_WB_reg_e(
 		.I_sys_clk(I_sys_clk),
 		.I_rst(I_rst),
@@ -535,7 +544,11 @@ module ysyx_22040750_cpu_top(
     	.I_inst_debug(EX_MEM_inst),
 		.O_inst_debug(MEM_WB_inst),
 		.I_bubble_inst_debug(EX_MEM_bubble),
-		.O_bubble_inst_debug(MEM_WB_bubble)
+		.O_bubble_inst_debug(MEM_WB_bubble),
+		.I_mem_op_debug(EX_MEM_mem_op),
+		.O_mem_op_debug(MEM_WB_mem_op),
+		.I_mem_addr_debug(EX_MEM_mem_addr),
+		.O_mem_addr_debug(MEM_WB_mem_addr)
     );
     
     // valid ld data from mem is aligned with MEM_WB_valid

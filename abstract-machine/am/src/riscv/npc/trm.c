@@ -1,5 +1,5 @@
 #include <am.h>
-#include <klib-macros.h>
+#include <npc.h>
 #include <stdio.h>
 extern char _heap_start;
 int main(const char *args);
@@ -16,12 +16,13 @@ static const char mainargs[] = MAINARGS;
 
 void putch(char ch) {
   //io_write(AM_UART_TX, ch);
-  *(volatile uint8_t  *)(0xa00003f8) = ch;
+  *(volatile uint8_t  *)(SERIAL_PORT) = ch;
 }
 
 void halt(int code) {
   printf("return code = %02xh\n", code);
-  asm volatile("mv a0, %0; ebreak" : :"r"(code));
+  //asm volatile("mv a0, %0; ebreak" : :"r"(code));
+  npc_trap(code);
   while (1);
 }
 
