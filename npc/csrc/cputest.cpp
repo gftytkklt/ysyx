@@ -264,7 +264,7 @@ int main(int argc, char** argv, char** env) {
       #ifdef CONFIG_DIFFTEST
       if(wb_valid_difftest) {
         if(mmio_op){
-          printf("mmio op at addr %lx, pc %lx\n", wb_pc_difftest, wb_memaddr_difftest);
+          //printf("mmio op at addr %lx, pc %lx\n", wb_pc_difftest, wb_memaddr_difftest);
           difftest_skip_ref();
         }
         difftest_step(wb_pc_difftest, cpu_gpr, sim_time, &difftest_error);
