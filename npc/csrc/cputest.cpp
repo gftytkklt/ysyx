@@ -202,6 +202,7 @@ int main(int argc, char** argv, char** env) {
       wb_inst_difftest = *wb_inst;
     }
     cpu->eval();
+    dnpc = cpu->O_pc;
     if(valid_posedge){
       // IF: inst_valid must be high AFTER posedge clk, 1 clk delay after pc_valid
       if(pc_valid){
@@ -226,9 +227,9 @@ int main(int argc, char** argv, char** env) {
         if(sim_time > dump_time){fprintf(logfp,"time: %lu\nwr data %lx to %lx\n",sim_time, cpu->O_mem_wr_data, cpu->O_mem_addr);}
         #endif
       }
-    }
-    dnpc = cpu->O_pc;
-    if(valid_posedge){
+    //}
+    //dnpc = cpu->O_pc;
+    //if(valid_posedge){
       #ifdef CONFIG_ITRACE
       if(wb_valid_difftest){
         char *p = logbuf;
