@@ -1,11 +1,12 @@
 #include <am.h>
+#include <npc.h>
 static uint64_t boot_time = 0;
 void __am_timer_init() {
-  boot_time = *(volatile uint64_t  *)(0xa0000048);
+  boot_time = *(volatile uint64_t  *)(RTC_ADDR);
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
-  uint64_t current_time = *(volatile uint64_t  *)(0xa0000048);
+  uint64_t current_time = *(volatile uint64_t  *)(RTC_ADDR);
   uptime->us = current_time-boot_time;
 }
 
