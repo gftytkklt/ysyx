@@ -20,7 +20,7 @@ void putch(char ch) {
 }
 
 void halt(int code) {
-  printf("return code = %02x\n", code);
+  printf("return code = 0x%02xh\n", code);
   asm volatile("mv a0, %0; ebreak" : :"r"(code));
   while (1);
 }
