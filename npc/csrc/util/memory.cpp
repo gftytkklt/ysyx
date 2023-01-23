@@ -3,7 +3,7 @@
 #ifdef CONFIG_DIFFTEST
 void difftest_skip_ref(uint64_t pc);
 #endif
-void pmem_read(unsigned long raddr, unsigned long* rdata) {
+void pmem_read(unsigned long raddr, unsigned long* rdata, uint64_t *skip_pc) {
 	if (raddr == RTC_ADDR) {
 		#ifdef CONFIG_DIFFTEST
 		//printf("pc=%lx, mmio rd\n",*skip_pc);
@@ -32,7 +32,7 @@ void pmem_read(unsigned long raddr, unsigned long* rdata) {
 	//return index > img_size ? 0 : *((unsigned *)&mem[index]);
 }
 
-void pmem_write(unsigned long waddr, unsigned long wdata, unsigned char wmask){
+void pmem_write(unsigned long waddr, unsigned long wdata, unsigned char wmask, uint64_t *skip_pc){
 	unsigned index = (waddr-(unsigned long)0x80000000) & ~(0x7ul);
 	uint8_t *data_pt = (uint8_t*)&wdata;
 	// sim of byte write enable mode

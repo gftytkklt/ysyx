@@ -20,6 +20,7 @@ uint8_t* mem=NULL;
 //extern void check();
 vluint64_t sim_time = 0;
 uint64_t dump_time = 0;
+
 struct cpu_context {
   uint64_t gpr[32];
   uint64_t *pc;
@@ -214,7 +215,7 @@ int main(int argc, char** argv, char** env) {
 	  if(valid_posedge){
 	  		// IF: inst_valid must be high AFTER posedge clk, 1 clk delay after pc_valid
 	  		if(pc_valid){
-	  			pmem_read(pc, inst64);
+	  			pmem_read(pc, inst64, skip_pc);
 	  			cpu->I_inst = (pc % 8) ? *((unsigned*)(inst64)+1) : *((unsigned*)inst64);
 	  			cpu->I_inst_valid = 1;
 	  		}
@@ -223,7 +224,7 @@ int main(int argc, char** argv, char** env) {
 	  		// MEM RD: valid must be high AFTER posedge clk, 1 clk delay after rd_valid
 	  		if(rd_en){
 	  			//pmem_read(cpu->O_mem_addr, &(cpu->I_mem_rd_data));
-	  			pmem_read(raddr, &(cpu->I_mem_rd_data));
+	  			pmem_read(raddr, &(cpu->I_mem_rd_data), skip_pc);
 	  			cpu->I_mem_rd_data_valid = 1;
 	  			#ifdef CONFIG_MTRACE
 	  			//fprintf(logfp,"rd data %lx from %lx\n", cpu->I_mem_rd_data, cpu->O_mem_addr);
@@ -235,7 +236,7 @@ int main(int argc, char** argv, char** env) {
 	  		// MEM WR: simple wr simulation
 	  		if(cpu->O_mem_wen){
 	  		//if(wr_en){
-	  			pmem_write(cpu->O_mem_addr, cpu->O_mem_wr_data, cpu->O_mem_wr_strb);
+	  			pmem_write(cpu->O_mem_addr, cpu->O_mem_wr_data, cpu->O_mem_wr_strb, skip_pc);
 	  			#ifdef CONFIG_MTRACE
 	  			if(sim_time > dump_time){fprintf(logfp,"time: %lu\nwr data %lx to %lx\n",sim_time, cpu->O_mem_wr_data, cpu->O_mem_addr);}
 	  			//printf("time: %lu\nwr data %lx to %lx\n",sim_time, cpu->O_mem_wr_data, cpu->O_mem_addr);
