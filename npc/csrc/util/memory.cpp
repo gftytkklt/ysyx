@@ -24,7 +24,9 @@ void pmem_read(unsigned long raddr, unsigned long* rdata, uint64_t *skip_pc) {
 	else {
 		printf("rd unimp addr %lx at pc %lx\n", raddr, *skip_pc);
 		#ifdef CONFIG_DIFFTEST
+		printf("before\n");
 		difftest_skip_ref(*skip_pc);
+		printf("after: pc = %lx\n",*skip_pc);
 		#endif
 		//printf("invalid raddr %lx\n", raddr);
 		//assert(0);
