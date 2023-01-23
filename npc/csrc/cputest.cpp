@@ -168,8 +168,9 @@ int main(int argc, char** argv, char** env) {
   // sim
   char logbuf[256] = {};
   bool valid_posedge = false;
-  unsigned long pc, dnpc, raddr;
+  unsigned long pc, dnpc, raddr, waddr, wdata;
   bool pc_valid, rd_en, wr_en;
+  char wstrb;
   unsigned long *inst64 = (unsigned long*)malloc(sizeof(unsigned long));
   bool wb_valid_difftest;
   uint64_t wb_pc_difftest;
@@ -196,6 +197,10 @@ int main(int argc, char** argv, char** env) {
     pc_valid = cpu->O_pc_valid;
     rd_en = cpu->O_mem_rd_en;
     raddr = cpu->O_mem_addr;
+    wr_en = cpu->O_mem_wen;
+    waddr = cpu->O_mem_addr;
+    wdata = cpu->O_mem_wr_data;
+    wstrb = cpu->O_mem_wr_strb;
     if(wb_valid){
       wb_valid_difftest = *wb_valid & ~*wb_bubble;
       wb_pc_difftest = *wb_pc;
@@ -221,8 +226,10 @@ int main(int argc, char** argv, char** env) {
       }
       else{cpu->I_mem_rd_data_valid = 0;}
       // MEM WR: simple wr simulation
-      if(cpu->O_mem_wen){
-        pmem_write(cpu->O_mem_addr, cpu->O_mem_wr_data, cpu->O_mem_wr_strb, skip_pc);
+      //if(cpu->O_mem_wen){
+      if(wr_en){
+        //pmem_write(cpu->O_mem_addr, cpu->O_mem_wr_data, cpu->O_mem_wr_strb, skip_pc);
+        pmem_write(waddr, wdata, wstrb, skip_pc);
         #ifdef CONFIG_MTRACE
         if(sim_time > dump_time){fprintf(logfp,"time: %lu\nwr data %lx to %lx\n",sim_time, cpu->O_mem_wr_data, cpu->O_mem_addr);}
         #endif
