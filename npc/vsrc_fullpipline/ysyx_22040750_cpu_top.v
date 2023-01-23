@@ -159,7 +159,7 @@ module ysyx_22040750_cpu_top(
     //assign O_mem_wr_data = mem_out;
     assign O_mem_addr = EX_MEM_mem_addr;
     assign O_mem_wen = EX_MEM_mem_wen & EX_MEM_valid;
-    assign O_mem_rd_en = EX_MEM_mem_rd_en & EX_MEM_valid;
+    assign O_mem_rd_en = EX_MEM_mem_rd_en;
     assign EX_MEM_shamt = EX_MEM_mem_addr[2:0];
     assign O_mem_wr_strb = EX_MEM_wstrb << EX_MEM_shamt;
     //assign mem_rmask = mem_rstrb[7:0] << mem_addr[2:0];
