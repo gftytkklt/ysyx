@@ -51,6 +51,7 @@ void init_difftest(char *ref_so_file, long img_size, uint8_t* mem, uint64_t *cpu
 }
 
 void difftest_skip_ref(uint64_t* pc){
+  printf("skip %lx\n", *pc);
   is_skip_ref = true;
   skip_pc = *pc;
 }
