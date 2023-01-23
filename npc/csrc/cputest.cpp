@@ -34,6 +34,8 @@ static uint32_t *inst = NULL;
 static uint32_t *wb_inst = NULL;
 static bool *wb_valid = NULL;
 static bool *wb_bubble = NULL;
+static bool *wb_mem_op = NULL;
+static uint64_t *wb_mem_addr = NULL;
 #ifdef CONFIG_ITRACE
 void init_disasm(const char *triple);
 void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
@@ -48,6 +50,7 @@ void print_ftrace(unsigned long pc, unsigned long dnpc, unsigned inst, FILE* fp)
 #ifdef CONFIG_DIFFTEST
 void init_difftest(char *ref_so_file, long img_size, uint8_t* mem, uint64_t *cpu_gpr);
 void difftest_step(uint64_t pc, uint64_t* dut, uint64_t sim_time, bool* error);
+void difftest_skip_ref();
 #endif
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
@@ -78,6 +81,14 @@ extern "C" void set_wb_inst_ptr(const svOpenArrayHandle r) {
 extern "C" void set_wb_bubble_ptr(const svOpenArrayHandle r) {
   wb_bubble = (bool *)(((VerilatedDpiOpenVar*)r)->datap());
 }
+extern "C" void set_wb_memop_ptr(const svOpenArrayHandle r) {
+  wb_mem_op = (bool *)(((VerilatedDpiOpenVar*)r)->datap());
+}
+extern "C" void set_wb_memaddr_ptr(const svOpenArrayHandle r) {
+  wb_mem_addr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
+  //cpu_context->pc = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
+}
+
 double sc_time_stamp(){
 	return sim_time;
 }
@@ -172,8 +183,11 @@ int main(int argc, char** argv, char** env) {
   bool pc_valid, rd_en;
   unsigned long *inst64 = (unsigned long*)malloc(sizeof(unsigned long));
   bool wb_valid_difftest;
+  bool wb_memop_difftest;
+  uint64_t wb_memaddr_difftest;
   uint64_t wb_pc_difftest;
   uint32_t wb_inst_difftest;
+  bool mmio_op = false;
   bool difftest_error = false;
   
   while (!finish){
@@ -200,6 +214,9 @@ int main(int argc, char** argv, char** env) {
       wb_valid_difftest = *wb_valid & ~*wb_bubble;
       wb_pc_difftest = *wb_pc;
       wb_inst_difftest = *wb_inst;
+      wb_memop_difftest = *wb_mem_op;
+      wb_memaddr_difftest = *wb_mem_addr;
+      mmio_op = wb_memop_difftest && ((wb_memaddr_difftest<MEM_BASE) || (wb_memaddr_difftest>(MEM_BASE+MEM_SIZE)));
     }
     cpu->eval();
     dnpc = cpu->O_pc;
@@ -246,6 +263,7 @@ int main(int argc, char** argv, char** env) {
       #endif
       #ifdef CONFIG_DIFFTEST
       if(wb_valid_difftest) {
+        if(mmio_op){difftest_skip_ref();}
         difftest_step(wb_pc_difftest, cpu_gpr, sim_time, &difftest_error);
         if(difftest_error){
           printf("error pc at %lx!\n\n", wb_pc_difftest);
