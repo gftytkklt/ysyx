@@ -13,7 +13,7 @@
 #include "Vysyx_22040750_cpu_top__Dpi.h"
 #include <global.h>
 static Vysyx_22040750_cpu_top* cpu;
-static int mem_size = 0x8000000;
+//static int mem_size = 0x8000000;
 static uint8_t* mem = NULL;
 static bool finish = false;
 static char *img_file = NULL;
@@ -117,7 +117,7 @@ static void pmem_read(unsigned long raddr, unsigned long* rdata) {
 	else if(raddr >= 0x80000000 && raddr <= 0x88000000) {
 		//printf("pmem read\n");
 		unsigned index = (raddr-(unsigned long)0x80000000) & ~(0x7ul);
-		*rdata = index > mem_size ? 0 : *((unsigned long*)&mem[index]);
+		*rdata = index > MEM_SIZE ? 0 : *((unsigned long*)&mem[index]);
 	}
 	else {
 		difftest_skip_ref(*skip_pc);
@@ -171,7 +171,7 @@ static long load_img() {
   long size = ftell(fp);
 
   printf("The image is %s, size = %ld\n", img_file, size);
-  mem = (uint8_t *)malloc(mem_size);
+  mem = (uint8_t *)malloc(MEM_SIZE);
   fseek(fp, 0, SEEK_SET);
   //int ret = fread(guest_to_host(RESET_VECTOR), size, 1, fp);
   int ret = fread(mem, size, 1, fp);
