@@ -36,7 +36,7 @@ void pmem_write(unsigned long waddr, unsigned long wdata, unsigned char wmask, u
     if(wmask & 0x01){
       if(waddr == SERIAL_ADDR){
       #ifdef CONFIG_DIFFTEST
-      //printf("pc=%lx, mmio wr\n",*skip_pc);
+      printf("pc=%lx, serial wr\n",*skip_pc);
       difftest_skip_ref(skip_pc);
       #endif
       putchar(*data_pt);
@@ -46,8 +46,9 @@ void pmem_write(unsigned long waddr, unsigned long wdata, unsigned char wmask, u
         mem[index] = *data_pt;
       }
       else{
-        printf("wr unimp addr %lx at pc %lx\n", waddr, *skip_pc);
+        //printf("wr unimp addr %lx at pc %lx\n", waddr, *skip_pc);
         #ifdef CONFIG_DIFFTEST
+        printf("pc=%lx, uimp wr\n",*skip_pc);
         difftest_skip_ref(skip_pc);
         #endif
         //printf("invalid waddr %lx\n", waddr);
