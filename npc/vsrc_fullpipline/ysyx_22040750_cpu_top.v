@@ -501,7 +501,7 @@ module ysyx_22040750_cpu_top(
 		.O_sd_data(O_mem_wr_data)
     );
     
-    assign EX_MEM_mem_op = EX_MEM_mem_rd_en | EX_MEM_mem_wen;
+    assign EX_MEM_mem_op = EX_MEM_regin_sel[1] | EX_MEM_mem_wen;
     ysyx_22040750_MEM_WB_reg MEM_WB_reg_e(
 		.I_sys_clk(I_sys_clk),
 		.I_rst(I_rst),
