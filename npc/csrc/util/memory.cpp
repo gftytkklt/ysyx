@@ -6,7 +6,7 @@
 void difftest_skip_ref(uint64_t pc);
 #endif
 void pmem_read(unsigned long raddr, unsigned long* rdata) {
-	if (raddr == 0xa0000048) {
+	if (raddr == RTC_ADDR) {
 		#ifdef CONFIG_DIFFTEST
 		//printf("pc=%lx, mmio rd\n",*skip_pc);
 		difftest_skip_ref(*skip_pc);
@@ -18,9 +18,9 @@ void pmem_read(unsigned long raddr, unsigned long* rdata) {
 		//time((time_t*)rdata);
 		//printf("rtc read: %lu\n", *rdata);
 	}
-	else if(raddr >= 0x80000000 && raddr <= 0x88000000) {
+	else if(raddr >= MEM_BASE && raddr <= MEM_BASE + MEM_SIZE) {
 		//printf("pmem read\n");
-		unsigned index = (raddr-(unsigned long)0x80000000) & ~(0x7ul);
+		unsigned index = (raddr-(unsigned long)MEM_BASE) & ~(0x7ul);
 		*rdata = index > MEM_SIZE ? 0 : *((unsigned long*)&mem[index]);
 	}
 	else {
@@ -39,7 +39,7 @@ void pmem_write(unsigned long waddr, unsigned long wdata, unsigned char wmask){
 	// sim of byte write enable mode
 	while(wmask!=0) {
 		if(wmask & 0x01){
-			if(waddr == 0xa00003f8) {
+			if(waddr == SERIAL_ADDR) {
 				#ifdef CONFIG_DIFFTEST
 				//printf("pc=%lx, mmio wr\n",*skip_pc);
 				difftest_skip_ref(*skip_pc);
@@ -49,7 +49,7 @@ void pmem_write(unsigned long waddr, unsigned long wdata, unsigned char wmask){
 				//printf("%s", (char*)data_pt);
 				putchar(*data_pt);
 			}
-			else if(waddr >= 0x80000000 && waddr <= 0x88000000) {
+			else if(waddr >= MEM_BASE && waddr <= MEM_BASE + MEM_SIZE) {
 				//printf("pmem write\n");
 				mem[index] = *data_pt;
 			}
