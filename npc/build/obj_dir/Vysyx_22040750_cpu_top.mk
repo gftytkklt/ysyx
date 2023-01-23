@@ -35,6 +35,7 @@ VM_PREFIX = Vysyx_22040750_cpu_top
 VM_MODPREFIX = Vysyx_22040750_cpu_top
 # User CFLAGS (from -CFLAGS on Verilator command line)
 VM_USER_CFLAGS = \
+	-I/home/gftyt/ysyx-workbench/npc/csrc/include \
 	-I/usr/lib/llvm-12/include \
 	-std=c++14 \
 	-fno-exceptions \
@@ -42,6 +43,7 @@ VM_USER_CFLAGS = \
 	-D__STDC_CONSTANT_MACROS \
 	-D__STDC_LIMIT_MACROS \
 	-fPIE \
+	-I/home/gftyt/ysyx-workbench/npc/csrc/include \
 	-DTOP_NAME="Vysyx_22040750_cpu_top" \
 
 # User LDLIBS (from -LDFLAGS on Verilator command line)
@@ -56,6 +58,7 @@ VM_USER_CLASSES = \
 	cputest \
 	difftest \
 	disasm \
+	memory \
 	readelf \
 	ringbuf \
 
@@ -79,6 +82,8 @@ cputest.o: /home/gftyt/ysyx-workbench/npc/csrc/cputest.cpp
 difftest.o: /home/gftyt/ysyx-workbench/npc/csrc/util/difftest.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 disasm.o: /home/gftyt/ysyx-workbench/npc/csrc/util/disasm.cpp
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+memory.o: /home/gftyt/ysyx-workbench/npc/csrc/util/memory.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 readelf.o: /home/gftyt/ysyx-workbench/npc/csrc/util/readelf.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<

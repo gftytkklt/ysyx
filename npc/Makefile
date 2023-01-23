@@ -5,7 +5,8 @@ CSRC += $(shell find $(abspath ./csrc/util) -name "*.cpp")
 WAVEFILE = addcpu_sim
 TOPNAME = ysyx_22040750_cpu_top
 #NXDC_FILES = constr/example.nxdc
-INC_PATH ?=
+INC_PATH ?= $(NPC_HOME)/csrc/include
+INCLUDES = $(addprefix -I, $(INC_PATH))
 # debug config(in place of Kconfig)
 #CONFIG_ITRACE=y
 #CONFIG_FTRACE=y
@@ -13,7 +14,7 @@ INC_PATH ?=
 #CONFIG_DIFFTEST=n
 #ifdef CONFIG_ITRACE
 #CXXSRC += $(abspath ./csrc/disasm.cpp)
-CFLAGS += -I/usr/lib/llvm-12/include -std=c++14   -fno-exceptions -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -fPIE
+CFLAGS += $(INCLUDES) -I/usr/lib/llvm-12/include -std=c++14   -fno-exceptions -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -fPIE
 LDFLAGS += $(shell llvm-config --libs) -ldl
 #endif
 #ifdef CONFIG_FTRACE
