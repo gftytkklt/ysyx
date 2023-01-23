@@ -60,7 +60,7 @@ void difftest_step(uint64_t pc, uint64_t* dut, uint64_t sim_time, bool* error){
   //printf("exec nemu at pc = %lx\n",pc);
   if (is_skip_ref && (skip_pc == pc)) {
     //to skip the checking of an instruction, just copy the reg state to reference design
-    //printf("skip ref at pc = %lx\n", pc);
+    printf("skip ref at pc = %lx\n", pc);
     //nemu_difftest_regcpy(dut, DIFFTEST_TO_REF);
     for(int i = 0;i<32;i++){
       cpu_context[i] = dut[i];
