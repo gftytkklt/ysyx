@@ -50,9 +50,9 @@ void init_difftest(char *ref_so_file, long img_size, uint8_t* mem, uint64_t *cpu
 	//printf("test2\n");
 }
 
-void difftest_skip_ref(uint64_t pc) {
+void difftest_skip_ref(uint64_t* pc) {
 	is_skip_ref = true;
-	skip_pc = pc;
+	skip_pc = *pc;
 }
 
 void difftest_step(uint64_t pc, uint64_t* dut, uint64_t sim_time, bool* error){

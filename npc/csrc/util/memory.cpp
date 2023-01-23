@@ -1,13 +1,13 @@
 #include <global.h>
 #include <memory.h>
 #ifdef CONFIG_DIFFTEST
-void difftest_skip_ref(uint64_t pc);
+void difftest_skip_ref(uint64_t* pc);
 #endif
 void pmem_read(unsigned long raddr, unsigned long* rdata, uint64_t *skip_pc) {
 	if (raddr == RTC_ADDR) {
 		#ifdef CONFIG_DIFFTEST
 		//printf("pc=%lx, mmio rd\n",*skip_pc);
-		difftest_skip_ref(*skip_pc);
+		difftest_skip_ref(skip_pc);
 		#endif
 	        struct timeval now;
   		gettimeofday(&now, NULL);
@@ -25,7 +25,7 @@ void pmem_read(unsigned long raddr, unsigned long* rdata, uint64_t *skip_pc) {
 		printf("rd unimp addr %lx at pc %lx\n", raddr, *skip_pc);
 		#ifdef CONFIG_DIFFTEST
 		printf("before\n");
-		difftest_skip_ref(*skip_pc);
+		difftest_skip_ref(skip_pc);
 		printf("after: pc = %lx\n",*skip_pc);
 		#endif
 		//printf("invalid raddr %lx\n", raddr);
@@ -43,7 +43,7 @@ void pmem_write(unsigned long waddr, unsigned long wdata, unsigned char wmask, u
 			if(waddr == SERIAL_ADDR) {
 				#ifdef CONFIG_DIFFTEST
 				//printf("pc=%lx, mmio wr\n",*skip_pc);
-				difftest_skip_ref(*skip_pc);
+				difftest_skip_ref(skip_pc);
 				#endif
 				//printf("serial write\n");
 				//printf("%c", *data_pt);
@@ -57,7 +57,7 @@ void pmem_write(unsigned long waddr, unsigned long wdata, unsigned char wmask, u
 			else {
 				printf("wr unimp addr %lx at pc %lx\n", waddr, *skip_pc);
 				#ifdef CONFIG_DIFFTEST
-				difftest_skip_ref(*skip_pc);
+				difftest_skip_ref(skip_pc);
 				#endif
 				//printf("invalid waddr %lx\n", waddr);
 				//assert(0);
