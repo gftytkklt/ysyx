@@ -7,6 +7,7 @@ void pmem_read(unsigned long raddr, unsigned long* rdata, uint64_t *skip_pc){
     case RTC_ADDR: get_time(rdata);break;
     case (VGA_ADDR + VGA_H_OFFT): 
     case (VGA_ADDR + VGA_W_OFFT): get_screensize(rdata);break;
+    case KBD_ADDR: get_keybrd(rdata);break;
     default:
       if(raddr >= MEM_BASE && raddr <= MEM_BASE + MEM_SIZE){
         unsigned index = (raddr-(unsigned long)MEM_BASE) & ~(0x7ul);

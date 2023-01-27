@@ -9,3 +9,7 @@ void get_time(unsigned long* time){
 void get_screensize(unsigned long* size){
     *size = 300UL + (400UL<<16);
 }
+
+void get_keybrd(unsigned long* keycode){
+    *keycode = 0;
+}
