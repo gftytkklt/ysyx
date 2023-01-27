@@ -12,10 +12,14 @@ void __am_gpu_init(){
 }
 
 void __am_gpu_config(AM_GPU_CONFIG_T *cfg){
-
+    *cfg = (AM_GPU_CONFIG_T) {
+    .present = true, .has_accel = false,
+    .width = w, .height = h,
+    .vmemsz = cfg->width*cfg->height*4,
+  };
 }
 void __am_gpu_status(AM_GPU_STATUS_T *status){
-
+    status->ready = true;
 }
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl){
 

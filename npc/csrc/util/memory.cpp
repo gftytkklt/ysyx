@@ -1,8 +1,23 @@
 #include <global.h>
 #include <memory.h>
+#include <mmio.h>
 
 void pmem_read(unsigned long raddr, unsigned long* rdata, uint64_t *skip_pc){
-  if (raddr == RTC_ADDR){
+  switch (raddr){
+    case RTC_ADDR: get_time(rdata);break;
+    case (VGA_ADDR + VGA_H_OFFT): 
+    case (VGA_ADDR + VGA_W_OFFT): get_screensize(rdata);break;
+    default:
+      if(raddr >= MEM_BASE && raddr <= MEM_BASE + MEM_SIZE){
+        unsigned index = (raddr-(unsigned long)MEM_BASE) & ~(0x7ul);
+        *rdata = index > MEM_SIZE ? 0 : *((unsigned long*)&mem[index]);
+      }
+      else{
+        printf("rd unimp addr %lx at pc %lx\n", raddr, *skip_pc);
+        *rdata = 0;
+      }
+  }
+  /*if (raddr == RTC_ADDR){
     struct timeval now;
     gettimeofday(&now, NULL);
     *rdata = now.tv_sec * 1000000 + now.tv_usec;
@@ -14,7 +29,7 @@ void pmem_read(unsigned long raddr, unsigned long* rdata, uint64_t *skip_pc){
   else{
     printf("rd unimp addr %lx at pc %lx\n", raddr, *skip_pc);
     *rdata = 0;
-  }
+  }*/
 }
 
 void pmem_write(unsigned long waddr, unsigned long wdata, unsigned char wmask, uint64_t *skip_pc){

@@ -59,6 +59,7 @@ VM_USER_CLASSES = \
 	difftest \
 	disasm \
 	memory \
+	mmio \
 	readelf \
 	ringbuf \
 
@@ -84,6 +85,8 @@ difftest.o: /home/gftyt/ysyx-workbench/npc/csrc/util/difftest.cpp
 disasm.o: /home/gftyt/ysyx-workbench/npc/csrc/util/disasm.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 memory.o: /home/gftyt/ysyx-workbench/npc/csrc/util/memory.cpp
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+mmio.o: /home/gftyt/ysyx-workbench/npc/csrc/util/mmio.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 readelf.o: /home/gftyt/ysyx-workbench/npc/csrc/util/readelf.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
