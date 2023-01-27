@@ -7,5 +7,5 @@ void get_time(unsigned long* time){
 }
 
 void get_screensize(unsigned long* size){
-    *size = 300UL + (400UL<<32);
+    *size = 300UL + (400UL<<16);
 }
