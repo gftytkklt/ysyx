@@ -24,5 +24,6 @@ void __am_gpu_status(AM_GPU_STATUS_T *status){
     status->ready = true;
 }
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl){
-    *(volatile uint64_t  *)(FB_ADDR) = 1;
+    // interpret ctl data by cputest mmio
+    *(volatile void  **)(FB_ADDR) = (void*)ctl;
 }

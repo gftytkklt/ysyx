@@ -36,6 +36,25 @@ void pmem_read(unsigned long raddr, unsigned long* rdata, uint64_t *skip_pc){
 void pmem_write(unsigned long waddr, unsigned long wdata, unsigned char wmask, uint64_t *skip_pc){
   unsigned index = (waddr-(unsigned long)0x80000000) & ~(0x7ul);
   uint8_t *data_pt = (uint8_t*)&wdata;
+  switch(waddr){
+    case SERIAL_ADDR: putchar(*data_pt);break;
+    case FB_ADDR: update_screen((screeninfo*) wdata);break;
+    default:
+      if(waddr >= MEM_BASE && waddr <= MEM_BASE + MEM_SIZE){
+        while(wmask!=0){
+          if(wmask & 0x01){
+            mem[index] = *data_pt;
+            index++;data_pt++;
+            wmask = wmask >> 1;
+          }
+        }
+      }
+      else{
+        printf("wr unimp addr %lx at pc %lx\n", waddr, *skip_pc);
+      }
+  }
+  /*unsigned index = (waddr-(unsigned long)0x80000000) & ~(0x7ul);
+  uint8_t *data_pt = (uint8_t*)&wdata;
   // sim of byte write enable mode
   while(wmask!=0){
     if(wmask & 0x01){
@@ -51,5 +70,5 @@ void pmem_write(unsigned long waddr, unsigned long wdata, unsigned char wmask, u
     }
     index++;data_pt++;
     wmask = wmask >> 1;
-  }
+  }*/
 }

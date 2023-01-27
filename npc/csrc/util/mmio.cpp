@@ -13,3 +13,12 @@ void get_screensize(unsigned long* size){
 void get_keybrd(unsigned long* keycode){
     *keycode = 0;
 }
+
+void update_screen(screeninfo* drawinfo){
+    int x = drawinfo->x;
+    int y = drawinfo->y;
+    int w = drawinfo->w;
+    int h = drawinfo->h;
+    void* pixels = drawinfo->pixels;
+    printf("draw info: (%d %d %d %d), pixels at %p\n",x,y,w,h,pixels);
+}
