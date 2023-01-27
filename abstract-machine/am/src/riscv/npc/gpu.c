@@ -1,7 +1,8 @@
 #include <am.h>
 #include <npc.h>
 
-#define SYNC_ADDR (VGACTL_ADDR + 4)
+
+//#define SYNC_ADDR (VGACTL_ADDR + 4)
 static int w = 0;
 static int h = 0;
 
@@ -10,7 +11,8 @@ void __am_gpu_init(){
     h = *(volatile uint16_t  *)(VGACTL_ADDR);
     //uint32_t sizecfg = *(volatile uint32_t  *)(VGACTL_ADDR);
     //w = 
-    *(volatile uint64_t  *)(SYNC_ADDR) = 1;
+    //*(volatile uint64_t  *)(SYNC_ADDR) = 1;
+    
 }
 
 void __am_gpu_config(AM_GPU_CONFIG_T *cfg){
