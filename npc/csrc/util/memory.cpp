@@ -56,6 +56,7 @@ void pmem_write(unsigned long waddr, unsigned long wdata, unsigned char wmask, u
   unsigned index = (waddr-(unsigned long)0x80000000) & ~(0x7ul);
   uint8_t *data_pt = (uint8_t*)&wdata;
   // sim of byte write enable mode
+  if (waddr == FB_ADDR){update_screen((screeninfo*) wdata);return;}
   while(wmask!=0){
     if(wmask & 0x01){
       if(waddr == SERIAL_ADDR){
