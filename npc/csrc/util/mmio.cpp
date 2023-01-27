@@ -14,8 +14,9 @@ void get_keybrd(unsigned long* keycode){
     *keycode = 0;
 }
 
-void update_screen(screeninfo* drawinfo){
-    printf("draw info at%p\n",drawinfo);
+void update_pixel(uint32_t pixel, uint32_t index){
+    fb[index] = pixel;
+    //printf("draw info at%p\n",drawinfo);
     // int x = drawinfo->x;
     // int y = drawinfo->y;
     // int w = drawinfo->w;

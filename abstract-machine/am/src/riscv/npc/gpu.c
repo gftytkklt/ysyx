@@ -27,5 +27,27 @@ void __am_gpu_status(AM_GPU_STATUS_T *status){
 }
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl){
     // TODO: send x,y,w,h to cputest, update fb like mem
-    //*(volatile void  **)(FB_ADDR) = (void*)ctl;
+    // impl at util.cpp as native gpu.c by following steps:
+    // 1. fb is treated as a simple pixel pointer, 
+    // 2. pixels are copyed to fb sequentially,
+    // 3. use w, h, fb as parameter of SDL_CreateRGBSurfaceFrom to create a surface
+    // 4. use SDL_BlitSurface to copy draw area to screen surface
+    // 5. use FPS/SDL_Addtimer/texture_sync to update screen(in this way, ctl->sync is ignored)
+    // 6. add a FBDRAW_CFG reg to store x,y,w,h info
+    int x = ctl->x;
+    int y = ctl->y;
+    (uint32_t *)pixels = (uint32_t *)ctl->pixels;
+    int blk_w = ctl->w;
+    int blk_h = ctl->h;
+    for(int index=0;index<blk_w*blk_h;index++){
+        *(uint32_t *)(FB_ADDR+index*4) = pixels[index];
+    }
+    // int base = w*y+x;
+    // for (int row=0;row<blk_h;row++){
+    //     for(int col=0;col<blk_w;col++){
+    //         int index = row*blk_w+col;
+    //         int offset = row*w+col;
+    //         *(uint32_t *)(FB_ADDR+(base+offset)*4) = pixels[index];
+    //     }
+    // }
 }

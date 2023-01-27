@@ -10,9 +10,10 @@
 #define VGA_SYNC_OFFT 4
 #define FB_ADDR 0xa1000000
 #define FB_SIZE 400*300*4 // 400*300 screen, 4 byte pixels
+extern uint32_t* fb;
 typedef struct { int x, y; void *pixels; int w, h; bool sync; } screeninfo;
 void get_time(unsigned long* time);
 void get_screensize(unsigned long* size);
 void get_keybrd(unsigned long* keycode);
-void update_screen(screeninfo* drawinfo);
+void update_pixel(uint32_t pixel, uint32_t index);
 #endif
