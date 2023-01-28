@@ -13,7 +13,7 @@ void init_screen(){
   // create gui
   SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER);
   window = SDL_CreateWindow("Native Application",
-      SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, W, H,SDL_WINDOW_SHOWN);
+      SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, W*2, H*2,SDL_WINDOW_SHOWN);
   surface = SDL_CreateRGBSurface(SDL_SWSURFACE, W, H, 32,
       RMASK, GMASK, BMASK, AMASK);
   SDL_AddTimer(1000 / FPS, texture_sync, NULL);
@@ -24,7 +24,7 @@ void init_screen(){
 }
 void update_screen(){
   int x = drawinfo->x, y = drawinfo->y, w = drawinfo->w, h = drawinfo->h;
-  printf("drawing: %d, %d, %d, %d\n",x,y,w,h);
+  //printf("drawing: %d, %d, %d, %d\n",x,y,w,h);
   if (w == 0 || h == 0) return;
   feclearexcept(-1);
   SDL_Surface *s = SDL_CreateRGBSurfaceFrom(drawinfo->pixels, w, h, 32, w * sizeof(uint32_t),

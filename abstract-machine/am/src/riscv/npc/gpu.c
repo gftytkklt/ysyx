@@ -40,7 +40,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl){
     // 6. add a FBDRAW_CFG reg to store x,y,w,h info
     int x = ctl->x;
     int y = ctl->y;
-    //uint32_t *pixels = (uint32_t *)ctl->pixels;
+    uint32_t *pixels = (uint32_t *)ctl->pixels;
     int blk_w = ctl->w;
     int blk_h = ctl->h;
     *(int *)(FB_X) = x;
@@ -50,6 +50,8 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl){
 
     for(int index=0;index<blk_w*blk_h;index++){
         //*(volatile uint32_t  *)(FB_ADDR+index*4) = pixels[index];
+        uint32_t tmp = pixels[index];
+        *(volatile uint32_t  *)(FB_ADDR) = tmp;
     }
     if(ctl->sync){
         *(volatile uint32_t  *)(SYNC_ADDR) = 1;
