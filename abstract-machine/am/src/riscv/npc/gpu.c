@@ -48,10 +48,10 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl){
     *(int *)(FB_W) = blk_w;
     *(int *)(FB_H) = blk_h;
 
-    for(int index=0;index<blk_w*blk_h;index++){
+    for(uint64_t index=0;index<blk_w*blk_h;index++){
         //*(volatile uint32_t  *)(FB_ADDR+index*4) = pixels[index];
         uint32_t tmp = pixels[index];
-        *(volatile uint32_t  *)(FB_ADDR) = tmp;
+        *(volatile uint32_t  *)(FB_ADDR + index*4) = tmp;
     }
     if(ctl->sync){
         *(volatile uint32_t  *)(SYNC_ADDR) = 1;
