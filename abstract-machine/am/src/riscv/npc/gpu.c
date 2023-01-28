@@ -2,7 +2,11 @@
 #include <npc.h>
 
 
-//#define SYNC_ADDR (VGACTL_ADDR + 4)
+#define SYNC_ADDR (VGACTL_ADDR + 4)
+#define FB_X (FBCTL_ADDR + 0)
+#define FB_Y (FBCTL_ADDR + 4)
+#define FB_W (FBCTL_ADDR + 8)
+#define FB_H (FBCTL_ADDR + 12)
 static int w = 0;
 static int h = 0;
 
@@ -11,7 +15,7 @@ void __am_gpu_init(){
     h = *(volatile uint16_t  *)(VGACTL_ADDR);
     //uint32_t sizecfg = *(volatile uint32_t  *)(VGACTL_ADDR);
     //w = 
-    //*(volatile uint64_t  *)(SYNC_ADDR) = 1;
+    *(volatile uint32_t  *)(SYNC_ADDR) = 1;
     
 }
 
@@ -36,11 +40,19 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl){
     // 6. add a FBDRAW_CFG reg to store x,y,w,h info
     int x = ctl->x;
     int y = ctl->y;
-    (uint32_t *)pixels = (uint32_t *)ctl->pixels;
+    //uint32_t *pixels = (uint32_t *)ctl->pixels;
     int blk_w = ctl->w;
     int blk_h = ctl->h;
+    *(int *)(FB_X) = x;
+    *(int *)(FB_Y) = y;
+    *(int *)(FB_W) = blk_w;
+    *(int *)(FB_H) = blk_h;
+
     for(int index=0;index<blk_w*blk_h;index++){
-        *(uint32_t *)(FB_ADDR+index*4) = pixels[index];
+        //*(volatile uint32_t  *)(FB_ADDR+index*4) = pixels[index];
+    }
+    if(ctl->sync){
+        *(volatile uint32_t  *)(SYNC_ADDR) = 1;
     }
     // int base = w*y+x;
     // for (int row=0;row<blk_h;row++){

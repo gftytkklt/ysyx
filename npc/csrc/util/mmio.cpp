@@ -24,3 +24,12 @@ void update_pixel(uint32_t pixel, uint32_t index){
     // void* pixels = drawinfo->pixels;
     // printf("draw info: (%d %d %d %d), pixels at %p\n",x,y,w,h,pixels);
 }
+
+void update_drawinfo(uint64_t addr, int data){
+    switch(addr){
+        case FB_X: drawinfo->x = data;break;
+        case FB_Y: drawinfo->y = data;break;
+        case FB_W: drawinfo->w = data;break;
+        case FB_H: drawinfo->h = data;break;
+    }
+}

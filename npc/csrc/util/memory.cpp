@@ -1,6 +1,7 @@
 #include <global.h>
 #include <memory.h>
 #include <mmio.h>
+#include <util.h>
 
 void pmem_read(unsigned long raddr, unsigned long* rdata, uint64_t *skip_pc){
   switch (raddr){
@@ -58,21 +59,29 @@ void pmem_write(unsigned long waddr, unsigned long wdata, unsigned char wmask, u
   // sim of byte write enable mode
   if ((waddr >= FB_ADDR) && (waddr < FB_ADDR + FB_SIZE)){
     uint32_t fb_index = (waddr - FB_ADDR) >> 2;
-    update_pixel((uint32_t) wdata, fb_index);return;
+    update_pixel((uint32_t) wdata, fb_index);
   }
-  while(wmask!=0){
-    if(wmask & 0x01){
-      if(waddr == SERIAL_ADDR){
-        putchar(*data_pt);
+  else if(waddr == (VGA_ADDR+VGA_SYNC_OFFT)){
+    update_screen();
+  }
+  else if((waddr >= FBCTL_ADDR) && (waddr <= FB_H)){
+    update_drawinfo(waddr, (int)wdata);
+  }
+  else{
+    while(wmask!=0){
+      if(wmask & 0x01){
+        if(waddr == SERIAL_ADDR){
+          putchar(*data_pt);
+        }
+        else if(waddr >= MEM_BASE && waddr <= MEM_BASE + MEM_SIZE){
+          mem[index] = *data_pt;
+        }
+        else{
+          printf("wr unimp addr %lx at pc %lx\n", waddr, *skip_pc);
+        }
       }
-      else if(waddr >= MEM_BASE && waddr <= MEM_BASE + MEM_SIZE){
-        mem[index] = *data_pt;
-      }
-      else{
-        printf("wr unimp addr %lx at pc %lx\n", waddr, *skip_pc);
-      }
+      index++;data_pt++;
+      wmask = wmask >> 1;
     }
-    index++;data_pt++;
-    wmask = wmask >> 1;
   }
 }

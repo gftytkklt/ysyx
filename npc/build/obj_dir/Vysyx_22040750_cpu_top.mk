@@ -62,6 +62,7 @@ VM_USER_CLASSES = \
 	mmio \
 	readelf \
 	ringbuf \
+	util \
 
 # User .cpp directories (from .cpp's on Verilator command line)
 VM_USER_DIR = \
@@ -91,6 +92,8 @@ mmio.o: /home/gftyt/ysyx-workbench/npc/csrc/util/mmio.cpp
 readelf.o: /home/gftyt/ysyx-workbench/npc/csrc/util/readelf.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 ringbuf.o: /home/gftyt/ysyx-workbench/npc/csrc/util/ringbuf.cpp
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+util.o: /home/gftyt/ysyx-workbench/npc/csrc/util/util.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 
 ### Link rules... (from --exe)
