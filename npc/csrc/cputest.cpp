@@ -6,6 +6,7 @@
 #include "Vysyx_22040750_cpu_top__Dpi.h"
 #include <global.h>
 #include <memory.h>
+#include <util.h>
 static Vysyx_22040750_cpu_top* cpu;
 //static int mem_size = 0x8000000;
 //static uint8_t* mem = NULL;
@@ -174,6 +175,9 @@ int main(int argc, char** argv, char** env) {
   init_elf(elf_file);
   #else
   printf("ftrace: %s\n",ASNI_FMT("OFF", ASNI_FG_RED));
+  #endif
+  #ifdef CONFIG_GUI
+    init_screen();
   #endif
   //inst_gen(false);
   // sim
