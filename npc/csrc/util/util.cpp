@@ -12,7 +12,7 @@ Uint32 texture_sync(Uint32 interval, void *param){
 void init_screen(){
   // create gui
   SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER);
-  window = SDL_CreateWindow("Native Application",
+  window = SDL_CreateWindow("NPC Application",
       SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, W*2, H*2,SDL_WINDOW_SHOWN);
   surface = SDL_CreateRGBSurface(SDL_SWSURFACE, W, H, 32,
       RMASK, GMASK, BMASK, AMASK);
