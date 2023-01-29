@@ -10,10 +10,6 @@ void get_screensize(unsigned long* size){
     *size = 300UL + (400UL<<16);
 }
 
-void get_keybrd(unsigned long* keycode){
-    *keycode = 0;
-}
-
 void update_pixel(uint32_t pixel, uint32_t index){
     fb[index] = pixel;
     //printf("draw info at%p\n",drawinfo);

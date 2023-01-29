@@ -18,7 +18,6 @@
 
 void get_time(unsigned long* time);
 void get_screensize(unsigned long* size);
-void get_keybrd(unsigned long* keycode);
 void update_pixel(uint32_t pixel, uint32_t index);
 void update_drawinfo(uint64_t addr, int data);
 #endif

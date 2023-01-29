@@ -66,6 +66,7 @@ void pmem_write(unsigned long waddr, unsigned long wdata, unsigned char wmask, u
   }
   else if((waddr >= FBCTL_ADDR) && (waddr <= FB_H)){
     update_drawinfo(waddr, (int)wdata);
+    update_screen();
   }
   else{
     while(wmask!=0){
