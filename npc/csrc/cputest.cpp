@@ -178,6 +178,7 @@ int main(int argc, char** argv, char** env) {
   #endif
   #ifdef CONFIG_GUI
     init_screen();
+    init_input();
   #endif
   //inst_gen(false);
   // sim
