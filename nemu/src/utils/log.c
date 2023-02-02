@@ -16,6 +16,7 @@ void init_log(const char *log_file) {
   }
   Log("Log is written to %s", log_file ? log_file : "stdout");
   #ifdef CONFIG_CTRACE
+    Log("mem trace data will be logged to corresponding .txt");
     itrace = fopen("itrace.txt","w");
     dtrace = fopen("dtrace.txt","w");
   #endif
