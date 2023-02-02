@@ -108,6 +108,8 @@ void cache_profile(cachemodel* cache, int data_num){
     unsigned hit_num = cache->cache_hit_num;
     unsigned miss_num = cache->cache_miss_num;
     float hit_rate = (float)hit_num / (float)data_num * 100;
+    printf("cache info:\n");
+    printf("%dKB %d way(s) cache, %d %dB cachelines\n",cache->cache_size/1024, cache->group_num, cache->index_num, cache->cacheline_size);
     printf("query mem %d times, cache hit: %d, cache miss: %d, hit rate: %.2f%%\n",data_num, hit_num, miss_num, hit_rate);
     int shift_num = 4 + cache->index_bitnum;
     for(int i=0;i<cache->index_num;i++){
