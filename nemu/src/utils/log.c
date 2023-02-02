@@ -17,8 +17,8 @@ void init_log(const char *log_file) {
   Log("Log is written to %s", log_file ? log_file : "stdout");
   #ifdef CONFIG_CTRACE
     Log("mem trace data will be logged to corresponding .txt");
-    itrace = fopen("/home/gftyt/ysyx-workbench/nemu/tools/cache-profileritrace.txt","w");
-    dtrace = fopen("/home/gftyt/ysyx-workbench/nemu/tools/cache-profilerdtrace.txt","w");
+    itrace = fopen("/home/gftyt/ysyx-workbench/nemu/tools/cache-profiler/itrace.txt","w");
+    dtrace = fopen("/home/gftyt/ysyx-workbench/nemu/tools/cache-profiler/dtrace.txt","w");
   #endif
 }
 
