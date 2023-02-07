@@ -15,7 +15,7 @@
 #define ICACHE_SIZE (BRAM_SIZE * ICACHE_NUM)
 #define DCACHE_SIZE (BRAM_SIZE * DCACHE_NUM)
 #define ICACHE_GROUP 2
-#define DCACHE_GROUP 4
+#define DCACHE_GROUP 2
 #define ICACHE_CACHELINENUM (ICACHE_SIZE / CACHELINE_SIZE)
 #define DCACHE_CACHELINENUM (DCACHE_SIZE / CACHELINE_SIZE)
 #define ICACHE_INDEXNUM (ICACHE_CACHELINENUM / ICACHE_GROUP)
@@ -82,35 +82,43 @@ void set_cache(cachemodel *cache){
 }
 
 void mem_write(cachemodel *cache, unsigned index, unsigned tag){
+    //cache->cache_hit_num++;
     for(int i=0;i<cache->group_num;i++){
         if(cache->valid_flag[i][index] == false){
             cache->tag[i][index] = tag;
             cache->valid_flag[i][index] = true;
+            cache->dirty_flag[i][index] == true;
             return;
         }
     }
     unsigned group = rand()%DCACHE_GROUP;
-    cache->tag[0][index] = tag;
+    if(cache->dirty_flag[group][index] == true){
+        cache->cache_miss_num++;// additional mem wr
+    }
+    cache->tag[group][index] = tag;
 }
 
 // simple write through
 void cache_write(cachemodel *cache, unsigned addr){
+    cache->cache_hit_num++;
     unsigned offt = addr & OFFSET_BIAS;
     unsigned index = (addr >> 4) & (cache->index_mask);
     unsigned tag = (addr >> (4 + cache->index_bitnum));
-    bool cache_hit = false;
+    //bool cache_hit = false;
     for(int i=0;i<cache->group_num;i++){
-        if((cache->valid_flag[i][index] == true) && (cache->tag[i][index] == tag)){
-            cache_hit = true;
-            cache->cache_hit_num++;
+        if((cache->valid_flag[i][index] == true) && (cache->tag[i][index] == tag) && (cache->valid_flag[i][index] == false)){
+            //cache_hit = true;
+            //cache->cache_hit_num++;
+            cache->dirty_flag[i][index] == true;
             return;
         }
     }
-    cache->cache_miss_num++;
+    //cache->cache_miss_num++;
     mem_write(cache, index, tag); 
 }
 
 void mem_read(cachemodel *cache, unsigned index, unsigned tag){
+    char cache_flag = (cache==icache) ? 'i' : 'd';
     for(int i=0;i<cache->group_num;i++){
         if(cache->valid_flag[i][index] == false){
             cache->tag[i][index] = tag;
@@ -118,7 +126,13 @@ void mem_read(cachemodel *cache, unsigned index, unsigned tag){
             return;
         }
     }
-    cache->tag[0][index] = tag;
+    unsigned group_num = (cache_flag=='i') ? ICACHE_GROUP : DCACHE_GROUP;
+    unsigned group = rand()%group_num;
+    if(cache->dirty_flag[group][index] == true){
+        cache->cache_miss_num++;// additional mem wr
+        cache->dirty_flag[group][index] = false;
+    }
+    cache->tag[group][index] = tag;
 }
 
 void cache_read(cachemodel *cache, unsigned addr){
@@ -206,7 +220,7 @@ int main(){
         }
         data_num ++;
     }
-    //cache_profile(icache, inst_num);
+    cache_profile(icache, inst_num);
     cache_profile(dcache, data_num);
     free_model();
     return 0;
