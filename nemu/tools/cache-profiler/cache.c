@@ -15,7 +15,7 @@
 #define ICACHE_SIZE (BRAM_SIZE * ICACHE_NUM)
 #define DCACHE_SIZE (BRAM_SIZE * DCACHE_NUM)
 #define ICACHE_GROUP 2
-#define DCACHE_GROUP 2
+#define DCACHE_GROUP 4
 #define ICACHE_CACHELINENUM (ICACHE_SIZE / CACHELINE_SIZE)
 #define DCACHE_CACHELINENUM (DCACHE_SIZE / CACHELINE_SIZE)
 #define ICACHE_INDEXNUM (ICACHE_CACHELINENUM / ICACHE_GROUP)
@@ -89,6 +89,7 @@ void mem_write(cachemodel *cache, unsigned index, unsigned tag){
             return;
         }
     }
+    unsigned group = rand()%DCACHE_GROUP;
     cache->tag[0][index] = tag;
 }
 
@@ -205,7 +206,7 @@ int main(){
         }
         data_num ++;
     }
-    cache_profile(icache, inst_num);
+    //cache_profile(icache, inst_num);
     cache_profile(dcache, data_num);
     free_model();
     return 0;
