@@ -23,6 +23,7 @@ Vysyx_22040750_cpu_top::Vysyx_22040750_cpu_top(VerilatedContext* _vcontextp__, c
     , O_mem_wen{vlSymsp->TOP.O_mem_wen}
     , I_mem_rd_data{vlSymsp->TOP.I_mem_rd_data}
     , I_mem_rd_data_valid{vlSymsp->TOP.I_mem_rd_data_valid}
+    , I_mem_wr_data_valid{vlSymsp->TOP.I_mem_wr_data_valid}
     , O_mem_wr_data{vlSymsp->TOP.O_mem_wr_data}
     , O_mem_wr_strb{vlSymsp->TOP.O_mem_wr_strb}
     , __PVT____024unit{vlSymsp->TOP.__PVT____024unit}

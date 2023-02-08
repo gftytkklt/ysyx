@@ -32,6 +32,7 @@ module ysyx_22040750_cpu_top(
     output O_mem_wen,
     input [63:0] I_mem_rd_data,
     input I_mem_rd_data_valid,
+	input I_mem_wr_data_valid,
     output [63:0] O_mem_wr_data,
     output [7:0] O_mem_wr_strb
     //output O_sim_end
@@ -460,7 +461,7 @@ module ysyx_22040750_cpu_top(
 		.I_rd_addr(ID_EX_rd_addr),
 		.I_regin_sel(ID_EX_regin_sel),
 		.I_mem_data_rvalid(I_mem_rd_data_valid),
-		.I_mem_data_bvalid(),
+		.I_mem_data_bvalid(I_mem_wr_data_valid),
 		//.I_csr_op_sel(),
 		//.I_csr_imm(),
 		.I_csr_addr(ID_EX_csr_addr),

@@ -245,6 +245,7 @@ int main(int argc, char** argv, char** env) {
       // MEM WR: simple wr simulation
       if(cpu->O_mem_wen){
         pmem_write(cpu->O_mem_addr, cpu->O_mem_wr_data, cpu->O_mem_wr_strb, skip_pc);
+        cpu->I_mem_wr_data_valid = 1;
         #ifdef CONFIG_MTRACE
         if(sim_time > dump_time){fprintf(logfp,"time: %lu\nwr data %lx to %lx\n",sim_time, cpu->O_mem_wr_data, cpu->O_mem_addr);}
         #endif

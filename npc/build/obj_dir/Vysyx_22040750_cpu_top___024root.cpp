@@ -3736,7 +3736,7 @@ VL_INLINE_OPT void Vysyx_22040750_cpu_top___024root___combo__TOP__4(Vysyx_220407
               & (~ ((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__EX_MEM_regin_sel) 
                     >> 1U))) & (~ (IData)(vlSelf->ysyx_22040750_cpu_top__DOT__EX_MEM_mem_wen))) 
             | (IData)(vlSelf->I_mem_rd_data_valid)) 
-           | (IData)(vlSelf->ysyx_22040750_cpu_top__DOT__EX_MEM_reg_e__DOT__I_mem_data_bvalid));
+           | (IData)(vlSelf->I_mem_wr_data_valid));
     vlSelf->ysyx_22040750_cpu_top__DOT__IF_valid = 
         ((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__pc_e__DOT__IF_ready_go) 
          & (IData)(vlSelf->ysyx_22040750_cpu_top__DOT__pc_e__DOT__IF_valid));
@@ -3814,5 +3814,7 @@ void Vysyx_22040750_cpu_top___024root___eval_debug_assertions(Vysyx_22040750_cpu
         Verilated::overWidthError("I_inst_addr_ready");}
     if (VL_UNLIKELY((vlSelf->I_mem_rd_data_valid & 0xfeU))) {
         Verilated::overWidthError("I_mem_rd_data_valid");}
+    if (VL_UNLIKELY((vlSelf->I_mem_wr_data_valid & 0xfeU))) {
+        Verilated::overWidthError("I_mem_wr_data_valid");}
 }
 #endif  // VL_DEBUG

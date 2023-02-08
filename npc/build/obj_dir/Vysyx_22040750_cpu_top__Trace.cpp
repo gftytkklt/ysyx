@@ -1580,9 +1580,10 @@ void Vysyx_22040750_cpu_top___024root__traceChgSub0(Vysyx_22040750_cpu_top___024
         tracep->chgBit(oldp+648,(vlSelf->O_mem_wen));
         tracep->chgQData(oldp+649,(vlSelf->I_mem_rd_data),64);
         tracep->chgBit(oldp+651,(vlSelf->I_mem_rd_data_valid));
-        tracep->chgQData(oldp+652,(vlSelf->O_mem_wr_data),64);
-        tracep->chgCData(oldp+654,(vlSelf->O_mem_wr_strb),8);
-        tracep->chgBit(oldp+655,((1U & ((~ (IData)(vlSelf->ysyx_22040750_cpu_top__DOT__pc_e__DOT__IF_valid)) 
+        tracep->chgBit(oldp+652,(vlSelf->I_mem_wr_data_valid));
+        tracep->chgQData(oldp+653,(vlSelf->O_mem_wr_data),64);
+        tracep->chgCData(oldp+655,(vlSelf->O_mem_wr_strb),8);
+        tracep->chgBit(oldp+656,((1U & ((~ (IData)(vlSelf->ysyx_22040750_cpu_top__DOT__pc_e__DOT__IF_valid)) 
                                         | ((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__pc_e__DOT__IF_ready_go) 
                                            & (IData)(vlSelf->ysyx_22040750_cpu_top__DOT__IF_ID_allowin))))));
     }
