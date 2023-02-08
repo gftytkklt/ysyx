@@ -302,6 +302,7 @@ int main(int argc, char** argv, char** env) {
     // test dummy
     // if(sim_time == 2000){printf("timeout!\n");break;}
   }
+  
   //printf("a\n");
   cpu->final();
   //printf("b\n");
