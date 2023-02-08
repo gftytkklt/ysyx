@@ -138,6 +138,11 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
         }
         continue;
       }
+      else if(type == CHAR){
+        char val = va_arg(ap, int);
+        *tmp = val;
+        tmp++;
+      }
     }
     *tmp = fmt[i];
     tmp++;
