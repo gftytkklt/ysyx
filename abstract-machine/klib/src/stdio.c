@@ -142,6 +142,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
         char val = va_arg(ap, int);
         *tmp = val;
         tmp++;
+        continue;
       }
     }
     *tmp = fmt[i];
