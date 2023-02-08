@@ -459,7 +459,7 @@ module ysyx_22040750_cpu_top(
 		.I_reg_wen(ID_EX_reg_wen),
 		.I_rd_addr(ID_EX_rd_addr),
 		.I_regin_sel(ID_EX_regin_sel),
-		.I_mem_data_valid(I_mem_rd_data_valid),
+		.I_mem_data_rvalid(I_mem_rd_data_valid),
 		//.I_csr_op_sel(),
 		//.I_csr_imm(),
 		.I_csr_addr(ID_EX_csr_addr),

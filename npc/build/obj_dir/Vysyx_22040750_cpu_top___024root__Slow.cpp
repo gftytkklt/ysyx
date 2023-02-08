@@ -190,8 +190,8 @@ void Vysyx_22040750_cpu_top___024root___settle__TOP__2(Vysyx_22040750_cpu_top___
                             & (IData)(vlSelf->ysyx_22040750_cpu_top__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__mul_process))));
     vlSelf->ysyx_22040750_cpu_top__DOT__EX_MEM_reg_e__DOT__output_valid 
         = (((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__EX_MEM_reg_e__DOT__input_valid) 
-            & (~ (IData)(vlSelf->ysyx_22040750_cpu_top__DOT__EX_MEM_reg_e__DOT__mem_rd_en))) 
-           | (IData)(vlSelf->I_mem_rd_data_valid));
+            & (~ ((IData)(vlSelf->ysyx_22040750_cpu_top__DOT__EX_MEM_regin_sel) 
+                  >> 1U))) | (IData)(vlSelf->I_mem_rd_data_valid));
     vlSelf->ysyx_22040750_cpu_top__DOT__decoder_e__DOT__immS 
         = ((0xfe0U & (vlSelf->ysyx_22040750_cpu_top__DOT__IF_ID_inst 
                       >> 0x14U)) | (0x1fU & (vlSelf->ysyx_22040750_cpu_top__DOT__IF_ID_inst 

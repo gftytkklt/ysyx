@@ -18,7 +18,7 @@ module ysyx_22040750_EX_MEM_reg(
     input [4:0] I_rd_addr,
     input [2:0] I_regin_sel,
     //input [63:0] I_mem_data,
-    input I_mem_data_valid,
+    input I_mem_data_rvalid,
 	//input [6:0] I_csr_op_sel,
 	//input [4:0] I_csr_imm,
 	input [11:0] I_csr_addr,
@@ -65,12 +65,13 @@ module ysyx_22040750_EX_MEM_reg(
     //assign O_mem_rd_en = mem_rd_en & (!mem_rd_en_d);
     assign O_mem_rd_en = mem_rd_en;
     assign O_EX_MEM_input_valid = input_valid;
-    assign output_valid = (input_valid & ~mem_rd_en) | I_mem_data_valid;
+    //assign output_valid = (input_valid & ~mem_rd_en) | I_mem_data_rvalid;
+	assign output_valid = (input_valid & ~O_regin_sel[1]) | I_mem_data_rvalid;
     /*always @(posedge I_sys_clk)
     	if(I_rst)
 	    output_valid <= 0;
 	else
-	    output_valid <= ((I_EX_MEM_valid & ~mem_rd_en) | I_mem_data_valid);*/
+	    output_valid <= ((I_EX_MEM_valid & ~mem_rd_en) | I_mem_data_rvalid);*/
     assign O_EX_MEM_allowin = !input_valid || (output_valid && I_EX_MEM_allowout);
     assign O_EX_MEM_valid = input_valid && output_valid;
     /*always @(posedge I_sys_clk)
@@ -78,6 +79,7 @@ module ysyx_22040750_EX_MEM_reg(
 	    O_EX_MEM_valid <= 0;
 	else
 	    O_EX_MEM_valid <= input_valid && output_valid;*/
+	// I_regin_sel[1] indicates mem rd op;
     always @(posedge I_sys_clk)
 	if(I_rst)
 	    mem_rd_en <= 0;

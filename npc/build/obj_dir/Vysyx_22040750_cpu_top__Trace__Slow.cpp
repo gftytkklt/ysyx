@@ -724,7 +724,7 @@ void Vysyx_22040750_cpu_top___024root__traceInitSub0(Vysyx_22040750_cpu_top___02
         tracep->declBit(c+77,"ysyx_22040750_cpu_top EX_MEM_reg_e I_reg_wen", false,-1);
         tracep->declBus(c+69,"ysyx_22040750_cpu_top EX_MEM_reg_e I_rd_addr", false,-1, 4,0);
         tracep->declBus(c+74,"ysyx_22040750_cpu_top EX_MEM_reg_e I_regin_sel", false,-1, 2,0);
-        tracep->declBit(c+652,"ysyx_22040750_cpu_top EX_MEM_reg_e I_mem_data_valid", false,-1);
+        tracep->declBit(c+652,"ysyx_22040750_cpu_top EX_MEM_reg_e I_mem_data_rvalid", false,-1);
         tracep->declBus(c+87,"ysyx_22040750_cpu_top EX_MEM_reg_e I_csr_addr", false,-1, 11,0);
         tracep->declBit(c+88,"ysyx_22040750_cpu_top EX_MEM_reg_e I_csr_wen", false,-1);
         tracep->declBit(c+89,"ysyx_22040750_cpu_top EX_MEM_reg_e I_csr_intr", false,-1);
