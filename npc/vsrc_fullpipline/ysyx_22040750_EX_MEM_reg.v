@@ -65,8 +65,8 @@ module ysyx_22040750_EX_MEM_reg(
     //assign O_mem_rd_en = mem_rd_en & (!mem_rd_en_d);
     assign O_mem_rd_en = mem_rd_en;
     assign O_EX_MEM_input_valid = input_valid;
-    //assign output_valid = (input_valid & ~mem_rd_en) | I_mem_data_rvalid;
-	assign output_valid = (input_valid & ~O_regin_sel[1]) | I_mem_data_rvalid;
+    assign output_valid = (input_valid & ~mem_rd_en) | I_mem_data_rvalid;
+	//assign output_valid = (input_valid & ~O_regin_sel[1]) | I_mem_data_rvalid;
     /*always @(posedge I_sys_clk)
     	if(I_rst)
 	    output_valid <= 0;
