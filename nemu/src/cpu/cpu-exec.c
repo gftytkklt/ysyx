@@ -25,6 +25,9 @@ void print_ftrace(unsigned long pc, unsigned long dnpc, unsigned inst);
 #ifdef CONFIG_ETRACE
 void etrace(unsigned long pc, unsigned inst);
 #endif
+//#ifdef CONFIG_CTRACE
+//void print_ctrace(bool is_itrace, char type, uint64_t addr);
+//#endif
 // add for ftrace end
 CPU_state cpu = {.csr[1] = 0xa00001800};
 
@@ -115,6 +118,9 @@ static void exec_once(Decode *s, vaddr_t pc) {
   write_ringbuf(s->logbuf);
   //if(s->pc>=0x80000a5c && s->pc <= 0x80000a74){printf("%s\n",s->logbuf);}
 #endif
+//#ifdef CONFIG_CTRACE
+//  print_ctrace(true, 'r', s->pc);
+//#endif
 }
 
 static void execute(uint64_t n) {

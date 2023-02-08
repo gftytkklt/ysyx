@@ -15,7 +15,7 @@ void pmem_read(unsigned long raddr, unsigned long* rdata, uint64_t *skip_pc){
         *rdata = index > MEM_SIZE ? 0 : *((unsigned long*)&mem[index]);
       }
       else{
-        printf("rd unimp addr %lx at pc %lx\n", raddr, *skip_pc);
+        //printf("rd unimp addr %lx at pc %lx\n", raddr, *skip_pc);
         *rdata = 0;
       }
   }
@@ -78,7 +78,7 @@ void pmem_write(unsigned long waddr, unsigned long wdata, unsigned char wmask, u
           mem[index] = *data_pt;
         }
         else{
-          printf("wr unimp addr %lx at pc %lx\n", waddr, *skip_pc);
+          //printf("wr unimp addr %lx at pc %lx\n", waddr, *skip_pc);
         }
       }
       index++;data_pt++;

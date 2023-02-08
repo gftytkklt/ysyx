@@ -32,6 +32,7 @@ module ysyx_22040750_cpu_top(
     output O_mem_wen,
     input [63:0] I_mem_rd_data,
     input I_mem_rd_data_valid,
+	input I_mem_wr_data_valid,
     output [63:0] O_mem_wr_data,
     output [7:0] O_mem_wr_strb
     //output O_sim_end
@@ -95,7 +96,8 @@ module ysyx_22040750_cpu_top(
     wire [8:0] EX_MEM_rstrb;
     wire [7:0] EX_MEM_wstrb;
     wire [63:0] EX_MEM_alu_out, EX_MEM_mem_addr, EX_MEM_rs2, EX_MEM_csr;
-    wire EX_MEM_mem_wen, EX_MEM_mem_rd_en;
+    wire EX_MEM_mem_wen;// indicate mem wr stage, maybe multicycle
+	wire EX_MEM_mem_rd_en, EX_MEM_mem_wr_en;// actual single cycle valid flag
     wire [63:0] EX_MEM_pc;
     wire [63:0] EX_MEM_mem_data;
     wire EX_MEM_reg_wen;
@@ -165,7 +167,8 @@ module ysyx_22040750_cpu_top(
     //assign O_mem_rd_en = EX_MEM_regin_sel[1];
     //assign O_mem_wr_data = mem_out;
     assign O_mem_addr = EX_MEM_mem_addr;
-    assign O_mem_wen = EX_MEM_mem_wen & EX_MEM_valid;
+    //assign O_mem_wen = EX_MEM_mem_wen & EX_MEM_valid;
+	assign O_mem_wen = EX_MEM_mem_wr_en;
     assign O_mem_rd_en = EX_MEM_mem_rd_en;// single cycle rd_en generate internally
     assign EX_MEM_shamt = EX_MEM_mem_addr[2:0];
     assign O_mem_wr_strb = EX_MEM_wstrb << EX_MEM_shamt;
@@ -459,7 +462,8 @@ module ysyx_22040750_cpu_top(
 		.I_reg_wen(ID_EX_reg_wen),
 		.I_rd_addr(ID_EX_rd_addr),
 		.I_regin_sel(ID_EX_regin_sel),
-		.I_mem_data_valid(I_mem_rd_data_valid),
+		.I_mem_data_rvalid(I_mem_rd_data_valid),
+		.I_mem_data_bvalid(I_mem_wr_data_valid),
 		//.I_csr_op_sel(),
 		//.I_csr_imm(),
 		.I_csr_addr(ID_EX_csr_addr),
@@ -480,8 +484,9 @@ module ysyx_22040750_cpu_top(
 		.O_wstrb(EX_MEM_wstrb),
 		.O_alu_out(EX_MEM_alu_out),
 		.O_mem_addr(EX_MEM_mem_addr),
-		.O_mem_wen(EX_MEM_mem_wen),
+		.O_mem_wen(EX_MEM_mem_wen),// mem wr stage flag, not actual mem wr valid flag
 		.O_mem_rd_en(EX_MEM_mem_rd_en),
+		.O_mem_wr_en(EX_MEM_mem_wr_en),
 		.O_rs2_data(EX_MEM_rs2),
 		.O_pc(EX_MEM_pc),
 		.O_reg_wen(EX_MEM_reg_wen),
