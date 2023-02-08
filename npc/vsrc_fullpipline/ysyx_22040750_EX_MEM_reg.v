@@ -43,6 +43,7 @@ module ysyx_22040750_EX_MEM_reg(
     output reg [63:0] O_mem_addr,
     output reg [63:0] O_rs2_data,
     output O_mem_rd_en,
+	output O_mem_wr_en,
     output reg O_mem_wen,
     output reg [63:0] O_pc,
     output reg O_reg_wen,
@@ -56,7 +57,7 @@ module ysyx_22040750_EX_MEM_reg(
     output reg O_bubble_inst_debug
     );
     //wire mem_rd_en;
-    reg mem_rd_en;
+    reg mem_rd_en, mem_wr_en;
     reg input_valid;
     wire output_valid;
     //reg mem_data_valid;
@@ -65,6 +66,7 @@ module ysyx_22040750_EX_MEM_reg(
     //	mem_rd_en_d <= mem_rd_en;
     //assign O_mem_rd_en = mem_rd_en & (!mem_rd_en_d);
     assign O_mem_rd_en = mem_rd_en;
+	assign O_mem_wr_en = mem_wr_en;
     assign O_EX_MEM_input_valid = input_valid;
     //assign output_valid = (input_valid & ~mem_rd_en) | I_mem_data_rvalid;
 	assign output_valid = (input_valid & ~O_regin_sel[1] & ~O_mem_wen) | I_mem_data_rvalid | I_mem_data_bvalid;
@@ -82,19 +84,26 @@ module ysyx_22040750_EX_MEM_reg(
 	    O_EX_MEM_valid <= input_valid && output_valid;*/
 	// I_regin_sel[1] indicates mem rd op;
     always @(posedge I_sys_clk)
-	if(I_rst)
-	    mem_rd_en <= 0;
-	else if(I_EX_MEM_valid && O_EX_MEM_allowin && I_regin_sel[1])
-	    mem_rd_en <= 1;
-	else
-	    mem_rd_en <= 0;
+		if(I_rst)
+			mem_wr_en <= 0;
+		else if(I_EX_MEM_valid && O_EX_MEM_allowin && I_mem_wen)
+			mem_wr_en <= 1;
+		else
+			mem_wr_en <= 0;
+	always @(posedge I_sys_clk)
+		if(I_rst)
+			mem_rd_en <= 0;
+		else if(I_EX_MEM_valid && O_EX_MEM_allowin && I_regin_sel[1])
+			mem_rd_en <= 1;
+		else
+			mem_rd_en <= 0;
     always @(posedge I_sys_clk)
-	if(I_rst)
-	    input_valid <= 0;
-	else if(O_EX_MEM_allowin)
-	    input_valid <= I_EX_MEM_valid;
-	else
-	    input_valid <= input_valid;
+		if(I_rst)
+			input_valid <= 0;
+		else if(O_EX_MEM_allowin)
+			input_valid <= I_EX_MEM_valid;
+		else
+			input_valid <= input_valid;
     always @(posedge I_sys_clk)
     	if(I_rst) begin
 			O_reg_wen <= 0;

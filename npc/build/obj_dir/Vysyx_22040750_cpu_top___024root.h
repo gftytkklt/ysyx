@@ -155,6 +155,7 @@ VL_MODULE(Vysyx_22040750_cpu_top___024root) {
         CData/*0:0*/ ysyx_22040750_cpu_top__DOT__alu_e__DOT__gpr_alu_e__DOT__radix2_div_e__DOT__div_process;
         CData/*5:0*/ ysyx_22040750_cpu_top__DOT__alu_e__DOT__gpr_alu_e__DOT__radix2_div_e__DOT__iter_cnt;
         CData/*0:0*/ ysyx_22040750_cpu_top__DOT__EX_MEM_reg_e__DOT__mem_rd_en;
+        CData/*0:0*/ ysyx_22040750_cpu_top__DOT__EX_MEM_reg_e__DOT__mem_wr_en;
         CData/*0:0*/ ysyx_22040750_cpu_top__DOT__EX_MEM_reg_e__DOT__input_valid;
         CData/*0:0*/ ysyx_22040750_cpu_top__DOT__EX_MEM_reg_e__DOT__output_valid;
         CData/*0:0*/ ysyx_22040750_cpu_top__DOT__MEM_WB_reg_e__DOT__input_valid;
@@ -170,9 +171,9 @@ VL_MODULE(Vysyx_22040750_cpu_top___024root) {
         SData/*8:0*/ ysyx_22040750_cpu_top__DOT__MEM_WB_mem_rstrb;
         SData/*11:0*/ ysyx_22040750_cpu_top__DOT__MEM_WB_csr_addr;
         SData/*11:0*/ ysyx_22040750_cpu_top__DOT__decoder_e__DOT__immS;
-        SData/*12:0*/ ysyx_22040750_cpu_top__DOT__decoder_e__DOT__immB;
     };
     struct {
+        SData/*12:0*/ ysyx_22040750_cpu_top__DOT__decoder_e__DOT__immB;
         IData/*31:0*/ ysyx_22040750_cpu_top__DOT__current_inst;
         IData/*31:0*/ ysyx_22040750_cpu_top__DOT__IF_ID_inst;
         IData/*31:0*/ ysyx_22040750_cpu_top__DOT__ID_EX_inst;
@@ -236,9 +237,9 @@ VL_MODULE(Vysyx_22040750_cpu_top___024root) {
         QData/*63:0*/ ysyx_22040750_cpu_top__DOT__alu_e__DOT__gpr_alu_e__DOT__shift_result;
         QData/*63:0*/ ysyx_22040750_cpu_top__DOT__alu_e__DOT__gpr_alu_e__DOT__slldw_result;
         QData/*63:0*/ ysyx_22040750_cpu_top__DOT__alu_e__DOT__gpr_alu_e__DOT__dword_result;
-        QData/*63:0*/ ysyx_22040750_cpu_top__DOT__alu_e__DOT__gpr_alu_e__DOT__radix2_div_e__DOT__abs_quotient;
     };
     struct {
+        QData/*63:0*/ ysyx_22040750_cpu_top__DOT__alu_e__DOT__gpr_alu_e__DOT__radix2_div_e__DOT__abs_quotient;
         QData/*63:0*/ ysyx_22040750_cpu_top__DOT__alu_e__DOT__csr_alu_e__DOT__op;
         QData/*63:0*/ ysyx_22040750_cpu_top__DOT__mem_ld_e__DOT__ld_data;
         QData/*63:0*/ ysyx_22040750_cpu_top__DOT__csr_e__DOT__mepc;
