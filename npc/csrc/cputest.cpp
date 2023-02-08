@@ -250,6 +250,7 @@ int main(int argc, char** argv, char** env) {
         if(sim_time > dump_time){fprintf(logfp,"time: %lu\nwr data %lx to %lx\n",sim_time, cpu->O_mem_wr_data, cpu->O_mem_addr);}
         #endif
       }
+      else{cpu->I_mem_wr_data_valid = 0;}
     //}
     //dnpc = cpu->O_pc;
     //if(valid_posedge){
@@ -292,7 +293,7 @@ int main(int argc, char** argv, char** env) {
     #endif
     sim_time++;
     // test dummy
-    //if(sim_time == 8000){printf("timeout!\n");break;}
+    if(sim_time == 2000){printf("timeout!\n");break;}
   }
   //printf("a\n");
   cpu->final();
