@@ -20,7 +20,15 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module ysyx_22040750_icachectrl(
+module ysyx_22040750_icachectrl #(
+    parameter BLOCK_SIZE = 32,
+    parameter CACHE_SIZE = 4096,
+    parameter GROUP_NUM = 2,
+    parameter BLOCK_NUM = CACHE_SIZE / BLOCK_SIZE,
+    parameter OFFT_LEN = $clog2(BLOCK_SIZE),
+    parameter INDEX_LEN = $clog2(BLOCK_NUM/GROUP_NUM),
+    parameter TAG_LEN = 32-OFFT_LEN-OFFT_LEN
+)(
     input I_clk,
     input I_rst,
     // cpu addr & rd req
@@ -28,14 +36,16 @@ module ysyx_22040750_icachectrl(
     input [31:0] I_cpu_addr,
     input I_cpu_rd_req,
     // cache rd addr & req, low level valid en
-    input [128:0] I_sram_rdata,
+    input [255:0] I_way0_rdata,
+    input [255:0] I_way1_rdata,
     output [5:0] O_sram_addr,
     // msb-lsb: bram 3-0
-    output [3:0] O_sram_cen,
     // wen=0 -> wr, wen=1 -> rd
-    output O_sram_wen,
-    output [127:0] O_sram_wdata,
-    output [127:0] O_sram_wmask,
+    // wmask[i]=0 -> wvalid[i]
+    output [3:0] O_sram_cen,
+    output [3:0] O_sram_wen,
+    output [255:0] O_sram_wdata,
+    output [255:0] O_sram_wmask,
     // mem data, rd addr & req
     input [63:0] I_mem_rdata,
     input I_mem_arready,
@@ -47,30 +57,31 @@ module ysyx_22040750_icachectrl(
     output [7:0] O_mem_arlen,
     output [2:0] O_mem_arsize,
     // data & valid flag to cpu
-    output reg [31:0] O_cpu_inst,
+    output [31:0] O_cpu_inst,
     output O_cpu_rvalid
 );
     // addr division
     // cpu IDLE info
-    wire [3:0] offset;
-    wire [6:0] index;
-    wire [20:0] tag;
+    wire [OFFT_LEN-1:0] offset;
+    wire [INDEX_LEN-1:0] index;
+    wire [TAG_LEN-1:0] tag;
     // cache miss mem info
-    wire [3:0] mem_offset;
-    wire [6:0] mem_index;
-    wire [20:0] mem_tag;
+    wire [OFFT_LEN-1:0] mem_offset;
+    wire [INDEX_LEN-1:0] mem_index;
+    wire [TAG_LEN-1:0] mem_tag;
     // mem addr reg
     reg [31:0] mem_addr;
     // lookup table
     // table index LSB indecates way num, remaining 7-bit MSB indicate cacheline index[6:0]
-    reg [20:0] lookup_table [0:255];
-    reg valid_table [0:255];
-    wire [20:0] way0_tag, way1_tag;
+    integer i;
+    reg [TAG_LEN-1:0] lookup_table [0:BLOCK_NUM-1];
+    reg [BLOCK_NUM-1:0] valid_table;
+    wire [TAG_LEN-1:0] way0_tag, way1_tag;
     wire way0_valid, way1_valid;
     wire way0_hit, way1_hit;
     wire way0_replace, way1_replace;
     // mem wb reg
-    reg [127:0] cacheline_reg;
+    reg [255:0] cacheline_reg;
     // ctrl signal
     wire rd_hit, rd_miss, rd_handshake, rd_reload, rd_allocate;
     // FSM
@@ -79,28 +90,42 @@ module ysyx_22040750_icachectrl(
     // cache addr cen gen
     reg [3:0] cen_icache; // TODO: add ctrl logic
     // axi constant
-    assign O_mem_rready = 1;
-    assign O_mem_arlen = 1;
-    assign O_mem_arsize = 3'b011;
+    assign O_mem_rready = 1;// always enable rdata
+    assign O_mem_arlen = 3;// 32/8 - 1
+    assign O_mem_arsize = 3'b011;// 8B
     // cache addr/en logic
-    assign O_sram_addr = index[5:0];// 64 depth ram index
+    assign O_sram_addr = rd_hit ? index : mem_index;// 64 depth ram index
     assign O_sram_cen = cen_icache;
+    // tag & valid flag impl
+    always @(posedge I_clk)
+        if(I_rst) begin
+            for(i=0;i<BLOCK_NUM;i=i+1) begin
+                lookup_table[i] <= 0;
+                valid_table[i] <= 0;
+            end
+        end
+        else if(rd_allocate) begin
+            lookup_table[{mem_index, way1_replace}] <= mem_tag;
+            valid_table[{mem_index, way1_replace}] <= 1;
+        end
+        else begin
+            for(i=0;i<BLOCK_NUM;i=i+1) begin
+                lookup_table[i] <= lookup_table[i];
+                valid_table[i] <= valid_table[i];
+            end
+        end
     // cen impl: rd_hit impl cache rd, I_mem_rvalid impl cache reload
     always @(*)
         if(rd_hit)// rd_hit case, cacheline rd
-            case({index[6], way0_hit, way1_hit})
-                3'b110: cen_icache = 4'b1011; // bram 2
-                3'b101: cen_icache = 4'b0111; // bram 3
-                3'b010: cen_icache = 4'b1110; // bram 0
-                3'b001: cen_icache = 4'b1101; // bram 1
+            case({way0_hit, way1_hit})
+                2'b10: cen_icache = 4'b1100; // way 0: sram 0-1
+                2'b01: cen_icache = 4'b0011; // way 1: sram 2-3
                 default: cen_icache = 4'b1111;// should not reach here!
             endcase
         else if(rd_allocate)// load cacheline case, cacheline wr
-            case({mem_index[6], way0_replace, way1_replace})
-                3'b110: cen_icache = 4'b1011; // bram 2
-                3'b101: cen_icache = 4'b0111; // bram 3
-                3'b010: cen_icache = 4'b1110; // bram 0
-                3'b001: cen_icache = 4'b1101; // bram 1
+            case({way0_replace, way1_replace})
+                2'b10: cen_icache = 4'b1100; // way 0: sram 0-1
+                2'b01: cen_icache = 4'b0011; // way 1: sram 2-3
                 default: cen_icache = 4'b1111;// should not reach here!
             endcase
         else
@@ -119,12 +144,12 @@ module ysyx_22040750_icachectrl(
     // rd miss signal
     assign O_mem_arvalid = (current_state == RD_MISS) ? 1 : 0;
     assign rd_handshake = I_mem_arready && O_mem_arvalid;
-    assign O_mem_addr = {mem_addr[31:4],4'b0};
-    // cache miss case: latch mem addr
+    assign O_mem_addr = {mem_addr[31:OFFT_LEN],{OFFT_LEN{1'b0}}};
+    // latch mem addr
     always @(posedge I_clk)
         if(I_rst)
             mem_addr <= 0;
-        else if(rd_miss)
+        else if(I_cpu_rd_req)
             mem_addr <= I_cpu_addr;
         else
             mem_addr <= mem_addr;
@@ -133,25 +158,18 @@ module ysyx_22040750_icachectrl(
     always @(posedge I_clk)
         if(I_rst)
             cacheline_reg <= 0;
+        else if(rd_hit)
+            cacheline_reg <= way0_hit ? I_way0_rdata : I_way1_rdata;
         else if(rd_reload && I_mem_rvalid)
-            cacheline_reg <= {cacheline_reg[63:0], I_mem_rdata};
+            cacheline_reg <= {cacheline_reg[191:0], I_mem_rdata};
         else
             cacheline_reg <= cacheline_reg;
     // rd allocate signal
     assign rd_allocate = (current_state == RD_ALLOCATE) ? 1 : 0;
     assign O_cpu_rvalid = (current_state == RD_HIT) || rd_allocate;
-    always @(*)
-        if(rd_allocate)
-            case(mem_addr[3:2])
-                2'b11: O_cpu_inst = cacheline_reg[96 +: 32];
-                2'b10: O_cpu_inst = cacheline_reg[64 +: 32];
-                2'b01: O_cpu_inst = cacheline_reg[32 +: 32];
-                2'b00: O_cpu_inst = cacheline_reg[0 +: 32];
-            endcase
-        else
-            O_cpu_inst = 0;
+    assign O_cpu_inst = cacheline_reg[{mem_offset,3'b0} +: 32];
     assign O_sram_wen = rd_allocate ? 0 : 1;
-    assign O_sram_wmask = rd_allocate ? 0 : {128{1'b1}};
+    assign O_sram_wmask = rd_allocate ? 0 : {256{1'b1}};
     assign O_sram_wdata = cacheline_reg;
     assign way0_replace = rd_allocate && ~way1_replace;
     assign way1_replace = rd_allocate && (valid_table[{mem_index,1'b0}]) && ~(valid_table[{mem_index,1'b1}]);
@@ -172,7 +190,7 @@ module ysyx_22040750_icachectrl(
             IDLE: begin
                 if(rd_hit)
                     next_state = RD_HIT;
-                else if(rd_reload)
+                else if(rd_miss)
                     next_state = RD_MISS;
                 else
                     next_state = current_state;
