@@ -60,7 +60,7 @@ module ysyx_22040750_cache(
     output [127:0] O_sram6_wmask,
     output [127:0] O_sram7_wmask,
     // mem data, w/r addr & req
-    // axi interface
+    // axi interface(unused slave interface)
     input [63:0] I_mem_rdata,
     input I_mem_rvalid,
     input I_mem_bvalid,

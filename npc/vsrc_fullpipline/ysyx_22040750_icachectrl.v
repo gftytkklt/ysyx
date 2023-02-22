@@ -54,6 +54,7 @@ module ysyx_22040750_icachectrl #(
     output [31:0] O_mem_addr,// addr to mem
     output O_mem_arvalid,
     output O_mem_rready,
+    output O_mem_bready,
     output [7:0] O_mem_arlen,
     output [2:0] O_mem_arsize,
     // data & valid flag to cpu
@@ -91,6 +92,7 @@ module ysyx_22040750_icachectrl #(
     reg [3:0] cen_icache; // TODO: add ctrl logic
     // axi constant
     assign O_mem_rready = 1;// always enable rdata
+    assign O_mem_bready = 0;// always disable wresp
     assign O_mem_arlen = 3;// 32/8 - 1
     assign O_mem_arsize = 3'b011;// 8B
     // cache addr/en logic
@@ -168,7 +170,7 @@ module ysyx_22040750_icachectrl #(
     assign rd_allocate = (current_state == RD_ALLOCATE) ? 1 : 0;
     assign O_cpu_rvalid = (current_state == RD_HIT) || rd_allocate;
     assign O_cpu_inst = cacheline_reg[{mem_offset,3'b0} +: 32];
-    assign O_sram_wen = rd_allocate ? 0 : 1;
+    assign O_sram_wen = rd_allocate ? 4'b0 : 4'hf;
     assign O_sram_wmask = rd_allocate ? 0 : {256{1'b1}};
     assign O_sram_wdata = cacheline_reg;
     assign way0_replace = rd_allocate && ~way1_replace;
