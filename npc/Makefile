@@ -54,7 +54,7 @@ $(BIN): $(VSRC) $(CSRC)
 RUNARGS := $(BIN) $(IMG).bin $(IMG).elf
 DIFF_NEMU = $(NEMU_HOME)/build/riscv64-nemu-interpreter-so
 run: $(BIN) $(DIFFTEST_NEMU)
-	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
+	$(call git_commit, "sim RTL")
 	@$(RUNARGS) $(DIFF_NEMU)
 #gdb: $(BIN)
 #	$(call git_commit, "debug TB")

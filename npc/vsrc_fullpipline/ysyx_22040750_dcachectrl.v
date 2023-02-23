@@ -91,12 +91,12 @@ module ysyx_22040750_dcachectrl #(
     // cacheline & cpu_wb reg
     wire [7:0] sram_wmask;// cpu wmask;
     reg [31:0] sram_wmaskB;// Bytewise wmask
-    wire [1:0] wmask_offt;// 8*wmask_offt B
     reg [255:0] cacheline_reg;
     reg [63:0] cpu_reg;
     reg [7:0] cpu_mask_reg;
     reg [3:0] cen_dcache;
     reg [3:0] wen_dcache;
+    wire sram_wflag, sram_rflag;
     // lookup table
     integer i;
     reg [TAG_LEN-1:0] lookup_table [0:BLOCK_NUM-1];
@@ -108,8 +108,16 @@ module ysyx_22040750_dcachectrl #(
     wire hit;
     // signals below determine wb/allocate op(use in XX_RELOAD state)
     wire way0_dirty, way1_dirty;
-    // signals below determine cacheline allocate(use in XX_ALLOCATE state)
-    wire way0_replace, way1_replace;
+    // cacheline sel signal at comp stage
+    wire way1_op;
+    reg isway0_op;// high indicate way0 op
+    // wb fsm
+    parameter WB_IDLE = 3'b001, WB_HANDSHAKE = 3'b010, WB_DATA = 3'b100;
+    reg [2:0] wb_state, wb_next_state;
+    // axi interface handshake && wdata cnt
+    wire aw_handshake, wr_handshake;// awaddr/wdata handshake
+    reg [1:0] wdata_cnt;
+    wire [255:0] wdata;
     // data reg impl
     always @(posedge I_clk)
         if(I_rst)
@@ -117,11 +125,11 @@ module ysyx_22040750_dcachectrl #(
         else if(rd_hit)
             cacheline_reg <= way0_hit ? I_way0_rdata : I_way1_rdata;
         else if(wr_hit)
-            cacheline_reg[{offset[OFFT_LEN-1:OFFT_LEN-2],3'b0} +: 64] <= I_cpu_data;
+            cacheline_reg[{offset[OFFT_LEN-1:3],3'b0} +: 64] <= I_cpu_data;
         else if(wr_allocate)
-            cacheline_reg[{mem_offset[OFFT_LEN-1:OFFT_LEN-2],3'b0} +: 64] <= cpu_reg;
+            cacheline_reg[{mem_offset[OFFT_LEN-1:3],3'b0} +: 64] <= cpu_reg;
         else if((rd_reload || wr_reload) && I_mem_rvalid)
-            cacheline_reg <= {cacheline_reg[191:0], I_mem_rdata};
+            cacheline_reg <= {I_mem_rdata, cacheline_reg[255 -: 192]};
         else
             cacheline_reg <= cacheline_reg;
     always @(posedge I_clk)
@@ -133,8 +141,20 @@ module ysyx_22040750_dcachectrl #(
             {cpu_mask_reg, cpu_reg} <= {cpu_mask_reg, cpu_reg};
     // cpu interface impl
     assign O_cpu_rvalid = (current_state == RD_HIT) || rd_allocate;
-    assign O_cpu_rdata = cacheline_reg[{mem_index[OFFT_LEN-1:OFFT_LEN-2],3'b0,3'b0} +: 64];
+    assign O_cpu_rdata = cacheline_reg[{mem_index[OFFT_LEN-1:3],3'b0,3'b0} +: 64];
+    assign O_cpu_bvalid = (current_state == WR_HIT);
     // mem interface impl
+    assign aw_handshake = I_mem_awready && O_mem_awvalid;
+    assign wr_handshake = I_mem_wready && O_mem_wvalid;
+    always @(posedge I_clk)
+        if(I_rst)
+            wdata_cnt <= 0;
+        else if(wr_handshake)
+            wdata_cnt <= wdata_cnt + 1;
+        else
+            wdata_cnt <= wdata_cnt;
+    assign wdata = isway0_op ? I_way0_rdata : I_way1_rdata;
+    assign O_mem_wlast = O_mem_wvalid && (wdata_cnt == 2'b11);
     assign O_mem_arvalid = ((current_state == RD_MISS) || (current_state == WR_MISS)) ? 1 : 0;
     assign O_mem_rready = 1;
     assign O_mem_arlen = 3;// 32/8 - 1
@@ -143,23 +163,47 @@ module ysyx_22040750_dcachectrl #(
     assign O_mem_awaddr = O_mem_araddr;
     assign O_mem_awlen = 3;// 32/8 - 1
     assign O_mem_awsize = 3'b011;// 8B
+    assign O_mem_awvalid = (wb_state == WB_HANDSHAKE) ? 1 : 0;
+    assign O_mem_wvalid = (wb_state == WB_DATA) ? 1 : 0;
+    assign O_mem_wdata = wdata[{wdata_cnt,3'b0,3'b0} +: 64];
     assign O_mem_wstrb = 8'hff;
     assign O_mem_bready = 1;
     // sram interface impl
-    assign sram_wmask = wr_hit ? I_cpu_wmask : cpu_mask_reg;
-    assign wmask_offt = wr_hit ? offset[OFFT_LEN-1 -: 2] : 
+    // sram wr_en happen at WR_HIT(cpu partial wr), XX_ALLOCATE(cacheline replacement)
+    assign sram_wmask = ~cpu_mask_reg;// cpu wmask is high level valid
+    assign sram_wflag = (current_state == WR_HIT) || rd_allocate || wr_allocate;
+    assign sram_rflag = I_mem_rlast || rd_wb || wr_wb;
+    always @(*)
+        if(current_state == WR_HIT)
+            case(mem_offset[OFFT_LEN-1:3])
+                2'b11: sram_wmaskB = {sram_wmask, 24'hffffff};
+                2'b10: sram_wmaskB = {8'hff, sram_wmask, 16'hffff};
+                2'b01: sram_wmaskB = {16'hffff, sram_wmask, 8'hff};
+                2'b00: sram_wmaskB = {24'hffffff, sram_wmask};
+            endcase
+        else
+            sram_wmaskB = (rd_allocate || wr_allocate) ? 0 : {32{1'b1}};
     assign O_sram_wdata = cacheline_reg;
-    assign O_sram_addr = (rd_hit || wr_hit) ? index : mem_index;// 64 depth ram index
+    // only rd_hit case sram_op happen at IDLE
+    assign O_sram_addr = rd_hit ? index : mem_index;
     assign O_sram_cen = cen_dcache;
     assign O_sram_wen = wen_dcache;
     for(i=0;i<32;i=i+1)
         assign O_sram_wmask[8*i +: 8] = sram_wmaskB[i];
-    // sram wr
+    // sram wen
     always @(*)
-        if(wr_hit)// write 
-        else if(rd_allocate || wr_allocate)
+        if(sram_wflag)
+            wen_dcache = isway0_op ? 4'b1100 : 4'b0011;
         else
-            O_sram_wen = 4'b1111;
+            wen_dcache = 4'b1111;
+    // sram cen
+    always @(*)
+        if(rd_hit)
+            cen_dcache = way0_hit ? 4'b1100 : 4'b0011;
+        else if(sram_rflag | sram_wflag)
+            cen_cache = isway0_op ? 4'b1100 : 4'b0011;
+        else
+            cen_cache = 4'b1111;
     // fsm ctrl signal impl
     assign way0_tag = lookup_table[{index,1'b0}];
     assign way1_tag = lookup_table[{index,1'b1}];
@@ -179,6 +223,21 @@ module ysyx_22040750_dcachectrl #(
     assign wr_wb = (current_state == WR_WB) ? 1 : 0;
     assign rd_allocate = (current_state == RD_ALLOCATE) ? 1 : 0;
     assign wr_allocate = (current_state == WR_ALLOCATE) ? 1 : 0;
+    // if way1_hit, impl way1; else if miss && way0_valid && way1_empty, impl way1
+    // else, impl way0
+    assign way1_op = way1_hit || (~hit && valid_table[{index,1'b0}]) && ~(valid_table[{index,1'b1}]);
+    // determine way to be replaced at comp stage
+    always @(posedge I_clk)
+        if(I_rst)
+            isway0_op <= 0;
+        else if(I_cpu_rd_req || I_cpu_wr_req)
+            isway0_op <= way1_op ? 0 : 1;
+        else
+            isway0_op <= isway0_op;
+    // check if replace dirty block at miss stage
+    assign way0_dirty = dirty_table[{mem_index,1'b0}];
+    assign way1_dirty = dirty_table[{mem_index,1'b1}];
+    assign replace_dirty = (way0_dirty && isway0_op) || (way1_dirty && ~isway0_op);
     // lookup table impl
     always @(posedge I_clk)
         if(I_rst) begin
@@ -188,8 +247,8 @@ module ysyx_22040750_dcachectrl #(
             end
         end
         else if(rd_allocate || wr_allocate) begin
-            lookup_table[{mem_index, way1_replace}] <= mem_tag;
-            valid_table[{mem_index, way1_replace}] <= 1;
+            lookup_table[{mem_index, ~isway0_op}] <= mem_tag;
+            valid_table[{mem_index, ~isway0_op}] <= 1;
         end
         else begin
             for(i=0;i<BLOCK_NUM;i=i+1) begin
@@ -203,16 +262,33 @@ module ysyx_22040750_dcachectrl #(
                 dirty_table[i] <= 0;
             end
         end
+        else if(wr_hit)
+            dirty_table[{index, way1_hit}] <= 1;
         else if(rd_wb && I_mem_bvalid)
-            dirty_table[{mem_index, way1_replace}] <= 0;
+            dirty_table[{mem_index, ~isway0_op}] <= 0;
         else if(wr_allocate)
-            dirty_table[{mem_index, way1_replace}] <= 1;
+            dirty_table[{mem_index, ~isway0_op}] <= 1;
         else begin
             for(i=0;i<BLOCK_NUM;i=i+1) begin
                 dirty_table[i] <= dirty_table[i];
             end
         end
     // FSM impl
+    // wb
+    always @(posedge I_clk)
+        if(I_rst)
+            wb_state <= WB_IDLE;
+        else
+            wb_state <= wb_next_state;
+    always @(*) begin
+        wb_next_state = WB_IDLE;
+        case(wb_state)
+            WB_IDLE: wb_next_state = (I_mem_rlast && replace_dirty) ? WB_HANDSHAKE : wb_state;
+            WB_HANDSHAKE: wb_next_state = aw_handshake ? WB_DATA : wb_state;
+            WB_DATA: wb_next_state = (wr_handshake && O_mem_wlast) ? WB_IDLE : wb_state;
+        endcase
+    end
+    // overall
     always @(posedge I_clk)
         if(I_rst)
             current_state <= IDLE;

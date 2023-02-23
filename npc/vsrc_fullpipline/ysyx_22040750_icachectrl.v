@@ -163,13 +163,13 @@ module ysyx_22040750_icachectrl #(
         else if(rd_hit)
             cacheline_reg <= way0_hit ? I_way0_rdata : I_way1_rdata;
         else if(rd_reload && I_mem_rvalid)
-            cacheline_reg <= {cacheline_reg[191:0], I_mem_rdata};
+            cacheline_reg <= {I_mem_rdata, cacheline_reg[255 -: 192]};
         else
             cacheline_reg <= cacheline_reg;
     // rd allocate signal
     assign rd_allocate = (current_state == RD_ALLOCATE) ? 1 : 0;
     assign O_cpu_rvalid = (current_state == RD_HIT) || rd_allocate;
-    assign O_cpu_inst = cacheline_reg[{mem_offset,3'b0} +: 32];
+    assign O_cpu_inst = cacheline_reg[{mem_offset[OFFT_LEN-1:2],2'b0,3'b0} +: 32];
     assign O_sram_wen = rd_allocate ? 4'b0 : 4'hf;
     assign O_sram_wmask = rd_allocate ? 0 : {256{1'b1}};
     assign O_sram_wdata = cacheline_reg;
