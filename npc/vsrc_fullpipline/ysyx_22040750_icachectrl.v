@@ -51,10 +51,10 @@ module ysyx_22040750_icachectrl #(
     input I_mem_arready,
     input I_mem_rvalid,
     input I_mem_rlast,
-    output [31:0] O_mem_addr,// addr to mem
+    output [31:0] O_mem_araddr,// addr to mem
     output O_mem_arvalid,
     output O_mem_rready,
-    output O_mem_bready,
+    //output O_mem_bready,
     output [7:0] O_mem_arlen,
     output [2:0] O_mem_arsize,
     // data & valid flag to cpu
@@ -92,7 +92,7 @@ module ysyx_22040750_icachectrl #(
     reg [3:0] cen_icache; // TODO: add ctrl logic
     // axi constant
     assign O_mem_rready = 1;// always enable rdata
-    assign O_mem_bready = 0;// always disable wresp
+    //assign O_mem_bready = 0;// always disable wresp
     assign O_mem_arlen = 3;// 32/8 - 1
     assign O_mem_arsize = 3'b011;// 8B
     // cache addr/en logic

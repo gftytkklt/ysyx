@@ -5,7 +5,7 @@
 // 
 // Create Date: 2022/05/25 20:46:57
 // Design Name: 
-// Module Name: cpu_top
+// Module Name: cpu_core
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -19,7 +19,7 @@
 // This core is for cpu core top only, for top module with standard interface, use a new top module.
 //////////////////////////////////////////////////////////////////////////////////
 
-module ysyx_22040750_cpu_top(
+module ysyx_22040750_cpu_core(
     input I_sys_clk,
     input I_rst,
     input [31:0] I_inst,
