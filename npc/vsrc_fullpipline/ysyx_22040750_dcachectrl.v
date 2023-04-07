@@ -77,9 +77,11 @@ module ysyx_22040750_dcachectrl #(
     output O_cpu_bvalid
 );
     // FSM signal
-    parameter IDLE = 11'h1, RD_HIT = 11'h2, RD_MISS = 11'h4, RD_RELOAD = 11'h8, RD_WB = 11'h10, RD_ALLOCATE = 11'h20;
-    parameter WR_HIT = 11'h40, WR_MISS = 11'h80, WR_RELOAD = 11'h100, WR_WB = 11'h200, WR_ALLOCATE = 11'h400;
-    reg [10:0] current_state, next_state;
+    parameter IDLE = 13'h1, RD_HIT = 13'h2, RD_MISS = 13'h4, RD_RELOAD = 13'h8, RD_WB = 13'h10, RD_ALLOCATE = 13'h20;
+    parameter WR_HIT = 13'h40, WR_MISS = 13'h80, WR_RELOAD = 13'h100, WR_WB = 13'h200, WR_ALLOCATE = 13'h400;
+    parameter MMIO_RD = 13'h800, MMIO_WR = 13'h1000;
+    wire mmio_flag;
+    reg [12:0] current_state, next_state;
     wire replace_dirty;
     wire rd_hit, rd_miss, rd_handshake, rd_reload, rd_wb, rd_allocate;
     wire wr_hit, wr_miss, wr_reload, wr_wb, wr_allocate;
@@ -160,7 +162,7 @@ module ysyx_22040750_dcachectrl #(
     assign O_mem_arlen = 3;// 32/8 - 1
     assign O_mem_arsize = 3'b011;// 8B
     assign O_mem_araddr = {mem_addr[31:OFFT_LEN],{OFFT_LEN{1'b0}}};// 32B alignment
-    assign O_mem_awaddr = O_mem_araddr;
+    assign O_mem_awaddr = (wb_state == WB_HANDSHAKE) ? O_mem_araddr : 0;
     assign O_mem_awlen = 3;// 32/8 - 1
     assign O_mem_awsize = 3'b011;// 8B
     assign O_mem_awvalid = (wb_state == WB_HANDSHAKE) ? 1 : 0;
@@ -212,10 +214,10 @@ module ysyx_22040750_dcachectrl #(
     assign way0_hit = (tag == way0_tag) && way0_valid;
     assign way1_hit = (tag == way1_tag) && way1_valid;
     assign hit = way0_hit || way1_hit;
-    assign rd_hit = hit && I_cpu_rd_req;
-    assign rd_miss = ~hit && I_cpu_rd_req;
-    assign wr_hit = hit && I_cpu_wr_req;
-    assign wr_miss = ~hit && I_cpu_wr_req;
+    assign rd_hit = hit && I_cpu_rd_req && ~mmio_flag;
+    assign rd_miss = ~hit && I_cpu_rd_req && ~mmio_flag;
+    assign wr_hit = hit && I_cpu_wr_req && ~mmio_flag;
+    assign wr_miss = ~hit && I_cpu_wr_req && ~mmio_flag;
     assign rd_handshake = O_mem_arvalid && I_mem_arready;
     assign rd_reload = (current_state == RD_RELOAD) ? 1 : 0;
     assign wr_reload = (current_state == WR_RELOAD) ? 1 : 0;
@@ -289,6 +291,9 @@ module ysyx_22040750_dcachectrl #(
         endcase
     end
     // overall
+    // mmio_flag: current mem range: 80000000-87ffffff, other addr means mmio_addr
+    // simple impl: [31:24] 1000_0000-1000_0111, so cached addr must have addr[31:27] == 10000
+    assign mmio_flag = (I_cpu_addr[31:27] == 5'b10000) && (I_cpu_rd_req || I_cpu_wr_req);
     always @(posedge I_clk)
         if(I_rst)
             current_state <= IDLE;
@@ -298,7 +303,9 @@ module ysyx_22040750_dcachectrl #(
         next_state = IDLE;
         case(current_state)
             IDLE: begin
-                if(rd_hit)
+                if(mmio_flag)
+                    next_state = I_cpu_rd_req ? MMIO_RD : MMIO_WR;
+                else if(rd_hit)
                     next_state = RD_HIT;
                 else if(rd_miss)
                     next_state = RD_MISS;
@@ -319,6 +326,8 @@ module ysyx_22040750_dcachectrl #(
             WR_RELOAD: next_state = I_mem_rlast ? (replace_dirty ? WR_WB : WR_ALLOCATE) : current_state;
             WR_WB: next_state = I_mem_bvalid ? WR_ALLOCATE : current_state;
             WR_ALLOCATE: next_state = WR_HIT;
+            MMIO_RD: next_state = I_mem_rlast ? IDLE : current_state;
+            MMIO_WR: next_state = I_mem_bvalid ? IDLE : current_state;
         endcase
     end
     // compare tag signal impl
