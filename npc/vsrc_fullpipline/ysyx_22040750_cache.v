@@ -79,11 +79,11 @@ module ysyx_22040750_cache(
     output O_mem_wlast,
     output [7:0] O_mem_wstrb,
 
-    wire [31:0] O_mem_awaddr,
+    output [31:0] O_mem_awaddr,
     output O_mem_awvalid,
     input I_mem_awready,
-    wire [7:0] O_mem_awlen,
-    wire [2:0] O_mem_awsize,
+    output [7:0] O_mem_awlen,
+    output [2:0] O_mem_awsize,
 
     input I_mem_bvalid,
     output O_mem_bready,
