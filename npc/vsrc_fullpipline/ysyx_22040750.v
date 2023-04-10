@@ -135,6 +135,14 @@ module ysyx_22040750(
     input [127:0] io_sram7_rdata,
 );
     wire [5:0] iaddr, daddr;
+    wire [31:0] cpu_inst, cpu_pc;
+    wire cpu_inst_valid, cpu_pc_valid;
+    wire [31:0] mem_addr;
+    wire cpu_rreq, cpu_wreq;
+    wire [63:0] mem_rdata, mem_wdata;
+    wire mem_rvalid, mem_bvalid;
+    wire [7:0] cpu_wmask;
+
     assign io_sram3_addr = iaddr;
     assign io_sram2_addr = iaddr;
     assign io_sram1_addr = iaddr;
@@ -146,30 +154,37 @@ module ysyx_22040750(
     ysyx_22040750_cpu_core cpu_core_e(
         .I_sys_clk(clock),
         .I_rst(reset),
-        .I_inst(),
-        .I_inst_valid(),
-        .I_inst_addr_ready(),
-        .O_pc(),
-        .O_pc_valid(),
-        .O_mem_addr(),
-        .O_mem_rd_en(),
-        .O_mem_wen(),
-        .I_mem_rd_data(),
-        .I_mem_rd_data_valid(),
-        .I_mem_wr_data_valid(),
-        .O_mem_wr_data(),
-        .O_mem_wr_strb()
+        .I_inst(cpu_inst),
+        .I_inst_valid(cpu_inst_valid),
+        .O_pc(cpu_pc),
+        .O_pc_valid(cpu_pc_valid),
+        .O_mem_addr(mem_addr),
+        .O_mem_rd_en(cpu_rreq),
+        .O_mem_wen(cpu_wreq),
+        .I_mem_rd_data(mem_rdata),
+        .I_mem_rd_data_valid(mem_rvalid),
+        .I_mem_wr_data_valid(mem_bvalid),
+        .O_mem_wr_data(mem_wdata),
+        .O_mem_wr_strb(cpu_wmask)
     );
 
     ysyx_22040750_cache(
         .I_clk(clock),
         .I_rst(reset),
+        // pc & inst
+        .I_cpu_pc(cpu_pc),
+        .I_cpu_pc_valid(cpu_pc_valid),
+        .O_cpu_inst(cpu_inst),
+        .O_cpu_inst_valid(cpu_inst_valid),
         // cpu addr & w/r req
-        .I_cpu_addr,
-        .I_cpu_wmask,
-        .I_cpu_rd_req,
-        .I_cpu_wr_req,
-        .I_cpu_wdata,
+        .I_cpu_addr(mem_addr),
+        .I_cpu_wmask(cpu_wmask),
+        .I_cpu_rd_req(cpu_rreq),
+        .I_cpu_wr_req(cpu_wreq),
+        .I_cpu_wdata(mem_wdata),
+        .O_cpu_rdata(mem_rdata),
+        .O_cpu_rvalid(mem_rvalid),
+        .O_cpu_bvalid(mem_bvalid),
         // cache w/r addr & req, low level valid en
         .I_sram0_rdata(io_sram0_rdata),
         .I_sram1_rdata(io_sram1_rdata),
@@ -232,14 +247,8 @@ module ysyx_22040750(
         //.O_mem_awburst(io_master_awburst),
 
         .I_mem_bvalid(io_master_bvalid),
-        .O_mem_bready(io_master_bready),
+        .O_mem_bready(io_master_bready)
         //.I_mem_bid(io_master_bid),
         //.I_mem_bresp(io_master_bresp),
-        // data & valid flag to cpu
-        .O_cpu_rdata,
-        .O_cpu_inst,
-        .O_cpu_inst_valid,
-        .O_cpu_rvalid,
-        .O_cpu_bvalid
     );
 endmodule

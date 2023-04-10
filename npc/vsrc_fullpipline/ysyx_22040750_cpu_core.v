@@ -24,7 +24,6 @@ module ysyx_22040750_cpu_core(
     input I_rst,
     input [31:0] I_inst,
     input I_inst_valid,
-    input I_inst_addr_ready,
     output [63:0] O_pc,
     output O_pc_valid,
     output [63:0] O_mem_addr,
