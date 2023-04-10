@@ -27,7 +27,7 @@ module ysyx_22040750_icachectrl #(
     parameter BLOCK_NUM = CACHE_SIZE / BLOCK_SIZE,
     parameter OFFT_LEN = $clog2(BLOCK_SIZE),
     parameter INDEX_LEN = $clog2(BLOCK_NUM/GROUP_NUM),
-    parameter TAG_LEN = 32-OFFT_LEN-OFFT_LEN
+    parameter TAG_LEN = 32-OFFT_LEN-INDEX_LEN
 )(
     input I_clk,
     input I_rst,
@@ -74,7 +74,7 @@ module ysyx_22040750_icachectrl #(
     reg [31:0] mem_addr;
     // lookup table
     // table index LSB indecates way num, remaining 7-bit MSB indicate cacheline index[6:0]
-    integer i;
+    genvar i;
     reg [TAG_LEN-1:0] lookup_table [0:BLOCK_NUM-1];
     reg [BLOCK_NUM-1:0] valid_table;
     wire [TAG_LEN-1:0] way0_tag, way1_tag;
@@ -99,23 +99,22 @@ module ysyx_22040750_icachectrl #(
     assign O_sram_addr = rd_hit ? index : mem_index;// 64 depth ram index
     assign O_sram_cen = cen_icache;
     // tag & valid flag impl
+    generate for(i=0;i<BLOCK_NUM;i=i+1) begin
     always @(posedge I_clk)
         if(I_rst) begin
-            for(i=0;i<BLOCK_NUM;i=i+1) begin
-                lookup_table[i] <= 0;
-                valid_table[i] <= 0;
-            end
+            lookup_table[i] <= 0;
+            valid_table[i] <= 0;
         end
         else if(rd_allocate) begin
             lookup_table[{mem_index, way1_replace}] <= mem_tag;
             valid_table[{mem_index, way1_replace}] <= 1;
         end
         else begin
-            for(i=0;i<BLOCK_NUM;i=i+1) begin
-                lookup_table[i] <= lookup_table[i];
-                valid_table[i] <= valid_table[i];
-            end
+            lookup_table[i] <= lookup_table[i];
+            valid_table[i] <= valid_table[i];
         end
+    end
+    endgenerate
     // cen impl: rd_hit impl cache rd, I_mem_rvalid impl cache reload
     always @(*)
         if(rd_hit)// rd_hit case, cacheline rd
@@ -133,7 +132,7 @@ module ysyx_22040750_icachectrl #(
         else
             cen_icache = 4'b1111;
     // icache rd hit/miss logic
-    assign {tag, index, offset} = I_addr;
+    assign {tag, index, offset} = I_cpu_addr;
     assign {mem_tag, mem_index, mem_offset} = mem_addr;
     assign way0_tag = lookup_table[{index,1'b0}];
     assign way1_tag = lookup_table[{index,1'b1}];
@@ -146,7 +145,7 @@ module ysyx_22040750_icachectrl #(
     // rd miss signal
     assign O_mem_arvalid = (current_state == RD_MISS) ? 1 : 0;
     assign rd_handshake = I_mem_arready && O_mem_arvalid;
-    assign O_mem_addr = {mem_addr[31:OFFT_LEN],{OFFT_LEN{1'b0}}};
+    assign O_mem_araddr = {mem_addr[31:OFFT_LEN],{OFFT_LEN{1'b0}}};
     // latch mem addr
     always @(posedge I_clk)
         if(I_rst)

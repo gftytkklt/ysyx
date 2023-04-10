@@ -27,7 +27,7 @@ module ysyx_22040750_dcachectrl #(
     parameter BLOCK_NUM = CACHE_SIZE / BLOCK_SIZE,
     parameter OFFT_LEN = $clog2(BLOCK_SIZE),
     parameter INDEX_LEN = $clog2(BLOCK_NUM/GROUP_NUM),
-    parameter TAG_LEN = 32-OFFT_LEN-OFFT_LEN
+    parameter TAG_LEN = 32-OFFT_LEN-INDEX_LEN
 )(
     input I_clk,
     input I_rst,
@@ -100,7 +100,7 @@ module ysyx_22040750_dcachectrl #(
     reg [3:0] wen_dcache;
     wire sram_wflag, sram_rflag;
     // lookup table
-    integer i;
+    genvar i;
     reg [TAG_LEN-1:0] lookup_table [0:BLOCK_NUM-1];
     reg [BLOCK_NUM-1:0] valid_table, dirty_table;
     // signals below compare hit & miss(use in IDLE state)
@@ -127,9 +127,9 @@ module ysyx_22040750_dcachectrl #(
         else if(rd_hit)
             cacheline_reg <= way0_hit ? I_way0_rdata : I_way1_rdata;
         else if(wr_hit)
-            cacheline_reg[{offset[OFFT_LEN-1:3],3'b0} +: 64] <= I_cpu_data;
+            cacheline_reg[{offset[OFFT_LEN-1:3],3'b0,3'b0} +: 64] <= I_cpu_data;
         else if(wr_allocate)
-            cacheline_reg[{mem_offset[OFFT_LEN-1:3],3'b0} +: 64] <= cpu_reg;
+            cacheline_reg[{mem_offset[OFFT_LEN-1:3],3'b0,3'b0} +: 64] <= cpu_reg;
         else if((rd_reload || wr_reload) && I_mem_rvalid)
             cacheline_reg <= {I_mem_rdata, cacheline_reg[255 -: 192]};
         else
@@ -143,7 +143,7 @@ module ysyx_22040750_dcachectrl #(
             {cpu_mask_reg, cpu_reg} <= {cpu_mask_reg, cpu_reg};
     // cpu interface impl
     assign O_cpu_rvalid = (current_state == RD_HIT) || rd_allocate;
-    assign O_cpu_rdata = cacheline_reg[{mem_index[OFFT_LEN-1:3],3'b0,3'b0} +: 64];
+    assign O_cpu_data = cacheline_reg[{mem_index[OFFT_LEN-1:3],3'b0,3'b0} +: 64];
     assign O_cpu_bvalid = (current_state == WR_HIT);
     // mem interface impl
     assign aw_handshake = I_mem_awready && O_mem_awvalid;
@@ -191,7 +191,7 @@ module ysyx_22040750_dcachectrl #(
     assign O_sram_cen = cen_dcache;
     assign O_sram_wen = wen_dcache;
     for(i=0;i<32;i=i+1)
-        assign O_sram_wmask[8*i +: 8] = sram_wmaskB[i];
+        assign O_sram_wmask[8*i +: 8] = {8{sram_wmaskB[i]}};
     // sram wen
     always @(*)
         if(sram_wflag)
@@ -203,9 +203,9 @@ module ysyx_22040750_dcachectrl #(
         if(rd_hit)
             cen_dcache = way0_hit ? 4'b1100 : 4'b0011;
         else if(sram_rflag | sram_wflag)
-            cen_cache = isway0_op ? 4'b1100 : 4'b0011;
+            cen_dcache = isway0_op ? 4'b1100 : 4'b0011;
         else
-            cen_cache = 4'b1111;
+            cen_dcache = 4'b1111;
     // fsm ctrl signal impl
     assign way0_tag = lookup_table[{index,1'b0}];
     assign way1_tag = lookup_table[{index,1'b1}];
@@ -241,28 +241,23 @@ module ysyx_22040750_dcachectrl #(
     assign way1_dirty = dirty_table[{mem_index,1'b1}];
     assign replace_dirty = (way0_dirty && isway0_op) || (way1_dirty && ~isway0_op);
     // lookup table impl
+    generate for(i=0;i<BLOCK_NUM;i=i+1) begin
     always @(posedge I_clk)
         if(I_rst) begin
-            for(i=0;i<BLOCK_NUM;i=i+1) begin
-                lookup_table[i] <= 0;
-                valid_table[i] <= 0;
-            end
+            lookup_table[i] <= 0;
+            valid_table[i] <= 0;
         end
         else if(rd_allocate || wr_allocate) begin
             lookup_table[{mem_index, ~isway0_op}] <= mem_tag;
             valid_table[{mem_index, ~isway0_op}] <= 1;
         end
         else begin
-            for(i=0;i<BLOCK_NUM;i=i+1) begin
-                lookup_table[i] <= lookup_table[i];
-                valid_table[i] <= valid_table[i];
-            end
+            lookup_table[i] <= lookup_table[i];
+            valid_table[i] <= valid_table[i];
         end
     always @(posedge I_clk)
         if(I_rst) begin
-            for(i=0;i<BLOCK_NUM;i=i+1) begin
-                dirty_table[i] <= 0;
-            end
+            dirty_table[i] <= 0;
         end
         else if(wr_hit)
             dirty_table[{index, way1_hit}] <= 1;
@@ -271,10 +266,10 @@ module ysyx_22040750_dcachectrl #(
         else if(wr_allocate)
             dirty_table[{mem_index, ~isway0_op}] <= 1;
         else begin
-            for(i=0;i<BLOCK_NUM;i=i+1) begin
-                dirty_table[i] <= dirty_table[i];
-            end
+            dirty_table[i] <= dirty_table[i];
         end
+    end
+    endgenerate
     // FSM impl
     // wb
     always @(posedge I_clk)
@@ -288,6 +283,7 @@ module ysyx_22040750_dcachectrl #(
             WB_IDLE: wb_next_state = (I_mem_rlast && replace_dirty) ? WB_HANDSHAKE : wb_state;
             WB_HANDSHAKE: wb_next_state = aw_handshake ? WB_DATA : wb_state;
             WB_DATA: wb_next_state = (wr_handshake && O_mem_wlast) ? WB_IDLE : wb_state;
+            default: wb_next_state = wb_state;
         endcase
     end
     // overall
@@ -328,10 +324,11 @@ module ysyx_22040750_dcachectrl #(
             WR_ALLOCATE: next_state = WR_HIT;
             MMIO_RD: next_state = I_mem_rlast ? IDLE : current_state;
             MMIO_WR: next_state = I_mem_bvalid ? IDLE : current_state;
+            default: next_state = current_state;
         endcase
     end
     // compare tag signal impl
-    assign {tag, index, offset} = I_addr;
+    assign {tag, index, offset} = I_cpu_addr;
     assign {mem_tag, mem_index, mem_offset} = mem_addr;
     always @(posedge I_clk)
         if(I_rst)

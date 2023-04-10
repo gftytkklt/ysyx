@@ -196,8 +196,8 @@ module ysyx_22040750_cache(
     ysyx_22040750_icachectrl icache_e(
         .I_clk(I_clk),
         .I_rst(I_rst),
-        .I_cpu_addr(I_cpu_addr),
-        .I_cpu_rd_req(I_cpu_inst_req),
+        .I_cpu_addr(I_cpu_pc),
+        .I_cpu_rd_req(I_cpu_pc_valid),
         .I_way0_rdata(icache_way0_rdata),
         .I_way1_rdata(icache_way1_rdata),
         .O_sram_addr(O_sram_iaddr),

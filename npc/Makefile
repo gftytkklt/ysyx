@@ -1,9 +1,11 @@
 -include $(NEMU_HOME)/../Makefile
 VSRC = $(shell find $(abspath ./vsrc_fullpipline) -name "*.v")
-CSRC = $(abspath ./csrc/cputest.cpp)
+#CSRC = $(abspath ./csrc/cputest.cpp)
+CSRC = $(abspath ./csrc/cputest_axi.cpp)
 CSRC += $(shell find $(abspath ./csrc/util) -name "*.cpp")
 WAVEFILE = addcpu_sim
-TOPNAME = ysyx_22040750_cpu_top
+TOPNAME = ysyx_22040750
+#TOPNAME = ysyx_22040750_cpu_top
 #NXDC_FILES = constr/example.nxdc
 INC_PATH ?= $(NPC_HOME)/csrc/include
 INCLUDES = $(addprefix -I, $(INC_PATH))

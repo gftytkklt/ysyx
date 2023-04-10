@@ -19,21 +19,21 @@ extern "C" {
     extern void set_inst_ptr(const svOpenArrayHandle a);
     // DPI import at /home/gftyt/ysyx-workbench/npc/vsrc_fullpipline/ysyx_22040750_pc.v:36:34
     extern void set_pc_ptr(const svOpenArrayHandle a);
-    // DPI import at /home/gftyt/ysyx-workbench/npc/vsrc_fullpipline/ysyx_22040750_cpu_top.v:150:34
+    // DPI import at /home/gftyt/ysyx-workbench/npc/vsrc_fullpipline/ysyx_22040750_cpu_core.v:149:34
     extern void set_skip_pc_ptr(const svOpenArrayHandle a);
-    // DPI import at /home/gftyt/ysyx-workbench/npc/vsrc_fullpipline/ysyx_22040750_cpu_top.v:146:34
+    // DPI import at /home/gftyt/ysyx-workbench/npc/vsrc_fullpipline/ysyx_22040750_cpu_core.v:145:34
     extern void set_wb_bubble_ptr(const svOpenArrayHandle a);
-    // DPI import at /home/gftyt/ysyx-workbench/npc/vsrc_fullpipline/ysyx_22040750_cpu_top.v:152:34
+    // DPI import at /home/gftyt/ysyx-workbench/npc/vsrc_fullpipline/ysyx_22040750_cpu_core.v:151:34
     extern void set_wb_inst_ptr(const svOpenArrayHandle a);
-    // DPI import at /home/gftyt/ysyx-workbench/npc/vsrc_fullpipline/ysyx_22040750_cpu_top.v:156:34
+    // DPI import at /home/gftyt/ysyx-workbench/npc/vsrc_fullpipline/ysyx_22040750_cpu_core.v:155:34
     extern void set_wb_memaddr_ptr(const svOpenArrayHandle a);
-    // DPI import at /home/gftyt/ysyx-workbench/npc/vsrc_fullpipline/ysyx_22040750_cpu_top.v:154:34
+    // DPI import at /home/gftyt/ysyx-workbench/npc/vsrc_fullpipline/ysyx_22040750_cpu_core.v:153:34
     extern void set_wb_memop_ptr(const svOpenArrayHandle a);
-    // DPI import at /home/gftyt/ysyx-workbench/npc/vsrc_fullpipline/ysyx_22040750_cpu_top.v:148:34
+    // DPI import at /home/gftyt/ysyx-workbench/npc/vsrc_fullpipline/ysyx_22040750_cpu_core.v:147:34
     extern void set_wb_pc_ptr(const svOpenArrayHandle a);
-    // DPI import at /home/gftyt/ysyx-workbench/npc/vsrc_fullpipline/ysyx_22040750_cpu_top.v:144:34
+    // DPI import at /home/gftyt/ysyx-workbench/npc/vsrc_fullpipline/ysyx_22040750_cpu_core.v:143:34
     extern void set_wb_ptr(const svOpenArrayHandle a);
-    // DPI import at /home/gftyt/ysyx-workbench/npc/vsrc_fullpipline/ysyx_22040750_cpu_top.v:158:34
+    // DPI import at /home/gftyt/ysyx-workbench/npc/vsrc_fullpipline/ysyx_22040750_cpu_core.v:157:34
     extern void sim_end();
 
 #ifdef __cplusplus

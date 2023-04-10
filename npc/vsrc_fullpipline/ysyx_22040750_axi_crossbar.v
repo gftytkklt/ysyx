@@ -52,7 +52,7 @@ module ysyx_22040750_axi_crossbar(
     output O_ch1_arready,
     input I_ch1_arvalid,
     input [7:0] I_ch1_arlen,
-    input [2:0] I_ch1_arsize,
+    input [2:0] I_ch1_arsize
 );
     localparam CH0 = 1'b0;
     localparam CH1 = 1'b1;
