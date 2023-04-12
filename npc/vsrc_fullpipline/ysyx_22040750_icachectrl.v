@@ -82,6 +82,10 @@ module ysyx_22040750_icachectrl #(
     wire way0_valid, way1_valid;
     wire way0_hit, way1_hit;
     wire way0_replace, way1_replace;
+    // final data rd src
+    wire [255:0] mem_rdata;
+    // cache hit data source
+    wire [255:0] hit_rdata;
     // mem wb reg
     reg [255:0] cacheline_reg;
     // ctrl signal
@@ -160,8 +164,8 @@ module ysyx_22040750_icachectrl #(
     always @(posedge I_clk)
         if(I_rst)
             cacheline_reg <= 0;
-        else if(rd_hit)
-            cacheline_reg <= way0_hit ? I_way0_rdata : I_way1_rdata;
+        //else if(rd_hit)
+        //    cacheline_reg <= way0_hit ? I_way0_rdata : I_way1_rdata;
         else if(rd_reload && I_mem_rvalid)
             cacheline_reg <= {I_mem_rdata, cacheline_reg[255 -: 192]};
         else
@@ -169,7 +173,10 @@ module ysyx_22040750_icachectrl #(
     // rd allocate signal
     assign rd_allocate = (current_state == RD_ALLOCATE) ? 1 : 0;
     assign O_cpu_rvalid = (current_state == RD_HIT) || rd_allocate;
-    assign O_cpu_inst = cacheline_reg[{mem_offset[OFFT_LEN-1:2],2'b0,3'b0} +: 32];
+    assign hit_rdata = way0_hit ? I_way0_rdata : I_way1_rdata;
+    assign mem_rdata = (current_state == RD_HIT) ? hit_rdata : cacheline_reg;
+    assign O_cpu_inst = mem_rdata[{mem_offset[OFFT_LEN-1:2],2'b0,3'b0} +: 32];
+    //assign O_cpu_inst = cacheline_reg[{mem_offset[OFFT_LEN-1:2],2'b0,3'b0} +: 32];
     assign O_sram_wen = rd_allocate ? 4'b0 : 4'hf;
     assign O_sram_wmask = rd_allocate ? 0 : {256{1'b1}};
     assign O_sram_wdata = cacheline_reg;
