@@ -89,7 +89,7 @@ module ysyx_22040750_icachectrl #(
     // mem wb reg
     reg [255:0] cacheline_reg;
     // ctrl signal
-    wire rd_hit, rd_miss, rd_handshake, rd_reload, rd_allocate;
+    wire rd_hit, rd_miss, rd_handshake, rd_reload, rd_allocate, pc_handshake;
     // FSM
     localparam IDLE = 4'b0000, RD_HIT = 4'b0001, RD_MISS = 4'b0010, RD_RELOAD = 4'b0100, RD_ALLOCATE = 4'b1000;
     reg [3:0] current_state, next_state;
@@ -143,19 +143,20 @@ module ysyx_22040750_icachectrl #(
     assign way1_tag = lookup_table[{index,1'b1}];
     assign way0_valid = valid_table[{index,1'b0}];
     assign way1_valid = valid_table[{index,1'b1}];
-    assign way0_hit = (tag == way0_tag) && way0_valid && I_cpu_rd_req;
-    assign way1_hit = (tag == way1_tag) && way1_valid && I_cpu_rd_req;
+    assign way0_hit = (tag == way0_tag) && way0_valid && pc_handshake;
+    assign way1_hit = (tag == way1_tag) && way1_valid && pc_handshake;
     assign rd_hit = way0_hit || way1_hit;
-    assign rd_miss = I_cpu_rd_req && ~rd_hit;
+    assign rd_miss = pc_handshake && ~rd_hit;
     // rd miss signal
     assign O_mem_arvalid = (current_state == RD_MISS) ? 1 : 0;
     assign rd_handshake = I_mem_arready && O_mem_arvalid;
+    assign pc_handshake = I_cpu_rd_req && O_cpu_rd_ready;
     assign O_mem_araddr = {mem_addr[31:OFFT_LEN],{OFFT_LEN{1'b0}}};
     // latch mem addr
     always @(posedge I_clk)
         if(I_rst)
             mem_addr <= 0;
-        else if(I_cpu_rd_req)
+        else if(pc_handshake)
             mem_addr <= I_cpu_addr;
         else
             mem_addr <= mem_addr;

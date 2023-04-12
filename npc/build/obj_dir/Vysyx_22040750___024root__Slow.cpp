@@ -449,6 +449,10 @@ void Vysyx_22040750___024root___settle__TOP__1(Vysyx_22040750___024root* vlSelf)
         = (((4U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__current_state)) 
             | (0x80U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__current_state)))
             ? 1U : 0U);
+    vlSelf->ysyx_22040750__DOT__cpu_pc_ready = ((0U 
+                                                 == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state)) 
+                                                | (1U 
+                                                   == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state)));
     vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__pc_e__DOT__IF_ready_go 
         = (1U & (((1U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state)) 
                   | ((8U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))
@@ -2166,8 +2170,7 @@ void Vysyx_22040750___024root___settle__TOP__1(Vysyx_22040750___024root* vlSelf)
                                         : (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__current_state)))))));
     vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__pc_e__DOT__IF_handshake 
         = ((IData)(vlSelf->ysyx_22040750__DOT__cpu_pc_valid) 
-           & ((0U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state)) 
-              | (1U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))));
+           & (IData)(vlSelf->ysyx_22040750__DOT__cpu_pc_ready));
     vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__rem_result 
         = ((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__radix2_div_e__DOT__dividend_flag)
             ? (- (((QData)((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__radix2_div_e__DOT__abs_dividend[1U])) 
@@ -2730,7 +2733,7 @@ void Vysyx_22040750___024root___settle__TOP__1(Vysyx_22040750___024root* vlSelf)
                (0x1fU & (1U | (0x7eU & ((IData)((vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__dnpc 
                                                  >> 5U)) 
                                         << 1U)))))) 
-           & (IData)(vlSelf->ysyx_22040750__DOT__cpu_pc_valid));
+           & (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__pc_e__DOT__IF_handshake));
     vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__way0_hit 
         = ((((0x1fffffU & (IData)((vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__dnpc 
                                    >> 0xbU))) == vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table
@@ -2741,7 +2744,7 @@ void Vysyx_22040750___024root___settle__TOP__1(Vysyx_22040750___024root* vlSelf)
                                >> 5U)) >> 4U))] >> 
                (0x1eU & ((IData)((vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__dnpc 
                                   >> 5U)) << 1U)))) 
-           & (IData)(vlSelf->ysyx_22040750__DOT__cpu_pc_valid));
+           & (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__pc_e__DOT__IF_handshake));
     if ((1U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))) {
         __Vtemp78[0U] = ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__way0_hit)
                           ? vlSelf->ysyx_22040750__DOT__io_sram0_rdata[0U]
@@ -2794,7 +2797,7 @@ void Vysyx_22040750___024root___settle__TOP__1(Vysyx_22040750___024root* vlSelf)
                                                    : 
                                                   (vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__mem_addr 
                                                    >> 5U)));
-    __Vtableidx2 = ((((IData)(vlSelf->ysyx_22040750__DOT__cpu_pc_valid) 
+    __Vtableidx2 = ((((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__pc_e__DOT__IF_handshake) 
                       & (~ (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__rd_hit))) 
                      << 7U) | (((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__rd_hit) 
                                 << 6U) | ((((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_icache_arready) 
@@ -2973,6 +2976,7 @@ void Vysyx_22040750___024root___ctor_var_reset(Vysyx_22040750___024root* vlSelf)
     vlSelf->ysyx_22040750__DOT__daddr = 0;
     vlSelf->ysyx_22040750__DOT__cpu_inst = 0;
     vlSelf->ysyx_22040750__DOT__cpu_pc_valid = 0;
+    vlSelf->ysyx_22040750__DOT__cpu_pc_ready = 0;
     vlSelf->ysyx_22040750__DOT__mem_wdata = 0;
     vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_wen = 0;
     vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen = 0;

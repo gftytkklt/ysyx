@@ -1242,6 +1242,7 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBit(c+1033,"ysyx_22040750 cache_e icache_e rd_handshake", false,-1);
         tracep->declBit(c+851,"ysyx_22040750 cache_e icache_e rd_reload", false,-1);
         tracep->declBit(c+852,"ysyx_22040750 cache_e icache_e rd_allocate", false,-1);
+        tracep->declBit(c+271,"ysyx_22040750 cache_e icache_e pc_handshake", false,-1);
         tracep->declBus(c+1089,"ysyx_22040750 cache_e icache_e IDLE", false,-1, 3,0);
         tracep->declBus(c+1090,"ysyx_22040750 cache_e icache_e RD_HIT", false,-1, 3,0);
         tracep->declBus(c+1091,"ysyx_22040750 cache_e icache_e RD_MISS", false,-1, 3,0);
@@ -1631,8 +1632,7 @@ void Vysyx_22040750___024root__traceFullSub0(Vysyx_22040750___024root* vlSelf, V
                                         | ((8U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))
                                             ? 1U : 0U)))));
         tracep->fullBit(oldp+79,(vlSelf->ysyx_22040750__DOT__cpu_pc_valid));
-        tracep->fullBit(oldp+80,(((0U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state)) 
-                                  | (1U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state)))));
+        tracep->fullBit(oldp+80,(vlSelf->ysyx_22040750__DOT__cpu_pc_ready));
         tracep->fullQData(oldp+81,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_mem_addr),64);
         tracep->fullBit(oldp+83,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_reg_e__DOT__mem_rd_en));
         tracep->fullBit(oldp+84,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_reg_e__DOT__mem_wr_en));
@@ -3341,7 +3341,7 @@ void Vysyx_22040750___024root__traceFullSub0(Vysyx_22040750___024root* vlSelf, V
         }
         tracep->fullWData(oldp+841,(__Vtemp461),256);
         tracep->fullBit(oldp+849,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__rd_hit));
-        tracep->fullBit(oldp+850,(((IData)(vlSelf->ysyx_22040750__DOT__cpu_pc_valid) 
+        tracep->fullBit(oldp+850,(((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__pc_e__DOT__IF_handshake) 
                                    & (~ (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__rd_hit)))));
         tracep->fullBit(oldp+851,((4U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))));
         tracep->fullBit(oldp+852,(((8U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))
