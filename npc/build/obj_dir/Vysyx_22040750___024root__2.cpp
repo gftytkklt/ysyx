@@ -4440,8 +4440,8 @@ VL_INLINE_OPT void Vysyx_22040750___024root___sequent__TOP__5(Vysyx_22040750___0
     vlSelf->io_sram0_addr = vlSelf->ysyx_22040750__DOT__iaddr;
 }
 
-extern const VlUnpacked<CData/*3:0*/, 256> Vysyx_22040750__ConstPool__TABLE_7036b51e_0;
 extern const VlUnpacked<CData/*2:0*/, 256> Vysyx_22040750__ConstPool__TABLE_ed2b455c_0;
+extern const VlUnpacked<CData/*3:0*/, 256> Vysyx_22040750__ConstPool__TABLE_7036b51e_0;
 
 VL_INLINE_OPT void Vysyx_22040750___024root___combo__TOP__7(Vysyx_22040750___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
@@ -4507,10 +4507,12 @@ VL_INLINE_OPT void Vysyx_22040750___024root___combo__TOP__7(Vysyx_22040750___024
         vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_rvalid = 0U;
         vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_rlast = 0U;
     }
-    vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__rd_handshake 
-        = ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_arvalid) 
-           & ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT__resp1) 
-              & (IData)(vlSelf->io_master_arready)));
+    vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_icache_arready 
+        = ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT__resp0) 
+           & (IData)(vlSelf->io_master_arready));
+    vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_arready 
+        = ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT__resp1) 
+           & (IData)(vlSelf->io_master_arready));
     if (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__isway0_op) {
         __Vtemp310[0U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[0U];
         __Vtemp310[1U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[1U];
@@ -4565,22 +4567,6 @@ VL_INLINE_OPT void Vysyx_22040750___024root___combo__TOP__7(Vysyx_22040750___024
                                                          << 1U))])) 
                                      >> (0x1fU & ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__wdata_cnt) 
                                                   << 6U)))));
-    __Vtableidx2 = ((((IData)(vlSelf->ysyx_22040750__DOT__cpu_pc_valid) 
-                      & (~ (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__rd_hit))) 
-                     << 7U) | (((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__rd_hit) 
-                                << 6U) | (((((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT__resp0) 
-                                             & (IData)(vlSelf->io_master_arready)) 
-                                            & ((2U 
-                                                == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))
-                                                ? 1U
-                                                : 0U)) 
-                                           << 5U) | 
-                                          (((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_icache_rlast) 
-                                            << 4U) 
-                                           | (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state)))));
-    vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__next_state 
-        = Vysyx_22040750__ConstPool__TABLE_7036b51e_0
-        [__Vtableidx2];
     __Vtableidx3 = (((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_wlast) 
                      << 7U) | (((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__wr_handshake) 
                                 << 6U) | ((((IData)(vlSelf->io_master_awready) 
@@ -4613,6 +4599,39 @@ VL_INLINE_OPT void Vysyx_22040750___024root___combo__TOP__7(Vysyx_22040750___024
                                        ? 0xcU : 3U)
                                    : 0xfU)) << 4U) 
            | (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cen_icache));
+    __Vtableidx2 = ((((IData)(vlSelf->ysyx_22040750__DOT__cpu_pc_valid) 
+                      & (~ (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__rd_hit))) 
+                     << 7U) | (((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__rd_hit) 
+                                << 6U) | ((((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_icache_arready) 
+                                            & ((2U 
+                                                == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))
+                                                ? 1U
+                                                : 0U)) 
+                                           << 5U) | 
+                                          (((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_icache_rlast) 
+                                            << 4U) 
+                                           | (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state)))));
+    vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__next_state 
+        = Vysyx_22040750__ConstPool__TABLE_7036b51e_0
+        [__Vtableidx2];
+    vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__rd_handshake 
+        = ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_arvalid) 
+           & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_arready));
+    vlSelf->io_sram7_cen = (1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
+                                  >> 7U));
+    vlSelf->io_sram6_cen = (1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
+                                  >> 6U));
+    vlSelf->io_sram5_cen = (1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
+                                  >> 5U));
+    vlSelf->io_sram4_cen = (1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
+                                  >> 4U));
+    vlSelf->io_sram3_cen = (1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
+                                  >> 3U));
+    vlSelf->io_sram2_cen = (1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
+                                  >> 2U));
+    vlSelf->io_sram1_cen = (1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
+                                  >> 1U));
+    vlSelf->io_sram0_cen = (1U & (IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen));
     vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__next_state 
         = (((((((((1U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__current_state)) 
                   | (2U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__current_state))) 
@@ -4676,21 +4695,6 @@ VL_INLINE_OPT void Vysyx_22040750___024root___combo__TOP__7(Vysyx_22040750___024
                                         ? ((IData)(vlSelf->io_master_bvalid)
                                             ? 1U : (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__current_state))
                                         : (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__current_state)))))));
-    vlSelf->io_sram7_cen = (1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
-                                  >> 7U));
-    vlSelf->io_sram6_cen = (1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
-                                  >> 6U));
-    vlSelf->io_sram5_cen = (1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
-                                  >> 5U));
-    vlSelf->io_sram4_cen = (1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
-                                  >> 4U));
-    vlSelf->io_sram3_cen = (1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
-                                  >> 3U));
-    vlSelf->io_sram2_cen = (1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
-                                  >> 2U));
-    vlSelf->io_sram1_cen = (1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
-                                  >> 1U));
-    vlSelf->io_sram0_cen = (1U & (IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen));
 }
 
 void Vysyx_22040750___024root___sequent__TOP__3(Vysyx_22040750___024root* vlSelf);

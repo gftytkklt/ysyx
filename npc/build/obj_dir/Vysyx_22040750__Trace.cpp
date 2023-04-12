@@ -1940,7 +1940,12 @@ void Vysyx_22040750___024root__traceChgSub0(Vysyx_22040750___024root* vlSelf, Ve
                                               >> (0x1fU 
                                                   & ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__wdata_cnt) 
                                                      << 6U)))))),64);
-            tracep->chgBit(oldp+779,((1U & (((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_rlast) 
+            tracep->chgBit(oldp+779,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_icache_arready) 
+                                      & ((2U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))
+                                          ? 1U : 0U))));
+            tracep->chgBit(oldp+780,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_arready) 
+                                      & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_arvalid))));
+            tracep->chgBit(oldp+781,((1U & (((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_rlast) 
                                              | ((0x10U 
                                                  == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__current_state))
                                                  ? 1U
@@ -1968,135 +1973,137 @@ void Vysyx_22040750___024root__traceChgSub0(Vysyx_22040750___024root* vlSelf, Ve
                 __Vtemp430[6U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[6U];
                 __Vtemp430[7U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[7U];
             }
-            tracep->chgWData(oldp+780,(__Vtemp430),256);
+            tracep->chgWData(oldp+782,(__Vtemp430),256);
         }
         if (VL_UNLIKELY(vlSelf->__Vm_traceActivity[2U])) {
-            tracep->chgCData(oldp+788,(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen),8);
-            tracep->chgWData(oldp+789,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata),256);
-            tracep->chgWData(oldp+797,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata),256);
-            tracep->chgBit(oldp+805,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_icache_rvalid));
-            tracep->chgBit(oldp+806,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_rvalid));
-            tracep->chgBit(oldp+807,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_icache_rlast));
-            tracep->chgBit(oldp+808,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_rlast));
-            tracep->chgBit(oldp+809,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_icache_rvalid) 
+            tracep->chgCData(oldp+790,(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen),8);
+            tracep->chgWData(oldp+791,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata),256);
+            tracep->chgWData(oldp+799,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata),256);
+            tracep->chgBit(oldp+807,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_icache_rvalid));
+            tracep->chgBit(oldp+808,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_rvalid));
+            tracep->chgBit(oldp+809,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_icache_rlast));
+            tracep->chgBit(oldp+810,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_rlast));
+            tracep->chgBit(oldp+811,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_icache_arready));
+            tracep->chgBit(oldp+812,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_arready));
+            tracep->chgBit(oldp+813,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_icache_rvalid) 
                                       & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_icache_rlast))));
-            tracep->chgBit(oldp+810,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_rvalid) 
+            tracep->chgBit(oldp+814,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_rvalid) 
                                       & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_rlast))));
-            tracep->chgCData(oldp+811,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__next_state),4);
-            tracep->chgSData(oldp+812,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__next_state),13);
-            tracep->chgBit(oldp+813,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__rd_handshake));
-            tracep->chgCData(oldp+814,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__wb_next_state),3);
-            tracep->chgBit(oldp+815,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__wr_handshake));
+            tracep->chgCData(oldp+815,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__next_state),4);
+            tracep->chgSData(oldp+816,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__next_state),13);
+            tracep->chgBit(oldp+817,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__rd_handshake));
+            tracep->chgCData(oldp+818,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__wb_next_state),3);
+            tracep->chgBit(oldp+819,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__wr_handshake));
         }
-        tracep->chgBit(oldp+816,(vlSelf->clock));
-        tracep->chgBit(oldp+817,(vlSelf->reset));
-        tracep->chgBit(oldp+818,(vlSelf->io_interrupt));
-        tracep->chgBit(oldp+819,(vlSelf->io_master_awready));
-        tracep->chgBit(oldp+820,(vlSelf->io_master_awvalid));
-        tracep->chgCData(oldp+821,(vlSelf->io_master_awid),4);
-        tracep->chgIData(oldp+822,(vlSelf->io_master_awaddr),32);
-        tracep->chgCData(oldp+823,(vlSelf->io_master_awlen),8);
-        tracep->chgCData(oldp+824,(vlSelf->io_master_awsize),3);
-        tracep->chgCData(oldp+825,(vlSelf->io_master_awburst),2);
-        tracep->chgBit(oldp+826,(vlSelf->io_master_wready));
-        tracep->chgBit(oldp+827,(vlSelf->io_master_wvalid));
-        tracep->chgQData(oldp+828,(vlSelf->io_master_wdata),64);
-        tracep->chgCData(oldp+830,(vlSelf->io_master_wstrb),8);
-        tracep->chgBit(oldp+831,(vlSelf->io_master_wlast));
-        tracep->chgBit(oldp+832,(vlSelf->io_master_bready));
-        tracep->chgBit(oldp+833,(vlSelf->io_master_bvalid));
-        tracep->chgCData(oldp+834,(vlSelf->io_master_bid),4);
-        tracep->chgCData(oldp+835,(vlSelf->io_master_bresp),2);
-        tracep->chgBit(oldp+836,(vlSelf->io_master_arready));
-        tracep->chgBit(oldp+837,(vlSelf->io_master_arvalid));
-        tracep->chgCData(oldp+838,(vlSelf->io_master_arid),4);
-        tracep->chgIData(oldp+839,(vlSelf->io_master_araddr),32);
-        tracep->chgCData(oldp+840,(vlSelf->io_master_arlen),8);
-        tracep->chgCData(oldp+841,(vlSelf->io_master_arsize),3);
-        tracep->chgCData(oldp+842,(vlSelf->io_master_arburst),2);
-        tracep->chgBit(oldp+843,(vlSelf->io_master_rready));
-        tracep->chgBit(oldp+844,(vlSelf->io_master_rvalid));
-        tracep->chgCData(oldp+845,(vlSelf->io_master_rid),4);
-        tracep->chgCData(oldp+846,(vlSelf->io_master_rresp),2);
-        tracep->chgQData(oldp+847,(vlSelf->io_master_rdata),64);
-        tracep->chgBit(oldp+849,(vlSelf->io_master_rlast));
-        tracep->chgBit(oldp+850,(vlSelf->io_slave_awready));
-        tracep->chgBit(oldp+851,(vlSelf->io_slave_awvalid));
-        tracep->chgCData(oldp+852,(vlSelf->io_slave_awid),4);
-        tracep->chgIData(oldp+853,(vlSelf->io_slave_awaddr),32);
-        tracep->chgCData(oldp+854,(vlSelf->io_slave_awlen),8);
-        tracep->chgCData(oldp+855,(vlSelf->io_slave_awsize),3);
-        tracep->chgCData(oldp+856,(vlSelf->io_slave_awburst),2);
-        tracep->chgBit(oldp+857,(vlSelf->io_slave_wready));
-        tracep->chgBit(oldp+858,(vlSelf->io_slave_wvalid));
-        tracep->chgQData(oldp+859,(vlSelf->io_slave_wdata),64);
-        tracep->chgCData(oldp+861,(vlSelf->io_slave_wstrb),8);
-        tracep->chgBit(oldp+862,(vlSelf->io_slave_wlast));
-        tracep->chgBit(oldp+863,(vlSelf->io_slave_bready));
-        tracep->chgBit(oldp+864,(vlSelf->io_slave_bvalid));
-        tracep->chgCData(oldp+865,(vlSelf->io_slave_bid),4);
-        tracep->chgCData(oldp+866,(vlSelf->io_slave_bresp),2);
-        tracep->chgBit(oldp+867,(vlSelf->io_slave_arready));
-        tracep->chgBit(oldp+868,(vlSelf->io_slave_arvalid));
-        tracep->chgCData(oldp+869,(vlSelf->io_slave_arid),4);
-        tracep->chgIData(oldp+870,(vlSelf->io_slave_araddr),32);
-        tracep->chgCData(oldp+871,(vlSelf->io_slave_arlen),8);
-        tracep->chgCData(oldp+872,(vlSelf->io_slave_arsize),3);
-        tracep->chgCData(oldp+873,(vlSelf->io_slave_arburst),2);
-        tracep->chgBit(oldp+874,(vlSelf->io_slave_rready));
-        tracep->chgBit(oldp+875,(vlSelf->io_slave_rvalid));
-        tracep->chgCData(oldp+876,(vlSelf->io_slave_rid),4);
-        tracep->chgCData(oldp+877,(vlSelf->io_slave_rresp),2);
-        tracep->chgQData(oldp+878,(vlSelf->io_slave_rdata),64);
-        tracep->chgBit(oldp+880,(vlSelf->io_slave_rlast));
-        tracep->chgCData(oldp+881,(vlSelf->io_sram0_addr),6);
-        tracep->chgBit(oldp+882,(vlSelf->io_sram0_cen));
-        tracep->chgBit(oldp+883,(vlSelf->io_sram0_wen));
-        tracep->chgWData(oldp+884,(vlSelf->io_sram0_wmask),128);
-        tracep->chgWData(oldp+888,(vlSelf->io_sram0_wdata),128);
-        tracep->chgWData(oldp+892,(vlSelf->io_sram0_rdata),128);
-        tracep->chgCData(oldp+896,(vlSelf->io_sram1_addr),6);
-        tracep->chgBit(oldp+897,(vlSelf->io_sram1_cen));
-        tracep->chgBit(oldp+898,(vlSelf->io_sram1_wen));
-        tracep->chgWData(oldp+899,(vlSelf->io_sram1_wmask),128);
-        tracep->chgWData(oldp+903,(vlSelf->io_sram1_wdata),128);
-        tracep->chgWData(oldp+907,(vlSelf->io_sram1_rdata),128);
-        tracep->chgCData(oldp+911,(vlSelf->io_sram2_addr),6);
-        tracep->chgBit(oldp+912,(vlSelf->io_sram2_cen));
-        tracep->chgBit(oldp+913,(vlSelf->io_sram2_wen));
-        tracep->chgWData(oldp+914,(vlSelf->io_sram2_wmask),128);
-        tracep->chgWData(oldp+918,(vlSelf->io_sram2_wdata),128);
-        tracep->chgWData(oldp+922,(vlSelf->io_sram2_rdata),128);
-        tracep->chgCData(oldp+926,(vlSelf->io_sram3_addr),6);
-        tracep->chgBit(oldp+927,(vlSelf->io_sram3_cen));
-        tracep->chgBit(oldp+928,(vlSelf->io_sram3_wen));
-        tracep->chgWData(oldp+929,(vlSelf->io_sram3_wmask),128);
-        tracep->chgWData(oldp+933,(vlSelf->io_sram3_wdata),128);
-        tracep->chgWData(oldp+937,(vlSelf->io_sram3_rdata),128);
-        tracep->chgCData(oldp+941,(vlSelf->io_sram4_addr),6);
-        tracep->chgBit(oldp+942,(vlSelf->io_sram4_cen));
-        tracep->chgBit(oldp+943,(vlSelf->io_sram4_wen));
-        tracep->chgWData(oldp+944,(vlSelf->io_sram4_wmask),128);
-        tracep->chgWData(oldp+948,(vlSelf->io_sram4_wdata),128);
-        tracep->chgWData(oldp+952,(vlSelf->io_sram4_rdata),128);
-        tracep->chgCData(oldp+956,(vlSelf->io_sram5_addr),6);
-        tracep->chgBit(oldp+957,(vlSelf->io_sram5_cen));
-        tracep->chgBit(oldp+958,(vlSelf->io_sram5_wen));
-        tracep->chgWData(oldp+959,(vlSelf->io_sram5_wmask),128);
-        tracep->chgWData(oldp+963,(vlSelf->io_sram5_wdata),128);
-        tracep->chgWData(oldp+967,(vlSelf->io_sram5_rdata),128);
-        tracep->chgCData(oldp+971,(vlSelf->io_sram6_addr),6);
-        tracep->chgBit(oldp+972,(vlSelf->io_sram6_cen));
-        tracep->chgBit(oldp+973,(vlSelf->io_sram6_wen));
-        tracep->chgWData(oldp+974,(vlSelf->io_sram6_wmask),128);
-        tracep->chgWData(oldp+978,(vlSelf->io_sram6_wdata),128);
-        tracep->chgWData(oldp+982,(vlSelf->io_sram6_rdata),128);
-        tracep->chgCData(oldp+986,(vlSelf->io_sram7_addr),6);
-        tracep->chgBit(oldp+987,(vlSelf->io_sram7_cen));
-        tracep->chgBit(oldp+988,(vlSelf->io_sram7_wen));
-        tracep->chgWData(oldp+989,(vlSelf->io_sram7_wmask),128);
-        tracep->chgWData(oldp+993,(vlSelf->io_sram7_wdata),128);
-        tracep->chgWData(oldp+997,(vlSelf->io_sram7_rdata),128);
+        tracep->chgBit(oldp+820,(vlSelf->clock));
+        tracep->chgBit(oldp+821,(vlSelf->reset));
+        tracep->chgBit(oldp+822,(vlSelf->io_interrupt));
+        tracep->chgBit(oldp+823,(vlSelf->io_master_awready));
+        tracep->chgBit(oldp+824,(vlSelf->io_master_awvalid));
+        tracep->chgCData(oldp+825,(vlSelf->io_master_awid),4);
+        tracep->chgIData(oldp+826,(vlSelf->io_master_awaddr),32);
+        tracep->chgCData(oldp+827,(vlSelf->io_master_awlen),8);
+        tracep->chgCData(oldp+828,(vlSelf->io_master_awsize),3);
+        tracep->chgCData(oldp+829,(vlSelf->io_master_awburst),2);
+        tracep->chgBit(oldp+830,(vlSelf->io_master_wready));
+        tracep->chgBit(oldp+831,(vlSelf->io_master_wvalid));
+        tracep->chgQData(oldp+832,(vlSelf->io_master_wdata),64);
+        tracep->chgCData(oldp+834,(vlSelf->io_master_wstrb),8);
+        tracep->chgBit(oldp+835,(vlSelf->io_master_wlast));
+        tracep->chgBit(oldp+836,(vlSelf->io_master_bready));
+        tracep->chgBit(oldp+837,(vlSelf->io_master_bvalid));
+        tracep->chgCData(oldp+838,(vlSelf->io_master_bid),4);
+        tracep->chgCData(oldp+839,(vlSelf->io_master_bresp),2);
+        tracep->chgBit(oldp+840,(vlSelf->io_master_arready));
+        tracep->chgBit(oldp+841,(vlSelf->io_master_arvalid));
+        tracep->chgCData(oldp+842,(vlSelf->io_master_arid),4);
+        tracep->chgIData(oldp+843,(vlSelf->io_master_araddr),32);
+        tracep->chgCData(oldp+844,(vlSelf->io_master_arlen),8);
+        tracep->chgCData(oldp+845,(vlSelf->io_master_arsize),3);
+        tracep->chgCData(oldp+846,(vlSelf->io_master_arburst),2);
+        tracep->chgBit(oldp+847,(vlSelf->io_master_rready));
+        tracep->chgBit(oldp+848,(vlSelf->io_master_rvalid));
+        tracep->chgCData(oldp+849,(vlSelf->io_master_rid),4);
+        tracep->chgCData(oldp+850,(vlSelf->io_master_rresp),2);
+        tracep->chgQData(oldp+851,(vlSelf->io_master_rdata),64);
+        tracep->chgBit(oldp+853,(vlSelf->io_master_rlast));
+        tracep->chgBit(oldp+854,(vlSelf->io_slave_awready));
+        tracep->chgBit(oldp+855,(vlSelf->io_slave_awvalid));
+        tracep->chgCData(oldp+856,(vlSelf->io_slave_awid),4);
+        tracep->chgIData(oldp+857,(vlSelf->io_slave_awaddr),32);
+        tracep->chgCData(oldp+858,(vlSelf->io_slave_awlen),8);
+        tracep->chgCData(oldp+859,(vlSelf->io_slave_awsize),3);
+        tracep->chgCData(oldp+860,(vlSelf->io_slave_awburst),2);
+        tracep->chgBit(oldp+861,(vlSelf->io_slave_wready));
+        tracep->chgBit(oldp+862,(vlSelf->io_slave_wvalid));
+        tracep->chgQData(oldp+863,(vlSelf->io_slave_wdata),64);
+        tracep->chgCData(oldp+865,(vlSelf->io_slave_wstrb),8);
+        tracep->chgBit(oldp+866,(vlSelf->io_slave_wlast));
+        tracep->chgBit(oldp+867,(vlSelf->io_slave_bready));
+        tracep->chgBit(oldp+868,(vlSelf->io_slave_bvalid));
+        tracep->chgCData(oldp+869,(vlSelf->io_slave_bid),4);
+        tracep->chgCData(oldp+870,(vlSelf->io_slave_bresp),2);
+        tracep->chgBit(oldp+871,(vlSelf->io_slave_arready));
+        tracep->chgBit(oldp+872,(vlSelf->io_slave_arvalid));
+        tracep->chgCData(oldp+873,(vlSelf->io_slave_arid),4);
+        tracep->chgIData(oldp+874,(vlSelf->io_slave_araddr),32);
+        tracep->chgCData(oldp+875,(vlSelf->io_slave_arlen),8);
+        tracep->chgCData(oldp+876,(vlSelf->io_slave_arsize),3);
+        tracep->chgCData(oldp+877,(vlSelf->io_slave_arburst),2);
+        tracep->chgBit(oldp+878,(vlSelf->io_slave_rready));
+        tracep->chgBit(oldp+879,(vlSelf->io_slave_rvalid));
+        tracep->chgCData(oldp+880,(vlSelf->io_slave_rid),4);
+        tracep->chgCData(oldp+881,(vlSelf->io_slave_rresp),2);
+        tracep->chgQData(oldp+882,(vlSelf->io_slave_rdata),64);
+        tracep->chgBit(oldp+884,(vlSelf->io_slave_rlast));
+        tracep->chgCData(oldp+885,(vlSelf->io_sram0_addr),6);
+        tracep->chgBit(oldp+886,(vlSelf->io_sram0_cen));
+        tracep->chgBit(oldp+887,(vlSelf->io_sram0_wen));
+        tracep->chgWData(oldp+888,(vlSelf->io_sram0_wmask),128);
+        tracep->chgWData(oldp+892,(vlSelf->io_sram0_wdata),128);
+        tracep->chgWData(oldp+896,(vlSelf->io_sram0_rdata),128);
+        tracep->chgCData(oldp+900,(vlSelf->io_sram1_addr),6);
+        tracep->chgBit(oldp+901,(vlSelf->io_sram1_cen));
+        tracep->chgBit(oldp+902,(vlSelf->io_sram1_wen));
+        tracep->chgWData(oldp+903,(vlSelf->io_sram1_wmask),128);
+        tracep->chgWData(oldp+907,(vlSelf->io_sram1_wdata),128);
+        tracep->chgWData(oldp+911,(vlSelf->io_sram1_rdata),128);
+        tracep->chgCData(oldp+915,(vlSelf->io_sram2_addr),6);
+        tracep->chgBit(oldp+916,(vlSelf->io_sram2_cen));
+        tracep->chgBit(oldp+917,(vlSelf->io_sram2_wen));
+        tracep->chgWData(oldp+918,(vlSelf->io_sram2_wmask),128);
+        tracep->chgWData(oldp+922,(vlSelf->io_sram2_wdata),128);
+        tracep->chgWData(oldp+926,(vlSelf->io_sram2_rdata),128);
+        tracep->chgCData(oldp+930,(vlSelf->io_sram3_addr),6);
+        tracep->chgBit(oldp+931,(vlSelf->io_sram3_cen));
+        tracep->chgBit(oldp+932,(vlSelf->io_sram3_wen));
+        tracep->chgWData(oldp+933,(vlSelf->io_sram3_wmask),128);
+        tracep->chgWData(oldp+937,(vlSelf->io_sram3_wdata),128);
+        tracep->chgWData(oldp+941,(vlSelf->io_sram3_rdata),128);
+        tracep->chgCData(oldp+945,(vlSelf->io_sram4_addr),6);
+        tracep->chgBit(oldp+946,(vlSelf->io_sram4_cen));
+        tracep->chgBit(oldp+947,(vlSelf->io_sram4_wen));
+        tracep->chgWData(oldp+948,(vlSelf->io_sram4_wmask),128);
+        tracep->chgWData(oldp+952,(vlSelf->io_sram4_wdata),128);
+        tracep->chgWData(oldp+956,(vlSelf->io_sram4_rdata),128);
+        tracep->chgCData(oldp+960,(vlSelf->io_sram5_addr),6);
+        tracep->chgBit(oldp+961,(vlSelf->io_sram5_cen));
+        tracep->chgBit(oldp+962,(vlSelf->io_sram5_wen));
+        tracep->chgWData(oldp+963,(vlSelf->io_sram5_wmask),128);
+        tracep->chgWData(oldp+967,(vlSelf->io_sram5_wdata),128);
+        tracep->chgWData(oldp+971,(vlSelf->io_sram5_rdata),128);
+        tracep->chgCData(oldp+975,(vlSelf->io_sram6_addr),6);
+        tracep->chgBit(oldp+976,(vlSelf->io_sram6_cen));
+        tracep->chgBit(oldp+977,(vlSelf->io_sram6_wen));
+        tracep->chgWData(oldp+978,(vlSelf->io_sram6_wmask),128);
+        tracep->chgWData(oldp+982,(vlSelf->io_sram6_wdata),128);
+        tracep->chgWData(oldp+986,(vlSelf->io_sram6_rdata),128);
+        tracep->chgCData(oldp+990,(vlSelf->io_sram7_addr),6);
+        tracep->chgBit(oldp+991,(vlSelf->io_sram7_cen));
+        tracep->chgBit(oldp+992,(vlSelf->io_sram7_wen));
+        tracep->chgWData(oldp+993,(vlSelf->io_sram7_wmask),128);
+        tracep->chgWData(oldp+997,(vlSelf->io_sram7_wdata),128);
+        tracep->chgWData(oldp+1001,(vlSelf->io_sram7_rdata),128);
         __Vtemp431[0U] = vlSelf->io_sram0_rdata[0U];
         __Vtemp431[1U] = vlSelf->io_sram0_rdata[1U];
         __Vtemp431[2U] = vlSelf->io_sram0_rdata[2U];
@@ -2105,7 +2112,7 @@ void Vysyx_22040750___024root__traceChgSub0(Vysyx_22040750___024root* vlSelf, Ve
         __Vtemp431[5U] = vlSelf->io_sram1_rdata[1U];
         __Vtemp431[6U] = vlSelf->io_sram1_rdata[2U];
         __Vtemp431[7U] = vlSelf->io_sram1_rdata[3U];
-        tracep->chgWData(oldp+1001,(__Vtemp431),256);
+        tracep->chgWData(oldp+1005,(__Vtemp431),256);
         __Vtemp432[0U] = vlSelf->io_sram2_rdata[0U];
         __Vtemp432[1U] = vlSelf->io_sram2_rdata[1U];
         __Vtemp432[2U] = vlSelf->io_sram2_rdata[2U];
@@ -2114,22 +2121,14 @@ void Vysyx_22040750___024root__traceChgSub0(Vysyx_22040750___024root* vlSelf, Ve
         __Vtemp432[5U] = vlSelf->io_sram3_rdata[1U];
         __Vtemp432[6U] = vlSelf->io_sram3_rdata[2U];
         __Vtemp432[7U] = vlSelf->io_sram3_rdata[3U];
-        tracep->chgWData(oldp+1009,(__Vtemp432),256);
-        tracep->chgQData(oldp+1017,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT__ch0_process)
+        tracep->chgWData(oldp+1013,(__Vtemp432),256);
+        tracep->chgQData(oldp+1021,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT__ch0_process)
                                       ? vlSelf->io_master_rdata
                                       : 0ULL)),64);
-        tracep->chgQData(oldp+1019,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT__ch1_process)
+        tracep->chgQData(oldp+1023,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT__ch1_process)
                                       ? vlSelf->io_master_rdata
                                       : 0ULL)),64);
-        tracep->chgBit(oldp+1021,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT__resp0) 
-                                   & (IData)(vlSelf->io_master_arready))));
-        tracep->chgBit(oldp+1022,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT__resp1) 
-                                   & (IData)(vlSelf->io_master_arready))));
-        tracep->chgBit(oldp+1023,((((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT__resp0) 
-                                    & (IData)(vlSelf->io_master_arready)) 
-                                   & ((2U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))
-                                       ? 1U : 0U))));
-        tracep->chgBit(oldp+1024,(((IData)(vlSelf->io_master_awready) 
+        tracep->chgBit(oldp+1025,(((IData)(vlSelf->io_master_awready) 
                                    & ((2U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__wb_state))
                                        ? 1U : 0U))));
     }

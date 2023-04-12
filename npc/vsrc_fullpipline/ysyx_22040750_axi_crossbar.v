@@ -62,10 +62,13 @@ module ysyx_22040750_axi_crossbar(
     reg [1:0] current_state, next_state;
     wire req0_only, req1_only, req_both;// current channel req state
     wire resp0, resp1;// channel should be responsed
+    wire ch0_arhandshake, ch1_arhandshake;
     wire ch0_last_handshake, ch1_last_handshake;
     reg ch0_process, ch1_process;
     reg priority_flag;
     // req state, imply which channel is requesting memory data
+    assign ch0_arhandshake = O_ch0_arready && I_ch0_arvalid;
+    assign ch1_arhandshake = O_ch1_arready && I_ch1_arvalid;
     assign req0_only = I_ch0_arvalid && ~I_ch1_arvalid;
     assign req1_only = ~I_ch0_arvalid && I_ch1_arvalid;
     assign req_both = I_ch0_arvalid && I_ch1_arvalid;
@@ -93,7 +96,7 @@ module ysyx_22040750_axi_crossbar(
     always @(posedge I_clk)
         if(I_rst)
             ch0_process <= 0;
-        else if(resp0)
+        else if(resp0 && ch0_arhandshake)
             ch0_process <= 1;
         else if(ch0_last_handshake)
             ch0_process <= 0;
@@ -102,7 +105,7 @@ module ysyx_22040750_axi_crossbar(
     always @(posedge I_clk)
         if(I_rst)
             ch1_process <= 0;
-        else if(resp0)
+        else if(resp1 && ch1_arhandshake)
             ch1_process <= 1;
         else if(ch1_last_handshake)
             ch1_process <= 0;
