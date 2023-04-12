@@ -210,8 +210,18 @@ int main(int argc, char** argv, char** env) {
       printf("difftest: %s\n",ASNI_FMT("OFF", ASNI_FG_RED));
       #endif
     }
-    if(sim_time < 10){cpu->reset = 1;}
-    else{cpu->reset = 0;}
+    if(sim_time < 10){
+      cpu->reset = 1;
+      cpu->io_master_awready = 0;
+      cpu->io_master_arready = 0;
+      cpu->io_master_wready = 0;
+    }
+    else{
+      cpu->reset = 0;
+      cpu->io_master_awready = 1;
+      cpu->io_master_arready = 1;
+      cpu->io_master_wready = 1;
+    }
     if((sim_time % 6) == 0){cpu->clock = 1;}
     else if((sim_time % 6) == 3){cpu->clock = 0;}
     if(((sim_time % 6) == 0) && (cpu->reset == 0)){valid_posedge = true;}
