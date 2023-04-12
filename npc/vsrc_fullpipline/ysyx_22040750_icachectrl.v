@@ -35,6 +35,7 @@ module ysyx_22040750_icachectrl #(
     // pc 
     input [31:0] I_cpu_addr,
     input I_cpu_rd_req,
+    output O_cpu_rd_ready,
     // cache rd addr & req, low level valid en
     input [255:0] I_way0_rdata,
     input [255:0] I_way1_rdata,
@@ -180,6 +181,7 @@ module ysyx_22040750_icachectrl #(
     // RD_MISS: rd mem req
     // RD_RELOAD: get axi rdata
     // RD_ALLOCATE: reload cacheline & send data to cpu
+    assign O_cpu_rd_ready = (current_state == IDLE) || (current_state == RD_HIT);
     always @(posedge I_clk)
         if(I_rst)
             current_state <= IDLE;
@@ -196,7 +198,14 @@ module ysyx_22040750_icachectrl #(
                 else
                     next_state = current_state;
             end
-            RD_HIT: next_state = IDLE;
+            RD_HIT: begin
+                if(rd_hit)
+                    next_state = RD_HIT;
+                else if(rd_miss)
+                    next_state = RD_MISS;
+                else
+                    next_state = IDLE;
+            end
             RD_MISS: next_state = rd_handshake ? RD_RELOAD : current_state;
             RD_RELOAD: next_state = I_mem_rlast ? RD_ALLOCATE : current_state;
             RD_ALLOCATE: next_state = IDLE;

@@ -1082,7 +1082,7 @@ VL_INLINE_OPT void Vysyx_22040750___024root___sequent__TOP__3(Vysyx_22040750___0
                                                    & ((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_op_sel) 
                                                       >> 0xaU)))));
     vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__pc_e__DOT__IF_valid 
-        = ((~ (IData)(vlSelf->reset)) & ((IData)(vlSelf->ysyx_22040750__DOT__cpu_pc_valid) 
+        = ((~ (IData)(vlSelf->reset)) & ((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__pc_e__DOT__IF_handshake) 
                                          | ((~ ((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__IF_valid) 
                                                 & (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_allowin))) 
                                             & (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__pc_e__DOT__IF_valid))));
@@ -1479,7 +1479,7 @@ VL_INLINE_OPT void Vysyx_22040750___024root___sequent__TOP__3(Vysyx_22040750___0
                          ? (0x3fU & ((IData)(1U) + (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__iter_cnt)))
                          : 0U));
         vlSelf->__Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__current_pc 
-            = ((IData)(vlSelf->ysyx_22040750__DOT__cpu_pc_valid)
+            = ((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__pc_e__DOT__IF_handshake)
                 ? vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__dnpc
                 : vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__current_pc);
     }

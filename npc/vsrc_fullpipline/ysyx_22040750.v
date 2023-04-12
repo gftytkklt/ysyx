@@ -138,7 +138,7 @@ module ysyx_22040750(
     wire [31:0] cpu_inst;
     // modify to 31 later!
     wire [63:0] cpu_pc;
-    wire cpu_inst_valid, cpu_pc_valid;
+    wire cpu_inst_valid, cpu_pc_valid, cpu_pc_ready;
     // modify to 31 later!
     wire [63:0] mem_addr;
     wire cpu_rreq, cpu_wreq;
@@ -159,6 +159,7 @@ module ysyx_22040750(
         .I_rst(reset),
         .I_inst(cpu_inst),
         .I_inst_valid(cpu_inst_valid),
+        .I_pc_ready(cpu_pc_ready),
         .O_pc(cpu_pc),
         .O_pc_valid(cpu_pc_valid),
         .O_mem_addr(mem_addr),
@@ -177,6 +178,7 @@ module ysyx_22040750(
         // pc & inst
         .I_cpu_pc(cpu_pc[31:0]),
         .I_cpu_pc_valid(cpu_pc_valid),
+        .O_cpu_pc_ready(cpu_pc_ready),
         .O_cpu_inst(cpu_inst),
         .O_cpu_inst_valid(cpu_inst_valid),
         // cpu addr & w/r req

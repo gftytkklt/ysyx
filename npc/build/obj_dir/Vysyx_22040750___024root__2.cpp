@@ -4144,6 +4144,10 @@ VL_INLINE_OPT void Vysyx_22040750___024root___sequent__TOP__5(Vysyx_22040750___0
         = ((0x7fffffffffffffffULL & vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__slldw_result) 
            | ((QData)((IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__shift_result)))) 
               << 0x3fU));
+    vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__pc_e__DOT__IF_handshake 
+        = ((IData)(vlSelf->ysyx_22040750__DOT__cpu_pc_valid) 
+           & ((0U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state)) 
+              | (1U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))));
     VL_EXTEND_WQ(65,64, __Vtemp286, vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_op1);
     VL_EXTEND_WQ(65,64, __Vtemp287, vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__adder2);
     VL_ADD_W(3, __Vtemp288, __Vtemp286, __Vtemp287);
@@ -4441,7 +4445,7 @@ VL_INLINE_OPT void Vysyx_22040750___024root___sequent__TOP__5(Vysyx_22040750___0
 }
 
 extern const VlUnpacked<CData/*2:0*/, 256> Vysyx_22040750__ConstPool__TABLE_ed2b455c_0;
-extern const VlUnpacked<CData/*3:0*/, 256> Vysyx_22040750__ConstPool__TABLE_7036b51e_0;
+extern const VlUnpacked<CData/*3:0*/, 256> Vysyx_22040750__ConstPool__TABLE_307d1333_0;
 
 VL_INLINE_OPT void Vysyx_22040750___024root___combo__TOP__7(Vysyx_22040750___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
@@ -4612,7 +4616,7 @@ VL_INLINE_OPT void Vysyx_22040750___024root___combo__TOP__7(Vysyx_22040750___024
                                             << 4U) 
                                            | (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state)))));
     vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__next_state 
-        = Vysyx_22040750__ConstPool__TABLE_7036b51e_0
+        = Vysyx_22040750__ConstPool__TABLE_307d1333_0
         [__Vtableidx2];
     vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__rd_handshake 
         = ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_arvalid) 

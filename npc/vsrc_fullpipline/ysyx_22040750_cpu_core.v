@@ -24,6 +24,7 @@ module ysyx_22040750_cpu_core(
     input I_rst,
     input [31:0] I_inst,
     input I_inst_valid,
+	input I_pc_ready,
     output [63:0] O_pc,
     output O_pc_valid,
     output [63:0] O_mem_addr,
@@ -195,15 +196,15 @@ module ysyx_22040750_cpu_core(
     	.O_dnpc(dnpc)
     );
     
-    wire inst_ready; //indicate IMEM can receive pc
-    assign inst_ready = 1;
+    //wire inst_ready; //indicate IMEM can receive pc
+    //assign inst_ready = 1;
     ysyx_22040750_pc pc_e(
 		.I_sys_clk(I_sys_clk),
 		.I_rst(I_rst),
 		.I_dnpc(dnpc),
 		.I_inst(I_inst),
 		.I_inst_valid(I_inst_valid),
-		.I_inst_ready(inst_ready),
+		.I_inst_ready(I_pc_ready),
 		.I_IF_ID_allowin(IF_ID_allowin),
 		.O_IF_valid(IF_valid),
 		.O_pc(current_pc),
