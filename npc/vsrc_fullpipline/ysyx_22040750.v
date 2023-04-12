@@ -83,8 +83,9 @@ module ysyx_22040750(
     input [3:0] io_slave_rid,
     input [1:0] io_slave_rresp,
     input [63:0] io_slave_rdata,
-    input io_slave_rlast,
+    input io_slave_rlast
 
+    /*
     output [5:0] io_sram0_addr,
     output io_sram0_cen,
     output io_sram0_wen,
@@ -133,7 +134,58 @@ module ysyx_22040750(
     output [127:0] io_sram7_wmask,
     output [127:0] io_sram7_wdata,
     input [127:0] io_sram7_rdata
+    */
 );
+    // test cache signal begin, delete it when test in SoC
+    wire [5:0] io_sram0_addr;
+    wire io_sram0_cen;
+    wire io_sram0_wen;
+    wire [127:0] io_sram0_wmask;
+    wire [127:0] io_sram0_wdata;
+    wire [127:0] io_sram0_rdata;
+    wire [5:0] io_sram1_addr;
+    wire io_sram1_cen;
+    wire io_sram1_wen;
+    wire [127:0] io_sram1_wmask;
+    wire [127:0] io_sram1_wdata;
+    wire [127:0] io_sram1_rdata;
+    wire [5:0] io_sram2_addr;
+    wire io_sram2_cen;
+    wire io_sram2_wen;
+    wire [127:0] io_sram2_wmask;
+    wire [127:0] io_sram2_wdata;
+    wire [127:0] io_sram2_rdata;
+    wire [5:0] io_sram3_addr;
+    wire io_sram3_cen;
+    wire io_sram3_wen;
+    wire [127:0] io_sram3_wmask;
+    wire [127:0] io_sram3_wdata;
+    wire [127:0] io_sram3_rdata;
+    wire [5:0] io_sram4_addr;
+    wire io_sram4_cen;
+    wire io_sram4_wen;
+    wire [127:0] io_sram4_wmask;
+    wire [127:0] io_sram4_wdata;
+    wire [127:0] io_sram4_rdata;
+    wire [5:0] io_sram5_addr;
+    wire io_sram5_cen;
+    wire io_sram5_wen;
+    wire [127:0] io_sram5_wmask;
+    wire [127:0] io_sram5_wdata;
+    wire [127:0] io_sram5_rdata;
+    wire [5:0] io_sram6_addr;
+    wire io_sram6_cen;
+    wire io_sram6_wen;
+    wire [127:0] io_sram6_wmask;
+    wire [127:0] io_sram6_wdata;
+    wire [127:0] io_sram6_rdata;
+    wire [5:0] io_sram7_addr;
+    wire io_sram7_cen;
+    wire io_sram7_wen;
+    wire [127:0] io_sram7_wmask;
+    wire [127:0] io_sram7_wdata;
+    wire [127:0] io_sram7_rdata;
+    // test signal end
     wire [5:0] iaddr, daddr;
     wire [31:0] cpu_inst;
     // modify to 31 later!
@@ -255,5 +307,78 @@ module ysyx_22040750(
         .O_mem_bready(io_master_bready)
         //.I_mem_bid(io_master_bid),
         //.I_mem_bresp(io_master_bresp),
+    );
+
+    S011HD1P_X32Y2D128_BW sram0(
+        .Q(io_sram0_rdata),
+        .CLK(clock),
+        .CEN(io_sram0_cen),
+        .WEN(io_sram0_wen),
+        .BWEN(io_sram0_wmask),
+        .A(io_sram0_addr),
+        .D(io_sram0_wdata)
+    );
+    S011HD1P_X32Y2D128_BW sram1(
+        .Q(io_sram1_rdata),
+        .CLK(clock),
+        .CEN(io_sram1_cen),
+        .WEN(io_sram1_wen),
+        .BWEN(io_sram1_wmask),
+        .A(io_sram1_addr),
+        .D(io_sram1_wdata)
+    );
+    S011HD1P_X32Y2D128_BW sram2(
+        .Q(io_sram2_rdata),
+        .CLK(clock),
+        .CEN(io_sram2_cen),
+        .WEN(io_sram2_wen),
+        .BWEN(io_sram2_wmask),
+        .A(io_sram2_addr),
+        .D(io_sram2_wdata)
+    );
+    S011HD1P_X32Y2D128_BW sram3(
+        .Q(io_sram3_rdata),
+        .CLK(clock),
+        .CEN(io_sram3_cen),
+        .WEN(io_sram3_wen),
+        .BWEN(io_sram3_wmask),
+        .A(io_sram3_addr),
+        .D(io_sram3_wdata)
+    );
+    S011HD1P_X32Y2D128_BW sram4(
+        .Q(io_sram4_rdata),
+        .CLK(clock),
+        .CEN(io_sram4_cen),
+        .WEN(io_sram4_wen),
+        .BWEN(io_sram4_wmask),
+        .A(io_sram4_addr),
+        .D(io_sram4_wdata)
+    );
+    S011HD1P_X32Y2D128_BW sram5(
+        .Q(io_sram5_rdata),
+        .CLK(clock),
+        .CEN(io_sram5_cen),
+        .WEN(io_sram5_wen),
+        .BWEN(io_sram5_wmask),
+        .A(io_sram5_addr),
+        .D(io_sram5_wdata)
+    );
+    S011HD1P_X32Y2D128_BW sram6(
+        .Q(io_sram6_rdata),
+        .CLK(clock),
+        .CEN(io_sram6_cen),
+        .WEN(io_sram6_wen),
+        .BWEN(io_sram6_wmask),
+        .A(io_sram6_addr),
+        .D(io_sram6_wdata)
+    );
+    S011HD1P_X32Y2D128_BW sram7(
+        .Q(io_sram7_rdata),
+        .CLK(clock),
+        .CEN(io_sram7_cen),
+        .WEN(io_sram7_wen),
+        .BWEN(io_sram7_wmask),
+        .A(io_sram7_addr),
+        .D(io_sram7_wdata)
     );
 endmodule

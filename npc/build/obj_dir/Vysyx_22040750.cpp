@@ -72,54 +72,6 @@ Vysyx_22040750::Vysyx_22040750(VerilatedContext* _vcontextp__, const char* _vcna
     , io_slave_rresp{vlSymsp->TOP.io_slave_rresp}
     , io_slave_rdata{vlSymsp->TOP.io_slave_rdata}
     , io_slave_rlast{vlSymsp->TOP.io_slave_rlast}
-    , io_sram0_addr{vlSymsp->TOP.io_sram0_addr}
-    , io_sram0_cen{vlSymsp->TOP.io_sram0_cen}
-    , io_sram0_wen{vlSymsp->TOP.io_sram0_wen}
-    , io_sram0_wmask{vlSymsp->TOP.io_sram0_wmask}
-    , io_sram0_wdata{vlSymsp->TOP.io_sram0_wdata}
-    , io_sram0_rdata{vlSymsp->TOP.io_sram0_rdata}
-    , io_sram1_addr{vlSymsp->TOP.io_sram1_addr}
-    , io_sram1_cen{vlSymsp->TOP.io_sram1_cen}
-    , io_sram1_wen{vlSymsp->TOP.io_sram1_wen}
-    , io_sram1_wmask{vlSymsp->TOP.io_sram1_wmask}
-    , io_sram1_wdata{vlSymsp->TOP.io_sram1_wdata}
-    , io_sram1_rdata{vlSymsp->TOP.io_sram1_rdata}
-    , io_sram2_addr{vlSymsp->TOP.io_sram2_addr}
-    , io_sram2_cen{vlSymsp->TOP.io_sram2_cen}
-    , io_sram2_wen{vlSymsp->TOP.io_sram2_wen}
-    , io_sram2_wmask{vlSymsp->TOP.io_sram2_wmask}
-    , io_sram2_wdata{vlSymsp->TOP.io_sram2_wdata}
-    , io_sram2_rdata{vlSymsp->TOP.io_sram2_rdata}
-    , io_sram3_addr{vlSymsp->TOP.io_sram3_addr}
-    , io_sram3_cen{vlSymsp->TOP.io_sram3_cen}
-    , io_sram3_wen{vlSymsp->TOP.io_sram3_wen}
-    , io_sram3_wmask{vlSymsp->TOP.io_sram3_wmask}
-    , io_sram3_wdata{vlSymsp->TOP.io_sram3_wdata}
-    , io_sram3_rdata{vlSymsp->TOP.io_sram3_rdata}
-    , io_sram4_addr{vlSymsp->TOP.io_sram4_addr}
-    , io_sram4_cen{vlSymsp->TOP.io_sram4_cen}
-    , io_sram4_wen{vlSymsp->TOP.io_sram4_wen}
-    , io_sram4_wmask{vlSymsp->TOP.io_sram4_wmask}
-    , io_sram4_wdata{vlSymsp->TOP.io_sram4_wdata}
-    , io_sram4_rdata{vlSymsp->TOP.io_sram4_rdata}
-    , io_sram5_addr{vlSymsp->TOP.io_sram5_addr}
-    , io_sram5_cen{vlSymsp->TOP.io_sram5_cen}
-    , io_sram5_wen{vlSymsp->TOP.io_sram5_wen}
-    , io_sram5_wmask{vlSymsp->TOP.io_sram5_wmask}
-    , io_sram5_wdata{vlSymsp->TOP.io_sram5_wdata}
-    , io_sram5_rdata{vlSymsp->TOP.io_sram5_rdata}
-    , io_sram6_addr{vlSymsp->TOP.io_sram6_addr}
-    , io_sram6_cen{vlSymsp->TOP.io_sram6_cen}
-    , io_sram6_wen{vlSymsp->TOP.io_sram6_wen}
-    , io_sram6_wmask{vlSymsp->TOP.io_sram6_wmask}
-    , io_sram6_wdata{vlSymsp->TOP.io_sram6_wdata}
-    , io_sram6_rdata{vlSymsp->TOP.io_sram6_rdata}
-    , io_sram7_addr{vlSymsp->TOP.io_sram7_addr}
-    , io_sram7_cen{vlSymsp->TOP.io_sram7_cen}
-    , io_sram7_wen{vlSymsp->TOP.io_sram7_wen}
-    , io_sram7_wmask{vlSymsp->TOP.io_sram7_wmask}
-    , io_sram7_wdata{vlSymsp->TOP.io_sram7_wdata}
-    , io_sram7_rdata{vlSymsp->TOP.io_sram7_rdata}
     , __PVT____024unit{vlSymsp->TOP.__PVT____024unit}
     , rootp{&(vlSymsp->TOP)}
 {
