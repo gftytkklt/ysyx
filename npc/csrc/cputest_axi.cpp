@@ -251,9 +251,9 @@ int main(int argc, char** argv, char** env) {
     //dnpc = cpu->O_pc;
     if(valid_posedge){
       if(rd_process){
-        axi_read(&araddr, &arlen, &(cpu->io_master_rdata), skip_pc, &rd_process);
         cpu->io_master_rvalid = 1;
         if(arlen == 0){cpu->io_master_rlast = 1;}
+        axi_read(&araddr, &arlen, &(cpu->io_master_rdata), skip_pc, &rd_process);
       }
       else{
         cpu->io_master_rvalid = 0;
