@@ -82,6 +82,7 @@ module ysyx_22040750_icachectrl #(
     wire way0_valid, way1_valid;
     wire way0_hit, way1_hit;
     wire way0_replace, way1_replace;
+    reg [1:0] hit_flag;// 01 for way0 hit, 10 for way1 hit;
     // final data rd src
     wire [255:0] mem_rdata;
     // cache hit data source
@@ -174,7 +175,15 @@ module ysyx_22040750_icachectrl #(
     // rd allocate signal
     assign rd_allocate = (current_state == RD_ALLOCATE) ? 1 : 0;
     assign O_cpu_rvalid = (current_state == RD_HIT) || rd_allocate;
-    assign hit_rdata = way0_hit ? I_way0_rdata : I_way1_rdata;
+    always @(posedge I_clk)
+        if(I_rst)
+            hit_flag <= 2'b00;
+        else if(rd_hit)
+            hit_flag <= way0_hit ? 2'b01 : 2'b10;
+        else
+            hit_flag <= 2'b00;
+    //assign hit_rdata = way0_hit ? I_way0_rdata : I_way1_rdata;
+    assign hit_rdata = (I_way0_rdata & {256{hit_flag[0]}}) | (I_way1_rdata & {256{hit_flag[1]}});
     assign mem_rdata = (current_state == RD_HIT) ? hit_rdata : cacheline_reg;
     assign O_cpu_inst = mem_rdata[{mem_offset[OFFT_LEN-1:2],2'b0,3'b0} +: 32];
     //assign O_cpu_inst = cacheline_reg[{mem_offset[OFFT_LEN-1:2],2'b0,3'b0} +: 32];
