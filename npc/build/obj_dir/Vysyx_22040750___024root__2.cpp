@@ -3069,7 +3069,7 @@ VL_INLINE_OPT void Vysyx_22040750___024root___sequent__TOP__5(Vysyx_22040750___0
         = (((QData)((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT____Vcellinp__alu_op1_64bit_3sel__I_sel_data[5U])) 
             << 0x20U) | (QData)((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT____Vcellinp__alu_op1_64bit_3sel__I_sel_data[4U])));
     vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mmio_flag 
-        = ((0x10U == (0x1fU & (IData)((vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_alu_out 
+        = ((0x10U != (0x1fU & (IData)((vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_alu_out 
                                        >> 0x1bU)))) 
            & ((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_reg_e__DOT__mem_rd_en) 
               | (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_reg_e__DOT__mem_wr_en)));

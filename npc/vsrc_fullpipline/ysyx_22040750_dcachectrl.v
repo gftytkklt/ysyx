@@ -289,7 +289,7 @@ module ysyx_22040750_dcachectrl #(
     // overall
     // mmio_flag: current mem range: 80000000-87ffffff, other addr means mmio_addr
     // simple impl: [31:24] 1000_0000-1000_0111, so cached addr must have addr[31:27] == 10000
-    assign mmio_flag = (I_cpu_addr[31:27] == 5'b10000) && (I_cpu_rd_req || I_cpu_wr_req);
+    assign mmio_flag = (I_cpu_addr[31:27] != 5'b10000) && (I_cpu_rd_req || I_cpu_wr_req);
     always @(posedge I_clk)
         if(I_rst)
             current_state <= IDLE;
