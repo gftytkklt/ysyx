@@ -189,10 +189,10 @@ module ysyx_22040750(
     wire [5:0] iaddr, daddr;
     wire [31:0] cpu_inst;
     // modify to 31 later!
-    wire [63:0] cpu_pc;
+    wire [31:0] cpu_pc;
     wire cpu_inst_valid, cpu_pc_valid, cpu_pc_ready;
     // modify to 31 later!
-    wire [63:0] mem_addr;
+    wire [31:0] mem_addr;
     wire cpu_rreq, cpu_wreq;
     wire [63:0] mem_rdata, mem_wdata;
     wire mem_rvalid, mem_bvalid;
@@ -228,13 +228,13 @@ module ysyx_22040750(
         .I_clk(clock),
         .I_rst(reset),
         // pc & inst
-        .I_cpu_pc(cpu_pc[31:0]),
+        .I_cpu_pc(cpu_pc),
         .I_cpu_pc_valid(cpu_pc_valid),
         .O_cpu_pc_ready(cpu_pc_ready),
         .O_cpu_inst(cpu_inst),
         .O_cpu_inst_valid(cpu_inst_valid),
         // cpu addr & w/r req
-        .I_cpu_addr(mem_addr[31:0]),
+        .I_cpu_addr(mem_addr),
         .I_cpu_wmask(cpu_wmask),
         .I_cpu_rd_req(cpu_rreq),
         .I_cpu_wr_req(cpu_wreq),

@@ -5,7 +5,7 @@ module ysyx_22040750_MEM_WB_reg(
     input I_MEM_WB_valid,
     output reg O_MEM_WB_allowin,
     output O_MEM_WB_valid,
-    input [63:0] I_pc,
+    input [31:0] I_pc,
     input [63:0] I_mem_data,
     input [8:0] I_mem_rstrb,
     input [2:0] I_mem_shamt,
@@ -31,7 +31,7 @@ module ysyx_22040750_MEM_WB_reg(
 	output reg O_csr_mret,
 	output reg [63:0] O_csr,
 
-    output reg [63:0] O_pc,
+    output reg [31:0] O_pc,
     output reg [63:0] O_mem_data,
     output reg [8:0] O_mem_rstrb,
     output reg [2:0] O_mem_shamt,
@@ -46,8 +46,8 @@ module ysyx_22040750_MEM_WB_reg(
     output reg O_bubble_inst_debug,
     input I_mem_op_debug,
     output reg O_mem_op_debug,
-    input [63:0] I_mem_addr_debug,
-    output reg [63:0] O_mem_addr_debug
+    input [31:0] I_mem_addr_debug,
+    output reg [31:0] O_mem_addr_debug
     );
     // valid case: mem rd or non-mem rd
     // the second case contains reg wb or nop op

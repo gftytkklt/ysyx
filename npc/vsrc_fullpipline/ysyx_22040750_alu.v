@@ -13,13 +13,13 @@ module ysyx_22040750_alu(
     input [4:0] I_uimm,
     input [6:0] I_csr_op_sel,
     output [63:0] O_result,
-    output [63:0] O_mem_addr,
+    //output [63:0] O_mem_addr,
     output [63:0] O_csr_data,
     output O_result_valid
 );
     ysyx_22040750_gpr_alu gpr_alu_e(
-    	.I_sys_clk(I_sys_clk),
-    	.I_rst(I_rst),
+    .I_sys_clk(I_sys_clk),
+    .I_rst(I_rst),
 		.I_csr_data(I_csr_data),
 		.I_op1(I_op1),
 		.I_op2(I_op2),
@@ -28,7 +28,7 @@ module ysyx_22040750_alu(
 		.I_word_op_mask(I_word_op_mask),
 		.I_multicycle(I_multicycle),
 		.I_EX_MEM_ready(I_EX_MEM_ready),
-		.O_mem_addr(O_mem_addr),
+		//.O_mem_addr(O_mem_addr),
 		.O_result(O_result),
 		.O_result_valid(O_result_valid)
     );

@@ -5,7 +5,7 @@ module ysyx_22040750_csr(
     input I_csr_wen,
     input I_csr_intr_wr,
     input I_csr_intr_rd,
-    input [63:0] I_intr_pc,
+    input [31:0] I_intr_pc,
     input [63:0] I_csr_intr_no,
     input I_csr_mret_wr,
     input I_csr_mret_rd,
@@ -44,7 +44,7 @@ module ysyx_22040750_csr(
             endcase
         else if(I_csr_intr_wr) begin
             mcause <= I_csr_intr_no;
-            mepc <= I_intr_pc;
+            mepc <= {32'b0, I_intr_pc};
             mstatus <= {mstatus[63:8],mie,mstatus[6:4],1'b0,mstatus[2:0]};
             mtvec <= mtvec;
             mscratch <= mscratch;

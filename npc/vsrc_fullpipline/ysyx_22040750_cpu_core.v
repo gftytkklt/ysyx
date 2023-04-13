@@ -25,9 +25,9 @@ module ysyx_22040750_cpu_core(
     input [31:0] I_inst,
     input I_inst_valid,
 	input I_pc_ready,
-    output [63:0] O_pc,
+    output [31:0] O_pc,
     output O_pc_valid,
-    output [63:0] O_mem_addr,
+    output [31:0] O_mem_addr,
     output O_mem_rd_en,
     output O_mem_wen,
     input [63:0] I_mem_rd_data,
@@ -37,9 +37,10 @@ module ysyx_22040750_cpu_core(
     output [7:0] O_mem_wr_strb
     //output O_sim_end
     );
-    wire [63:0] current_pc,dnpc,snpc;
+    wire [31:0] current_pc,dnpc,snpc;
     wire [31:0] current_inst;
-    wire [63:0] imm,wr_data,rs1_data,rs2_data,alu_op1,alu_op2,alu_out,mem_in,mem_out,mem_addr,csr_rd_data,alu_csr_data;
+	wire [31:0] mem_addr;
+    wire [63:0] imm,wr_data,rs1_data,rs2_data,alu_op1,alu_op2,alu_out,mem_in,mem_out,csr_rd_data,alu_csr_data;
     wire [4:0] rs1_addr,rs2_addr,rd_addr;
     //wire [2:0] funct3;
     wire [4:0] dnpc_sel;
@@ -61,7 +62,7 @@ module ysyx_22040750_cpu_core(
 	wire [63:0] csr_intr_no;
     //IF_ID
     wire IF_valid;
-    wire [63:0] IF_ID_pc;
+    wire [31:0] IF_ID_pc;
     wire [31:0] IF_ID_inst;
     wire IF_ID_allowin;
     wire IF_ID_valid;
@@ -69,8 +70,9 @@ module ysyx_22040750_cpu_core(
     wire IF_ID_bubble;
     wire IF_ID_input_valid;
     //ID_EX
-    wire [63:0] ID_EX_imm, ID_EX_pc, ID_EX_rs1, ID_EX_rs2, ID_EX_csr;
-    wire [4:0] ID_EX_rd_addr;
+    wire [63:0] ID_EX_imm, ID_EX_rs1, ID_EX_rs2, ID_EX_csr;
+    wire [31:0] ID_EX_pc;
+	wire [4:0] ID_EX_rd_addr;
     wire [7:0] ID_EX_wstrb;
     wire [8:0] ID_EX_rstrb;
     wire [2:0] ID_EX_op2_sel,ID_EX_op1_sel,ID_EX_regin_sel;
@@ -95,10 +97,11 @@ module ysyx_22040750_cpu_core(
     wire EX_MEM_valid;
     wire [8:0] EX_MEM_rstrb;
     wire [7:0] EX_MEM_wstrb;
-    wire [63:0] EX_MEM_alu_out, EX_MEM_mem_addr, EX_MEM_rs2, EX_MEM_csr;
+	wire [31:0]  EX_MEM_mem_addr;
+    wire [63:0] EX_MEM_alu_out, EX_MEM_rs2, EX_MEM_csr;
     wire EX_MEM_mem_wen;// indicate mem wr stage, maybe multicycle
 	wire EX_MEM_mem_rd_en, EX_MEM_mem_wr_en;// actual single cycle valid flag
-    wire [63:0] EX_MEM_pc;
+    wire [31:0] EX_MEM_pc;
     wire [63:0] EX_MEM_mem_data;
     wire EX_MEM_reg_wen;
     wire [4:0] EX_MEM_rd_addr;
@@ -115,7 +118,7 @@ module ysyx_22040750_cpu_core(
 	//wire [4:0] EX_MEM_csr_uimm;
 	wire [63:0] EX_MEM_csr_intr_no;
     //MEM_WB
-    wire [63:0] MEM_WB_pc;
+    wire [31:0] MEM_WB_pc;
     wire MEM_WB_valid;
     wire [63:0] MEM_WB_mem_data;
     wire [8:0] MEM_WB_mem_rstrb;
@@ -140,20 +143,20 @@ module ysyx_22040750_cpu_core(
     wire [63:0] rs1_forward_data, rs2_forward_data, csr_forward_data;
     // debug
     wire EX_MEM_mem_op, MEM_WB_mem_op;
-    wire [63:0] MEM_WB_mem_addr;
+    wire [31:0] MEM_WB_mem_addr;
     import "DPI-C" function void set_wb_ptr(input logic a []);
     initial set_wb_ptr(MEM_WB_valid);
     import "DPI-C" function void set_wb_bubble_ptr(input logic a []);
     initial set_wb_bubble_ptr(MEM_WB_bubble);
-    import "DPI-C" function void set_wb_pc_ptr(input logic [63:0] a []);
+    import "DPI-C" function void set_wb_pc_ptr(input logic [31:0] a []);
     initial set_wb_pc_ptr(MEM_WB_pc);
-    import "DPI-C" function void set_skip_pc_ptr(input logic [63:0] a []);
+    import "DPI-C" function void set_skip_pc_ptr(input logic [31:0] a []);
     initial set_skip_pc_ptr(EX_MEM_pc);
     import "DPI-C" function void set_wb_inst_ptr(input logic [31:0] a []);
     initial set_wb_inst_ptr(MEM_WB_inst);
     import "DPI-C" function void set_wb_memop_ptr(input logic a []);
     initial set_wb_memop_ptr(MEM_WB_mem_op);
-    import "DPI-C" function void set_wb_memaddr_ptr(input logic [63:0] a []);
+    import "DPI-C" function void set_wb_memaddr_ptr(input logic [31:0] a []);
     initial set_wb_memaddr_ptr(MEM_WB_mem_addr);
     import "DPI-C" function void sim_end();
     always @(posedge I_sys_clk)
@@ -167,6 +170,7 @@ module ysyx_22040750_cpu_core(
     //assign O_mem_rd_en = EX_MEM_regin_sel[1];
     //assign O_mem_wr_data = mem_out;
     assign O_mem_addr = EX_MEM_mem_addr;
+	assign EX_MEM_mem_addr = EX_MEM_alu_out[31:0];
     //assign O_mem_wen = EX_MEM_mem_wen & EX_MEM_valid;
 	assign O_mem_wen = EX_MEM_mem_wr_en;
     assign O_mem_rd_en = EX_MEM_mem_rd_en;// single cycle rd_en generate internally
@@ -390,7 +394,7 @@ module ysyx_22040750_cpu_core(
     
     ysyx_22040750_mux_Nbit_Msel #(64, 3)
 		alu_op1_64bit_3sel (
-		.I_sel_data({64'b0,ID_EX_pc,ID_EX_rs1}),
+		.I_sel_data({64'b0,{32'b0, ID_EX_pc},ID_EX_rs1}),
 		.I_sel(ID_EX_op1_sel),
 		.O_sel_data(alu_op1)
     );
@@ -415,7 +419,7 @@ module ysyx_22040750_cpu_core(
 		.I_csr_data(ID_EX_csr),
 		.I_uimm(ID_EX_csr_uimm),
 		.I_csr_op_sel(ID_EX_csr_op_sel),
-		.O_mem_addr(mem_addr),
+		//.O_mem_addr(mem_addr),
 		.O_result(alu_out),
 		.O_csr_data(alu_csr_data),
 		.O_result_valid(alu_out_valid)
@@ -455,7 +459,7 @@ module ysyx_22040750_cpu_core(
 		.I_rstrb(ID_EX_rstrb),
 		.I_wstrb(ID_EX_wstrb),
 		.I_alu_out(alu_out),
-		.I_mem_addr(mem_addr),
+		//.I_mem_addr(mem_addr),
 		.I_mem_wen(ID_EX_mem_wen),
 		.I_rs2_data(ID_EX_rs2),
 		.I_pc(ID_EX_pc),
@@ -483,7 +487,7 @@ module ysyx_22040750_cpu_core(
 		.O_rstrb(EX_MEM_rstrb),
 		.O_wstrb(EX_MEM_wstrb),
 		.O_alu_out(EX_MEM_alu_out),
-		.O_mem_addr(EX_MEM_mem_addr),
+		//.O_mem_addr(EX_MEM_mem_addr),
 		.O_mem_wen(EX_MEM_mem_wen),// mem wr stage flag, not actual mem wr valid flag
 		.O_mem_rd_en(EX_MEM_mem_rd_en),
 		.O_mem_wr_en(EX_MEM_mem_wr_en),

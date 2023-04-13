@@ -23,19 +23,19 @@
 module ysyx_22040750_pc(
     input I_sys_clk,
     input I_rst,
-    input [63:0] I_dnpc,
+    input [31:0] I_dnpc,
     input [31:0] I_inst,
     input I_inst_valid,
     input I_inst_ready,
     input I_IF_ID_allowin,// allow next inst rd
     output O_IF_valid,
-    output reg [63:0] O_pc,
+    output reg [31:0] O_pc,
     output [31:0] O_inst,
     output O_pc_valid
     );
-    import "DPI-C" function void set_pc_ptr(input logic [63:0] a []);
+    import "DPI-C" function void set_pc_ptr(input logic [31:0] a []);
     initial set_pc_ptr(O_pc);
-    localparam PC_RESET = 64'h7FFFFFFC;
+    localparam PC_RESET = 32'h7FFFFFFC;
     wire IF_ready_go;
     wire IF_allow_in;
     wire IF_handshake;

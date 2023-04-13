@@ -31,7 +31,7 @@ module ysyx_22040750_gpr_alu(
     input I_word_op_mask,
     input I_multicycle,// ID_EX input valid
     input I_EX_MEM_ready,// EX_MEM ready for multicycle result
-    output [63:0] O_mem_addr,
+    //output [63:0] O_mem_addr,
     output [63:0] O_result,
     output O_result_valid
     );
@@ -228,7 +228,7 @@ module ysyx_22040750_gpr_alu(
         assign slldw_result[i] = shift_result[63-i];
     end
     endgenerate
-    assign O_mem_addr = add_sub_result;
+    //assign O_mem_addr = add_sub_result;
     assign csr_result = I_csr_data;
     wire [63:0] dword_result, word_sext_result;
     assign dword_result = ({64{op_add | op_sub}} & add_sub_result)
