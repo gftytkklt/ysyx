@@ -28,6 +28,7 @@ module ysyx_22040750_cache(
     input [31:0] I_cpu_pc,
     input I_cpu_pc_valid,
     output O_cpu_pc_ready,
+    output O_cpu_mem_ready,
     // cpu addr & w/r req
     input [31:0] I_cpu_addr,
     input [7:0] I_cpu_wmask,
@@ -229,6 +230,7 @@ module ysyx_22040750_cache(
         .I_cpu_wmask(I_cpu_wmask),
         .I_cpu_rd_req(I_cpu_rd_req),
         .I_cpu_wr_req(I_cpu_wr_req),
+        .O_cpu_mem_ready(O_cpu_mem_ready),
         .I_way0_rdata(dcache_way0_rdata),
         .I_way1_rdata(dcache_way1_rdata),
         .O_sram_addr(O_sram_daddr),

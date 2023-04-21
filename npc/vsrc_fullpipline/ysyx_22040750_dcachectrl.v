@@ -37,6 +37,7 @@ module ysyx_22040750_dcachectrl #(
     input [7:0] I_cpu_wmask,
     input I_cpu_rd_req,
     input I_cpu_wr_req,
+    output O_cpu_mem_ready,
     // cache rd addr & req, low level valid en
     input [255:0] I_way0_rdata,
     input [255:0] I_way1_rdata,
@@ -290,6 +291,7 @@ module ysyx_22040750_dcachectrl #(
     // mmio_flag: current mem range: 80000000-87ffffff, other addr means mmio_addr
     // simple impl: [31:24] 1000_0000-1000_0111, so cached addr must have addr[31:27] == 10000
     assign mmio_flag = (I_cpu_addr[31:27] != 5'b10000) && (I_cpu_rd_req || I_cpu_wr_req);
+    assign O_cpu_mem_ready = (current_state == IDLE) || (current_state == RD_HIT) || (current_state == WR_HIT);
     always @(posedge I_clk)
         if(I_rst)
             current_state <= IDLE;
@@ -298,7 +300,7 @@ module ysyx_22040750_dcachectrl #(
     always @(*) begin
         next_state = IDLE;
         case(current_state)
-            IDLE: begin
+            IDLE, RD_HIT, WR_HIT: begin
                 if(mmio_flag)
                     next_state = I_cpu_rd_req ? MMIO_RD : MMIO_WR;
                 else if(rd_hit)
@@ -310,14 +312,12 @@ module ysyx_22040750_dcachectrl #(
                 else if(wr_miss)
                     next_state = WR_MISS;
                 else
-                    next_state = current_state;
+                    next_state = IDLE;
             end
-            RD_HIT: next_state = IDLE;
             RD_MISS: next_state = rd_handshake ? RD_RELOAD : current_state;
             RD_RELOAD: next_state = I_mem_rlast ? (replace_dirty ? RD_WB : RD_ALLOCATE) : current_state;
             RD_WB: next_state = I_mem_bvalid ? RD_ALLOCATE : current_state;
             RD_ALLOCATE: next_state = IDLE;
-            WR_HIT: next_state = IDLE;
             WR_MISS: next_state = rd_handshake ? WR_RELOAD : current_state;
             WR_RELOAD: next_state = I_mem_rlast ? (replace_dirty ? WR_WB : WR_ALLOCATE) : current_state;
             WR_WB: next_state = I_mem_bvalid ? WR_ALLOCATE : current_state;

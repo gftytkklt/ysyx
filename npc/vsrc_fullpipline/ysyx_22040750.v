@@ -195,7 +195,7 @@ module ysyx_22040750(
     wire [31:0] mem_addr;
     wire cpu_rreq, cpu_wreq;
     wire [63:0] mem_rdata, mem_wdata;
-    wire mem_rvalid, mem_bvalid;
+    wire mem_rvalid, mem_bvalid, cpu_mem_ready;
     wire [7:0] cpu_wmask;
 
     assign io_sram3_addr = iaddr;
@@ -212,6 +212,7 @@ module ysyx_22040750(
         .I_inst(cpu_inst),
         .I_inst_valid(cpu_inst_valid),
         .I_pc_ready(cpu_pc_ready),
+        .I_mem_ready(cpu_mem_ready),
         .O_pc(cpu_pc),
         .O_pc_valid(cpu_pc_valid),
         .O_mem_addr(mem_addr),
@@ -231,6 +232,7 @@ module ysyx_22040750(
         .I_cpu_pc(cpu_pc),
         .I_cpu_pc_valid(cpu_pc_valid),
         .O_cpu_pc_ready(cpu_pc_ready),
+        .O_cpu_mem_ready(cpu_mem_ready),
         .O_cpu_inst(cpu_inst),
         .O_cpu_inst_valid(cpu_inst_valid),
         // cpu addr & w/r req

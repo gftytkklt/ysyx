@@ -207,15 +207,7 @@ module ysyx_22040750_icachectrl #(
     always @(*) begin
         next_state = IDLE;
         case(current_state)
-            IDLE: begin
-                if(rd_hit)
-                    next_state = RD_HIT;
-                else if(rd_miss)
-                    next_state = RD_MISS;
-                else
-                    next_state = current_state;
-            end
-            RD_HIT: begin
+            IDLE, RD_HIT: begin
                 if(rd_hit)
                     next_state = RD_HIT;
                 else if(rd_miss)
