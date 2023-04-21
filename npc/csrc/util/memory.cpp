@@ -3,7 +3,7 @@
 #include <mmio.h>
 #include <util.h>
 
-void pmem_read(unsigned int raddr, unsigned long* rdata, uint64_t *skip_pc){
+void pmem_read(unsigned int raddr, unsigned long* rdata, uint32_t *skip_pc){
   switch (raddr){
     case RTC_ADDR: get_time(rdata);break;
     case (VGA_ADDR + VGA_H_OFFT): 
@@ -34,7 +34,7 @@ void pmem_read(unsigned int raddr, unsigned long* rdata, uint64_t *skip_pc){
   }*/
 }
 
-void pmem_write(unsigned int waddr, unsigned long wdata, unsigned char wmask, uint64_t *skip_pc){
+void pmem_write(unsigned int waddr, unsigned long wdata, unsigned char wmask, uint32_t *skip_pc){
   // unsigned index = (waddr-(unsigned long)0x80000000) & ~(0x7ul);
   // uint8_t *data_pt = (uint8_t*)&wdata;
   // switch(waddr){

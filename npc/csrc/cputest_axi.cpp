@@ -29,15 +29,15 @@ struct cpu_context {
 };
 static struct cpu_context context = {};
 static uint64_t *cpu_gpr = NULL;
-static uint64_t *cpu_pc = NULL;
-static uint64_t *wb_pc = NULL;
-static uint64_t *skip_pc = NULL;
+static uint32_t *cpu_pc = NULL;
+static uint32_t *wb_pc = NULL;
+static uint32_t *skip_pc = NULL;
 static uint32_t *inst = NULL;
 static uint32_t *wb_inst = NULL;
 static bool *wb_valid = NULL;
 static bool *wb_bubble = NULL;
 static bool *wb_mem_op = NULL;
-static uint64_t *wb_mem_addr = NULL;
+static uint32_t *wb_mem_addr = NULL;
 #ifdef CONFIG_ITRACE
 void init_disasm(const char *triple);
 void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
@@ -59,7 +59,7 @@ extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
   //cpu_context->gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
 extern "C" void set_pc_ptr(const svOpenArrayHandle r) {
-  cpu_pc = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
+  cpu_pc = (uint32_t *)(((VerilatedDpiOpenVar*)r)->datap());
   //cpu_context->pc = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
 extern "C" void set_wb_ptr(const svOpenArrayHandle r) {
@@ -67,11 +67,11 @@ extern "C" void set_wb_ptr(const svOpenArrayHandle r) {
   //cpu_context->pc = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
 extern "C" void set_wb_pc_ptr(const svOpenArrayHandle r) {
-  wb_pc = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
+  wb_pc = (uint32_t *)(((VerilatedDpiOpenVar*)r)->datap());
   //cpu_context->pc = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
 extern "C" void set_skip_pc_ptr(const svOpenArrayHandle r) {
-  skip_pc = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
+  skip_pc = (uint32_t *)(((VerilatedDpiOpenVar*)r)->datap());
   //cpu_context->pc = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
 extern "C" void set_inst_ptr(const svOpenArrayHandle r) {
@@ -87,7 +87,7 @@ extern "C" void set_wb_memop_ptr(const svOpenArrayHandle r) {
   wb_mem_op = (bool *)(((VerilatedDpiOpenVar*)r)->datap());
 }
 extern "C" void set_wb_memaddr_ptr(const svOpenArrayHandle r) {
-  wb_mem_addr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
+  wb_mem_addr = (uint32_t *)(((VerilatedDpiOpenVar*)r)->datap());
   //cpu_context->pc = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
 
@@ -99,10 +99,10 @@ void sim_end(){
   //set_gpr_ptr(10);
   //printf("%ld\n", cpu_gpr[10]);
   if(cpu_gpr[10]){
-    printf("%s at pc = 0x%016lx\n", ASNI_FMT("HIT BAD TRAP", ASNI_FG_RED), *wb_pc);
+    printf("%s at pc = 0x%08x\n", ASNI_FMT("HIT BAD TRAP", ASNI_FG_RED), *wb_pc);
   }
   else{
-    printf("%s at pc = 0x%016lx\n", ASNI_FMT("HIT GOOD TRAP", ASNI_FG_GREEN), *wb_pc);
+    printf("%s at pc = 0x%08x\n", ASNI_FMT("HIT GOOD TRAP", ASNI_FG_GREEN), *wb_pc);
   }
   //printf(" C: Im called fronm Scope :: %s \n\n ",svGetNameFromScope(svGetScope() ));
   //Vcpu_top::check();
@@ -187,8 +187,8 @@ int main(int argc, char** argv, char** env) {
   bool valid_posedge = false;
   bool wb_valid_difftest;
   bool wb_memop_difftest;
-  uint64_t wb_memaddr_difftest;
-  uint64_t wb_pc_difftest;
+  uint32_t wb_memaddr_difftest;
+  uint32_t wb_pc_difftest;
   uint32_t wb_inst_difftest;
   bool mmio_op = false;
   bool difftest_error = false;
@@ -306,7 +306,7 @@ int main(int argc, char** argv, char** env) {
         }
         difftest_step(wb_pc_difftest, cpu_gpr, sim_time, &difftest_error);
         if(difftest_error){
-          printf("error pc at %lx!\n\n", wb_pc_difftest);
+          printf("error pc at %08x!\n\n", wb_pc_difftest);
           #ifdef CONFIG_ITRACE
           inst_hist_display();
           #endif
