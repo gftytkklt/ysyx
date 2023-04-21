@@ -99,7 +99,7 @@ void sim_end(){
   //set_gpr_ptr(10);
   //printf("%ld\n", cpu_gpr[10]);
   if(cpu_gpr[10]){
-    printf("%s at pc = 0x%08x\n", ASNI_FMT("HIT BAD TRAP", ASNI_FG_RED), *wb_pc);
+    printf("%s at pc = 0x%08x, ret code=0x%lxh\n", ASNI_FMT("HIT BAD TRAP", ASNI_FG_RED), *wb_pc, cpu_gpr[10]);
   }
   else{
     printf("%s at pc = 0x%08x\n", ASNI_FMT("HIT GOOD TRAP", ASNI_FG_GREEN), *wb_pc);
