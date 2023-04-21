@@ -1,6 +1,5 @@
 #include <am.h>
 #include <npc.h>
-#include <stdio.h>
 extern char _heap_start;
 int main(const char *args);
 
