@@ -142,10 +142,7 @@ void Vysyx_22040750___024root__traceChgSub0(Vysyx_22040750___024root* vlSelf, Ve
             tracep->chgWData(oldp+70,(vlSelf->ysyx_22040750__DOT__io_sram7_rdata),128);
             tracep->chgIData(oldp+74,(vlSelf->ysyx_22040750__DOT__cpu_inst),32);
             tracep->chgIData(oldp+75,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__dnpc),32);
-            tracep->chgBit(oldp+76,((1U & ((1U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state)) 
-                                           | ((8U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))
-                                               ? 1U
-                                               : 0U)))));
+            tracep->chgBit(oldp+76,(vlSelf->ysyx_22040750__DOT__cpu_inst_valid));
             tracep->chgBit(oldp+77,(vlSelf->ysyx_22040750__DOT__cpu_pc_valid));
             tracep->chgBit(oldp+78,(vlSelf->ysyx_22040750__DOT__cpu_pc_ready));
             tracep->chgIData(oldp+79,((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_alu_out)),32);

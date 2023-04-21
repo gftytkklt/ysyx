@@ -1625,9 +1625,7 @@ void Vysyx_22040750___024root__traceFullSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->fullWData(oldp+71,(vlSelf->ysyx_22040750__DOT__io_sram7_rdata),128);
         tracep->fullIData(oldp+75,(vlSelf->ysyx_22040750__DOT__cpu_inst),32);
         tracep->fullIData(oldp+76,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__dnpc),32);
-        tracep->fullBit(oldp+77,((1U & ((1U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state)) 
-                                        | ((8U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))
-                                            ? 1U : 0U)))));
+        tracep->fullBit(oldp+77,(vlSelf->ysyx_22040750__DOT__cpu_inst_valid));
         tracep->fullBit(oldp+78,(vlSelf->ysyx_22040750__DOT__cpu_pc_valid));
         tracep->fullBit(oldp+79,(vlSelf->ysyx_22040750__DOT__cpu_pc_ready));
         tracep->fullIData(oldp+80,((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_alu_out)),32);

@@ -89,6 +89,7 @@ VL_MODULE(Vysyx_22040750___024root) {
     struct {
         CData/*5:0*/ ysyx_22040750__DOT__iaddr;
         CData/*5:0*/ ysyx_22040750__DOT__daddr;
+        CData/*0:0*/ ysyx_22040750__DOT__cpu_inst_valid;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_pc_valid;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_pc_ready;
         CData/*4:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__dnpc_sel;
@@ -150,9 +151,9 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__pc_e__DOT__IF_handshake;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__pc_e__DOT__IF_valid;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__pc_e__DOT__IF_en;
-        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__pc_e__DOT__cache_valid;
     };
     struct {
+        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__pc_e__DOT__cache_valid;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_reg_e__DOT__input_valid;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT__typeI;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT__typeR;
@@ -216,9 +217,9 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__axi_dcache_rvalid;
         CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__axi_icache_rlast;
         CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__axi_dcache_rlast;
-        CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__axi_icache_arready;
     };
     struct {
+        CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__axi_icache_arready;
         CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__axi_dcache_arready;
         CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__axi_dcache_arvalid;
         CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__axi_dcache_wlast;
@@ -282,9 +283,9 @@ VL_MODULE(Vysyx_22040750___024root) {
         IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_pc;
         IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_inst;
         IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_pc;
-        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_inst;
     };
     struct {
+        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_inst;
         IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_pc;
         IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_inst;
         IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_pc;
@@ -348,9 +349,9 @@ VL_MODULE(Vysyx_22040750___024root) {
         QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__result;
         QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__cin;
         QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__reverse_op1;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__shift_op;
     };
     struct {
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__shift_op;
         QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__shift_result;
         QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__slldw_result;
         QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__dword_result;

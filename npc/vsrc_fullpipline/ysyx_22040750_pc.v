@@ -57,7 +57,8 @@ module ysyx_22040750_pc(
     always @(posedge I_sys_clk)
     	if(I_rst)
     		inst_cache <= 32'b0;
-    	else if(IF_ready_go && (!I_IF_ID_allowin))
+    	//else if(IF_ready_go && (!I_IF_ID_allowin))
+        else if(I_inst_valid && (!I_IF_ID_allowin))
     		inst_cache <= I_inst;
     	else
     		inst_cache <= inst_cache;
