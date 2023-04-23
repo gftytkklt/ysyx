@@ -34,7 +34,7 @@ module ysyx_22040750_IF_ID_reg(
 	    {O_pc, O_inst} <= {32'h0, 32'h0};
 	    // if inst jump, induce a bubble
 	else if(I_IF_ID_valid && O_IF_ID_allowin)
-	    {O_pc, O_inst} <= I_IF_ID_jmp ? {O_pc, 32'h00000013} : {I_pc, I_inst};
+	    {O_pc, O_inst} <= I_IF_ID_jmp ? {O_pc, O_inst} : {I_pc, I_inst};
 	else
 	    {O_pc, O_inst} <= {O_pc, O_inst};
     always @(posedge I_sys_clk)
