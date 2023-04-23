@@ -307,7 +307,7 @@ int main(int argc, char** argv, char** env) {
         //printf("time: %ld\n", sim_time);
         difftest_step(wb_pc_difftest, cpu_gpr, sim_time, &difftest_error);
         if(difftest_error){
-          printf("error pc at %08x!\n\n", wb_pc_difftest);
+          printf("error dut pc at %08x!\n\n", wb_pc_difftest);
           #ifdef CONFIG_ITRACE
           inst_hist_display();
           #endif
