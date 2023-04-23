@@ -58,7 +58,7 @@ void difftest_skip_ref(){
 }
 
 void difftest_step(uint64_t pc, uint64_t* dut, uint64_t sim_time, bool* error){
-  uint64_t ref_data[32];
+  uint64_t ref_data[33];
   //if(is_skip_ref){printf("exec nemu at pc = %lx, skip_pc = %lx\n",pc, skip_pc);}
   //if(is_skip_ref && (skip_pc == pc)){
   if(is_skip_ref){
