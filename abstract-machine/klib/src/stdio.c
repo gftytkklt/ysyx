@@ -5,11 +5,11 @@
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 static char buf[2048] = "\0";
-enum {CHAR, INTD, INTX, INTLD, INTLX, STR, INVALID_TYPE, };
+enum {STR, INTD, INTX, INTLD, INTLX, CHAR, INVALID_TYPE, };
 //static bool isdec = true;
 static bool ispad = false;
 static int width = 0;
-static int type = CHAR;
+static int type = STR;
 
 // check if char wr out of bound, if outofbound, do nothing and return
 //static bool outofbound(char *tmp, const char input, char *end){
@@ -168,12 +168,18 @@ int sprintf(char *out, const char *fmt, ...) {
         tmp = num2str(tmp, val, width, ispad);
         continue;
       }
-      else if(type == CHAR){
+      else if(type == STR){
         char *str = va_arg(ap, char*);
         while(*str != '\0'){
           *tmp = *str;
           tmp++;str++;
         }
+        continue;
+      }
+      else if(type == CHAR){
+        char val = va_arg(ap, int);
+        *tmp = val;
+        tmp++;
         continue;
       }
     }
@@ -197,12 +203,18 @@ int snprintf(char *out, size_t n, const char *fmt, ...) {
         tmp = num2str(tmp, val, width, ispad);
         continue;
       }
-      else if(type == CHAR){
+      else if(type == STR){
         char *str = va_arg(ap, char*);
         while(*str != '\0'){
           *tmp = *str;
           tmp++;str++;
         }
+        continue;
+      }
+      else if(type == CHAR){
+        char val = va_arg(ap, int);
+        *tmp = val;
+        tmp++;
         continue;
       }
     }
