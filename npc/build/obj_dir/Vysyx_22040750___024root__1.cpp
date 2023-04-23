@@ -10048,15 +10048,15 @@ VL_INLINE_OPT void Vysyx_22040750___024root___sequent__TOP__4(Vysyx_22040750___0
             = (IData)((((1U & (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__dnpc_sel))
                          ? (((QData)((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__current_pc)) 
                              << 0x20U) | (QData)((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__current_inst)))
-                         : (((QData)((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_pc)) 
-                             << 0x20U) | (QData)((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_inst)))) 
+                         : (0x13ULL | ((QData)((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_pc)) 
+                                       << 0x20U))) 
                        >> 0x20U));
         vlSelf->__Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_inst 
             = (IData)(((1U & (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__dnpc_sel))
                         ? (((QData)((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__current_pc)) 
                             << 0x20U) | (QData)((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__current_inst)))
-                        : (((QData)((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_pc)) 
-                            << 0x20U) | (QData)((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_inst)))));
+                        : (0x13ULL | ((QData)((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_pc)) 
+                                      << 0x20U))));
     } else {
         vlSelf->__Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_pc 
             = vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_pc;
