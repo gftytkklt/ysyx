@@ -187,6 +187,10 @@ module ysyx_22040750_cpu_core(
     );*/
     
     ysyx_22040750_npc npc_e(
+		.I_clk(I_sys_clk),
+		.I_rst(I_rst),
+		.I_pc_valid(O_pc_valid),
+		.I_pc_ready(I_pc_ready),
     	// stall
     	//.I_rs1_data(rs1_data),
     	//.I_rs2_data(rs2_data),
