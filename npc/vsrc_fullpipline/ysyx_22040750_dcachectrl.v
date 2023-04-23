@@ -94,6 +94,11 @@ module ysyx_22040750_dcachectrl #(
     // cacheline & cpu_wb reg
     wire [7:0] sram_wmask;// cpu wmask;
     reg [31:0] sram_wmaskB;// Bytewise wmask
+    reg [1:0] hit_flag;// rd_only, 01 for way0 hit, 10 for way1 hit;
+    // final data rd src
+    wire [255:0] mem_rdata;
+    // cache hit data source
+    wire [255:0] hit_rdata;
     reg [255:0] cacheline_reg;
     reg [63:0] cpu_reg;
     reg [7:0] cpu_mask_reg;
@@ -125,8 +130,8 @@ module ysyx_22040750_dcachectrl #(
     always @(posedge I_clk)
         if(I_rst)
             cacheline_reg <= 0;
-        else if(rd_hit)
-            cacheline_reg <= way0_hit ? I_way0_rdata : I_way1_rdata;
+        //else if(rd_hit)
+        //    cacheline_reg <= way0_hit ? I_way0_rdata : I_way1_rdata;
         else if(wr_hit)
             cacheline_reg[{offset[OFFT_LEN-1:3],3'b0,3'b0} +: 64] <= I_cpu_data;
         else if(wr_allocate)
@@ -144,7 +149,18 @@ module ysyx_22040750_dcachectrl #(
             {cpu_mask_reg, cpu_reg} <= {cpu_mask_reg, cpu_reg};
     // cpu interface impl
     assign O_cpu_rvalid = (current_state == RD_HIT) || rd_allocate;
-    assign O_cpu_data = cacheline_reg[{mem_index[OFFT_LEN-1:3],3'b0,3'b0} +: 64];
+    always @(posedge I_clk)
+        if(I_rst)
+            hit_flag <= 2'b00;
+        else if(rd_hit)
+            hit_flag <= way0_hit ? 2'b01 : 2'b10;
+        else
+            hit_flag <= 2'b00;
+    //assign hit_rdata = way0_hit ? I_way0_rdata : I_way1_rdata;
+    assign hit_rdata = (I_way0_rdata & {256{hit_flag[0]}}) | (I_way1_rdata & {256{hit_flag[1]}});
+    assign mem_rdata = (current_state == RD_HIT) ? hit_rdata : cacheline_reg;
+    assign O_cpu_data = mem_rdata[{mem_offset[OFFT_LEN-1:3],3'b0,3'b0} +: 64];
+    //assign O_cpu_data = cacheline_reg[{mem_offset[OFFT_LEN-1:3],3'b0,3'b0} +: 64];
     assign O_cpu_bvalid = (current_state == WR_HIT);
     // mem interface impl
     assign aw_handshake = I_mem_awready && O_mem_awvalid;

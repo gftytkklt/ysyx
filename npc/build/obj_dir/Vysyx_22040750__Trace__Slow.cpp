@@ -22,172 +22,172 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
     if (false && tracep && c) {}  // Prevent unused
     // Body
     {
-        tracep->declBit(c+949,"clock", false,-1);
-        tracep->declBit(c+950,"reset", false,-1);
-        tracep->declBit(c+951,"io_interrupt", false,-1);
-        tracep->declBit(c+952,"io_master_awready", false,-1);
-        tracep->declBit(c+953,"io_master_awvalid", false,-1);
-        tracep->declBus(c+954,"io_master_awid", false,-1, 3,0);
-        tracep->declBus(c+955,"io_master_awaddr", false,-1, 31,0);
-        tracep->declBus(c+956,"io_master_awlen", false,-1, 7,0);
-        tracep->declBus(c+957,"io_master_awsize", false,-1, 2,0);
-        tracep->declBus(c+958,"io_master_awburst", false,-1, 1,0);
-        tracep->declBit(c+959,"io_master_wready", false,-1);
-        tracep->declBit(c+960,"io_master_wvalid", false,-1);
-        tracep->declQuad(c+961,"io_master_wdata", false,-1, 63,0);
-        tracep->declBus(c+963,"io_master_wstrb", false,-1, 7,0);
-        tracep->declBit(c+964,"io_master_wlast", false,-1);
-        tracep->declBit(c+965,"io_master_bready", false,-1);
-        tracep->declBit(c+966,"io_master_bvalid", false,-1);
-        tracep->declBus(c+967,"io_master_bid", false,-1, 3,0);
-        tracep->declBus(c+968,"io_master_bresp", false,-1, 1,0);
-        tracep->declBit(c+969,"io_master_arready", false,-1);
-        tracep->declBit(c+970,"io_master_arvalid", false,-1);
-        tracep->declBus(c+971,"io_master_arid", false,-1, 3,0);
-        tracep->declBus(c+972,"io_master_araddr", false,-1, 31,0);
-        tracep->declBus(c+973,"io_master_arlen", false,-1, 7,0);
-        tracep->declBus(c+974,"io_master_arsize", false,-1, 2,0);
-        tracep->declBus(c+975,"io_master_arburst", false,-1, 1,0);
-        tracep->declBit(c+976,"io_master_rready", false,-1);
-        tracep->declBit(c+977,"io_master_rvalid", false,-1);
-        tracep->declBus(c+978,"io_master_rid", false,-1, 3,0);
-        tracep->declBus(c+979,"io_master_rresp", false,-1, 1,0);
-        tracep->declQuad(c+980,"io_master_rdata", false,-1, 63,0);
-        tracep->declBit(c+982,"io_master_rlast", false,-1);
-        tracep->declBit(c+983,"io_slave_awready", false,-1);
-        tracep->declBit(c+984,"io_slave_awvalid", false,-1);
-        tracep->declBus(c+985,"io_slave_awid", false,-1, 3,0);
-        tracep->declBus(c+986,"io_slave_awaddr", false,-1, 31,0);
-        tracep->declBus(c+987,"io_slave_awlen", false,-1, 7,0);
-        tracep->declBus(c+988,"io_slave_awsize", false,-1, 2,0);
-        tracep->declBus(c+989,"io_slave_awburst", false,-1, 1,0);
-        tracep->declBit(c+990,"io_slave_wready", false,-1);
-        tracep->declBit(c+991,"io_slave_wvalid", false,-1);
-        tracep->declQuad(c+992,"io_slave_wdata", false,-1, 63,0);
-        tracep->declBus(c+994,"io_slave_wstrb", false,-1, 7,0);
-        tracep->declBit(c+995,"io_slave_wlast", false,-1);
-        tracep->declBit(c+996,"io_slave_bready", false,-1);
-        tracep->declBit(c+997,"io_slave_bvalid", false,-1);
-        tracep->declBus(c+998,"io_slave_bid", false,-1, 3,0);
-        tracep->declBus(c+999,"io_slave_bresp", false,-1, 1,0);
-        tracep->declBit(c+1000,"io_slave_arready", false,-1);
-        tracep->declBit(c+1001,"io_slave_arvalid", false,-1);
-        tracep->declBus(c+1002,"io_slave_arid", false,-1, 3,0);
-        tracep->declBus(c+1003,"io_slave_araddr", false,-1, 31,0);
-        tracep->declBus(c+1004,"io_slave_arlen", false,-1, 7,0);
-        tracep->declBus(c+1005,"io_slave_arsize", false,-1, 2,0);
-        tracep->declBus(c+1006,"io_slave_arburst", false,-1, 1,0);
-        tracep->declBit(c+1007,"io_slave_rready", false,-1);
-        tracep->declBit(c+1008,"io_slave_rvalid", false,-1);
-        tracep->declBus(c+1009,"io_slave_rid", false,-1, 3,0);
-        tracep->declBus(c+1010,"io_slave_rresp", false,-1, 1,0);
-        tracep->declQuad(c+1011,"io_slave_rdata", false,-1, 63,0);
-        tracep->declBit(c+1013,"io_slave_rlast", false,-1);
-        tracep->declBit(c+949,"ysyx_22040750 clock", false,-1);
-        tracep->declBit(c+950,"ysyx_22040750 reset", false,-1);
-        tracep->declBit(c+951,"ysyx_22040750 io_interrupt", false,-1);
-        tracep->declBit(c+952,"ysyx_22040750 io_master_awready", false,-1);
-        tracep->declBit(c+953,"ysyx_22040750 io_master_awvalid", false,-1);
-        tracep->declBus(c+954,"ysyx_22040750 io_master_awid", false,-1, 3,0);
-        tracep->declBus(c+955,"ysyx_22040750 io_master_awaddr", false,-1, 31,0);
-        tracep->declBus(c+956,"ysyx_22040750 io_master_awlen", false,-1, 7,0);
-        tracep->declBus(c+957,"ysyx_22040750 io_master_awsize", false,-1, 2,0);
-        tracep->declBus(c+958,"ysyx_22040750 io_master_awburst", false,-1, 1,0);
-        tracep->declBit(c+959,"ysyx_22040750 io_master_wready", false,-1);
-        tracep->declBit(c+960,"ysyx_22040750 io_master_wvalid", false,-1);
-        tracep->declQuad(c+961,"ysyx_22040750 io_master_wdata", false,-1, 63,0);
-        tracep->declBus(c+963,"ysyx_22040750 io_master_wstrb", false,-1, 7,0);
-        tracep->declBit(c+964,"ysyx_22040750 io_master_wlast", false,-1);
-        tracep->declBit(c+965,"ysyx_22040750 io_master_bready", false,-1);
-        tracep->declBit(c+966,"ysyx_22040750 io_master_bvalid", false,-1);
-        tracep->declBus(c+967,"ysyx_22040750 io_master_bid", false,-1, 3,0);
-        tracep->declBus(c+968,"ysyx_22040750 io_master_bresp", false,-1, 1,0);
-        tracep->declBit(c+969,"ysyx_22040750 io_master_arready", false,-1);
-        tracep->declBit(c+970,"ysyx_22040750 io_master_arvalid", false,-1);
-        tracep->declBus(c+971,"ysyx_22040750 io_master_arid", false,-1, 3,0);
-        tracep->declBus(c+972,"ysyx_22040750 io_master_araddr", false,-1, 31,0);
-        tracep->declBus(c+973,"ysyx_22040750 io_master_arlen", false,-1, 7,0);
-        tracep->declBus(c+974,"ysyx_22040750 io_master_arsize", false,-1, 2,0);
-        tracep->declBus(c+975,"ysyx_22040750 io_master_arburst", false,-1, 1,0);
-        tracep->declBit(c+976,"ysyx_22040750 io_master_rready", false,-1);
-        tracep->declBit(c+977,"ysyx_22040750 io_master_rvalid", false,-1);
-        tracep->declBus(c+978,"ysyx_22040750 io_master_rid", false,-1, 3,0);
-        tracep->declBus(c+979,"ysyx_22040750 io_master_rresp", false,-1, 1,0);
-        tracep->declQuad(c+980,"ysyx_22040750 io_master_rdata", false,-1, 63,0);
-        tracep->declBit(c+982,"ysyx_22040750 io_master_rlast", false,-1);
-        tracep->declBit(c+983,"ysyx_22040750 io_slave_awready", false,-1);
-        tracep->declBit(c+984,"ysyx_22040750 io_slave_awvalid", false,-1);
-        tracep->declBus(c+985,"ysyx_22040750 io_slave_awid", false,-1, 3,0);
-        tracep->declBus(c+986,"ysyx_22040750 io_slave_awaddr", false,-1, 31,0);
-        tracep->declBus(c+987,"ysyx_22040750 io_slave_awlen", false,-1, 7,0);
-        tracep->declBus(c+988,"ysyx_22040750 io_slave_awsize", false,-1, 2,0);
-        tracep->declBus(c+989,"ysyx_22040750 io_slave_awburst", false,-1, 1,0);
-        tracep->declBit(c+990,"ysyx_22040750 io_slave_wready", false,-1);
-        tracep->declBit(c+991,"ysyx_22040750 io_slave_wvalid", false,-1);
-        tracep->declQuad(c+992,"ysyx_22040750 io_slave_wdata", false,-1, 63,0);
-        tracep->declBus(c+994,"ysyx_22040750 io_slave_wstrb", false,-1, 7,0);
-        tracep->declBit(c+995,"ysyx_22040750 io_slave_wlast", false,-1);
-        tracep->declBit(c+996,"ysyx_22040750 io_slave_bready", false,-1);
-        tracep->declBit(c+997,"ysyx_22040750 io_slave_bvalid", false,-1);
-        tracep->declBus(c+998,"ysyx_22040750 io_slave_bid", false,-1, 3,0);
-        tracep->declBus(c+999,"ysyx_22040750 io_slave_bresp", false,-1, 1,0);
-        tracep->declBit(c+1000,"ysyx_22040750 io_slave_arready", false,-1);
-        tracep->declBit(c+1001,"ysyx_22040750 io_slave_arvalid", false,-1);
-        tracep->declBus(c+1002,"ysyx_22040750 io_slave_arid", false,-1, 3,0);
-        tracep->declBus(c+1003,"ysyx_22040750 io_slave_araddr", false,-1, 31,0);
-        tracep->declBus(c+1004,"ysyx_22040750 io_slave_arlen", false,-1, 7,0);
-        tracep->declBus(c+1005,"ysyx_22040750 io_slave_arsize", false,-1, 2,0);
-        tracep->declBus(c+1006,"ysyx_22040750 io_slave_arburst", false,-1, 1,0);
-        tracep->declBit(c+1007,"ysyx_22040750 io_slave_rready", false,-1);
-        tracep->declBit(c+1008,"ysyx_22040750 io_slave_rvalid", false,-1);
-        tracep->declBus(c+1009,"ysyx_22040750 io_slave_rid", false,-1, 3,0);
-        tracep->declBus(c+1010,"ysyx_22040750 io_slave_rresp", false,-1, 1,0);
-        tracep->declQuad(c+1011,"ysyx_22040750 io_slave_rdata", false,-1, 63,0);
-        tracep->declBit(c+1013,"ysyx_22040750 io_slave_rlast", false,-1);
+        tracep->declBit(c+966,"clock", false,-1);
+        tracep->declBit(c+967,"reset", false,-1);
+        tracep->declBit(c+968,"io_interrupt", false,-1);
+        tracep->declBit(c+969,"io_master_awready", false,-1);
+        tracep->declBit(c+970,"io_master_awvalid", false,-1);
+        tracep->declBus(c+971,"io_master_awid", false,-1, 3,0);
+        tracep->declBus(c+972,"io_master_awaddr", false,-1, 31,0);
+        tracep->declBus(c+973,"io_master_awlen", false,-1, 7,0);
+        tracep->declBus(c+974,"io_master_awsize", false,-1, 2,0);
+        tracep->declBus(c+975,"io_master_awburst", false,-1, 1,0);
+        tracep->declBit(c+976,"io_master_wready", false,-1);
+        tracep->declBit(c+977,"io_master_wvalid", false,-1);
+        tracep->declQuad(c+978,"io_master_wdata", false,-1, 63,0);
+        tracep->declBus(c+980,"io_master_wstrb", false,-1, 7,0);
+        tracep->declBit(c+981,"io_master_wlast", false,-1);
+        tracep->declBit(c+982,"io_master_bready", false,-1);
+        tracep->declBit(c+983,"io_master_bvalid", false,-1);
+        tracep->declBus(c+984,"io_master_bid", false,-1, 3,0);
+        tracep->declBus(c+985,"io_master_bresp", false,-1, 1,0);
+        tracep->declBit(c+986,"io_master_arready", false,-1);
+        tracep->declBit(c+987,"io_master_arvalid", false,-1);
+        tracep->declBus(c+988,"io_master_arid", false,-1, 3,0);
+        tracep->declBus(c+989,"io_master_araddr", false,-1, 31,0);
+        tracep->declBus(c+990,"io_master_arlen", false,-1, 7,0);
+        tracep->declBus(c+991,"io_master_arsize", false,-1, 2,0);
+        tracep->declBus(c+992,"io_master_arburst", false,-1, 1,0);
+        tracep->declBit(c+993,"io_master_rready", false,-1);
+        tracep->declBit(c+994,"io_master_rvalid", false,-1);
+        tracep->declBus(c+995,"io_master_rid", false,-1, 3,0);
+        tracep->declBus(c+996,"io_master_rresp", false,-1, 1,0);
+        tracep->declQuad(c+997,"io_master_rdata", false,-1, 63,0);
+        tracep->declBit(c+999,"io_master_rlast", false,-1);
+        tracep->declBit(c+1000,"io_slave_awready", false,-1);
+        tracep->declBit(c+1001,"io_slave_awvalid", false,-1);
+        tracep->declBus(c+1002,"io_slave_awid", false,-1, 3,0);
+        tracep->declBus(c+1003,"io_slave_awaddr", false,-1, 31,0);
+        tracep->declBus(c+1004,"io_slave_awlen", false,-1, 7,0);
+        tracep->declBus(c+1005,"io_slave_awsize", false,-1, 2,0);
+        tracep->declBus(c+1006,"io_slave_awburst", false,-1, 1,0);
+        tracep->declBit(c+1007,"io_slave_wready", false,-1);
+        tracep->declBit(c+1008,"io_slave_wvalid", false,-1);
+        tracep->declQuad(c+1009,"io_slave_wdata", false,-1, 63,0);
+        tracep->declBus(c+1011,"io_slave_wstrb", false,-1, 7,0);
+        tracep->declBit(c+1012,"io_slave_wlast", false,-1);
+        tracep->declBit(c+1013,"io_slave_bready", false,-1);
+        tracep->declBit(c+1014,"io_slave_bvalid", false,-1);
+        tracep->declBus(c+1015,"io_slave_bid", false,-1, 3,0);
+        tracep->declBus(c+1016,"io_slave_bresp", false,-1, 1,0);
+        tracep->declBit(c+1017,"io_slave_arready", false,-1);
+        tracep->declBit(c+1018,"io_slave_arvalid", false,-1);
+        tracep->declBus(c+1019,"io_slave_arid", false,-1, 3,0);
+        tracep->declBus(c+1020,"io_slave_araddr", false,-1, 31,0);
+        tracep->declBus(c+1021,"io_slave_arlen", false,-1, 7,0);
+        tracep->declBus(c+1022,"io_slave_arsize", false,-1, 2,0);
+        tracep->declBus(c+1023,"io_slave_arburst", false,-1, 1,0);
+        tracep->declBit(c+1024,"io_slave_rready", false,-1);
+        tracep->declBit(c+1025,"io_slave_rvalid", false,-1);
+        tracep->declBus(c+1026,"io_slave_rid", false,-1, 3,0);
+        tracep->declBus(c+1027,"io_slave_rresp", false,-1, 1,0);
+        tracep->declQuad(c+1028,"io_slave_rdata", false,-1, 63,0);
+        tracep->declBit(c+1030,"io_slave_rlast", false,-1);
+        tracep->declBit(c+966,"ysyx_22040750 clock", false,-1);
+        tracep->declBit(c+967,"ysyx_22040750 reset", false,-1);
+        tracep->declBit(c+968,"ysyx_22040750 io_interrupt", false,-1);
+        tracep->declBit(c+969,"ysyx_22040750 io_master_awready", false,-1);
+        tracep->declBit(c+970,"ysyx_22040750 io_master_awvalid", false,-1);
+        tracep->declBus(c+971,"ysyx_22040750 io_master_awid", false,-1, 3,0);
+        tracep->declBus(c+972,"ysyx_22040750 io_master_awaddr", false,-1, 31,0);
+        tracep->declBus(c+973,"ysyx_22040750 io_master_awlen", false,-1, 7,0);
+        tracep->declBus(c+974,"ysyx_22040750 io_master_awsize", false,-1, 2,0);
+        tracep->declBus(c+975,"ysyx_22040750 io_master_awburst", false,-1, 1,0);
+        tracep->declBit(c+976,"ysyx_22040750 io_master_wready", false,-1);
+        tracep->declBit(c+977,"ysyx_22040750 io_master_wvalid", false,-1);
+        tracep->declQuad(c+978,"ysyx_22040750 io_master_wdata", false,-1, 63,0);
+        tracep->declBus(c+980,"ysyx_22040750 io_master_wstrb", false,-1, 7,0);
+        tracep->declBit(c+981,"ysyx_22040750 io_master_wlast", false,-1);
+        tracep->declBit(c+982,"ysyx_22040750 io_master_bready", false,-1);
+        tracep->declBit(c+983,"ysyx_22040750 io_master_bvalid", false,-1);
+        tracep->declBus(c+984,"ysyx_22040750 io_master_bid", false,-1, 3,0);
+        tracep->declBus(c+985,"ysyx_22040750 io_master_bresp", false,-1, 1,0);
+        tracep->declBit(c+986,"ysyx_22040750 io_master_arready", false,-1);
+        tracep->declBit(c+987,"ysyx_22040750 io_master_arvalid", false,-1);
+        tracep->declBus(c+988,"ysyx_22040750 io_master_arid", false,-1, 3,0);
+        tracep->declBus(c+989,"ysyx_22040750 io_master_araddr", false,-1, 31,0);
+        tracep->declBus(c+990,"ysyx_22040750 io_master_arlen", false,-1, 7,0);
+        tracep->declBus(c+991,"ysyx_22040750 io_master_arsize", false,-1, 2,0);
+        tracep->declBus(c+992,"ysyx_22040750 io_master_arburst", false,-1, 1,0);
+        tracep->declBit(c+993,"ysyx_22040750 io_master_rready", false,-1);
+        tracep->declBit(c+994,"ysyx_22040750 io_master_rvalid", false,-1);
+        tracep->declBus(c+995,"ysyx_22040750 io_master_rid", false,-1, 3,0);
+        tracep->declBus(c+996,"ysyx_22040750 io_master_rresp", false,-1, 1,0);
+        tracep->declQuad(c+997,"ysyx_22040750 io_master_rdata", false,-1, 63,0);
+        tracep->declBit(c+999,"ysyx_22040750 io_master_rlast", false,-1);
+        tracep->declBit(c+1000,"ysyx_22040750 io_slave_awready", false,-1);
+        tracep->declBit(c+1001,"ysyx_22040750 io_slave_awvalid", false,-1);
+        tracep->declBus(c+1002,"ysyx_22040750 io_slave_awid", false,-1, 3,0);
+        tracep->declBus(c+1003,"ysyx_22040750 io_slave_awaddr", false,-1, 31,0);
+        tracep->declBus(c+1004,"ysyx_22040750 io_slave_awlen", false,-1, 7,0);
+        tracep->declBus(c+1005,"ysyx_22040750 io_slave_awsize", false,-1, 2,0);
+        tracep->declBus(c+1006,"ysyx_22040750 io_slave_awburst", false,-1, 1,0);
+        tracep->declBit(c+1007,"ysyx_22040750 io_slave_wready", false,-1);
+        tracep->declBit(c+1008,"ysyx_22040750 io_slave_wvalid", false,-1);
+        tracep->declQuad(c+1009,"ysyx_22040750 io_slave_wdata", false,-1, 63,0);
+        tracep->declBus(c+1011,"ysyx_22040750 io_slave_wstrb", false,-1, 7,0);
+        tracep->declBit(c+1012,"ysyx_22040750 io_slave_wlast", false,-1);
+        tracep->declBit(c+1013,"ysyx_22040750 io_slave_bready", false,-1);
+        tracep->declBit(c+1014,"ysyx_22040750 io_slave_bvalid", false,-1);
+        tracep->declBus(c+1015,"ysyx_22040750 io_slave_bid", false,-1, 3,0);
+        tracep->declBus(c+1016,"ysyx_22040750 io_slave_bresp", false,-1, 1,0);
+        tracep->declBit(c+1017,"ysyx_22040750 io_slave_arready", false,-1);
+        tracep->declBit(c+1018,"ysyx_22040750 io_slave_arvalid", false,-1);
+        tracep->declBus(c+1019,"ysyx_22040750 io_slave_arid", false,-1, 3,0);
+        tracep->declBus(c+1020,"ysyx_22040750 io_slave_araddr", false,-1, 31,0);
+        tracep->declBus(c+1021,"ysyx_22040750 io_slave_arlen", false,-1, 7,0);
+        tracep->declBus(c+1022,"ysyx_22040750 io_slave_arsize", false,-1, 2,0);
+        tracep->declBus(c+1023,"ysyx_22040750 io_slave_arburst", false,-1, 1,0);
+        tracep->declBit(c+1024,"ysyx_22040750 io_slave_rready", false,-1);
+        tracep->declBit(c+1025,"ysyx_22040750 io_slave_rvalid", false,-1);
+        tracep->declBus(c+1026,"ysyx_22040750 io_slave_rid", false,-1, 3,0);
+        tracep->declBus(c+1027,"ysyx_22040750 io_slave_rresp", false,-1, 1,0);
+        tracep->declQuad(c+1028,"ysyx_22040750 io_slave_rdata", false,-1, 63,0);
+        tracep->declBit(c+1030,"ysyx_22040750 io_slave_rlast", false,-1);
         tracep->declBus(c+1,"ysyx_22040750 io_sram0_addr", false,-1, 5,0);
-        tracep->declBit(c+919,"ysyx_22040750 io_sram0_cen", false,-1);
+        tracep->declBit(c+936,"ysyx_22040750 io_sram0_cen", false,-1);
         tracep->declBit(c+2,"ysyx_22040750 io_sram0_wen", false,-1);
         tracep->declArray(c+3,"ysyx_22040750 io_sram0_wmask", false,-1, 127,0);
         tracep->declArray(c+7,"ysyx_22040750 io_sram0_wdata", false,-1, 127,0);
         tracep->declArray(c+11,"ysyx_22040750 io_sram0_rdata", false,-1, 127,0);
         tracep->declBus(c+1,"ysyx_22040750 io_sram1_addr", false,-1, 5,0);
-        tracep->declBit(c+920,"ysyx_22040750 io_sram1_cen", false,-1);
+        tracep->declBit(c+937,"ysyx_22040750 io_sram1_cen", false,-1);
         tracep->declBit(c+15,"ysyx_22040750 io_sram1_wen", false,-1);
         tracep->declArray(c+16,"ysyx_22040750 io_sram1_wmask", false,-1, 127,0);
         tracep->declArray(c+20,"ysyx_22040750 io_sram1_wdata", false,-1, 127,0);
         tracep->declArray(c+24,"ysyx_22040750 io_sram1_rdata", false,-1, 127,0);
         tracep->declBus(c+1,"ysyx_22040750 io_sram2_addr", false,-1, 5,0);
-        tracep->declBit(c+921,"ysyx_22040750 io_sram2_cen", false,-1);
+        tracep->declBit(c+938,"ysyx_22040750 io_sram2_cen", false,-1);
         tracep->declBit(c+28,"ysyx_22040750 io_sram2_wen", false,-1);
         tracep->declArray(c+3,"ysyx_22040750 io_sram2_wmask", false,-1, 127,0);
         tracep->declArray(c+7,"ysyx_22040750 io_sram2_wdata", false,-1, 127,0);
         tracep->declArray(c+29,"ysyx_22040750 io_sram2_rdata", false,-1, 127,0);
         tracep->declBus(c+1,"ysyx_22040750 io_sram3_addr", false,-1, 5,0);
-        tracep->declBit(c+922,"ysyx_22040750 io_sram3_cen", false,-1);
+        tracep->declBit(c+939,"ysyx_22040750 io_sram3_cen", false,-1);
         tracep->declBit(c+33,"ysyx_22040750 io_sram3_wen", false,-1);
         tracep->declArray(c+16,"ysyx_22040750 io_sram3_wmask", false,-1, 127,0);
         tracep->declArray(c+20,"ysyx_22040750 io_sram3_wdata", false,-1, 127,0);
         tracep->declArray(c+34,"ysyx_22040750 io_sram3_rdata", false,-1, 127,0);
         tracep->declBus(c+38,"ysyx_22040750 io_sram4_addr", false,-1, 5,0);
-        tracep->declBit(c+923,"ysyx_22040750 io_sram4_cen", false,-1);
+        tracep->declBit(c+940,"ysyx_22040750 io_sram4_cen", false,-1);
         tracep->declBit(c+39,"ysyx_22040750 io_sram4_wen", false,-1);
         tracep->declArray(c+40,"ysyx_22040750 io_sram4_wmask", false,-1, 127,0);
         tracep->declArray(c+44,"ysyx_22040750 io_sram4_wdata", false,-1, 127,0);
         tracep->declArray(c+48,"ysyx_22040750 io_sram4_rdata", false,-1, 127,0);
         tracep->declBus(c+38,"ysyx_22040750 io_sram5_addr", false,-1, 5,0);
-        tracep->declBit(c+924,"ysyx_22040750 io_sram5_cen", false,-1);
+        tracep->declBit(c+941,"ysyx_22040750 io_sram5_cen", false,-1);
         tracep->declBit(c+52,"ysyx_22040750 io_sram5_wen", false,-1);
         tracep->declArray(c+53,"ysyx_22040750 io_sram5_wmask", false,-1, 127,0);
         tracep->declArray(c+57,"ysyx_22040750 io_sram5_wdata", false,-1, 127,0);
         tracep->declArray(c+61,"ysyx_22040750 io_sram5_rdata", false,-1, 127,0);
         tracep->declBus(c+38,"ysyx_22040750 io_sram6_addr", false,-1, 5,0);
-        tracep->declBit(c+925,"ysyx_22040750 io_sram6_cen", false,-1);
+        tracep->declBit(c+942,"ysyx_22040750 io_sram6_cen", false,-1);
         tracep->declBit(c+65,"ysyx_22040750 io_sram6_wen", false,-1);
         tracep->declArray(c+40,"ysyx_22040750 io_sram6_wmask", false,-1, 127,0);
         tracep->declArray(c+44,"ysyx_22040750 io_sram6_wdata", false,-1, 127,0);
         tracep->declArray(c+66,"ysyx_22040750 io_sram6_rdata", false,-1, 127,0);
         tracep->declBus(c+38,"ysyx_22040750 io_sram7_addr", false,-1, 5,0);
-        tracep->declBit(c+926,"ysyx_22040750 io_sram7_cen", false,-1);
+        tracep->declBit(c+943,"ysyx_22040750 io_sram7_cen", false,-1);
         tracep->declBit(c+70,"ysyx_22040750 io_sram7_wen", false,-1);
         tracep->declArray(c+53,"ysyx_22040750 io_sram7_wmask", false,-1, 127,0);
         tracep->declArray(c+57,"ysyx_22040750 io_sram7_wdata", false,-1, 127,0);
@@ -208,8 +208,8 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBit(c+88,"ysyx_22040750 mem_bvalid", false,-1);
         tracep->declBit(c+89,"ysyx_22040750 cpu_mem_ready", false,-1);
         tracep->declBus(c+90,"ysyx_22040750 cpu_wmask", false,-1, 7,0);
-        tracep->declBit(c+949,"ysyx_22040750 cpu_core_e I_sys_clk", false,-1);
-        tracep->declBit(c+950,"ysyx_22040750 cpu_core_e I_rst", false,-1);
+        tracep->declBit(c+966,"ysyx_22040750 cpu_core_e I_sys_clk", false,-1);
+        tracep->declBit(c+967,"ysyx_22040750 cpu_core_e I_rst", false,-1);
         tracep->declBus(c+75,"ysyx_22040750 cpu_core_e I_inst", false,-1, 31,0);
         tracep->declBit(c+77,"ysyx_22040750 cpu_core_e I_inst_valid", false,-1);
         tracep->declBit(c+79,"ysyx_22040750 cpu_core_e I_pc_ready", false,-1);
@@ -228,7 +228,7 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBus(c+76,"ysyx_22040750 cpu_core_e dnpc", false,-1, 31,0);
         tracep->declBus(c+92,"ysyx_22040750 cpu_core_e snpc", false,-1, 31,0);
         tracep->declBus(c+93,"ysyx_22040750 cpu_core_e current_inst", false,-1, 31,0);
-        tracep->declBus(c+1023,"ysyx_22040750 cpu_core_e mem_addr", false,-1, 31,0);
+        tracep->declBus(c+1040,"ysyx_22040750 cpu_core_e mem_addr", false,-1, 31,0);
         tracep->declQuad(c+94,"ysyx_22040750 cpu_core_e imm", false,-1, 63,0);
         tracep->declQuad(c+96,"ysyx_22040750 cpu_core_e wr_data", false,-1, 63,0);
         tracep->declQuad(c+98,"ysyx_22040750 cpu_core_e rs1_data", false,-1, 63,0);
@@ -311,7 +311,7 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBit(c+81,"ysyx_22040750 cpu_core_e EX_MEM_mem_rd_en", false,-1);
         tracep->declBit(c+82,"ysyx_22040750 cpu_core_e EX_MEM_mem_wr_en", false,-1);
         tracep->declBus(c+189,"ysyx_22040750 cpu_core_e EX_MEM_pc", false,-1, 31,0);
-        tracep->declQuad(c+1024,"ysyx_22040750 cpu_core_e EX_MEM_mem_data", false,-1, 63,0);
+        tracep->declQuad(c+1041,"ysyx_22040750 cpu_core_e EX_MEM_mem_data", false,-1, 63,0);
         tracep->declBit(c+190,"ysyx_22040750 cpu_core_e EX_MEM_reg_wen", false,-1);
         tracep->declBus(c+191,"ysyx_22040750 cpu_core_e EX_MEM_rd_addr", false,-1, 4,0);
         tracep->declBus(c+192,"ysyx_22040750 cpu_core_e EX_MEM_regin_sel", false,-1, 2,0);
@@ -367,16 +367,16 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBus(c+241,"ysyx_22040750 cpu_core_e npc_e dnpc", false,-1, 31,0);
         tracep->declBit(c+242,"ysyx_22040750 cpu_core_e npc_e dnpc_sel", false,-1);
         tracep->declBit(c+243,"ysyx_22040750 cpu_core_e npc_e intr_sel", false,-1);
-        tracep->declBus(c+1026,"ysyx_22040750 cpu_core_e npc_e nextpc_64bit_3sel N", false,-1, 31,0);
-        tracep->declBus(c+1027,"ysyx_22040750 cpu_core_e npc_e nextpc_64bit_3sel M", false,-1, 31,0);
+        tracep->declBus(c+1043,"ysyx_22040750 cpu_core_e npc_e nextpc_64bit_3sel N", false,-1, 31,0);
+        tracep->declBus(c+1044,"ysyx_22040750 cpu_core_e npc_e nextpc_64bit_3sel M", false,-1, 31,0);
         tracep->declArray(c+244,"ysyx_22040750 cpu_core_e npc_e nextpc_64bit_3sel I_sel_data", false,-1, 95,0);
         tracep->declBus(c+247,"ysyx_22040750 cpu_core_e npc_e nextpc_64bit_3sel I_sel", false,-1, 2,0);
         tracep->declBus(c+241,"ysyx_22040750 cpu_core_e npc_e nextpc_64bit_3sel O_sel_data", false,-1, 31,0);
         {int i; for (i=0; i<3; i++) {
                 tracep->declBus(c+248+i*1,"ysyx_22040750 cpu_core_e npc_e nextpc_64bit_3sel sel_data", true,(i+0), 31,0);}}
-        tracep->declBus(c+1028,"ysyx_22040750 cpu_core_e npc_e nextpc_64bit_3sel unnamedblk1 i", false,-1, 31,0);
-        tracep->declBit(c+949,"ysyx_22040750 cpu_core_e pc_e I_sys_clk", false,-1);
-        tracep->declBit(c+950,"ysyx_22040750 cpu_core_e pc_e I_rst", false,-1);
+        tracep->declBus(c+1045,"ysyx_22040750 cpu_core_e npc_e nextpc_64bit_3sel unnamedblk1 i", false,-1, 31,0);
+        tracep->declBit(c+966,"ysyx_22040750 cpu_core_e pc_e I_sys_clk", false,-1);
+        tracep->declBit(c+967,"ysyx_22040750 cpu_core_e pc_e I_rst", false,-1);
         tracep->declBus(c+76,"ysyx_22040750 cpu_core_e pc_e I_dnpc", false,-1, 31,0);
         tracep->declBus(c+75,"ysyx_22040750 cpu_core_e pc_e I_inst", false,-1, 31,0);
         tracep->declBit(c+77,"ysyx_22040750 cpu_core_e pc_e I_inst_valid", false,-1);
@@ -386,7 +386,7 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBus(c+91,"ysyx_22040750 cpu_core_e pc_e O_pc", false,-1, 31,0);
         tracep->declBus(c+93,"ysyx_22040750 cpu_core_e pc_e O_inst", false,-1, 31,0);
         tracep->declBit(c+78,"ysyx_22040750 cpu_core_e pc_e O_pc_valid", false,-1);
-        tracep->declBus(c+1029,"ysyx_22040750 cpu_core_e pc_e PC_RESET", false,-1, 31,0);
+        tracep->declBus(c+1046,"ysyx_22040750 cpu_core_e pc_e PC_RESET", false,-1, 31,0);
         tracep->declBit(c+251,"ysyx_22040750 cpu_core_e pc_e IF_ready_go", false,-1);
         tracep->declBit(c+252,"ysyx_22040750 cpu_core_e pc_e IF_allow_in", false,-1);
         tracep->declBit(c+253,"ysyx_22040750 cpu_core_e pc_e IF_handshake", false,-1);
@@ -394,8 +394,8 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBit(c+255,"ysyx_22040750 cpu_core_e pc_e IF_en", false,-1);
         tracep->declBus(c+256,"ysyx_22040750 cpu_core_e pc_e inst_cache", false,-1, 31,0);
         tracep->declBit(c+257,"ysyx_22040750 cpu_core_e pc_e cache_valid", false,-1);
-        tracep->declBit(c+949,"ysyx_22040750 cpu_core_e IF_ID_reg_e I_sys_clk", false,-1);
-        tracep->declBit(c+950,"ysyx_22040750 cpu_core_e IF_ID_reg_e I_rst", false,-1);
+        tracep->declBit(c+966,"ysyx_22040750 cpu_core_e IF_ID_reg_e I_sys_clk", false,-1);
+        tracep->declBit(c+967,"ysyx_22040750 cpu_core_e IF_ID_reg_e I_rst", false,-1);
         tracep->declBus(c+91,"ysyx_22040750 cpu_core_e IF_ID_reg_e I_pc", false,-1, 31,0);
         tracep->declBus(c+93,"ysyx_22040750 cpu_core_e IF_ID_reg_e I_inst", false,-1, 31,0);
         tracep->declBit(c+137,"ysyx_22040750 cpu_core_e IF_ID_reg_e I_IF_ID_valid", false,-1);
@@ -462,8 +462,8 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBit(c+269,"ysyx_22040750 cpu_core_e csr_foward_e EX_foward", false,-1);
         tracep->declBit(c+270,"ysyx_22040750 cpu_core_e csr_foward_e MEM_foward", false,-1);
         tracep->declBit(c+271,"ysyx_22040750 cpu_core_e csr_foward_e WB_foward", false,-1);
-        tracep->declBit(c+949,"ysyx_22040750 cpu_core_e decoder_e I_sys_clk", false,-1);
-        tracep->declBit(c+950,"ysyx_22040750 cpu_core_e decoder_e I_rst", false,-1);
+        tracep->declBit(c+966,"ysyx_22040750 cpu_core_e decoder_e I_sys_clk", false,-1);
+        tracep->declBit(c+967,"ysyx_22040750 cpu_core_e decoder_e I_rst", false,-1);
         tracep->declBus(c+139,"ysyx_22040750 cpu_core_e decoder_e I_inst", false,-1, 31,0);
         tracep->declQuad(c+94,"ysyx_22040750 cpu_core_e decoder_e O_imm", false,-1, 63,0);
         tracep->declQuad(c+229,"ysyx_22040750 cpu_core_e decoder_e I_rs1_data", false,-1, 63,0);
@@ -590,21 +590,21 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBit(c+361,"ysyx_22040750 cpu_core_e decoder_e ge", false,-1);
         tracep->declBit(c+362,"ysyx_22040750 cpu_core_e decoder_e ltu", false,-1);
         tracep->declBit(c+363,"ysyx_22040750 cpu_core_e decoder_e geu", false,-1);
-        tracep->declBus(c+1030,"ysyx_22040750 cpu_core_e decoder_e OP_ADD", false,-1, 14,0);
-        tracep->declBus(c+1031,"ysyx_22040750 cpu_core_e decoder_e OP_SUB", false,-1, 14,0);
-        tracep->declBus(c+1032,"ysyx_22040750 cpu_core_e decoder_e OP_SLT", false,-1, 14,0);
-        tracep->declBus(c+1033,"ysyx_22040750 cpu_core_e decoder_e OP_SLTU", false,-1, 14,0);
-        tracep->declBus(c+1034,"ysyx_22040750 cpu_core_e decoder_e OP_XOR", false,-1, 14,0);
-        tracep->declBus(c+1035,"ysyx_22040750 cpu_core_e decoder_e OP_OR", false,-1, 14,0);
-        tracep->declBus(c+1036,"ysyx_22040750 cpu_core_e decoder_e OP_AND", false,-1, 14,0);
-        tracep->declBus(c+1037,"ysyx_22040750 cpu_core_e decoder_e OP_SLL", false,-1, 14,0);
-        tracep->declBus(c+1038,"ysyx_22040750 cpu_core_e decoder_e OP_SRL", false,-1, 14,0);
-        tracep->declBus(c+1039,"ysyx_22040750 cpu_core_e decoder_e OP_SRA", false,-1, 14,0);
-        tracep->declBus(c+1040,"ysyx_22040750 cpu_core_e decoder_e OP_MUL", false,-1, 14,0);
-        tracep->declBus(c+1041,"ysyx_22040750 cpu_core_e decoder_e OP_MULH", false,-1, 14,0);
-        tracep->declBus(c+1042,"ysyx_22040750 cpu_core_e decoder_e OP_DIV", false,-1, 14,0);
-        tracep->declBus(c+1043,"ysyx_22040750 cpu_core_e decoder_e OP_REM", false,-1, 14,0);
-        tracep->declBus(c+1044,"ysyx_22040750 cpu_core_e decoder_e OP_CSR", false,-1, 14,0);
+        tracep->declBus(c+1047,"ysyx_22040750 cpu_core_e decoder_e OP_ADD", false,-1, 14,0);
+        tracep->declBus(c+1048,"ysyx_22040750 cpu_core_e decoder_e OP_SUB", false,-1, 14,0);
+        tracep->declBus(c+1049,"ysyx_22040750 cpu_core_e decoder_e OP_SLT", false,-1, 14,0);
+        tracep->declBus(c+1050,"ysyx_22040750 cpu_core_e decoder_e OP_SLTU", false,-1, 14,0);
+        tracep->declBus(c+1051,"ysyx_22040750 cpu_core_e decoder_e OP_XOR", false,-1, 14,0);
+        tracep->declBus(c+1052,"ysyx_22040750 cpu_core_e decoder_e OP_OR", false,-1, 14,0);
+        tracep->declBus(c+1053,"ysyx_22040750 cpu_core_e decoder_e OP_AND", false,-1, 14,0);
+        tracep->declBus(c+1054,"ysyx_22040750 cpu_core_e decoder_e OP_SLL", false,-1, 14,0);
+        tracep->declBus(c+1055,"ysyx_22040750 cpu_core_e decoder_e OP_SRL", false,-1, 14,0);
+        tracep->declBus(c+1056,"ysyx_22040750 cpu_core_e decoder_e OP_SRA", false,-1, 14,0);
+        tracep->declBus(c+1057,"ysyx_22040750 cpu_core_e decoder_e OP_MUL", false,-1, 14,0);
+        tracep->declBus(c+1058,"ysyx_22040750 cpu_core_e decoder_e OP_MULH", false,-1, 14,0);
+        tracep->declBus(c+1059,"ysyx_22040750 cpu_core_e decoder_e OP_DIV", false,-1, 14,0);
+        tracep->declBus(c+1060,"ysyx_22040750 cpu_core_e decoder_e OP_REM", false,-1, 14,0);
+        tracep->declBus(c+1061,"ysyx_22040750 cpu_core_e decoder_e OP_CSR", false,-1, 14,0);
         tracep->declBit(c+364,"ysyx_22040750 cpu_core_e decoder_e add_flag", false,-1);
         tracep->declBit(c+355,"ysyx_22040750 cpu_core_e decoder_e ld_flag", false,-1);
         tracep->declBit(c+365,"ysyx_22040750 cpu_core_e decoder_e sub_flag", false,-1);
@@ -621,20 +621,20 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBit(c+376,"ysyx_22040750 cpu_core_e decoder_e div_flag", false,-1);
         tracep->declBit(c+377,"ysyx_22040750 cpu_core_e decoder_e rem_flag", false,-1);
         tracep->declBit(c+284,"ysyx_22040750 cpu_core_e decoder_e csr_flag", false,-1);
-        tracep->declBus(c+1045,"ysyx_22040750 cpu_core_e decoder_e OP1_RS1", false,-1, 2,0);
-        tracep->declBus(c+1046,"ysyx_22040750 cpu_core_e decoder_e OP1_PC", false,-1, 2,0);
-        tracep->declBus(c+1047,"ysyx_22040750 cpu_core_e decoder_e OP1_ZERO", false,-1, 2,0);
+        tracep->declBus(c+1062,"ysyx_22040750 cpu_core_e decoder_e OP1_RS1", false,-1, 2,0);
+        tracep->declBus(c+1063,"ysyx_22040750 cpu_core_e decoder_e OP1_PC", false,-1, 2,0);
+        tracep->declBus(c+1064,"ysyx_22040750 cpu_core_e decoder_e OP1_ZERO", false,-1, 2,0);
         tracep->declBit(c+378,"ysyx_22040750 cpu_core_e decoder_e rs1_flag", false,-1);
         tracep->declBit(c+379,"ysyx_22040750 cpu_core_e decoder_e pc_flag", false,-1);
         tracep->declBit(c+285,"ysyx_22040750 cpu_core_e decoder_e zero_flag", false,-1);
-        tracep->declBus(c+1045,"ysyx_22040750 cpu_core_e decoder_e OP2_RS2", false,-1, 2,0);
-        tracep->declBus(c+1046,"ysyx_22040750 cpu_core_e decoder_e OP2_IMM", false,-1, 2,0);
-        tracep->declBus(c+1047,"ysyx_22040750 cpu_core_e decoder_e OP2_FOUR", false,-1, 2,0);
+        tracep->declBus(c+1062,"ysyx_22040750 cpu_core_e decoder_e OP2_RS2", false,-1, 2,0);
+        tracep->declBus(c+1063,"ysyx_22040750 cpu_core_e decoder_e OP2_IMM", false,-1, 2,0);
+        tracep->declBus(c+1064,"ysyx_22040750 cpu_core_e decoder_e OP2_FOUR", false,-1, 2,0);
         tracep->declBit(c+280,"ysyx_22040750 cpu_core_e decoder_e rs2_flag", false,-1);
         tracep->declBit(c+380,"ysyx_22040750 cpu_core_e decoder_e imm_flag", false,-1);
         tracep->declBit(c+381,"ysyx_22040750 cpu_core_e decoder_e four_flag", false,-1);
-        tracep->declBit(c+949,"ysyx_22040750 cpu_core_e ID_EX_reg_e I_sys_clk", false,-1);
-        tracep->declBit(c+950,"ysyx_22040750 cpu_core_e ID_EX_reg_e I_rst", false,-1);
+        tracep->declBit(c+966,"ysyx_22040750 cpu_core_e ID_EX_reg_e I_sys_clk", false,-1);
+        tracep->declBit(c+967,"ysyx_22040750 cpu_core_e ID_EX_reg_e I_rst", false,-1);
         tracep->declBit(c+141,"ysyx_22040750 cpu_core_e ID_EX_reg_e I_ID_EX_valid", false,-1);
         tracep->declBit(c+194,"ysyx_22040750 cpu_core_e ID_EX_reg_e I_ID_EX_allowout", false,-1);
         tracep->declBit(c+166,"ysyx_22040750 cpu_core_e ID_EX_reg_e O_ID_EX_allowin", false,-1);
@@ -694,24 +694,24 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBit(c+169,"ysyx_22040750 cpu_core_e ID_EX_reg_e O_bubble_inst_debug", false,-1);
         tracep->declBit(c+170,"ysyx_22040750 cpu_core_e ID_EX_reg_e input_valid", false,-1);
         tracep->declBit(c+172,"ysyx_22040750 cpu_core_e ID_EX_reg_e output_valid", false,-1);
-        tracep->declBus(c+1048,"ysyx_22040750 cpu_core_e alu_op1_64bit_3sel N", false,-1, 31,0);
-        tracep->declBus(c+1027,"ysyx_22040750 cpu_core_e alu_op1_64bit_3sel M", false,-1, 31,0);
+        tracep->declBus(c+1065,"ysyx_22040750 cpu_core_e alu_op1_64bit_3sel N", false,-1, 31,0);
+        tracep->declBus(c+1044,"ysyx_22040750 cpu_core_e alu_op1_64bit_3sel M", false,-1, 31,0);
         tracep->declArray(c+382,"ysyx_22040750 cpu_core_e alu_op1_64bit_3sel I_sel_data", false,-1, 191,0);
         tracep->declBus(c+158,"ysyx_22040750 cpu_core_e alu_op1_64bit_3sel I_sel", false,-1, 2,0);
         tracep->declQuad(c+102,"ysyx_22040750 cpu_core_e alu_op1_64bit_3sel O_sel_data", false,-1, 63,0);
         {int i; for (i=0; i<3; i++) {
                 tracep->declQuad(c+388+i*2,"ysyx_22040750 cpu_core_e alu_op1_64bit_3sel sel_data", true,(i+0), 63,0);}}
-        tracep->declBus(c+1028,"ysyx_22040750 cpu_core_e alu_op1_64bit_3sel unnamedblk1 i", false,-1, 31,0);
-        tracep->declBus(c+1048,"ysyx_22040750 cpu_core_e alu_op2_64bit_3sel N", false,-1, 31,0);
-        tracep->declBus(c+1027,"ysyx_22040750 cpu_core_e alu_op2_64bit_3sel M", false,-1, 31,0);
+        tracep->declBus(c+1045,"ysyx_22040750 cpu_core_e alu_op1_64bit_3sel unnamedblk1 i", false,-1, 31,0);
+        tracep->declBus(c+1065,"ysyx_22040750 cpu_core_e alu_op2_64bit_3sel N", false,-1, 31,0);
+        tracep->declBus(c+1044,"ysyx_22040750 cpu_core_e alu_op2_64bit_3sel M", false,-1, 31,0);
         tracep->declArray(c+394,"ysyx_22040750 cpu_core_e alu_op2_64bit_3sel I_sel_data", false,-1, 191,0);
         tracep->declBus(c+157,"ysyx_22040750 cpu_core_e alu_op2_64bit_3sel I_sel", false,-1, 2,0);
         tracep->declQuad(c+104,"ysyx_22040750 cpu_core_e alu_op2_64bit_3sel O_sel_data", false,-1, 63,0);
         {int i; for (i=0; i<3; i++) {
                 tracep->declQuad(c+400+i*2,"ysyx_22040750 cpu_core_e alu_op2_64bit_3sel sel_data", true,(i+0), 63,0);}}
-        tracep->declBus(c+1028,"ysyx_22040750 cpu_core_e alu_op2_64bit_3sel unnamedblk1 i", false,-1, 31,0);
-        tracep->declBit(c+949,"ysyx_22040750 cpu_core_e alu_e I_sys_clk", false,-1);
-        tracep->declBit(c+950,"ysyx_22040750 cpu_core_e alu_e I_rst", false,-1);
+        tracep->declBus(c+1045,"ysyx_22040750 cpu_core_e alu_op2_64bit_3sel unnamedblk1 i", false,-1, 31,0);
+        tracep->declBit(c+966,"ysyx_22040750 cpu_core_e alu_e I_sys_clk", false,-1);
+        tracep->declBit(c+967,"ysyx_22040750 cpu_core_e alu_e I_rst", false,-1);
         tracep->declQuad(c+102,"ysyx_22040750 cpu_core_e alu_e I_op1", false,-1, 63,0);
         tracep->declQuad(c+104,"ysyx_22040750 cpu_core_e alu_e I_op2", false,-1, 63,0);
         tracep->declBus(c+161,"ysyx_22040750 cpu_core_e alu_e I_alu_op_sel", false,-1, 14,0);
@@ -725,8 +725,8 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declQuad(c+106,"ysyx_22040750 cpu_core_e alu_e O_result", false,-1, 63,0);
         tracep->declQuad(c+114,"ysyx_22040750 cpu_core_e alu_e O_csr_data", false,-1, 63,0);
         tracep->declBit(c+172,"ysyx_22040750 cpu_core_e alu_e O_result_valid", false,-1);
-        tracep->declBit(c+949,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e I_sys_clk", false,-1);
-        tracep->declBit(c+950,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e I_rst", false,-1);
+        tracep->declBit(c+966,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e I_sys_clk", false,-1);
+        tracep->declBit(c+967,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e I_rst", false,-1);
         tracep->declQuad(c+151,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e I_csr_data", false,-1, 63,0);
         tracep->declQuad(c+102,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e I_op1", false,-1, 63,0);
         tracep->declQuad(c+104,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e I_op2", false,-1, 63,0);
@@ -772,8 +772,8 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBit(c+454,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e sign_bit2", false,-1);
         tracep->declBit(c+455,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e sext1", false,-1);
         tracep->declBit(c+456,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e sext2", false,-1);
-        tracep->declBit(c+1049,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e mul_valid_d", false,-1);
-        tracep->declBit(c+1050,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e div_valid_d", false,-1);
+        tracep->declBit(c+1066,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e mul_valid_d", false,-1);
+        tracep->declBit(c+1067,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e div_valid_d", false,-1);
         tracep->declBit(c+457,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e mul_flag", false,-1);
         tracep->declBit(c+458,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e div_flag", false,-1);
         tracep->declBit(c+459,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e mul_valid", false,-1);
@@ -808,8 +808,8 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declQuad(c+500,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e dword_result", false,-1, 63,0);
         tracep->declQuad(c+502,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e word_sext_result", false,-1, 63,0);
         tracep->declBit(c+504,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e word_sext", false,-1);
-        tracep->declBit(c+949,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e booth_mul_serial_e clk", false,-1);
-        tracep->declBit(c+950,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e booth_mul_serial_e rst", false,-1);
+        tracep->declBit(c+966,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e booth_mul_serial_e clk", false,-1);
+        tracep->declBit(c+967,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e booth_mul_serial_e rst", false,-1);
         tracep->declQuad(c+505,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e booth_mul_serial_e mul1", false,-1, 63,0);
         tracep->declQuad(c+507,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e booth_mul_serial_e mul2", false,-1, 63,0);
         tracep->declBit(c+455,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e booth_mul_serial_e is_signed", false,-1);
@@ -826,7 +826,7 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBus(c+534,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e booth_mul_serial_e booth", false,-1, 2,0);
         tracep->declArray(c+535,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e booth_mul_serial_e S", false,-1, 131,0);
         tracep->declBit(c+528,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e booth_mul_serial_e Ci", false,-1);
-        tracep->declBit(c+1051,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e booth_mul_serial_e end_flag", false,-1);
+        tracep->declBit(c+1068,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e booth_mul_serial_e end_flag", false,-1);
         tracep->declBit(c+540,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e booth_mul_serial_e mul_process", false,-1);
         tracep->declBus(c+541,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e booth_mul_serial_e iter_cnt", false,-1, 5,0);
         tracep->declBus(c+534,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e booth_mul_serial_e radix4_unit_e booth", false,-1, 2,0);
@@ -840,8 +840,8 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBit(c+546,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e booth_mul_serial_e radix4_unit_e sel_double_negative", false,-1);
         tracep->declBit(c+547,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e booth_mul_serial_e radix4_unit_e sel_positive", false,-1);
         tracep->declBit(c+548,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e booth_mul_serial_e radix4_unit_e sel_double_positive", false,-1);
-        tracep->declBit(c+949,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e radix2_div_e clk", false,-1);
-        tracep->declBit(c+950,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e radix2_div_e rst", false,-1);
+        tracep->declBit(c+966,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e radix2_div_e clk", false,-1);
+        tracep->declBit(c+967,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e radix2_div_e rst", false,-1);
         tracep->declQuad(c+505,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e radix2_div_e dividend", false,-1, 63,0);
         tracep->declQuad(c+507,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e radix2_div_e divisor", false,-1, 63,0);
         tracep->declBit(c+455,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e radix2_div_e is_signed", false,-1);
@@ -880,8 +880,8 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declQuad(c+580,"ysyx_22040750 cpu_core_e alu_e csr_alu_e direct_result", false,-1, 63,0);
         tracep->declQuad(c+582,"ysyx_22040750 cpu_core_e alu_e csr_alu_e set_result", false,-1, 63,0);
         tracep->declQuad(c+584,"ysyx_22040750 cpu_core_e alu_e csr_alu_e clr_result", false,-1, 63,0);
-        tracep->declBit(c+949,"ysyx_22040750 cpu_core_e EX_MEM_reg_e I_sys_clk", false,-1);
-        tracep->declBit(c+950,"ysyx_22040750 cpu_core_e EX_MEM_reg_e I_rst", false,-1);
+        tracep->declBit(c+966,"ysyx_22040750 cpu_core_e EX_MEM_reg_e I_sys_clk", false,-1);
+        tracep->declBit(c+967,"ysyx_22040750 cpu_core_e EX_MEM_reg_e I_rst", false,-1);
         tracep->declBit(c+165,"ysyx_22040750 cpu_core_e EX_MEM_reg_e I_EX_MEM_valid", false,-1);
         tracep->declBit(c+218,"ysyx_22040750 cpu_core_e EX_MEM_reg_e I_EX_MEM_allowout", false,-1);
         tracep->declBit(c+194,"ysyx_22040750 cpu_core_e EX_MEM_reg_e O_EX_MEM_allowin", false,-1);
@@ -935,8 +935,8 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declQuad(c+110,"ysyx_22040750 cpu_core_e mem_sd_e I_data_in", false,-1, 63,0);
         tracep->declBus(c+183,"ysyx_22040750 cpu_core_e mem_sd_e I_wr_strb", false,-1, 7,0);
         tracep->declQuad(c+85,"ysyx_22040750 cpu_core_e mem_sd_e O_sd_data", false,-1, 63,0);
-        tracep->declBit(c+949,"ysyx_22040750 cpu_core_e MEM_WB_reg_e I_sys_clk", false,-1);
-        tracep->declBit(c+950,"ysyx_22040750 cpu_core_e MEM_WB_reg_e I_rst", false,-1);
+        tracep->declBit(c+966,"ysyx_22040750 cpu_core_e MEM_WB_reg_e I_sys_clk", false,-1);
+        tracep->declBit(c+967,"ysyx_22040750 cpu_core_e MEM_WB_reg_e I_rst", false,-1);
         tracep->declBit(c+181,"ysyx_22040750 cpu_core_e MEM_WB_reg_e I_MEM_WB_valid", false,-1);
         tracep->declBit(c+218,"ysyx_22040750 cpu_core_e MEM_WB_reg_e O_MEM_WB_allowin", false,-1);
         tracep->declBit(c+206,"ysyx_22040750 cpu_core_e MEM_WB_reg_e O_MEM_WB_valid", false,-1);
@@ -987,16 +987,16 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBit(c+590,"ysyx_22040750 cpu_core_e mem_ld_e sext_bit", false,-1);
         tracep->declBus(c+591,"ysyx_22040750 cpu_core_e mem_ld_e sext_mask", false,-1, 7,0);
         tracep->declQuad(c+592,"ysyx_22040750 cpu_core_e mem_ld_e ld_data", false,-1, 63,0);
-        tracep->declBus(c+1048,"ysyx_22040750 cpu_core_e regin_64bit_2sel N", false,-1, 31,0);
-        tracep->declBus(c+1052,"ysyx_22040750 cpu_core_e regin_64bit_2sel M", false,-1, 31,0);
+        tracep->declBus(c+1065,"ysyx_22040750 cpu_core_e regin_64bit_2sel N", false,-1, 31,0);
+        tracep->declBus(c+1069,"ysyx_22040750 cpu_core_e regin_64bit_2sel M", false,-1, 31,0);
         tracep->declArray(c+594,"ysyx_22040750 cpu_core_e regin_64bit_2sel I_sel_data", false,-1, 127,0);
         tracep->declBus(c+598,"ysyx_22040750 cpu_core_e regin_64bit_2sel I_sel", false,-1, 1,0);
         tracep->declQuad(c+96,"ysyx_22040750 cpu_core_e regin_64bit_2sel O_sel_data", false,-1, 63,0);
         {int i; for (i=0; i<2; i++) {
                 tracep->declQuad(c+599+i*2,"ysyx_22040750 cpu_core_e regin_64bit_2sel sel_data", true,(i+0), 63,0);}}
-        tracep->declBus(c+1053,"ysyx_22040750 cpu_core_e regin_64bit_2sel unnamedblk1 i", false,-1, 31,0);
-        tracep->declBit(c+949,"ysyx_22040750 cpu_core_e gpr_e I_sys_clk", false,-1);
-        tracep->declBit(c+950,"ysyx_22040750 cpu_core_e gpr_e I_rst", false,-1);
+        tracep->declBus(c+1070,"ysyx_22040750 cpu_core_e regin_64bit_2sel unnamedblk1 i", false,-1, 31,0);
+        tracep->declBit(c+966,"ysyx_22040750 cpu_core_e gpr_e I_sys_clk", false,-1);
+        tracep->declBit(c+967,"ysyx_22040750 cpu_core_e gpr_e I_rst", false,-1);
         tracep->declQuad(c+96,"ysyx_22040750 cpu_core_e gpr_e I_wr_data", false,-1, 63,0);
         tracep->declBit(c+603,"ysyx_22040750 cpu_core_e gpr_e I_wen", false,-1);
         tracep->declBus(c+215,"ysyx_22040750 cpu_core_e gpr_e I_rd_addr", false,-1, 4,0);
@@ -1008,8 +1008,8 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
                 tracep->declQuad(c+604+i*2,"ysyx_22040750 cpu_core_e gpr_e gpr", true,(i+0), 63,0);}}
         {int i; for (i=0; i<32; i++) {
                 tracep->declBit(c+668+i*1,"ysyx_22040750 cpu_core_e gpr_e wen", true,(i+0));}}
-        tracep->declBit(c+949,"ysyx_22040750 cpu_core_e csr_e I_sys_clk", false,-1);
-        tracep->declBit(c+950,"ysyx_22040750 cpu_core_e csr_e I_rst", false,-1);
+        tracep->declBit(c+966,"ysyx_22040750 cpu_core_e csr_e I_sys_clk", false,-1);
+        tracep->declBit(c+967,"ysyx_22040750 cpu_core_e csr_e I_rst", false,-1);
         tracep->declBit(c+223,"ysyx_22040750 cpu_core_e csr_e I_csr_wen", false,-1);
         tracep->declBit(c+224,"ysyx_22040750 cpu_core_e csr_e I_csr_intr_wr", false,-1);
         tracep->declBit(c+132,"ysyx_22040750 cpu_core_e csr_e I_csr_intr_rd", false,-1);
@@ -1021,12 +1021,12 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBus(c+130,"ysyx_22040750 cpu_core_e csr_e I_rd_addr", false,-1, 11,0);
         tracep->declQuad(c+212,"ysyx_22040750 cpu_core_e csr_e I_wr_data", false,-1, 63,0);
         tracep->declQuad(c+112,"ysyx_22040750 cpu_core_e csr_e O_rd_data", false,-1, 63,0);
-        tracep->declBus(c+1054,"ysyx_22040750 cpu_core_e csr_e CSR_NUM", false,-1, 31,0);
-        tracep->declBus(c+1055,"ysyx_22040750 cpu_core_e csr_e MEPC", false,-1, 11,0);
-        tracep->declBus(c+1056,"ysyx_22040750 cpu_core_e csr_e MSTATUS", false,-1, 11,0);
-        tracep->declBus(c+1057,"ysyx_22040750 cpu_core_e csr_e MTVEC", false,-1, 11,0);
-        tracep->declBus(c+1058,"ysyx_22040750 cpu_core_e csr_e MCAUSE", false,-1, 11,0);
-        tracep->declBus(c+1059,"ysyx_22040750 cpu_core_e csr_e MSCRATCH", false,-1, 11,0);
+        tracep->declBus(c+1071,"ysyx_22040750 cpu_core_e csr_e CSR_NUM", false,-1, 31,0);
+        tracep->declBus(c+1072,"ysyx_22040750 cpu_core_e csr_e MEPC", false,-1, 11,0);
+        tracep->declBus(c+1073,"ysyx_22040750 cpu_core_e csr_e MSTATUS", false,-1, 11,0);
+        tracep->declBus(c+1074,"ysyx_22040750 cpu_core_e csr_e MTVEC", false,-1, 11,0);
+        tracep->declBus(c+1075,"ysyx_22040750 cpu_core_e csr_e MCAUSE", false,-1, 11,0);
+        tracep->declBus(c+1076,"ysyx_22040750 cpu_core_e csr_e MSCRATCH", false,-1, 11,0);
         tracep->declQuad(c+700,"ysyx_22040750 cpu_core_e csr_e mepc", false,-1, 63,0);
         tracep->declQuad(c+702,"ysyx_22040750 cpu_core_e csr_e mstatus", false,-1, 63,0);
         tracep->declQuad(c+704,"ysyx_22040750 cpu_core_e csr_e mtvec", false,-1, 63,0);
@@ -1035,8 +1035,8 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declQuad(c+112,"ysyx_22040750 cpu_core_e csr_e rd_data", false,-1, 63,0);
         tracep->declBit(c+710,"ysyx_22040750 cpu_core_e csr_e mie", false,-1);
         tracep->declBit(c+711,"ysyx_22040750 cpu_core_e csr_e mpie", false,-1);
-        tracep->declBit(c+949,"ysyx_22040750 cache_e I_clk", false,-1);
-        tracep->declBit(c+950,"ysyx_22040750 cache_e I_rst", false,-1);
+        tracep->declBit(c+966,"ysyx_22040750 cache_e I_clk", false,-1);
+        tracep->declBit(c+967,"ysyx_22040750 cache_e I_rst", false,-1);
         tracep->declBus(c+76,"ysyx_22040750 cache_e I_cpu_pc", false,-1, 31,0);
         tracep->declBit(c+78,"ysyx_22040750 cache_e I_cpu_pc_valid", false,-1);
         tracep->declBit(c+79,"ysyx_22040750 cache_e O_cpu_pc_ready", false,-1);
@@ -1056,7 +1056,7 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declArray(c+71,"ysyx_22040750 cache_e I_sram7_rdata", false,-1, 127,0);
         tracep->declBus(c+1,"ysyx_22040750 cache_e O_sram_iaddr", false,-1, 5,0);
         tracep->declBus(c+38,"ysyx_22040750 cache_e O_sram_daddr", false,-1, 5,0);
-        tracep->declBus(c+927,"ysyx_22040750 cache_e O_sram_cen", false,-1, 7,0);
+        tracep->declBus(c+944,"ysyx_22040750 cache_e O_sram_cen", false,-1, 7,0);
         tracep->declBus(c+712,"ysyx_22040750 cache_e O_sram_wen", false,-1, 7,0);
         tracep->declArray(c+7,"ysyx_22040750 cache_e O_sram0_wdata", false,-1, 127,0);
         tracep->declArray(c+20,"ysyx_22040750 cache_e O_sram1_wdata", false,-1, 127,0);
@@ -1074,27 +1074,27 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declArray(c+53,"ysyx_22040750 cache_e O_sram5_wmask", false,-1, 127,0);
         tracep->declArray(c+40,"ysyx_22040750 cache_e O_sram6_wmask", false,-1, 127,0);
         tracep->declArray(c+53,"ysyx_22040750 cache_e O_sram7_wmask", false,-1, 127,0);
-        tracep->declQuad(c+980,"ysyx_22040750 cache_e I_mem_rdata", false,-1, 63,0);
-        tracep->declBit(c+977,"ysyx_22040750 cache_e I_mem_rvalid", false,-1);
-        tracep->declBit(c+976,"ysyx_22040750 cache_e O_mem_rready", false,-1);
-        tracep->declBit(c+982,"ysyx_22040750 cache_e I_mem_rlast", false,-1);
-        tracep->declBus(c+972,"ysyx_22040750 cache_e O_mem_araddr", false,-1, 31,0);
-        tracep->declBit(c+969,"ysyx_22040750 cache_e I_mem_arready", false,-1);
-        tracep->declBit(c+970,"ysyx_22040750 cache_e O_mem_arvalid", false,-1);
-        tracep->declBus(c+973,"ysyx_22040750 cache_e O_mem_arlen", false,-1, 7,0);
-        tracep->declBus(c+974,"ysyx_22040750 cache_e O_mem_arsize", false,-1, 2,0);
-        tracep->declQuad(c+961,"ysyx_22040750 cache_e O_mem_wdata", false,-1, 63,0);
-        tracep->declBit(c+960,"ysyx_22040750 cache_e O_mem_wvalid", false,-1);
-        tracep->declBit(c+959,"ysyx_22040750 cache_e I_mem_wready", false,-1);
-        tracep->declBit(c+964,"ysyx_22040750 cache_e O_mem_wlast", false,-1);
-        tracep->declBus(c+963,"ysyx_22040750 cache_e O_mem_wstrb", false,-1, 7,0);
-        tracep->declBus(c+955,"ysyx_22040750 cache_e O_mem_awaddr", false,-1, 31,0);
-        tracep->declBit(c+953,"ysyx_22040750 cache_e O_mem_awvalid", false,-1);
-        tracep->declBit(c+952,"ysyx_22040750 cache_e I_mem_awready", false,-1);
-        tracep->declBus(c+956,"ysyx_22040750 cache_e O_mem_awlen", false,-1, 7,0);
-        tracep->declBus(c+957,"ysyx_22040750 cache_e O_mem_awsize", false,-1, 2,0);
-        tracep->declBit(c+966,"ysyx_22040750 cache_e I_mem_bvalid", false,-1);
-        tracep->declBit(c+965,"ysyx_22040750 cache_e O_mem_bready", false,-1);
+        tracep->declQuad(c+997,"ysyx_22040750 cache_e I_mem_rdata", false,-1, 63,0);
+        tracep->declBit(c+994,"ysyx_22040750 cache_e I_mem_rvalid", false,-1);
+        tracep->declBit(c+993,"ysyx_22040750 cache_e O_mem_rready", false,-1);
+        tracep->declBit(c+999,"ysyx_22040750 cache_e I_mem_rlast", false,-1);
+        tracep->declBus(c+989,"ysyx_22040750 cache_e O_mem_araddr", false,-1, 31,0);
+        tracep->declBit(c+986,"ysyx_22040750 cache_e I_mem_arready", false,-1);
+        tracep->declBit(c+987,"ysyx_22040750 cache_e O_mem_arvalid", false,-1);
+        tracep->declBus(c+990,"ysyx_22040750 cache_e O_mem_arlen", false,-1, 7,0);
+        tracep->declBus(c+991,"ysyx_22040750 cache_e O_mem_arsize", false,-1, 2,0);
+        tracep->declQuad(c+978,"ysyx_22040750 cache_e O_mem_wdata", false,-1, 63,0);
+        tracep->declBit(c+977,"ysyx_22040750 cache_e O_mem_wvalid", false,-1);
+        tracep->declBit(c+976,"ysyx_22040750 cache_e I_mem_wready", false,-1);
+        tracep->declBit(c+981,"ysyx_22040750 cache_e O_mem_wlast", false,-1);
+        tracep->declBus(c+980,"ysyx_22040750 cache_e O_mem_wstrb", false,-1, 7,0);
+        tracep->declBus(c+972,"ysyx_22040750 cache_e O_mem_awaddr", false,-1, 31,0);
+        tracep->declBit(c+970,"ysyx_22040750 cache_e O_mem_awvalid", false,-1);
+        tracep->declBit(c+969,"ysyx_22040750 cache_e I_mem_awready", false,-1);
+        tracep->declBus(c+973,"ysyx_22040750 cache_e O_mem_awlen", false,-1, 7,0);
+        tracep->declBus(c+974,"ysyx_22040750 cache_e O_mem_awsize", false,-1, 2,0);
+        tracep->declBit(c+983,"ysyx_22040750 cache_e I_mem_bvalid", false,-1);
+        tracep->declBit(c+982,"ysyx_22040750 cache_e O_mem_bready", false,-1);
         tracep->declQuad(c+83,"ysyx_22040750 cache_e O_cpu_rdata", false,-1, 63,0);
         tracep->declBus(c+75,"ysyx_22040750 cache_e O_cpu_inst", false,-1, 31,0);
         tracep->declBit(c+77,"ysyx_22040750 cache_e O_cpu_inst_valid", false,-1);
@@ -1106,99 +1106,99 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declArray(c+723,"ysyx_22040750 cache_e icache_way1_rdata", false,-1, 255,0);
         tracep->declArray(c+731,"ysyx_22040750 cache_e icache_wdata", false,-1, 255,0);
         tracep->declArray(c+739,"ysyx_22040750 cache_e icache_wmask", false,-1, 255,0);
-        tracep->declBus(c+1014,"ysyx_22040750 cache_e dcache_cen", false,-1, 3,0);
+        tracep->declBus(c+1031,"ysyx_22040750 cache_e dcache_cen", false,-1, 3,0);
         tracep->declBus(c+747,"ysyx_22040750 cache_e dcache_wen", false,-1, 3,0);
         tracep->declArray(c+748,"ysyx_22040750 cache_e dcache_way0_rdata", false,-1, 255,0);
         tracep->declArray(c+756,"ysyx_22040750 cache_e dcache_way1_rdata", false,-1, 255,0);
         tracep->declArray(c+764,"ysyx_22040750 cache_e dcache_wdata", false,-1, 255,0);
         tracep->declArray(c+772,"ysyx_22040750 cache_e dcache_wmask", false,-1, 255,0);
-        tracep->declQuad(c+1015,"ysyx_22040750 cache_e axi_icache_rdata", false,-1, 63,0);
-        tracep->declQuad(c+1017,"ysyx_22040750 cache_e axi_dcache_rdata", false,-1, 63,0);
-        tracep->declBit(c+1060,"ysyx_22040750 cache_e axi_icache_rready", false,-1);
-        tracep->declBit(c+1060,"ysyx_22040750 cache_e axi_dcache_rready", false,-1);
-        tracep->declBit(c+928,"ysyx_22040750 cache_e axi_icache_rvalid", false,-1);
-        tracep->declBit(c+929,"ysyx_22040750 cache_e axi_dcache_rvalid", false,-1);
-        tracep->declBit(c+930,"ysyx_22040750 cache_e axi_icache_rlast", false,-1);
-        tracep->declBit(c+931,"ysyx_22040750 cache_e axi_dcache_rlast", false,-1);
+        tracep->declQuad(c+1032,"ysyx_22040750 cache_e axi_icache_rdata", false,-1, 63,0);
+        tracep->declQuad(c+1034,"ysyx_22040750 cache_e axi_dcache_rdata", false,-1, 63,0);
+        tracep->declBit(c+1077,"ysyx_22040750 cache_e axi_icache_rready", false,-1);
+        tracep->declBit(c+1077,"ysyx_22040750 cache_e axi_dcache_rready", false,-1);
+        tracep->declBit(c+945,"ysyx_22040750 cache_e axi_icache_rvalid", false,-1);
+        tracep->declBit(c+946,"ysyx_22040750 cache_e axi_dcache_rvalid", false,-1);
+        tracep->declBit(c+947,"ysyx_22040750 cache_e axi_icache_rlast", false,-1);
+        tracep->declBit(c+948,"ysyx_22040750 cache_e axi_dcache_rlast", false,-1);
         tracep->declBus(c+780,"ysyx_22040750 cache_e axi_icache_araddr", false,-1, 31,0);
         tracep->declBus(c+781,"ysyx_22040750 cache_e axi_dcache_araddr", false,-1, 31,0);
-        tracep->declBit(c+932,"ysyx_22040750 cache_e axi_icache_arready", false,-1);
-        tracep->declBit(c+933,"ysyx_22040750 cache_e axi_dcache_arready", false,-1);
+        tracep->declBit(c+949,"ysyx_22040750 cache_e axi_icache_arready", false,-1);
+        tracep->declBit(c+950,"ysyx_22040750 cache_e axi_dcache_arready", false,-1);
         tracep->declBit(c+782,"ysyx_22040750 cache_e axi_icache_arvalid", false,-1);
         tracep->declBit(c+783,"ysyx_22040750 cache_e axi_dcache_arvalid", false,-1);
-        tracep->declBus(c+1061,"ysyx_22040750 cache_e axi_icache_arlen", false,-1, 7,0);
-        tracep->declBus(c+1061,"ysyx_22040750 cache_e axi_dcache_arlen", false,-1, 7,0);
-        tracep->declBus(c+1062,"ysyx_22040750 cache_e axi_icache_arsize", false,-1, 2,0);
-        tracep->declBus(c+1062,"ysyx_22040750 cache_e axi_dcache_arsize", false,-1, 2,0);
+        tracep->declBus(c+1078,"ysyx_22040750 cache_e axi_icache_arlen", false,-1, 7,0);
+        tracep->declBus(c+1078,"ysyx_22040750 cache_e axi_dcache_arlen", false,-1, 7,0);
+        tracep->declBus(c+1079,"ysyx_22040750 cache_e axi_icache_arsize", false,-1, 2,0);
+        tracep->declBus(c+1079,"ysyx_22040750 cache_e axi_dcache_arsize", false,-1, 2,0);
         tracep->declQuad(c+784,"ysyx_22040750 cache_e axi_dcache_wdata", false,-1, 63,0);
         tracep->declBit(c+786,"ysyx_22040750 cache_e axi_dcache_wvalid", false,-1);
-        tracep->declBit(c+959,"ysyx_22040750 cache_e axi_dcache_wready", false,-1);
+        tracep->declBit(c+976,"ysyx_22040750 cache_e axi_dcache_wready", false,-1);
         tracep->declBit(c+787,"ysyx_22040750 cache_e axi_dcache_wlast", false,-1);
-        tracep->declBus(c+1063,"ysyx_22040750 cache_e axi_dcache_wstrb", false,-1, 7,0);
+        tracep->declBus(c+1080,"ysyx_22040750 cache_e axi_dcache_wstrb", false,-1, 7,0);
         tracep->declBus(c+788,"ysyx_22040750 cache_e axi_dcache_awaddr", false,-1, 31,0);
         tracep->declBit(c+789,"ysyx_22040750 cache_e axi_dcache_awvalid", false,-1);
-        tracep->declBit(c+952,"ysyx_22040750 cache_e axi_dcache_awready", false,-1);
-        tracep->declBus(c+1061,"ysyx_22040750 cache_e axi_dcache_awlen", false,-1, 7,0);
-        tracep->declBus(c+1062,"ysyx_22040750 cache_e axi_dcache_awsize", false,-1, 2,0);
-        tracep->declBit(c+966,"ysyx_22040750 cache_e axi_dcache_bvalid", false,-1);
-        tracep->declBit(c+1060,"ysyx_22040750 cache_e axi_dcache_bready", false,-1);
-        tracep->declBit(c+949,"ysyx_22040750 cache_e crossbar_e I_clk", false,-1);
-        tracep->declBit(c+950,"ysyx_22040750 cache_e crossbar_e I_rst", false,-1);
-        tracep->declQuad(c+980,"ysyx_22040750 cache_e crossbar_e I_axi_rdata", false,-1, 63,0);
-        tracep->declBit(c+977,"ysyx_22040750 cache_e crossbar_e I_axi_rvalid", false,-1);
-        tracep->declBit(c+982,"ysyx_22040750 cache_e crossbar_e I_axi_rlast", false,-1);
-        tracep->declBit(c+976,"ysyx_22040750 cache_e crossbar_e O_axi_rready", false,-1);
-        tracep->declBus(c+972,"ysyx_22040750 cache_e crossbar_e O_axi_araddr", false,-1, 31,0);
-        tracep->declBit(c+969,"ysyx_22040750 cache_e crossbar_e I_axi_arready", false,-1);
-        tracep->declBit(c+970,"ysyx_22040750 cache_e crossbar_e O_axi_arvalid", false,-1);
-        tracep->declBus(c+973,"ysyx_22040750 cache_e crossbar_e O_axi_arlen", false,-1, 7,0);
-        tracep->declBus(c+974,"ysyx_22040750 cache_e crossbar_e O_axi_arsize", false,-1, 2,0);
-        tracep->declQuad(c+1015,"ysyx_22040750 cache_e crossbar_e O_ch0_rdata", false,-1, 63,0);
-        tracep->declBit(c+928,"ysyx_22040750 cache_e crossbar_e O_ch0_rvalid", false,-1);
-        tracep->declBit(c+930,"ysyx_22040750 cache_e crossbar_e O_ch0_rlast", false,-1);
-        tracep->declBit(c+1060,"ysyx_22040750 cache_e crossbar_e I_ch0_rready", false,-1);
+        tracep->declBit(c+969,"ysyx_22040750 cache_e axi_dcache_awready", false,-1);
+        tracep->declBus(c+1078,"ysyx_22040750 cache_e axi_dcache_awlen", false,-1, 7,0);
+        tracep->declBus(c+1079,"ysyx_22040750 cache_e axi_dcache_awsize", false,-1, 2,0);
+        tracep->declBit(c+983,"ysyx_22040750 cache_e axi_dcache_bvalid", false,-1);
+        tracep->declBit(c+1077,"ysyx_22040750 cache_e axi_dcache_bready", false,-1);
+        tracep->declBit(c+966,"ysyx_22040750 cache_e crossbar_e I_clk", false,-1);
+        tracep->declBit(c+967,"ysyx_22040750 cache_e crossbar_e I_rst", false,-1);
+        tracep->declQuad(c+997,"ysyx_22040750 cache_e crossbar_e I_axi_rdata", false,-1, 63,0);
+        tracep->declBit(c+994,"ysyx_22040750 cache_e crossbar_e I_axi_rvalid", false,-1);
+        tracep->declBit(c+999,"ysyx_22040750 cache_e crossbar_e I_axi_rlast", false,-1);
+        tracep->declBit(c+993,"ysyx_22040750 cache_e crossbar_e O_axi_rready", false,-1);
+        tracep->declBus(c+989,"ysyx_22040750 cache_e crossbar_e O_axi_araddr", false,-1, 31,0);
+        tracep->declBit(c+986,"ysyx_22040750 cache_e crossbar_e I_axi_arready", false,-1);
+        tracep->declBit(c+987,"ysyx_22040750 cache_e crossbar_e O_axi_arvalid", false,-1);
+        tracep->declBus(c+990,"ysyx_22040750 cache_e crossbar_e O_axi_arlen", false,-1, 7,0);
+        tracep->declBus(c+991,"ysyx_22040750 cache_e crossbar_e O_axi_arsize", false,-1, 2,0);
+        tracep->declQuad(c+1032,"ysyx_22040750 cache_e crossbar_e O_ch0_rdata", false,-1, 63,0);
+        tracep->declBit(c+945,"ysyx_22040750 cache_e crossbar_e O_ch0_rvalid", false,-1);
+        tracep->declBit(c+947,"ysyx_22040750 cache_e crossbar_e O_ch0_rlast", false,-1);
+        tracep->declBit(c+1077,"ysyx_22040750 cache_e crossbar_e I_ch0_rready", false,-1);
         tracep->declBus(c+780,"ysyx_22040750 cache_e crossbar_e I_ch0_araddr", false,-1, 31,0);
-        tracep->declBit(c+932,"ysyx_22040750 cache_e crossbar_e O_ch0_arready", false,-1);
+        tracep->declBit(c+949,"ysyx_22040750 cache_e crossbar_e O_ch0_arready", false,-1);
         tracep->declBit(c+782,"ysyx_22040750 cache_e crossbar_e I_ch0_arvalid", false,-1);
-        tracep->declBus(c+1061,"ysyx_22040750 cache_e crossbar_e I_ch0_arlen", false,-1, 7,0);
-        tracep->declBus(c+1062,"ysyx_22040750 cache_e crossbar_e I_ch0_arsize", false,-1, 2,0);
-        tracep->declQuad(c+1017,"ysyx_22040750 cache_e crossbar_e O_ch1_rdata", false,-1, 63,0);
-        tracep->declBit(c+929,"ysyx_22040750 cache_e crossbar_e O_ch1_rvalid", false,-1);
-        tracep->declBit(c+931,"ysyx_22040750 cache_e crossbar_e O_ch1_rlast", false,-1);
-        tracep->declBit(c+1060,"ysyx_22040750 cache_e crossbar_e I_ch1_rready", false,-1);
+        tracep->declBus(c+1078,"ysyx_22040750 cache_e crossbar_e I_ch0_arlen", false,-1, 7,0);
+        tracep->declBus(c+1079,"ysyx_22040750 cache_e crossbar_e I_ch0_arsize", false,-1, 2,0);
+        tracep->declQuad(c+1034,"ysyx_22040750 cache_e crossbar_e O_ch1_rdata", false,-1, 63,0);
+        tracep->declBit(c+946,"ysyx_22040750 cache_e crossbar_e O_ch1_rvalid", false,-1);
+        tracep->declBit(c+948,"ysyx_22040750 cache_e crossbar_e O_ch1_rlast", false,-1);
+        tracep->declBit(c+1077,"ysyx_22040750 cache_e crossbar_e I_ch1_rready", false,-1);
         tracep->declBus(c+781,"ysyx_22040750 cache_e crossbar_e I_ch1_araddr", false,-1, 31,0);
-        tracep->declBit(c+933,"ysyx_22040750 cache_e crossbar_e O_ch1_arready", false,-1);
+        tracep->declBit(c+950,"ysyx_22040750 cache_e crossbar_e O_ch1_arready", false,-1);
         tracep->declBit(c+783,"ysyx_22040750 cache_e crossbar_e I_ch1_arvalid", false,-1);
-        tracep->declBus(c+1061,"ysyx_22040750 cache_e crossbar_e I_ch1_arlen", false,-1, 7,0);
-        tracep->declBus(c+1062,"ysyx_22040750 cache_e crossbar_e I_ch1_arsize", false,-1, 2,0);
-        tracep->declBus(c+1064,"ysyx_22040750 cache_e crossbar_e CH0", false,-1, 0,0);
-        tracep->declBus(c+1065,"ysyx_22040750 cache_e crossbar_e CH1", false,-1, 0,0);
-        tracep->declBus(c+1066,"ysyx_22040750 cache_e crossbar_e IDLE", false,-1, 1,0);
-        tracep->declBus(c+1067,"ysyx_22040750 cache_e crossbar_e RESP0", false,-1, 1,0);
-        tracep->declBus(c+1068,"ysyx_22040750 cache_e crossbar_e RESP1", false,-1, 1,0);
-        tracep->declBus(c+1069,"ysyx_22040750 cache_e crossbar_e current_state", false,-1, 1,0);
-        tracep->declBus(c+1070,"ysyx_22040750 cache_e crossbar_e next_state", false,-1, 1,0);
+        tracep->declBus(c+1078,"ysyx_22040750 cache_e crossbar_e I_ch1_arlen", false,-1, 7,0);
+        tracep->declBus(c+1079,"ysyx_22040750 cache_e crossbar_e I_ch1_arsize", false,-1, 2,0);
+        tracep->declBus(c+1081,"ysyx_22040750 cache_e crossbar_e CH0", false,-1, 0,0);
+        tracep->declBus(c+1082,"ysyx_22040750 cache_e crossbar_e CH1", false,-1, 0,0);
+        tracep->declBus(c+1083,"ysyx_22040750 cache_e crossbar_e IDLE", false,-1, 1,0);
+        tracep->declBus(c+1084,"ysyx_22040750 cache_e crossbar_e RESP0", false,-1, 1,0);
+        tracep->declBus(c+1085,"ysyx_22040750 cache_e crossbar_e RESP1", false,-1, 1,0);
+        tracep->declBus(c+1086,"ysyx_22040750 cache_e crossbar_e current_state", false,-1, 1,0);
+        tracep->declBus(c+1087,"ysyx_22040750 cache_e crossbar_e next_state", false,-1, 1,0);
         tracep->declBit(c+790,"ysyx_22040750 cache_e crossbar_e req0_only", false,-1);
         tracep->declBit(c+791,"ysyx_22040750 cache_e crossbar_e req1_only", false,-1);
         tracep->declBit(c+792,"ysyx_22040750 cache_e crossbar_e req_both", false,-1);
         tracep->declBit(c+793,"ysyx_22040750 cache_e crossbar_e resp0", false,-1);
         tracep->declBit(c+794,"ysyx_22040750 cache_e crossbar_e resp1", false,-1);
-        tracep->declBit(c+1019,"ysyx_22040750 cache_e crossbar_e ch0_arhandshake", false,-1);
-        tracep->declBit(c+1020,"ysyx_22040750 cache_e crossbar_e ch1_arhandshake", false,-1);
-        tracep->declBit(c+934,"ysyx_22040750 cache_e crossbar_e ch0_last_handshake", false,-1);
-        tracep->declBit(c+935,"ysyx_22040750 cache_e crossbar_e ch1_last_handshake", false,-1);
+        tracep->declBit(c+1036,"ysyx_22040750 cache_e crossbar_e ch0_arhandshake", false,-1);
+        tracep->declBit(c+1037,"ysyx_22040750 cache_e crossbar_e ch1_arhandshake", false,-1);
+        tracep->declBit(c+951,"ysyx_22040750 cache_e crossbar_e ch0_last_handshake", false,-1);
+        tracep->declBit(c+952,"ysyx_22040750 cache_e crossbar_e ch1_last_handshake", false,-1);
         tracep->declBit(c+795,"ysyx_22040750 cache_e crossbar_e ch0_process", false,-1);
         tracep->declBit(c+796,"ysyx_22040750 cache_e crossbar_e ch1_process", false,-1);
         tracep->declBit(c+797,"ysyx_22040750 cache_e crossbar_e priority_flag", false,-1);
-        tracep->declBus(c+1026,"ysyx_22040750 cache_e icache_e BLOCK_SIZE", false,-1, 31,0);
-        tracep->declBus(c+1054,"ysyx_22040750 cache_e icache_e CACHE_SIZE", false,-1, 31,0);
-        tracep->declBus(c+1052,"ysyx_22040750 cache_e icache_e GROUP_NUM", false,-1, 31,0);
-        tracep->declBus(c+1071,"ysyx_22040750 cache_e icache_e BLOCK_NUM", false,-1, 31,0);
-        tracep->declBus(c+1072,"ysyx_22040750 cache_e icache_e OFFT_LEN", false,-1, 31,0);
-        tracep->declBus(c+1073,"ysyx_22040750 cache_e icache_e INDEX_LEN", false,-1, 31,0);
-        tracep->declBus(c+1074,"ysyx_22040750 cache_e icache_e TAG_LEN", false,-1, 31,0);
-        tracep->declBit(c+949,"ysyx_22040750 cache_e icache_e I_clk", false,-1);
-        tracep->declBit(c+950,"ysyx_22040750 cache_e icache_e I_rst", false,-1);
+        tracep->declBus(c+1043,"ysyx_22040750 cache_e icache_e BLOCK_SIZE", false,-1, 31,0);
+        tracep->declBus(c+1071,"ysyx_22040750 cache_e icache_e CACHE_SIZE", false,-1, 31,0);
+        tracep->declBus(c+1069,"ysyx_22040750 cache_e icache_e GROUP_NUM", false,-1, 31,0);
+        tracep->declBus(c+1088,"ysyx_22040750 cache_e icache_e BLOCK_NUM", false,-1, 31,0);
+        tracep->declBus(c+1089,"ysyx_22040750 cache_e icache_e OFFT_LEN", false,-1, 31,0);
+        tracep->declBus(c+1090,"ysyx_22040750 cache_e icache_e INDEX_LEN", false,-1, 31,0);
+        tracep->declBus(c+1091,"ysyx_22040750 cache_e icache_e TAG_LEN", false,-1, 31,0);
+        tracep->declBit(c+966,"ysyx_22040750 cache_e icache_e I_clk", false,-1);
+        tracep->declBit(c+967,"ysyx_22040750 cache_e icache_e I_rst", false,-1);
         tracep->declBus(c+76,"ysyx_22040750 cache_e icache_e I_cpu_addr", false,-1, 31,0);
         tracep->declBit(c+78,"ysyx_22040750 cache_e icache_e I_cpu_rd_req", false,-1);
         tracep->declBit(c+79,"ysyx_22040750 cache_e icache_e O_cpu_rd_ready", false,-1);
@@ -1209,15 +1209,15 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBus(c+714,"ysyx_22040750 cache_e icache_e O_sram_wen", false,-1, 3,0);
         tracep->declArray(c+731,"ysyx_22040750 cache_e icache_e O_sram_wdata", false,-1, 255,0);
         tracep->declArray(c+739,"ysyx_22040750 cache_e icache_e O_sram_wmask", false,-1, 255,0);
-        tracep->declQuad(c+1015,"ysyx_22040750 cache_e icache_e I_mem_rdata", false,-1, 63,0);
-        tracep->declBit(c+932,"ysyx_22040750 cache_e icache_e I_mem_arready", false,-1);
-        tracep->declBit(c+928,"ysyx_22040750 cache_e icache_e I_mem_rvalid", false,-1);
-        tracep->declBit(c+930,"ysyx_22040750 cache_e icache_e I_mem_rlast", false,-1);
+        tracep->declQuad(c+1032,"ysyx_22040750 cache_e icache_e I_mem_rdata", false,-1, 63,0);
+        tracep->declBit(c+949,"ysyx_22040750 cache_e icache_e I_mem_arready", false,-1);
+        tracep->declBit(c+945,"ysyx_22040750 cache_e icache_e I_mem_rvalid", false,-1);
+        tracep->declBit(c+947,"ysyx_22040750 cache_e icache_e I_mem_rlast", false,-1);
         tracep->declBus(c+780,"ysyx_22040750 cache_e icache_e O_mem_araddr", false,-1, 31,0);
         tracep->declBit(c+782,"ysyx_22040750 cache_e icache_e O_mem_arvalid", false,-1);
-        tracep->declBit(c+1060,"ysyx_22040750 cache_e icache_e O_mem_rready", false,-1);
-        tracep->declBus(c+1061,"ysyx_22040750 cache_e icache_e O_mem_arlen", false,-1, 7,0);
-        tracep->declBus(c+1062,"ysyx_22040750 cache_e icache_e O_mem_arsize", false,-1, 2,0);
+        tracep->declBit(c+1077,"ysyx_22040750 cache_e icache_e O_mem_rready", false,-1);
+        tracep->declBus(c+1078,"ysyx_22040750 cache_e icache_e O_mem_arlen", false,-1, 7,0);
+        tracep->declBus(c+1079,"ysyx_22040750 cache_e icache_e O_mem_arsize", false,-1, 2,0);
         tracep->declBus(c+75,"ysyx_22040750 cache_e icache_e O_cpu_inst", false,-1, 31,0);
         tracep->declBit(c+77,"ysyx_22040750 cache_e icache_e O_cpu_rvalid", false,-1);
         tracep->declBus(c+798,"ysyx_22040750 cache_e icache_e offset", false,-1, 4,0);
@@ -1242,27 +1242,27 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declArray(c+731,"ysyx_22040750 cache_e icache_e cacheline_reg", false,-1, 255,0);
         tracep->declBit(c+834,"ysyx_22040750 cache_e icache_e rd_hit", false,-1);
         tracep->declBit(c+835,"ysyx_22040750 cache_e icache_e rd_miss", false,-1);
-        tracep->declBit(c+1019,"ysyx_22040750 cache_e icache_e rd_handshake", false,-1);
+        tracep->declBit(c+1036,"ysyx_22040750 cache_e icache_e rd_handshake", false,-1);
         tracep->declBit(c+836,"ysyx_22040750 cache_e icache_e rd_reload", false,-1);
         tracep->declBit(c+837,"ysyx_22040750 cache_e icache_e rd_allocate", false,-1);
         tracep->declBit(c+838,"ysyx_22040750 cache_e icache_e pc_handshake", false,-1);
-        tracep->declBus(c+1075,"ysyx_22040750 cache_e icache_e IDLE", false,-1, 3,0);
-        tracep->declBus(c+1076,"ysyx_22040750 cache_e icache_e RD_HIT", false,-1, 3,0);
-        tracep->declBus(c+1077,"ysyx_22040750 cache_e icache_e RD_MISS", false,-1, 3,0);
-        tracep->declBus(c+1078,"ysyx_22040750 cache_e icache_e RD_RELOAD", false,-1, 3,0);
-        tracep->declBus(c+1079,"ysyx_22040750 cache_e icache_e RD_ALLOCATE", false,-1, 3,0);
+        tracep->declBus(c+1092,"ysyx_22040750 cache_e icache_e IDLE", false,-1, 3,0);
+        tracep->declBus(c+1093,"ysyx_22040750 cache_e icache_e RD_HIT", false,-1, 3,0);
+        tracep->declBus(c+1094,"ysyx_22040750 cache_e icache_e RD_MISS", false,-1, 3,0);
+        tracep->declBus(c+1095,"ysyx_22040750 cache_e icache_e RD_RELOAD", false,-1, 3,0);
+        tracep->declBus(c+1096,"ysyx_22040750 cache_e icache_e RD_ALLOCATE", false,-1, 3,0);
         tracep->declBus(c+839,"ysyx_22040750 cache_e icache_e current_state", false,-1, 3,0);
-        tracep->declBus(c+936,"ysyx_22040750 cache_e icache_e next_state", false,-1, 3,0);
+        tracep->declBus(c+953,"ysyx_22040750 cache_e icache_e next_state", false,-1, 3,0);
         tracep->declBus(c+713,"ysyx_22040750 cache_e icache_e cen_icache", false,-1, 3,0);
-        tracep->declBus(c+1026,"ysyx_22040750 cache_e dcache_e BLOCK_SIZE", false,-1, 31,0);
-        tracep->declBus(c+1054,"ysyx_22040750 cache_e dcache_e CACHE_SIZE", false,-1, 31,0);
-        tracep->declBus(c+1052,"ysyx_22040750 cache_e dcache_e GROUP_NUM", false,-1, 31,0);
-        tracep->declBus(c+1071,"ysyx_22040750 cache_e dcache_e BLOCK_NUM", false,-1, 31,0);
-        tracep->declBus(c+1072,"ysyx_22040750 cache_e dcache_e OFFT_LEN", false,-1, 31,0);
-        tracep->declBus(c+1073,"ysyx_22040750 cache_e dcache_e INDEX_LEN", false,-1, 31,0);
-        tracep->declBus(c+1074,"ysyx_22040750 cache_e dcache_e TAG_LEN", false,-1, 31,0);
-        tracep->declBit(c+949,"ysyx_22040750 cache_e dcache_e I_clk", false,-1);
-        tracep->declBit(c+950,"ysyx_22040750 cache_e dcache_e I_rst", false,-1);
+        tracep->declBus(c+1043,"ysyx_22040750 cache_e dcache_e BLOCK_SIZE", false,-1, 31,0);
+        tracep->declBus(c+1071,"ysyx_22040750 cache_e dcache_e CACHE_SIZE", false,-1, 31,0);
+        tracep->declBus(c+1069,"ysyx_22040750 cache_e dcache_e GROUP_NUM", false,-1, 31,0);
+        tracep->declBus(c+1088,"ysyx_22040750 cache_e dcache_e BLOCK_NUM", false,-1, 31,0);
+        tracep->declBus(c+1089,"ysyx_22040750 cache_e dcache_e OFFT_LEN", false,-1, 31,0);
+        tracep->declBus(c+1090,"ysyx_22040750 cache_e dcache_e INDEX_LEN", false,-1, 31,0);
+        tracep->declBus(c+1091,"ysyx_22040750 cache_e dcache_e TAG_LEN", false,-1, 31,0);
+        tracep->declBit(c+966,"ysyx_22040750 cache_e dcache_e I_clk", false,-1);
+        tracep->declBit(c+967,"ysyx_22040750 cache_e dcache_e I_rst", false,-1);
         tracep->declBus(c+80,"ysyx_22040750 cache_e dcache_e I_cpu_addr", false,-1, 31,0);
         tracep->declQuad(c+85,"ysyx_22040750 cache_e dcache_e I_cpu_data", false,-1, 63,0);
         tracep->declBus(c+90,"ysyx_22040750 cache_e dcache_e I_cpu_wmask", false,-1, 7,0);
@@ -1272,54 +1272,54 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declArray(c+748,"ysyx_22040750 cache_e dcache_e I_way0_rdata", false,-1, 255,0);
         tracep->declArray(c+756,"ysyx_22040750 cache_e dcache_e I_way1_rdata", false,-1, 255,0);
         tracep->declBus(c+38,"ysyx_22040750 cache_e dcache_e O_sram_addr", false,-1, 5,0);
-        tracep->declBus(c+1014,"ysyx_22040750 cache_e dcache_e O_sram_cen", false,-1, 3,0);
+        tracep->declBus(c+1031,"ysyx_22040750 cache_e dcache_e O_sram_cen", false,-1, 3,0);
         tracep->declBus(c+747,"ysyx_22040750 cache_e dcache_e O_sram_wen", false,-1, 3,0);
         tracep->declArray(c+764,"ysyx_22040750 cache_e dcache_e O_sram_wdata", false,-1, 255,0);
         tracep->declArray(c+772,"ysyx_22040750 cache_e dcache_e O_sram_wmask", false,-1, 255,0);
-        tracep->declQuad(c+1017,"ysyx_22040750 cache_e dcache_e I_mem_rdata", false,-1, 63,0);
-        tracep->declBit(c+933,"ysyx_22040750 cache_e dcache_e I_mem_arready", false,-1);
-        tracep->declBit(c+929,"ysyx_22040750 cache_e dcache_e I_mem_rvalid", false,-1);
-        tracep->declBit(c+931,"ysyx_22040750 cache_e dcache_e I_mem_rlast", false,-1);
+        tracep->declQuad(c+1034,"ysyx_22040750 cache_e dcache_e I_mem_rdata", false,-1, 63,0);
+        tracep->declBit(c+950,"ysyx_22040750 cache_e dcache_e I_mem_arready", false,-1);
+        tracep->declBit(c+946,"ysyx_22040750 cache_e dcache_e I_mem_rvalid", false,-1);
+        tracep->declBit(c+948,"ysyx_22040750 cache_e dcache_e I_mem_rlast", false,-1);
         tracep->declBus(c+781,"ysyx_22040750 cache_e dcache_e O_mem_araddr", false,-1, 31,0);
         tracep->declBit(c+783,"ysyx_22040750 cache_e dcache_e O_mem_arvalid", false,-1);
-        tracep->declBit(c+1060,"ysyx_22040750 cache_e dcache_e O_mem_rready", false,-1);
-        tracep->declBus(c+1061,"ysyx_22040750 cache_e dcache_e O_mem_arlen", false,-1, 7,0);
-        tracep->declBus(c+1062,"ysyx_22040750 cache_e dcache_e O_mem_arsize", false,-1, 2,0);
-        tracep->declBit(c+952,"ysyx_22040750 cache_e dcache_e I_mem_awready", false,-1);
-        tracep->declBit(c+959,"ysyx_22040750 cache_e dcache_e I_mem_wready", false,-1);
-        tracep->declBit(c+966,"ysyx_22040750 cache_e dcache_e I_mem_bvalid", false,-1);
+        tracep->declBit(c+1077,"ysyx_22040750 cache_e dcache_e O_mem_rready", false,-1);
+        tracep->declBus(c+1078,"ysyx_22040750 cache_e dcache_e O_mem_arlen", false,-1, 7,0);
+        tracep->declBus(c+1079,"ysyx_22040750 cache_e dcache_e O_mem_arsize", false,-1, 2,0);
+        tracep->declBit(c+969,"ysyx_22040750 cache_e dcache_e I_mem_awready", false,-1);
+        tracep->declBit(c+976,"ysyx_22040750 cache_e dcache_e I_mem_wready", false,-1);
+        tracep->declBit(c+983,"ysyx_22040750 cache_e dcache_e I_mem_bvalid", false,-1);
         tracep->declQuad(c+784,"ysyx_22040750 cache_e dcache_e O_mem_wdata", false,-1, 63,0);
         tracep->declBus(c+788,"ysyx_22040750 cache_e dcache_e O_mem_awaddr", false,-1, 31,0);
         tracep->declBit(c+789,"ysyx_22040750 cache_e dcache_e O_mem_awvalid", false,-1);
         tracep->declBit(c+786,"ysyx_22040750 cache_e dcache_e O_mem_wvalid", false,-1);
-        tracep->declBit(c+1060,"ysyx_22040750 cache_e dcache_e O_mem_bready", false,-1);
+        tracep->declBit(c+1077,"ysyx_22040750 cache_e dcache_e O_mem_bready", false,-1);
         tracep->declBit(c+787,"ysyx_22040750 cache_e dcache_e O_mem_wlast", false,-1);
-        tracep->declBus(c+1061,"ysyx_22040750 cache_e dcache_e O_mem_awlen", false,-1, 7,0);
-        tracep->declBus(c+1062,"ysyx_22040750 cache_e dcache_e O_mem_awsize", false,-1, 2,0);
-        tracep->declBus(c+1063,"ysyx_22040750 cache_e dcache_e O_mem_wstrb", false,-1, 7,0);
+        tracep->declBus(c+1078,"ysyx_22040750 cache_e dcache_e O_mem_awlen", false,-1, 7,0);
+        tracep->declBus(c+1079,"ysyx_22040750 cache_e dcache_e O_mem_awsize", false,-1, 2,0);
+        tracep->declBus(c+1080,"ysyx_22040750 cache_e dcache_e O_mem_wstrb", false,-1, 7,0);
         tracep->declQuad(c+83,"ysyx_22040750 cache_e dcache_e O_cpu_data", false,-1, 63,0);
         tracep->declBit(c+87,"ysyx_22040750 cache_e dcache_e O_cpu_rvalid", false,-1);
         tracep->declBit(c+88,"ysyx_22040750 cache_e dcache_e O_cpu_bvalid", false,-1);
-        tracep->declBus(c+1080,"ysyx_22040750 cache_e dcache_e IDLE", false,-1, 12,0);
-        tracep->declBus(c+1081,"ysyx_22040750 cache_e dcache_e RD_HIT", false,-1, 12,0);
-        tracep->declBus(c+1082,"ysyx_22040750 cache_e dcache_e RD_MISS", false,-1, 12,0);
-        tracep->declBus(c+1083,"ysyx_22040750 cache_e dcache_e RD_RELOAD", false,-1, 12,0);
-        tracep->declBus(c+1084,"ysyx_22040750 cache_e dcache_e RD_WB", false,-1, 12,0);
-        tracep->declBus(c+1085,"ysyx_22040750 cache_e dcache_e RD_ALLOCATE", false,-1, 12,0);
-        tracep->declBus(c+1086,"ysyx_22040750 cache_e dcache_e WR_HIT", false,-1, 12,0);
-        tracep->declBus(c+1087,"ysyx_22040750 cache_e dcache_e WR_MISS", false,-1, 12,0);
-        tracep->declBus(c+1088,"ysyx_22040750 cache_e dcache_e WR_RELOAD", false,-1, 12,0);
-        tracep->declBus(c+1089,"ysyx_22040750 cache_e dcache_e WR_WB", false,-1, 12,0);
-        tracep->declBus(c+1090,"ysyx_22040750 cache_e dcache_e WR_ALLOCATE", false,-1, 12,0);
-        tracep->declBus(c+1091,"ysyx_22040750 cache_e dcache_e MMIO_RD", false,-1, 12,0);
-        tracep->declBus(c+1092,"ysyx_22040750 cache_e dcache_e MMIO_WR", false,-1, 12,0);
+        tracep->declBus(c+1097,"ysyx_22040750 cache_e dcache_e IDLE", false,-1, 12,0);
+        tracep->declBus(c+1098,"ysyx_22040750 cache_e dcache_e RD_HIT", false,-1, 12,0);
+        tracep->declBus(c+1099,"ysyx_22040750 cache_e dcache_e RD_MISS", false,-1, 12,0);
+        tracep->declBus(c+1100,"ysyx_22040750 cache_e dcache_e RD_RELOAD", false,-1, 12,0);
+        tracep->declBus(c+1101,"ysyx_22040750 cache_e dcache_e RD_WB", false,-1, 12,0);
+        tracep->declBus(c+1102,"ysyx_22040750 cache_e dcache_e RD_ALLOCATE", false,-1, 12,0);
+        tracep->declBus(c+1103,"ysyx_22040750 cache_e dcache_e WR_HIT", false,-1, 12,0);
+        tracep->declBus(c+1104,"ysyx_22040750 cache_e dcache_e WR_MISS", false,-1, 12,0);
+        tracep->declBus(c+1105,"ysyx_22040750 cache_e dcache_e WR_RELOAD", false,-1, 12,0);
+        tracep->declBus(c+1106,"ysyx_22040750 cache_e dcache_e WR_WB", false,-1, 12,0);
+        tracep->declBus(c+1107,"ysyx_22040750 cache_e dcache_e WR_ALLOCATE", false,-1, 12,0);
+        tracep->declBus(c+1108,"ysyx_22040750 cache_e dcache_e MMIO_RD", false,-1, 12,0);
+        tracep->declBus(c+1109,"ysyx_22040750 cache_e dcache_e MMIO_WR", false,-1, 12,0);
         tracep->declBit(c+840,"ysyx_22040750 cache_e dcache_e mmio_flag", false,-1);
         tracep->declBus(c+841,"ysyx_22040750 cache_e dcache_e current_state", false,-1, 12,0);
-        tracep->declBus(c+937,"ysyx_22040750 cache_e dcache_e next_state", false,-1, 12,0);
+        tracep->declBus(c+954,"ysyx_22040750 cache_e dcache_e next_state", false,-1, 12,0);
         tracep->declBit(c+842,"ysyx_22040750 cache_e dcache_e replace_dirty", false,-1);
         tracep->declBit(c+843,"ysyx_22040750 cache_e dcache_e rd_hit", false,-1);
         tracep->declBit(c+844,"ysyx_22040750 cache_e dcache_e rd_miss", false,-1);
-        tracep->declBit(c+938,"ysyx_22040750 cache_e dcache_e rd_handshake", false,-1);
+        tracep->declBit(c+955,"ysyx_22040750 cache_e dcache_e rd_handshake", false,-1);
         tracep->declBit(c+845,"ysyx_22040750 cache_e dcache_e rd_reload", false,-1);
         tracep->declBit(c+846,"ysyx_22040750 cache_e dcache_e rd_wb", false,-1);
         tracep->declBit(c+847,"ysyx_22040750 cache_e dcache_e rd_allocate", false,-1);
@@ -1337,147 +1337,150 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBus(c+859,"ysyx_22040750 cache_e dcache_e mem_addr", false,-1, 31,0);
         tracep->declBus(c+860,"ysyx_22040750 cache_e dcache_e sram_wmask", false,-1, 7,0);
         tracep->declBus(c+861,"ysyx_22040750 cache_e dcache_e sram_wmaskB", false,-1, 31,0);
+        tracep->declBus(c+862,"ysyx_22040750 cache_e dcache_e hit_flag", false,-1, 1,0);
+        tracep->declArray(c+863,"ysyx_22040750 cache_e dcache_e mem_rdata", false,-1, 255,0);
+        tracep->declArray(c+871,"ysyx_22040750 cache_e dcache_e hit_rdata", false,-1, 255,0);
         tracep->declArray(c+764,"ysyx_22040750 cache_e dcache_e cacheline_reg", false,-1, 255,0);
-        tracep->declQuad(c+862,"ysyx_22040750 cache_e dcache_e cpu_reg", false,-1, 63,0);
-        tracep->declBus(c+864,"ysyx_22040750 cache_e dcache_e cpu_mask_reg", false,-1, 7,0);
-        tracep->declBus(c+1014,"ysyx_22040750 cache_e dcache_e cen_dcache", false,-1, 3,0);
+        tracep->declQuad(c+879,"ysyx_22040750 cache_e dcache_e cpu_reg", false,-1, 63,0);
+        tracep->declBus(c+881,"ysyx_22040750 cache_e dcache_e cpu_mask_reg", false,-1, 7,0);
+        tracep->declBus(c+1031,"ysyx_22040750 cache_e dcache_e cen_dcache", false,-1, 3,0);
         tracep->declBus(c+747,"ysyx_22040750 cache_e dcache_e wen_dcache", false,-1, 3,0);
-        tracep->declBit(c+865,"ysyx_22040750 cache_e dcache_e sram_wflag", false,-1);
-        tracep->declBit(c+1021,"ysyx_22040750 cache_e dcache_e sram_rflag", false,-1);
-        tracep->declArray(c+866,"ysyx_22040750 cache_e dcache_e valid_table", false,-1, 127,0);
-        tracep->declArray(c+870,"ysyx_22040750 cache_e dcache_e dirty_table", false,-1, 127,0);
-        tracep->declBus(c+874,"ysyx_22040750 cache_e dcache_e way0_tag", false,-1, 20,0);
-        tracep->declBus(c+875,"ysyx_22040750 cache_e dcache_e way1_tag", false,-1, 20,0);
-        tracep->declBit(c+876,"ysyx_22040750 cache_e dcache_e way0_valid", false,-1);
-        tracep->declBit(c+877,"ysyx_22040750 cache_e dcache_e way1_valid", false,-1);
-        tracep->declBit(c+878,"ysyx_22040750 cache_e dcache_e way0_hit", false,-1);
-        tracep->declBit(c+879,"ysyx_22040750 cache_e dcache_e way1_hit", false,-1);
-        tracep->declBit(c+880,"ysyx_22040750 cache_e dcache_e hit", false,-1);
-        tracep->declBit(c+881,"ysyx_22040750 cache_e dcache_e way0_dirty", false,-1);
-        tracep->declBit(c+882,"ysyx_22040750 cache_e dcache_e way1_dirty", false,-1);
-        tracep->declBit(c+883,"ysyx_22040750 cache_e dcache_e way1_op", false,-1);
-        tracep->declBit(c+884,"ysyx_22040750 cache_e dcache_e isway0_op", false,-1);
-        tracep->declBus(c+1045,"ysyx_22040750 cache_e dcache_e WB_IDLE", false,-1, 2,0);
-        tracep->declBus(c+1046,"ysyx_22040750 cache_e dcache_e WB_HANDSHAKE", false,-1, 2,0);
-        tracep->declBus(c+1047,"ysyx_22040750 cache_e dcache_e WB_DATA", false,-1, 2,0);
-        tracep->declBus(c+885,"ysyx_22040750 cache_e dcache_e wb_state", false,-1, 2,0);
-        tracep->declBus(c+939,"ysyx_22040750 cache_e dcache_e wb_next_state", false,-1, 2,0);
-        tracep->declBit(c+1022,"ysyx_22040750 cache_e dcache_e aw_handshake", false,-1);
-        tracep->declBit(c+940,"ysyx_22040750 cache_e dcache_e wr_handshake", false,-1);
-        tracep->declBus(c+886,"ysyx_22040750 cache_e dcache_e wdata_cnt", false,-1, 1,0);
-        tracep->declArray(c+887,"ysyx_22040750 cache_e dcache_e wdata", false,-1, 255,0);
-        tracep->declBus(c+1071,"ysyx_22040750 sram0 Bits", false,-1, 31,0);
-        tracep->declBus(c+1048,"ysyx_22040750 sram0 Word_Depth", false,-1, 31,0);
-        tracep->declBus(c+1073,"ysyx_22040750 sram0 Add_Width", false,-1, 31,0);
-        tracep->declBus(c+1071,"ysyx_22040750 sram0 Wen_Width", false,-1, 31,0);
+        tracep->declBit(c+882,"ysyx_22040750 cache_e dcache_e sram_wflag", false,-1);
+        tracep->declBit(c+1038,"ysyx_22040750 cache_e dcache_e sram_rflag", false,-1);
+        tracep->declArray(c+883,"ysyx_22040750 cache_e dcache_e valid_table", false,-1, 127,0);
+        tracep->declArray(c+887,"ysyx_22040750 cache_e dcache_e dirty_table", false,-1, 127,0);
+        tracep->declBus(c+891,"ysyx_22040750 cache_e dcache_e way0_tag", false,-1, 20,0);
+        tracep->declBus(c+892,"ysyx_22040750 cache_e dcache_e way1_tag", false,-1, 20,0);
+        tracep->declBit(c+893,"ysyx_22040750 cache_e dcache_e way0_valid", false,-1);
+        tracep->declBit(c+894,"ysyx_22040750 cache_e dcache_e way1_valid", false,-1);
+        tracep->declBit(c+895,"ysyx_22040750 cache_e dcache_e way0_hit", false,-1);
+        tracep->declBit(c+896,"ysyx_22040750 cache_e dcache_e way1_hit", false,-1);
+        tracep->declBit(c+897,"ysyx_22040750 cache_e dcache_e hit", false,-1);
+        tracep->declBit(c+898,"ysyx_22040750 cache_e dcache_e way0_dirty", false,-1);
+        tracep->declBit(c+899,"ysyx_22040750 cache_e dcache_e way1_dirty", false,-1);
+        tracep->declBit(c+900,"ysyx_22040750 cache_e dcache_e way1_op", false,-1);
+        tracep->declBit(c+901,"ysyx_22040750 cache_e dcache_e isway0_op", false,-1);
+        tracep->declBus(c+1062,"ysyx_22040750 cache_e dcache_e WB_IDLE", false,-1, 2,0);
+        tracep->declBus(c+1063,"ysyx_22040750 cache_e dcache_e WB_HANDSHAKE", false,-1, 2,0);
+        tracep->declBus(c+1064,"ysyx_22040750 cache_e dcache_e WB_DATA", false,-1, 2,0);
+        tracep->declBus(c+902,"ysyx_22040750 cache_e dcache_e wb_state", false,-1, 2,0);
+        tracep->declBus(c+956,"ysyx_22040750 cache_e dcache_e wb_next_state", false,-1, 2,0);
+        tracep->declBit(c+1039,"ysyx_22040750 cache_e dcache_e aw_handshake", false,-1);
+        tracep->declBit(c+957,"ysyx_22040750 cache_e dcache_e wr_handshake", false,-1);
+        tracep->declBus(c+903,"ysyx_22040750 cache_e dcache_e wdata_cnt", false,-1, 1,0);
+        tracep->declArray(c+904,"ysyx_22040750 cache_e dcache_e wdata", false,-1, 255,0);
+        tracep->declBus(c+1088,"ysyx_22040750 sram0 Bits", false,-1, 31,0);
+        tracep->declBus(c+1065,"ysyx_22040750 sram0 Word_Depth", false,-1, 31,0);
+        tracep->declBus(c+1090,"ysyx_22040750 sram0 Add_Width", false,-1, 31,0);
+        tracep->declBus(c+1088,"ysyx_22040750 sram0 Wen_Width", false,-1, 31,0);
         tracep->declArray(c+11,"ysyx_22040750 sram0 Q", false,-1, 127,0);
-        tracep->declBit(c+949,"ysyx_22040750 sram0 CLK", false,-1);
-        tracep->declBit(c+919,"ysyx_22040750 sram0 CEN", false,-1);
+        tracep->declBit(c+966,"ysyx_22040750 sram0 CLK", false,-1);
+        tracep->declBit(c+936,"ysyx_22040750 sram0 CEN", false,-1);
         tracep->declBit(c+2,"ysyx_22040750 sram0 WEN", false,-1);
         tracep->declArray(c+3,"ysyx_22040750 sram0 BWEN", false,-1, 127,0);
         tracep->declBus(c+1,"ysyx_22040750 sram0 A", false,-1, 5,0);
         tracep->declArray(c+7,"ysyx_22040750 sram0 D", false,-1, 127,0);
-        tracep->declBit(c+941,"ysyx_22040750 sram0 cen", false,-1);
-        tracep->declBit(c+895,"ysyx_22040750 sram0 wen", false,-1);
-        tracep->declArray(c+896,"ysyx_22040750 sram0 bwen", false,-1, 127,0);
-        tracep->declBus(c+1071,"ysyx_22040750 sram1 Bits", false,-1, 31,0);
-        tracep->declBus(c+1048,"ysyx_22040750 sram1 Word_Depth", false,-1, 31,0);
-        tracep->declBus(c+1073,"ysyx_22040750 sram1 Add_Width", false,-1, 31,0);
-        tracep->declBus(c+1071,"ysyx_22040750 sram1 Wen_Width", false,-1, 31,0);
+        tracep->declBit(c+958,"ysyx_22040750 sram0 cen", false,-1);
+        tracep->declBit(c+912,"ysyx_22040750 sram0 wen", false,-1);
+        tracep->declArray(c+913,"ysyx_22040750 sram0 bwen", false,-1, 127,0);
+        tracep->declBus(c+1088,"ysyx_22040750 sram1 Bits", false,-1, 31,0);
+        tracep->declBus(c+1065,"ysyx_22040750 sram1 Word_Depth", false,-1, 31,0);
+        tracep->declBus(c+1090,"ysyx_22040750 sram1 Add_Width", false,-1, 31,0);
+        tracep->declBus(c+1088,"ysyx_22040750 sram1 Wen_Width", false,-1, 31,0);
         tracep->declArray(c+24,"ysyx_22040750 sram1 Q", false,-1, 127,0);
-        tracep->declBit(c+949,"ysyx_22040750 sram1 CLK", false,-1);
-        tracep->declBit(c+920,"ysyx_22040750 sram1 CEN", false,-1);
+        tracep->declBit(c+966,"ysyx_22040750 sram1 CLK", false,-1);
+        tracep->declBit(c+937,"ysyx_22040750 sram1 CEN", false,-1);
         tracep->declBit(c+15,"ysyx_22040750 sram1 WEN", false,-1);
         tracep->declArray(c+16,"ysyx_22040750 sram1 BWEN", false,-1, 127,0);
         tracep->declBus(c+1,"ysyx_22040750 sram1 A", false,-1, 5,0);
         tracep->declArray(c+20,"ysyx_22040750 sram1 D", false,-1, 127,0);
-        tracep->declBit(c+942,"ysyx_22040750 sram1 cen", false,-1);
-        tracep->declBit(c+900,"ysyx_22040750 sram1 wen", false,-1);
-        tracep->declArray(c+901,"ysyx_22040750 sram1 bwen", false,-1, 127,0);
-        tracep->declBus(c+1071,"ysyx_22040750 sram2 Bits", false,-1, 31,0);
-        tracep->declBus(c+1048,"ysyx_22040750 sram2 Word_Depth", false,-1, 31,0);
-        tracep->declBus(c+1073,"ysyx_22040750 sram2 Add_Width", false,-1, 31,0);
-        tracep->declBus(c+1071,"ysyx_22040750 sram2 Wen_Width", false,-1, 31,0);
+        tracep->declBit(c+959,"ysyx_22040750 sram1 cen", false,-1);
+        tracep->declBit(c+917,"ysyx_22040750 sram1 wen", false,-1);
+        tracep->declArray(c+918,"ysyx_22040750 sram1 bwen", false,-1, 127,0);
+        tracep->declBus(c+1088,"ysyx_22040750 sram2 Bits", false,-1, 31,0);
+        tracep->declBus(c+1065,"ysyx_22040750 sram2 Word_Depth", false,-1, 31,0);
+        tracep->declBus(c+1090,"ysyx_22040750 sram2 Add_Width", false,-1, 31,0);
+        tracep->declBus(c+1088,"ysyx_22040750 sram2 Wen_Width", false,-1, 31,0);
         tracep->declArray(c+29,"ysyx_22040750 sram2 Q", false,-1, 127,0);
-        tracep->declBit(c+949,"ysyx_22040750 sram2 CLK", false,-1);
-        tracep->declBit(c+921,"ysyx_22040750 sram2 CEN", false,-1);
+        tracep->declBit(c+966,"ysyx_22040750 sram2 CLK", false,-1);
+        tracep->declBit(c+938,"ysyx_22040750 sram2 CEN", false,-1);
         tracep->declBit(c+28,"ysyx_22040750 sram2 WEN", false,-1);
         tracep->declArray(c+3,"ysyx_22040750 sram2 BWEN", false,-1, 127,0);
         tracep->declBus(c+1,"ysyx_22040750 sram2 A", false,-1, 5,0);
         tracep->declArray(c+7,"ysyx_22040750 sram2 D", false,-1, 127,0);
-        tracep->declBit(c+943,"ysyx_22040750 sram2 cen", false,-1);
-        tracep->declBit(c+905,"ysyx_22040750 sram2 wen", false,-1);
-        tracep->declArray(c+896,"ysyx_22040750 sram2 bwen", false,-1, 127,0);
-        tracep->declBus(c+1071,"ysyx_22040750 sram3 Bits", false,-1, 31,0);
-        tracep->declBus(c+1048,"ysyx_22040750 sram3 Word_Depth", false,-1, 31,0);
-        tracep->declBus(c+1073,"ysyx_22040750 sram3 Add_Width", false,-1, 31,0);
-        tracep->declBus(c+1071,"ysyx_22040750 sram3 Wen_Width", false,-1, 31,0);
+        tracep->declBit(c+960,"ysyx_22040750 sram2 cen", false,-1);
+        tracep->declBit(c+922,"ysyx_22040750 sram2 wen", false,-1);
+        tracep->declArray(c+913,"ysyx_22040750 sram2 bwen", false,-1, 127,0);
+        tracep->declBus(c+1088,"ysyx_22040750 sram3 Bits", false,-1, 31,0);
+        tracep->declBus(c+1065,"ysyx_22040750 sram3 Word_Depth", false,-1, 31,0);
+        tracep->declBus(c+1090,"ysyx_22040750 sram3 Add_Width", false,-1, 31,0);
+        tracep->declBus(c+1088,"ysyx_22040750 sram3 Wen_Width", false,-1, 31,0);
         tracep->declArray(c+34,"ysyx_22040750 sram3 Q", false,-1, 127,0);
-        tracep->declBit(c+949,"ysyx_22040750 sram3 CLK", false,-1);
-        tracep->declBit(c+922,"ysyx_22040750 sram3 CEN", false,-1);
+        tracep->declBit(c+966,"ysyx_22040750 sram3 CLK", false,-1);
+        tracep->declBit(c+939,"ysyx_22040750 sram3 CEN", false,-1);
         tracep->declBit(c+33,"ysyx_22040750 sram3 WEN", false,-1);
         tracep->declArray(c+16,"ysyx_22040750 sram3 BWEN", false,-1, 127,0);
         tracep->declBus(c+1,"ysyx_22040750 sram3 A", false,-1, 5,0);
         tracep->declArray(c+20,"ysyx_22040750 sram3 D", false,-1, 127,0);
-        tracep->declBit(c+944,"ysyx_22040750 sram3 cen", false,-1);
-        tracep->declBit(c+906,"ysyx_22040750 sram3 wen", false,-1);
-        tracep->declArray(c+901,"ysyx_22040750 sram3 bwen", false,-1, 127,0);
-        tracep->declBus(c+1071,"ysyx_22040750 sram4 Bits", false,-1, 31,0);
-        tracep->declBus(c+1048,"ysyx_22040750 sram4 Word_Depth", false,-1, 31,0);
-        tracep->declBus(c+1073,"ysyx_22040750 sram4 Add_Width", false,-1, 31,0);
-        tracep->declBus(c+1071,"ysyx_22040750 sram4 Wen_Width", false,-1, 31,0);
+        tracep->declBit(c+961,"ysyx_22040750 sram3 cen", false,-1);
+        tracep->declBit(c+923,"ysyx_22040750 sram3 wen", false,-1);
+        tracep->declArray(c+918,"ysyx_22040750 sram3 bwen", false,-1, 127,0);
+        tracep->declBus(c+1088,"ysyx_22040750 sram4 Bits", false,-1, 31,0);
+        tracep->declBus(c+1065,"ysyx_22040750 sram4 Word_Depth", false,-1, 31,0);
+        tracep->declBus(c+1090,"ysyx_22040750 sram4 Add_Width", false,-1, 31,0);
+        tracep->declBus(c+1088,"ysyx_22040750 sram4 Wen_Width", false,-1, 31,0);
         tracep->declArray(c+48,"ysyx_22040750 sram4 Q", false,-1, 127,0);
-        tracep->declBit(c+949,"ysyx_22040750 sram4 CLK", false,-1);
-        tracep->declBit(c+923,"ysyx_22040750 sram4 CEN", false,-1);
+        tracep->declBit(c+966,"ysyx_22040750 sram4 CLK", false,-1);
+        tracep->declBit(c+940,"ysyx_22040750 sram4 CEN", false,-1);
         tracep->declBit(c+39,"ysyx_22040750 sram4 WEN", false,-1);
         tracep->declArray(c+40,"ysyx_22040750 sram4 BWEN", false,-1, 127,0);
         tracep->declBus(c+38,"ysyx_22040750 sram4 A", false,-1, 5,0);
         tracep->declArray(c+44,"ysyx_22040750 sram4 D", false,-1, 127,0);
-        tracep->declBit(c+945,"ysyx_22040750 sram4 cen", false,-1);
-        tracep->declBit(c+907,"ysyx_22040750 sram4 wen", false,-1);
-        tracep->declArray(c+908,"ysyx_22040750 sram4 bwen", false,-1, 127,0);
-        tracep->declBus(c+1071,"ysyx_22040750 sram5 Bits", false,-1, 31,0);
-        tracep->declBus(c+1048,"ysyx_22040750 sram5 Word_Depth", false,-1, 31,0);
-        tracep->declBus(c+1073,"ysyx_22040750 sram5 Add_Width", false,-1, 31,0);
-        tracep->declBus(c+1071,"ysyx_22040750 sram5 Wen_Width", false,-1, 31,0);
+        tracep->declBit(c+962,"ysyx_22040750 sram4 cen", false,-1);
+        tracep->declBit(c+924,"ysyx_22040750 sram4 wen", false,-1);
+        tracep->declArray(c+925,"ysyx_22040750 sram4 bwen", false,-1, 127,0);
+        tracep->declBus(c+1088,"ysyx_22040750 sram5 Bits", false,-1, 31,0);
+        tracep->declBus(c+1065,"ysyx_22040750 sram5 Word_Depth", false,-1, 31,0);
+        tracep->declBus(c+1090,"ysyx_22040750 sram5 Add_Width", false,-1, 31,0);
+        tracep->declBus(c+1088,"ysyx_22040750 sram5 Wen_Width", false,-1, 31,0);
         tracep->declArray(c+61,"ysyx_22040750 sram5 Q", false,-1, 127,0);
-        tracep->declBit(c+949,"ysyx_22040750 sram5 CLK", false,-1);
-        tracep->declBit(c+924,"ysyx_22040750 sram5 CEN", false,-1);
+        tracep->declBit(c+966,"ysyx_22040750 sram5 CLK", false,-1);
+        tracep->declBit(c+941,"ysyx_22040750 sram5 CEN", false,-1);
         tracep->declBit(c+52,"ysyx_22040750 sram5 WEN", false,-1);
         tracep->declArray(c+53,"ysyx_22040750 sram5 BWEN", false,-1, 127,0);
         tracep->declBus(c+38,"ysyx_22040750 sram5 A", false,-1, 5,0);
         tracep->declArray(c+57,"ysyx_22040750 sram5 D", false,-1, 127,0);
-        tracep->declBit(c+946,"ysyx_22040750 sram5 cen", false,-1);
-        tracep->declBit(c+912,"ysyx_22040750 sram5 wen", false,-1);
-        tracep->declArray(c+913,"ysyx_22040750 sram5 bwen", false,-1, 127,0);
-        tracep->declBus(c+1071,"ysyx_22040750 sram6 Bits", false,-1, 31,0);
-        tracep->declBus(c+1048,"ysyx_22040750 sram6 Word_Depth", false,-1, 31,0);
-        tracep->declBus(c+1073,"ysyx_22040750 sram6 Add_Width", false,-1, 31,0);
-        tracep->declBus(c+1071,"ysyx_22040750 sram6 Wen_Width", false,-1, 31,0);
+        tracep->declBit(c+963,"ysyx_22040750 sram5 cen", false,-1);
+        tracep->declBit(c+929,"ysyx_22040750 sram5 wen", false,-1);
+        tracep->declArray(c+930,"ysyx_22040750 sram5 bwen", false,-1, 127,0);
+        tracep->declBus(c+1088,"ysyx_22040750 sram6 Bits", false,-1, 31,0);
+        tracep->declBus(c+1065,"ysyx_22040750 sram6 Word_Depth", false,-1, 31,0);
+        tracep->declBus(c+1090,"ysyx_22040750 sram6 Add_Width", false,-1, 31,0);
+        tracep->declBus(c+1088,"ysyx_22040750 sram6 Wen_Width", false,-1, 31,0);
         tracep->declArray(c+66,"ysyx_22040750 sram6 Q", false,-1, 127,0);
-        tracep->declBit(c+949,"ysyx_22040750 sram6 CLK", false,-1);
-        tracep->declBit(c+925,"ysyx_22040750 sram6 CEN", false,-1);
+        tracep->declBit(c+966,"ysyx_22040750 sram6 CLK", false,-1);
+        tracep->declBit(c+942,"ysyx_22040750 sram6 CEN", false,-1);
         tracep->declBit(c+65,"ysyx_22040750 sram6 WEN", false,-1);
         tracep->declArray(c+40,"ysyx_22040750 sram6 BWEN", false,-1, 127,0);
         tracep->declBus(c+38,"ysyx_22040750 sram6 A", false,-1, 5,0);
         tracep->declArray(c+44,"ysyx_22040750 sram6 D", false,-1, 127,0);
-        tracep->declBit(c+947,"ysyx_22040750 sram6 cen", false,-1);
-        tracep->declBit(c+917,"ysyx_22040750 sram6 wen", false,-1);
-        tracep->declArray(c+908,"ysyx_22040750 sram6 bwen", false,-1, 127,0);
-        tracep->declBus(c+1071,"ysyx_22040750 sram7 Bits", false,-1, 31,0);
-        tracep->declBus(c+1048,"ysyx_22040750 sram7 Word_Depth", false,-1, 31,0);
-        tracep->declBus(c+1073,"ysyx_22040750 sram7 Add_Width", false,-1, 31,0);
-        tracep->declBus(c+1071,"ysyx_22040750 sram7 Wen_Width", false,-1, 31,0);
+        tracep->declBit(c+964,"ysyx_22040750 sram6 cen", false,-1);
+        tracep->declBit(c+934,"ysyx_22040750 sram6 wen", false,-1);
+        tracep->declArray(c+925,"ysyx_22040750 sram6 bwen", false,-1, 127,0);
+        tracep->declBus(c+1088,"ysyx_22040750 sram7 Bits", false,-1, 31,0);
+        tracep->declBus(c+1065,"ysyx_22040750 sram7 Word_Depth", false,-1, 31,0);
+        tracep->declBus(c+1090,"ysyx_22040750 sram7 Add_Width", false,-1, 31,0);
+        tracep->declBus(c+1088,"ysyx_22040750 sram7 Wen_Width", false,-1, 31,0);
         tracep->declArray(c+71,"ysyx_22040750 sram7 Q", false,-1, 127,0);
-        tracep->declBit(c+949,"ysyx_22040750 sram7 CLK", false,-1);
-        tracep->declBit(c+926,"ysyx_22040750 sram7 CEN", false,-1);
+        tracep->declBit(c+966,"ysyx_22040750 sram7 CLK", false,-1);
+        tracep->declBit(c+943,"ysyx_22040750 sram7 CEN", false,-1);
         tracep->declBit(c+70,"ysyx_22040750 sram7 WEN", false,-1);
         tracep->declArray(c+53,"ysyx_22040750 sram7 BWEN", false,-1, 127,0);
         tracep->declBus(c+38,"ysyx_22040750 sram7 A", false,-1, 5,0);
         tracep->declArray(c+57,"ysyx_22040750 sram7 D", false,-1, 127,0);
-        tracep->declBit(c+948,"ysyx_22040750 sram7 cen", false,-1);
-        tracep->declBit(c+918,"ysyx_22040750 sram7 wen", false,-1);
-        tracep->declArray(c+913,"ysyx_22040750 sram7 bwen", false,-1, 127,0);
+        tracep->declBit(c+965,"ysyx_22040750 sram7 cen", false,-1);
+        tracep->declBit(c+935,"ysyx_22040750 sram7 wen", false,-1);
+        tracep->declArray(c+930,"ysyx_22040750 sram7 bwen", false,-1, 127,0);
     }
 }
 
@@ -1513,38 +1516,41 @@ extern const VlWide<8>/*255:0*/ Vysyx_22040750__ConstPool__CONST_5b979007_0;
 void Vysyx_22040750___024root__traceFullSub0(Vysyx_22040750___024root* vlSelf, VerilatedVcd* tracep) {
     if (false && vlSelf) {}  // Prevent unused
     Vysyx_22040750__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VlWide<4>/*127:0*/ __Vtemp384;
-    VlWide<4>/*127:0*/ __Vtemp385;
-    VlWide<4>/*127:0*/ __Vtemp388;
-    VlWide<4>/*127:0*/ __Vtemp389;
     VlWide<4>/*127:0*/ __Vtemp390;
     VlWide<4>/*127:0*/ __Vtemp391;
-    VlWide<4>/*127:0*/ __Vtemp392;
-    VlWide<4>/*127:0*/ __Vtemp393;
-    VlWide<3>/*95:0*/ __Vtemp395;
-    VlWide<3>/*95:0*/ __Vtemp396;
-    VlWide<3>/*95:0*/ __Vtemp397;
-    VlWide<3>/*95:0*/ __Vtemp398;
-    VlWide<3>/*95:0*/ __Vtemp399;
-    VlWide<3>/*95:0*/ __Vtemp414;
-    VlWide<3>/*95:0*/ __Vtemp415;
-    VlWide<3>/*95:0*/ __Vtemp416;
-    VlWide<3>/*95:0*/ __Vtemp417;
-    VlWide<3>/*95:0*/ __Vtemp418;
-    VlWide<4>/*127:0*/ __Vtemp420;
-    VlWide<5>/*159:0*/ __Vtemp446;
-    VlWide<5>/*159:0*/ __Vtemp448;
-    VlWide<8>/*255:0*/ __Vtemp449;
-    VlWide<8>/*255:0*/ __Vtemp450;
-    VlWide<8>/*255:0*/ __Vtemp452;
-    VlWide<8>/*255:0*/ __Vtemp453;
+    VlWide<4>/*127:0*/ __Vtemp394;
+    VlWide<4>/*127:0*/ __Vtemp395;
+    VlWide<4>/*127:0*/ __Vtemp396;
+    VlWide<4>/*127:0*/ __Vtemp397;
+    VlWide<4>/*127:0*/ __Vtemp398;
+    VlWide<4>/*127:0*/ __Vtemp399;
+    VlWide<8>/*255:0*/ __Vtemp406;
+    VlWide<3>/*95:0*/ __Vtemp408;
+    VlWide<3>/*95:0*/ __Vtemp409;
+    VlWide<3>/*95:0*/ __Vtemp410;
+    VlWide<3>/*95:0*/ __Vtemp411;
+    VlWide<3>/*95:0*/ __Vtemp412;
+    VlWide<3>/*95:0*/ __Vtemp427;
+    VlWide<3>/*95:0*/ __Vtemp428;
+    VlWide<3>/*95:0*/ __Vtemp429;
+    VlWide<3>/*95:0*/ __Vtemp430;
+    VlWide<3>/*95:0*/ __Vtemp431;
+    VlWide<4>/*127:0*/ __Vtemp433;
+    VlWide<5>/*159:0*/ __Vtemp459;
+    VlWide<5>/*159:0*/ __Vtemp461;
     VlWide<8>/*255:0*/ __Vtemp462;
-    VlWide<8>/*255:0*/ __Vtemp469;
-    VlWide<8>/*255:0*/ __Vtemp470;
-    VlWide<4>/*127:0*/ __Vtemp474;
-    VlWide<4>/*127:0*/ __Vtemp478;
-    VlWide<4>/*127:0*/ __Vtemp480;
-    VlWide<4>/*127:0*/ __Vtemp482;
+    VlWide<8>/*255:0*/ __Vtemp463;
+    VlWide<8>/*255:0*/ __Vtemp465;
+    VlWide<8>/*255:0*/ __Vtemp466;
+    VlWide<8>/*255:0*/ __Vtemp475;
+    VlWide<8>/*255:0*/ __Vtemp482;
+    VlWide<8>/*255:0*/ __Vtemp489;
+    VlWide<8>/*255:0*/ __Vtemp494;
+    VlWide<8>/*255:0*/ __Vtemp495;
+    VlWide<4>/*127:0*/ __Vtemp499;
+    VlWide<4>/*127:0*/ __Vtemp503;
+    VlWide<4>/*127:0*/ __Vtemp505;
+    VlWide<4>/*127:0*/ __Vtemp507;
     vluint32_t* const oldp = tracep->oldp(vlSymsp->__Vm_baseCode);
     if (false && oldp) {}  // Prevent unused
     // Body
@@ -1553,43 +1559,43 @@ void Vysyx_22040750___024root__traceFullSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->fullBit(oldp+2,((1U & (IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_wen))));
         if (((8U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))
               ? 1U : 0U)) {
-            __Vtemp384[0U] = Vysyx_22040750__ConstPool__CONST_9e67c271_0[0U];
-            __Vtemp384[1U] = Vysyx_22040750__ConstPool__CONST_9e67c271_0[1U];
-            __Vtemp384[2U] = Vysyx_22040750__ConstPool__CONST_9e67c271_0[2U];
-            __Vtemp384[3U] = Vysyx_22040750__ConstPool__CONST_9e67c271_0[3U];
+            __Vtemp390[0U] = Vysyx_22040750__ConstPool__CONST_9e67c271_0[0U];
+            __Vtemp390[1U] = Vysyx_22040750__ConstPool__CONST_9e67c271_0[1U];
+            __Vtemp390[2U] = Vysyx_22040750__ConstPool__CONST_9e67c271_0[2U];
+            __Vtemp390[3U] = Vysyx_22040750__ConstPool__CONST_9e67c271_0[3U];
         } else {
-            __Vtemp384[0U] = Vysyx_22040750__ConstPool__CONST_5b979007_0[0U];
-            __Vtemp384[1U] = Vysyx_22040750__ConstPool__CONST_5b979007_0[1U];
-            __Vtemp384[2U] = Vysyx_22040750__ConstPool__CONST_5b979007_0[2U];
-            __Vtemp384[3U] = Vysyx_22040750__ConstPool__CONST_5b979007_0[3U];
+            __Vtemp390[0U] = Vysyx_22040750__ConstPool__CONST_5b979007_0[0U];
+            __Vtemp390[1U] = Vysyx_22040750__ConstPool__CONST_5b979007_0[1U];
+            __Vtemp390[2U] = Vysyx_22040750__ConstPool__CONST_5b979007_0[2U];
+            __Vtemp390[3U] = Vysyx_22040750__ConstPool__CONST_5b979007_0[3U];
         }
-        tracep->fullWData(oldp+3,(__Vtemp384),128);
-        __Vtemp385[0U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cacheline_reg[0U];
-        __Vtemp385[1U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cacheline_reg[1U];
-        __Vtemp385[2U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cacheline_reg[2U];
-        __Vtemp385[3U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cacheline_reg[3U];
-        tracep->fullWData(oldp+7,(__Vtemp385),128);
+        tracep->fullWData(oldp+3,(__Vtemp390),128);
+        __Vtemp391[0U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cacheline_reg[0U];
+        __Vtemp391[1U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cacheline_reg[1U];
+        __Vtemp391[2U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cacheline_reg[2U];
+        __Vtemp391[3U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cacheline_reg[3U];
+        tracep->fullWData(oldp+7,(__Vtemp391),128);
         tracep->fullWData(oldp+11,(vlSelf->ysyx_22040750__DOT__io_sram0_rdata),128);
         tracep->fullBit(oldp+15,((1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_wen) 
                                         >> 1U))));
         if (((8U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))
               ? 1U : 0U)) {
-            __Vtemp388[0U] = Vysyx_22040750__ConstPool__CONST_9e67c271_0[4U];
-            __Vtemp388[1U] = Vysyx_22040750__ConstPool__CONST_9e67c271_0[5U];
-            __Vtemp388[2U] = Vysyx_22040750__ConstPool__CONST_9e67c271_0[6U];
-            __Vtemp388[3U] = Vysyx_22040750__ConstPool__CONST_9e67c271_0[7U];
+            __Vtemp394[0U] = Vysyx_22040750__ConstPool__CONST_9e67c271_0[4U];
+            __Vtemp394[1U] = Vysyx_22040750__ConstPool__CONST_9e67c271_0[5U];
+            __Vtemp394[2U] = Vysyx_22040750__ConstPool__CONST_9e67c271_0[6U];
+            __Vtemp394[3U] = Vysyx_22040750__ConstPool__CONST_9e67c271_0[7U];
         } else {
-            __Vtemp388[0U] = Vysyx_22040750__ConstPool__CONST_5b979007_0[4U];
-            __Vtemp388[1U] = Vysyx_22040750__ConstPool__CONST_5b979007_0[5U];
-            __Vtemp388[2U] = Vysyx_22040750__ConstPool__CONST_5b979007_0[6U];
-            __Vtemp388[3U] = Vysyx_22040750__ConstPool__CONST_5b979007_0[7U];
+            __Vtemp394[0U] = Vysyx_22040750__ConstPool__CONST_5b979007_0[4U];
+            __Vtemp394[1U] = Vysyx_22040750__ConstPool__CONST_5b979007_0[5U];
+            __Vtemp394[2U] = Vysyx_22040750__ConstPool__CONST_5b979007_0[6U];
+            __Vtemp394[3U] = Vysyx_22040750__ConstPool__CONST_5b979007_0[7U];
         }
-        tracep->fullWData(oldp+16,(__Vtemp388),128);
-        __Vtemp389[0U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cacheline_reg[4U];
-        __Vtemp389[1U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cacheline_reg[5U];
-        __Vtemp389[2U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cacheline_reg[6U];
-        __Vtemp389[3U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cacheline_reg[7U];
-        tracep->fullWData(oldp+20,(__Vtemp389),128);
+        tracep->fullWData(oldp+16,(__Vtemp394),128);
+        __Vtemp395[0U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cacheline_reg[4U];
+        __Vtemp395[1U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cacheline_reg[5U];
+        __Vtemp395[2U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cacheline_reg[6U];
+        __Vtemp395[3U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cacheline_reg[7U];
+        tracep->fullWData(oldp+20,(__Vtemp395),128);
         tracep->fullWData(oldp+24,(vlSelf->ysyx_22040750__DOT__io_sram1_rdata),128);
         tracep->fullBit(oldp+28,((1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_wen) 
                                         >> 2U))));
@@ -1600,29 +1606,29 @@ void Vysyx_22040750___024root__traceFullSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->fullCData(oldp+38,(vlSelf->ysyx_22040750__DOT__daddr),6);
         tracep->fullBit(oldp+39,((1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_wen) 
                                         >> 4U))));
-        __Vtemp390[0U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_wmask[0U];
-        __Vtemp390[1U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_wmask[1U];
-        __Vtemp390[2U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_wmask[2U];
-        __Vtemp390[3U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_wmask[3U];
-        tracep->fullWData(oldp+40,(__Vtemp390),128);
-        __Vtemp391[0U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg[0U];
-        __Vtemp391[1U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg[1U];
-        __Vtemp391[2U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg[2U];
-        __Vtemp391[3U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg[3U];
-        tracep->fullWData(oldp+44,(__Vtemp391),128);
+        __Vtemp396[0U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_wmask[0U];
+        __Vtemp396[1U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_wmask[1U];
+        __Vtemp396[2U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_wmask[2U];
+        __Vtemp396[3U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_wmask[3U];
+        tracep->fullWData(oldp+40,(__Vtemp396),128);
+        __Vtemp397[0U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg[0U];
+        __Vtemp397[1U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg[1U];
+        __Vtemp397[2U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg[2U];
+        __Vtemp397[3U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg[3U];
+        tracep->fullWData(oldp+44,(__Vtemp397),128);
         tracep->fullWData(oldp+48,(vlSelf->ysyx_22040750__DOT__io_sram4_rdata),128);
         tracep->fullBit(oldp+52,((1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_wen) 
                                         >> 5U))));
-        __Vtemp392[0U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_wmask[4U];
-        __Vtemp392[1U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_wmask[5U];
-        __Vtemp392[2U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_wmask[6U];
-        __Vtemp392[3U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_wmask[7U];
-        tracep->fullWData(oldp+53,(__Vtemp392),128);
-        __Vtemp393[0U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg[4U];
-        __Vtemp393[1U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg[5U];
-        __Vtemp393[2U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg[6U];
-        __Vtemp393[3U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg[7U];
-        tracep->fullWData(oldp+57,(__Vtemp393),128);
+        __Vtemp398[0U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_wmask[4U];
+        __Vtemp398[1U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_wmask[5U];
+        __Vtemp398[2U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_wmask[6U];
+        __Vtemp398[3U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_wmask[7U];
+        tracep->fullWData(oldp+53,(__Vtemp398),128);
+        __Vtemp399[0U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg[4U];
+        __Vtemp399[1U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg[5U];
+        __Vtemp399[2U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg[6U];
+        __Vtemp399[3U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg[7U];
+        tracep->fullWData(oldp+57,(__Vtemp399),128);
         tracep->fullWData(oldp+61,(vlSelf->ysyx_22040750__DOT__io_sram5_rdata),128);
         tracep->fullBit(oldp+65,((1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_wen) 
                                         >> 6U))));
@@ -1638,19 +1644,78 @@ void Vysyx_22040750___024root__traceFullSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->fullIData(oldp+80,((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_alu_out)),32);
         tracep->fullBit(oldp+81,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_reg_e__DOT__mem_rd_en));
         tracep->fullBit(oldp+82,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_reg_e__DOT__mem_wr_en));
+        if ((2U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__current_state))) {
+            __Vtemp406[0U] = ((vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[0U] 
+                               & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag))))) 
+                              | (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[0U] 
+                                 & (- (IData)((1U & 
+                                               ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag) 
+                                                >> 1U))))));
+            __Vtemp406[1U] = ((vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[1U] 
+                               & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag))))) 
+                              | (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[1U] 
+                                 & (- (IData)((1U & 
+                                               ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag) 
+                                                >> 1U))))));
+            __Vtemp406[2U] = ((vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[2U] 
+                               & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag))))) 
+                              | (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[2U] 
+                                 & (- (IData)((1U & 
+                                               ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag) 
+                                                >> 1U))))));
+            __Vtemp406[3U] = ((vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[3U] 
+                               & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag))))) 
+                              | (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[3U] 
+                                 & (- (IData)((1U & 
+                                               ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag) 
+                                                >> 1U))))));
+            __Vtemp406[4U] = ((vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[4U] 
+                               & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag))))) 
+                              | (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[4U] 
+                                 & (- (IData)((1U & 
+                                               ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag) 
+                                                >> 1U))))));
+            __Vtemp406[5U] = ((vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[5U] 
+                               & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag))))) 
+                              | (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[5U] 
+                                 & (- (IData)((1U & 
+                                               ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag) 
+                                                >> 1U))))));
+            __Vtemp406[6U] = ((vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[6U] 
+                               & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag))))) 
+                              | (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[6U] 
+                                 & (- (IData)((1U & 
+                                               ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag) 
+                                                >> 1U))))));
+            __Vtemp406[7U] = ((vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[7U] 
+                               & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag))))) 
+                              | (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[7U] 
+                                 & (- (IData)((1U & 
+                                               ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag) 
+                                                >> 1U))))));
+        } else {
+            __Vtemp406[0U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg[0U];
+            __Vtemp406[1U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg[1U];
+            __Vtemp406[2U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg[2U];
+            __Vtemp406[3U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg[3U];
+            __Vtemp406[4U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg[4U];
+            __Vtemp406[5U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg[5U];
+            __Vtemp406[6U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg[6U];
+            __Vtemp406[7U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg[7U];
+        }
         tracep->fullQData(oldp+83,((((QData)((IData)(
-                                                     vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg[
+                                                     __Vtemp406[
                                                      (((IData)(0x3fU) 
                                                        + 
                                                        (0xc0U 
                                                         & (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mem_addr 
-                                                           >> 2U))) 
+                                                           << 3U))) 
                                                       >> 5U)])) 
                                      << 0x20U) | (QData)((IData)(
-                                                                 vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg[
+                                                                 __Vtemp406[
                                                                  (6U 
                                                                   & (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mem_addr 
-                                                                     >> 7U))])))),64);
+                                                                     >> 2U))])))),64);
         tracep->fullQData(oldp+85,(vlSelf->ysyx_22040750__DOT__mem_wdata),64);
         tracep->fullBit(oldp+87,((1U & ((2U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__current_state)) 
                                         | ((0x20U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__current_state))
@@ -2555,16 +2620,16 @@ void Vysyx_22040750___024root__traceFullSub0(Vysyx_22040750___024root* vlSelf, V
                                          >> 0xeU))));
         tracep->fullQData(oldp+421,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__result),64);
         tracep->fullQData(oldp+423,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__slt_result),64);
-        VL_EXTEND_WQ(65,64, __Vtemp395, vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_op1);
-        VL_EXTEND_WQ(65,64, __Vtemp396, vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__adder2);
-        VL_ADD_W(3, __Vtemp397, __Vtemp395, __Vtemp396);
-        VL_EXTEND_WQ(65,64, __Vtemp398, vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__cin);
-        VL_ADD_W(3, __Vtemp399, __Vtemp397, __Vtemp398);
+        VL_EXTEND_WQ(65,64, __Vtemp408, vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_op1);
+        VL_EXTEND_WQ(65,64, __Vtemp409, vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__adder2);
+        VL_ADD_W(3, __Vtemp410, __Vtemp408, __Vtemp409);
+        VL_EXTEND_WQ(65,64, __Vtemp411, vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__cin);
+        VL_ADD_W(3, __Vtemp412, __Vtemp410, __Vtemp411);
         tracep->fullQData(oldp+425,((QData)((IData)(
                                                     (1U 
                                                      & (~ 
                                                         (1U 
-                                                         & __Vtemp399[2U])))))),64);
+                                                         & __Vtemp412[2U])))))),64);
         tracep->fullQData(oldp+427,((vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_op1 
                                      ^ vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_op2)),64);
         tracep->fullQData(oldp+429,((vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_op1 
@@ -2689,12 +2754,12 @@ void Vysyx_22040750___024root__traceFullSub0(Vysyx_22040750___024root* vlSelf, V
                                                                     : (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__rem_result)))))),64);
         tracep->fullQData(oldp+481,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__adder2),64);
         tracep->fullQData(oldp+483,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__cin),64);
-        VL_EXTEND_WQ(65,64, __Vtemp414, vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_op1);
-        VL_EXTEND_WQ(65,64, __Vtemp415, vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__adder2);
-        VL_ADD_W(3, __Vtemp416, __Vtemp414, __Vtemp415);
-        VL_EXTEND_WQ(65,64, __Vtemp417, vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__cin);
-        VL_ADD_W(3, __Vtemp418, __Vtemp416, __Vtemp417);
-        tracep->fullBit(oldp+485,((1U & __Vtemp418[2U])));
+        VL_EXTEND_WQ(65,64, __Vtemp427, vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_op1);
+        VL_EXTEND_WQ(65,64, __Vtemp428, vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__adder2);
+        VL_ADD_W(3, __Vtemp429, __Vtemp427, __Vtemp428);
+        VL_EXTEND_WQ(65,64, __Vtemp430, vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__cin);
+        VL_ADD_W(3, __Vtemp431, __Vtemp429, __Vtemp430);
+        tracep->fullBit(oldp+485,((1U & __Vtemp431[2U])));
         tracep->fullQData(oldp+486,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__reverse_op1),64);
         tracep->fullQData(oldp+488,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__shift_op),64);
         tracep->fullCData(oldp+490,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__shamt),6);
@@ -2761,18 +2826,18 @@ void Vysyx_22040750___024root__traceFullSub0(Vysyx_22040750___024root* vlSelf, V
                                                       vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__op2_sext[1U])) 
                                       << 0x20U) | (QData)((IData)(
                                                                   vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__op2_sext[0U])))),64);
-        __Vtemp420[0U] = vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__S[0U];
-        __Vtemp420[1U] = vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__S[1U];
-        __Vtemp420[2U] = vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__S[2U];
-        __Vtemp420[3U] = vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__S[3U];
-        tracep->fullWData(oldp+509,(__Vtemp420),128);
+        __Vtemp433[0U] = vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__S[0U];
+        __Vtemp433[1U] = vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__S[1U];
+        __Vtemp433[2U] = vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__S[2U];
+        __Vtemp433[3U] = vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__S[3U];
+        tracep->fullWData(oldp+509,(__Vtemp433),128);
         tracep->fullBit(oldp+513,(((vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__op1_sext[1U] 
                                     >> 0x1fU) & (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__sext1))));
         tracep->fullBit(oldp+514,(((vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__op2_sext[1U] 
                                     >> 0x1fU) & (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__sext1))));
         tracep->fullWData(oldp+515,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__booth_mul1),67);
         tracep->fullWData(oldp+518,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__booth_mul2),132);
-        __Vtemp446[0U] = ((((~ ((- (IData)((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__radix4_unit_e__DOT__sel_negative))) 
+        __Vtemp459[0U] = ((((~ ((- (IData)((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__radix4_unit_e__DOT__sel_negative))) 
                                 & (~ vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__booth_mul2[0U]))) 
                             & (~ ((- (IData)((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__radix4_unit_e__DOT__sel_double_negative))) 
                                   & (1U | ((~ vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__booth_mul2[0U]) 
@@ -2799,7 +2864,7 @@ void Vysyx_22040750___024root__traceFullSub0(Vysyx_22040750___024root* vlSelf, V
                                                   & vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__booth_mul1[0U])))) 
                                 & (vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__booth_mul2[0U] 
                                    << 1U))));
-        __Vtemp446[1U] = ((((~ ((- (IData)((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__radix4_unit_e__DOT__sel_negative))) 
+        __Vtemp459[1U] = ((((~ ((- (IData)((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__radix4_unit_e__DOT__sel_negative))) 
                                 & (~ vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__booth_mul2[1U]))) 
                             & (~ ((- (IData)((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__radix4_unit_e__DOT__sel_double_negative))) 
                                   & (((~ vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__booth_mul2[0U]) 
@@ -2830,7 +2895,7 @@ void Vysyx_22040750___024root__traceFullSub0(Vysyx_22040750___024root* vlSelf, V
                                 & ((vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__booth_mul2[0U] 
                                     >> 0x1fU) | (vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__booth_mul2[1U] 
                                                  << 1U)))));
-        __Vtemp446[2U] = ((((~ ((- (IData)((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__radix4_unit_e__DOT__sel_negative))) 
+        __Vtemp459[2U] = ((((~ ((- (IData)((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__radix4_unit_e__DOT__sel_negative))) 
                                 & (~ vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__booth_mul2[2U]))) 
                             & (~ ((- (IData)((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__radix4_unit_e__DOT__sel_double_negative))) 
                                   & (((~ vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__booth_mul2[1U]) 
@@ -2861,7 +2926,7 @@ void Vysyx_22040750___024root__traceFullSub0(Vysyx_22040750___024root* vlSelf, V
                                 & ((vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__booth_mul2[1U] 
                                     >> 0x1fU) | (vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__booth_mul2[2U] 
                                                  << 1U)))));
-        __Vtemp446[3U] = ((((~ ((- (IData)((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__radix4_unit_e__DOT__sel_negative))) 
+        __Vtemp459[3U] = ((((~ ((- (IData)((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__radix4_unit_e__DOT__sel_negative))) 
                                 & (~ vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__booth_mul2[3U]))) 
                             & (~ ((- (IData)((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__radix4_unit_e__DOT__sel_double_negative))) 
                                   & (((~ vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__booth_mul2[2U]) 
@@ -2892,7 +2957,7 @@ void Vysyx_22040750___024root__traceFullSub0(Vysyx_22040750___024root* vlSelf, V
                                 & ((vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__booth_mul2[2U] 
                                     >> 0x1fU) | (vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__booth_mul2[3U] 
                                                  << 1U)))));
-        __Vtemp446[4U] = ((((~ ((- (IData)((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__radix4_unit_e__DOT__sel_negative))) 
+        __Vtemp459[4U] = ((((~ ((- (IData)((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__radix4_unit_e__DOT__sel_negative))) 
                                 & (~ vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__booth_mul2[4U]))) 
                             & (~ ((- (IData)((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__radix4_unit_e__DOT__sel_double_negative))) 
                                   & (((~ vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__booth_mul2[3U]) 
@@ -2924,12 +2989,12 @@ void Vysyx_22040750___024root__traceFullSub0(Vysyx_22040750___024root* vlSelf, V
                                     >> 0x1fU) | (0xeU 
                                                  & (vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__booth_mul2[4U] 
                                                     << 1U))))));
-        __Vtemp448[0U] = (~ __Vtemp446[0U]);
-        __Vtemp448[1U] = (~ __Vtemp446[1U]);
-        __Vtemp448[2U] = (~ __Vtemp446[2U]);
-        __Vtemp448[3U] = (~ __Vtemp446[3U]);
-        __Vtemp448[4U] = (0xfU & (~ __Vtemp446[4U]));
-        tracep->fullWData(oldp+523,(__Vtemp448),132);
+        __Vtemp461[0U] = (~ __Vtemp459[0U]);
+        __Vtemp461[1U] = (~ __Vtemp459[1U]);
+        __Vtemp461[2U] = (~ __Vtemp459[2U]);
+        __Vtemp461[3U] = (~ __Vtemp459[3U]);
+        __Vtemp461[4U] = (0xfU & (~ __Vtemp459[4U]));
+        tracep->fullWData(oldp+523,(__Vtemp461),132);
         tracep->fullBit(oldp+528,(((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__radix4_unit_e__DOT__sel_double_negative) 
                                    | (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__radix4_unit_e__DOT__sel_negative))));
         tracep->fullWData(oldp+529,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__mid_result),132);
@@ -3106,46 +3171,46 @@ void Vysyx_22040750___024root__traceFullSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->fullCData(oldp+714,((((8U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))
                                        ? 1U : 0U) ? 0U
                                       : 0xfU)),4);
-        __Vtemp449[0U] = vlSelf->ysyx_22040750__DOT__io_sram0_rdata[0U];
-        __Vtemp449[1U] = vlSelf->ysyx_22040750__DOT__io_sram0_rdata[1U];
-        __Vtemp449[2U] = vlSelf->ysyx_22040750__DOT__io_sram0_rdata[2U];
-        __Vtemp449[3U] = vlSelf->ysyx_22040750__DOT__io_sram0_rdata[3U];
-        __Vtemp449[4U] = vlSelf->ysyx_22040750__DOT__io_sram1_rdata[0U];
-        __Vtemp449[5U] = vlSelf->ysyx_22040750__DOT__io_sram1_rdata[1U];
-        __Vtemp449[6U] = vlSelf->ysyx_22040750__DOT__io_sram1_rdata[2U];
-        __Vtemp449[7U] = vlSelf->ysyx_22040750__DOT__io_sram1_rdata[3U];
-        tracep->fullWData(oldp+715,(__Vtemp449),256);
-        __Vtemp450[0U] = vlSelf->ysyx_22040750__DOT__io_sram2_rdata[0U];
-        __Vtemp450[1U] = vlSelf->ysyx_22040750__DOT__io_sram2_rdata[1U];
-        __Vtemp450[2U] = vlSelf->ysyx_22040750__DOT__io_sram2_rdata[2U];
-        __Vtemp450[3U] = vlSelf->ysyx_22040750__DOT__io_sram2_rdata[3U];
-        __Vtemp450[4U] = vlSelf->ysyx_22040750__DOT__io_sram3_rdata[0U];
-        __Vtemp450[5U] = vlSelf->ysyx_22040750__DOT__io_sram3_rdata[1U];
-        __Vtemp450[6U] = vlSelf->ysyx_22040750__DOT__io_sram3_rdata[2U];
-        __Vtemp450[7U] = vlSelf->ysyx_22040750__DOT__io_sram3_rdata[3U];
-        tracep->fullWData(oldp+723,(__Vtemp450),256);
+        __Vtemp462[0U] = vlSelf->ysyx_22040750__DOT__io_sram0_rdata[0U];
+        __Vtemp462[1U] = vlSelf->ysyx_22040750__DOT__io_sram0_rdata[1U];
+        __Vtemp462[2U] = vlSelf->ysyx_22040750__DOT__io_sram0_rdata[2U];
+        __Vtemp462[3U] = vlSelf->ysyx_22040750__DOT__io_sram0_rdata[3U];
+        __Vtemp462[4U] = vlSelf->ysyx_22040750__DOT__io_sram1_rdata[0U];
+        __Vtemp462[5U] = vlSelf->ysyx_22040750__DOT__io_sram1_rdata[1U];
+        __Vtemp462[6U] = vlSelf->ysyx_22040750__DOT__io_sram1_rdata[2U];
+        __Vtemp462[7U] = vlSelf->ysyx_22040750__DOT__io_sram1_rdata[3U];
+        tracep->fullWData(oldp+715,(__Vtemp462),256);
+        __Vtemp463[0U] = vlSelf->ysyx_22040750__DOT__io_sram2_rdata[0U];
+        __Vtemp463[1U] = vlSelf->ysyx_22040750__DOT__io_sram2_rdata[1U];
+        __Vtemp463[2U] = vlSelf->ysyx_22040750__DOT__io_sram2_rdata[2U];
+        __Vtemp463[3U] = vlSelf->ysyx_22040750__DOT__io_sram2_rdata[3U];
+        __Vtemp463[4U] = vlSelf->ysyx_22040750__DOT__io_sram3_rdata[0U];
+        __Vtemp463[5U] = vlSelf->ysyx_22040750__DOT__io_sram3_rdata[1U];
+        __Vtemp463[6U] = vlSelf->ysyx_22040750__DOT__io_sram3_rdata[2U];
+        __Vtemp463[7U] = vlSelf->ysyx_22040750__DOT__io_sram3_rdata[3U];
+        tracep->fullWData(oldp+723,(__Vtemp463),256);
         tracep->fullWData(oldp+731,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cacheline_reg),256);
         if (((8U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))
               ? 1U : 0U)) {
-            __Vtemp452[0U] = Vysyx_22040750__ConstPool__CONST_9e67c271_0[0U];
-            __Vtemp452[1U] = Vysyx_22040750__ConstPool__CONST_9e67c271_0[1U];
-            __Vtemp452[2U] = Vysyx_22040750__ConstPool__CONST_9e67c271_0[2U];
-            __Vtemp452[3U] = Vysyx_22040750__ConstPool__CONST_9e67c271_0[3U];
-            __Vtemp452[4U] = Vysyx_22040750__ConstPool__CONST_9e67c271_0[4U];
-            __Vtemp452[5U] = Vysyx_22040750__ConstPool__CONST_9e67c271_0[5U];
-            __Vtemp452[6U] = Vysyx_22040750__ConstPool__CONST_9e67c271_0[6U];
-            __Vtemp452[7U] = Vysyx_22040750__ConstPool__CONST_9e67c271_0[7U];
+            __Vtemp465[0U] = Vysyx_22040750__ConstPool__CONST_9e67c271_0[0U];
+            __Vtemp465[1U] = Vysyx_22040750__ConstPool__CONST_9e67c271_0[1U];
+            __Vtemp465[2U] = Vysyx_22040750__ConstPool__CONST_9e67c271_0[2U];
+            __Vtemp465[3U] = Vysyx_22040750__ConstPool__CONST_9e67c271_0[3U];
+            __Vtemp465[4U] = Vysyx_22040750__ConstPool__CONST_9e67c271_0[4U];
+            __Vtemp465[5U] = Vysyx_22040750__ConstPool__CONST_9e67c271_0[5U];
+            __Vtemp465[6U] = Vysyx_22040750__ConstPool__CONST_9e67c271_0[6U];
+            __Vtemp465[7U] = Vysyx_22040750__ConstPool__CONST_9e67c271_0[7U];
         } else {
-            __Vtemp452[0U] = Vysyx_22040750__ConstPool__CONST_5b979007_0[0U];
-            __Vtemp452[1U] = Vysyx_22040750__ConstPool__CONST_5b979007_0[1U];
-            __Vtemp452[2U] = Vysyx_22040750__ConstPool__CONST_5b979007_0[2U];
-            __Vtemp452[3U] = Vysyx_22040750__ConstPool__CONST_5b979007_0[3U];
-            __Vtemp452[4U] = Vysyx_22040750__ConstPool__CONST_5b979007_0[4U];
-            __Vtemp452[5U] = Vysyx_22040750__ConstPool__CONST_5b979007_0[5U];
-            __Vtemp452[6U] = Vysyx_22040750__ConstPool__CONST_5b979007_0[6U];
-            __Vtemp452[7U] = Vysyx_22040750__ConstPool__CONST_5b979007_0[7U];
+            __Vtemp465[0U] = Vysyx_22040750__ConstPool__CONST_5b979007_0[0U];
+            __Vtemp465[1U] = Vysyx_22040750__ConstPool__CONST_5b979007_0[1U];
+            __Vtemp465[2U] = Vysyx_22040750__ConstPool__CONST_5b979007_0[2U];
+            __Vtemp465[3U] = Vysyx_22040750__ConstPool__CONST_5b979007_0[3U];
+            __Vtemp465[4U] = Vysyx_22040750__ConstPool__CONST_5b979007_0[4U];
+            __Vtemp465[5U] = Vysyx_22040750__ConstPool__CONST_5b979007_0[5U];
+            __Vtemp465[6U] = Vysyx_22040750__ConstPool__CONST_5b979007_0[6U];
+            __Vtemp465[7U] = Vysyx_22040750__ConstPool__CONST_5b979007_0[7U];
         }
-        tracep->fullWData(oldp+739,(__Vtemp452),256);
+        tracep->fullWData(oldp+739,(__Vtemp465),256);
         tracep->fullCData(oldp+747,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__sram_wflag)
                                       ? ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__isway0_op)
                                           ? 0xcU : 3U)
@@ -3160,26 +3225,26 @@ void Vysyx_22040750___024root__traceFullSub0(Vysyx_22040750___024root* vlSelf, V
                                     ? 1U : 0U)));
         tracep->fullBit(oldp+783,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_arvalid));
         if (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__isway0_op) {
-            __Vtemp453[0U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[0U];
-            __Vtemp453[1U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[1U];
-            __Vtemp453[2U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[2U];
-            __Vtemp453[3U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[3U];
-            __Vtemp453[4U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[4U];
-            __Vtemp453[5U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[5U];
-            __Vtemp453[6U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[6U];
-            __Vtemp453[7U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[7U];
+            __Vtemp466[0U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[0U];
+            __Vtemp466[1U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[1U];
+            __Vtemp466[2U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[2U];
+            __Vtemp466[3U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[3U];
+            __Vtemp466[4U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[4U];
+            __Vtemp466[5U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[5U];
+            __Vtemp466[6U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[6U];
+            __Vtemp466[7U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[7U];
         } else {
-            __Vtemp453[0U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[0U];
-            __Vtemp453[1U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[1U];
-            __Vtemp453[2U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[2U];
-            __Vtemp453[3U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[3U];
-            __Vtemp453[4U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[4U];
-            __Vtemp453[5U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[5U];
-            __Vtemp453[6U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[6U];
-            __Vtemp453[7U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[7U];
+            __Vtemp466[0U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[0U];
+            __Vtemp466[1U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[1U];
+            __Vtemp466[2U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[2U];
+            __Vtemp466[3U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[3U];
+            __Vtemp466[4U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[4U];
+            __Vtemp466[5U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[5U];
+            __Vtemp466[6U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[6U];
+            __Vtemp466[7U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[7U];
         }
         tracep->fullQData(oldp+784,((((QData)((IData)(
-                                                      __Vtemp453[
+                                                      __Vtemp466[
                                                       (((IData)(0x3fU) 
                                                         + 
                                                         ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__wdata_cnt) 
@@ -3198,7 +3263,7 @@ void Vysyx_22040750___024root__traceFullSub0(Vysyx_22040750___024root* vlSelf, V
                                                     << 6U)))
                                           ? 0ULL : 
                                          ((QData)((IData)(
-                                                          __Vtemp453[
+                                                          __Vtemp466[
                                                           (((IData)(0x1fU) 
                                                             + 
                                                             ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__wdata_cnt) 
@@ -3209,7 +3274,7 @@ void Vysyx_22040750___024root__traceFullSub0(Vysyx_22040750___024root* vlSelf, V
                                                  & ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__wdata_cnt) 
                                                     << 6U))))) 
                                         | ((QData)((IData)(
-                                                           __Vtemp453[
+                                                           __Vtemp466[
                                                            (0x7fffffeU 
                                                             & ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__wdata_cnt) 
                                                                << 1U))])) 
@@ -3278,106 +3343,106 @@ void Vysyx_22040750___024root__traceFullSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->fullBit(oldp+816,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__way1_replace));
         tracep->fullCData(oldp+817,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__hit_flag),2);
         if ((1U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))) {
-            __Vtemp462[0U] = ((vlSelf->ysyx_22040750__DOT__io_sram0_rdata[0U] 
+            __Vtemp475[0U] = ((vlSelf->ysyx_22040750__DOT__io_sram0_rdata[0U] 
                                & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__hit_flag))))) 
                               | (vlSelf->ysyx_22040750__DOT__io_sram2_rdata[0U] 
                                  & (- (IData)((1U & 
                                                ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__hit_flag) 
                                                 >> 1U))))));
-            __Vtemp462[1U] = ((vlSelf->ysyx_22040750__DOT__io_sram0_rdata[1U] 
+            __Vtemp475[1U] = ((vlSelf->ysyx_22040750__DOT__io_sram0_rdata[1U] 
                                & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__hit_flag))))) 
                               | (vlSelf->ysyx_22040750__DOT__io_sram2_rdata[1U] 
                                  & (- (IData)((1U & 
                                                ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__hit_flag) 
                                                 >> 1U))))));
-            __Vtemp462[2U] = ((vlSelf->ysyx_22040750__DOT__io_sram0_rdata[2U] 
+            __Vtemp475[2U] = ((vlSelf->ysyx_22040750__DOT__io_sram0_rdata[2U] 
                                & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__hit_flag))))) 
                               | (vlSelf->ysyx_22040750__DOT__io_sram2_rdata[2U] 
                                  & (- (IData)((1U & 
                                                ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__hit_flag) 
                                                 >> 1U))))));
-            __Vtemp462[3U] = ((vlSelf->ysyx_22040750__DOT__io_sram0_rdata[3U] 
+            __Vtemp475[3U] = ((vlSelf->ysyx_22040750__DOT__io_sram0_rdata[3U] 
                                & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__hit_flag))))) 
                               | (vlSelf->ysyx_22040750__DOT__io_sram2_rdata[3U] 
                                  & (- (IData)((1U & 
                                                ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__hit_flag) 
                                                 >> 1U))))));
-            __Vtemp462[4U] = ((vlSelf->ysyx_22040750__DOT__io_sram1_rdata[0U] 
+            __Vtemp475[4U] = ((vlSelf->ysyx_22040750__DOT__io_sram1_rdata[0U] 
                                & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__hit_flag))))) 
                               | (vlSelf->ysyx_22040750__DOT__io_sram3_rdata[0U] 
                                  & (- (IData)((1U & 
                                                ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__hit_flag) 
                                                 >> 1U))))));
-            __Vtemp462[5U] = ((vlSelf->ysyx_22040750__DOT__io_sram1_rdata[1U] 
+            __Vtemp475[5U] = ((vlSelf->ysyx_22040750__DOT__io_sram1_rdata[1U] 
                                & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__hit_flag))))) 
                               | (vlSelf->ysyx_22040750__DOT__io_sram3_rdata[1U] 
                                  & (- (IData)((1U & 
                                                ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__hit_flag) 
                                                 >> 1U))))));
-            __Vtemp462[6U] = ((vlSelf->ysyx_22040750__DOT__io_sram1_rdata[2U] 
+            __Vtemp475[6U] = ((vlSelf->ysyx_22040750__DOT__io_sram1_rdata[2U] 
                                & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__hit_flag))))) 
                               | (vlSelf->ysyx_22040750__DOT__io_sram3_rdata[2U] 
                                  & (- (IData)((1U & 
                                                ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__hit_flag) 
                                                 >> 1U))))));
-            __Vtemp462[7U] = ((vlSelf->ysyx_22040750__DOT__io_sram1_rdata[3U] 
+            __Vtemp475[7U] = ((vlSelf->ysyx_22040750__DOT__io_sram1_rdata[3U] 
                                & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__hit_flag))))) 
                               | (vlSelf->ysyx_22040750__DOT__io_sram3_rdata[3U] 
                                  & (- (IData)((1U & 
                                                ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__hit_flag) 
                                                 >> 1U))))));
         } else {
-            __Vtemp462[0U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cacheline_reg[0U];
-            __Vtemp462[1U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cacheline_reg[1U];
-            __Vtemp462[2U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cacheline_reg[2U];
-            __Vtemp462[3U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cacheline_reg[3U];
-            __Vtemp462[4U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cacheline_reg[4U];
-            __Vtemp462[5U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cacheline_reg[5U];
-            __Vtemp462[6U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cacheline_reg[6U];
-            __Vtemp462[7U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cacheline_reg[7U];
+            __Vtemp475[0U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cacheline_reg[0U];
+            __Vtemp475[1U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cacheline_reg[1U];
+            __Vtemp475[2U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cacheline_reg[2U];
+            __Vtemp475[3U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cacheline_reg[3U];
+            __Vtemp475[4U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cacheline_reg[4U];
+            __Vtemp475[5U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cacheline_reg[5U];
+            __Vtemp475[6U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cacheline_reg[6U];
+            __Vtemp475[7U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cacheline_reg[7U];
         }
-        tracep->fullWData(oldp+818,(__Vtemp462),256);
-        __Vtemp469[0U] = ((vlSelf->ysyx_22040750__DOT__io_sram0_rdata[0U] 
+        tracep->fullWData(oldp+818,(__Vtemp475),256);
+        __Vtemp482[0U] = ((vlSelf->ysyx_22040750__DOT__io_sram0_rdata[0U] 
                            & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__hit_flag))))) 
                           | (vlSelf->ysyx_22040750__DOT__io_sram2_rdata[0U] 
                              & (- (IData)((1U & ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__hit_flag) 
                                                  >> 1U))))));
-        __Vtemp469[1U] = ((vlSelf->ysyx_22040750__DOT__io_sram0_rdata[1U] 
+        __Vtemp482[1U] = ((vlSelf->ysyx_22040750__DOT__io_sram0_rdata[1U] 
                            & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__hit_flag))))) 
                           | (vlSelf->ysyx_22040750__DOT__io_sram2_rdata[1U] 
                              & (- (IData)((1U & ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__hit_flag) 
                                                  >> 1U))))));
-        __Vtemp469[2U] = ((vlSelf->ysyx_22040750__DOT__io_sram0_rdata[2U] 
+        __Vtemp482[2U] = ((vlSelf->ysyx_22040750__DOT__io_sram0_rdata[2U] 
                            & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__hit_flag))))) 
                           | (vlSelf->ysyx_22040750__DOT__io_sram2_rdata[2U] 
                              & (- (IData)((1U & ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__hit_flag) 
                                                  >> 1U))))));
-        __Vtemp469[3U] = ((vlSelf->ysyx_22040750__DOT__io_sram0_rdata[3U] 
+        __Vtemp482[3U] = ((vlSelf->ysyx_22040750__DOT__io_sram0_rdata[3U] 
                            & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__hit_flag))))) 
                           | (vlSelf->ysyx_22040750__DOT__io_sram2_rdata[3U] 
                              & (- (IData)((1U & ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__hit_flag) 
                                                  >> 1U))))));
-        __Vtemp469[4U] = ((vlSelf->ysyx_22040750__DOT__io_sram1_rdata[0U] 
+        __Vtemp482[4U] = ((vlSelf->ysyx_22040750__DOT__io_sram1_rdata[0U] 
                            & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__hit_flag))))) 
                           | (vlSelf->ysyx_22040750__DOT__io_sram3_rdata[0U] 
                              & (- (IData)((1U & ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__hit_flag) 
                                                  >> 1U))))));
-        __Vtemp469[5U] = ((vlSelf->ysyx_22040750__DOT__io_sram1_rdata[1U] 
+        __Vtemp482[5U] = ((vlSelf->ysyx_22040750__DOT__io_sram1_rdata[1U] 
                            & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__hit_flag))))) 
                           | (vlSelf->ysyx_22040750__DOT__io_sram3_rdata[1U] 
                              & (- (IData)((1U & ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__hit_flag) 
                                                  >> 1U))))));
-        __Vtemp469[6U] = ((vlSelf->ysyx_22040750__DOT__io_sram1_rdata[2U] 
+        __Vtemp482[6U] = ((vlSelf->ysyx_22040750__DOT__io_sram1_rdata[2U] 
                            & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__hit_flag))))) 
                           | (vlSelf->ysyx_22040750__DOT__io_sram3_rdata[2U] 
                              & (- (IData)((1U & ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__hit_flag) 
                                                  >> 1U))))));
-        __Vtemp469[7U] = ((vlSelf->ysyx_22040750__DOT__io_sram1_rdata[3U] 
+        __Vtemp482[7U] = ((vlSelf->ysyx_22040750__DOT__io_sram1_rdata[3U] 
                            & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__hit_flag))))) 
                           | (vlSelf->ysyx_22040750__DOT__io_sram3_rdata[3U] 
                              & (- (IData)((1U & ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__hit_flag) 
                                                  >> 1U))))));
-        tracep->fullWData(oldp+826,(__Vtemp469),256);
+        tracep->fullWData(oldp+826,(__Vtemp482),256);
         tracep->fullBit(oldp+834,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__rd_hit));
         tracep->fullBit(oldp+835,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__pc_handshake) 
                                    & (~ (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__rd_hit)))));
@@ -3424,23 +3489,125 @@ void Vysyx_22040750___024root__traceFullSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->fullIData(oldp+859,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mem_addr),32);
         tracep->fullCData(oldp+860,((0xffU & (~ (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cpu_mask_reg)))),8);
         tracep->fullIData(oldp+861,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__sram_wmaskB),32);
-        tracep->fullQData(oldp+862,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cpu_reg),64);
-        tracep->fullCData(oldp+864,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cpu_mask_reg),8);
-        tracep->fullBit(oldp+865,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__sram_wflag));
-        tracep->fullWData(oldp+866,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__valid_table),128);
-        tracep->fullWData(oldp+870,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__dirty_table),128);
-        tracep->fullIData(oldp+874,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table
+        tracep->fullCData(oldp+862,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag),2);
+        if ((2U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__current_state))) {
+            __Vtemp489[0U] = ((vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[0U] 
+                               & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag))))) 
+                              | (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[0U] 
+                                 & (- (IData)((1U & 
+                                               ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag) 
+                                                >> 1U))))));
+            __Vtemp489[1U] = ((vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[1U] 
+                               & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag))))) 
+                              | (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[1U] 
+                                 & (- (IData)((1U & 
+                                               ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag) 
+                                                >> 1U))))));
+            __Vtemp489[2U] = ((vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[2U] 
+                               & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag))))) 
+                              | (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[2U] 
+                                 & (- (IData)((1U & 
+                                               ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag) 
+                                                >> 1U))))));
+            __Vtemp489[3U] = ((vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[3U] 
+                               & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag))))) 
+                              | (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[3U] 
+                                 & (- (IData)((1U & 
+                                               ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag) 
+                                                >> 1U))))));
+            __Vtemp489[4U] = ((vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[4U] 
+                               & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag))))) 
+                              | (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[4U] 
+                                 & (- (IData)((1U & 
+                                               ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag) 
+                                                >> 1U))))));
+            __Vtemp489[5U] = ((vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[5U] 
+                               & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag))))) 
+                              | (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[5U] 
+                                 & (- (IData)((1U & 
+                                               ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag) 
+                                                >> 1U))))));
+            __Vtemp489[6U] = ((vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[6U] 
+                               & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag))))) 
+                              | (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[6U] 
+                                 & (- (IData)((1U & 
+                                               ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag) 
+                                                >> 1U))))));
+            __Vtemp489[7U] = ((vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[7U] 
+                               & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag))))) 
+                              | (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[7U] 
+                                 & (- (IData)((1U & 
+                                               ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag) 
+                                                >> 1U))))));
+        } else {
+            __Vtemp489[0U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg[0U];
+            __Vtemp489[1U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg[1U];
+            __Vtemp489[2U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg[2U];
+            __Vtemp489[3U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg[3U];
+            __Vtemp489[4U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg[4U];
+            __Vtemp489[5U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg[5U];
+            __Vtemp489[6U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg[6U];
+            __Vtemp489[7U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg[7U];
+        }
+        tracep->fullWData(oldp+863,(__Vtemp489),256);
+        __Vtemp494[0U] = ((vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[0U] 
+                           & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag))))) 
+                          | (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[0U] 
+                             & (- (IData)((1U & ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag) 
+                                                 >> 1U))))));
+        __Vtemp494[1U] = ((vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[1U] 
+                           & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag))))) 
+                          | (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[1U] 
+                             & (- (IData)((1U & ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag) 
+                                                 >> 1U))))));
+        __Vtemp494[2U] = ((vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[2U] 
+                           & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag))))) 
+                          | (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[2U] 
+                             & (- (IData)((1U & ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag) 
+                                                 >> 1U))))));
+        __Vtemp494[3U] = ((vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[3U] 
+                           & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag))))) 
+                          | (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[3U] 
+                             & (- (IData)((1U & ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag) 
+                                                 >> 1U))))));
+        __Vtemp494[4U] = ((vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[4U] 
+                           & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag))))) 
+                          | (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[4U] 
+                             & (- (IData)((1U & ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag) 
+                                                 >> 1U))))));
+        __Vtemp494[5U] = ((vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[5U] 
+                           & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag))))) 
+                          | (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[5U] 
+                             & (- (IData)((1U & ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag) 
+                                                 >> 1U))))));
+        __Vtemp494[6U] = ((vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[6U] 
+                           & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag))))) 
+                          | (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[6U] 
+                             & (- (IData)((1U & ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag) 
+                                                 >> 1U))))));
+        __Vtemp494[7U] = ((vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[7U] 
+                           & (- (IData)((1U & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag))))) 
+                          | (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[7U] 
+                             & (- (IData)((1U & ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag) 
+                                                 >> 1U))))));
+        tracep->fullWData(oldp+871,(__Vtemp494),256);
+        tracep->fullQData(oldp+879,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cpu_reg),64);
+        tracep->fullCData(oldp+881,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cpu_mask_reg),8);
+        tracep->fullBit(oldp+882,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__sram_wflag));
+        tracep->fullWData(oldp+883,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__valid_table),128);
+        tracep->fullWData(oldp+887,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__dirty_table),128);
+        tracep->fullIData(oldp+891,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table
                                     [(0x7eU & ((IData)(
                                                        (vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_alu_out 
                                                         >> 5U)) 
                                                << 1U))]),21);
-        tracep->fullIData(oldp+875,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table
+        tracep->fullIData(oldp+892,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table
                                     [(1U | (0x7eU & 
                                             ((IData)(
                                                      (vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_alu_out 
                                                       >> 5U)) 
                                              << 1U)))]),21);
-        tracep->fullBit(oldp+876,((1U & (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__valid_table[
+        tracep->fullBit(oldp+893,((1U & (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__valid_table[
                                          (3U & ((IData)(
                                                         (vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_alu_out 
                                                          >> 5U)) 
@@ -3450,7 +3617,7 @@ void Vysyx_22040750___024root__traceFullSub0(Vysyx_22040750___024root* vlSelf, V
                                                         (vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_alu_out 
                                                          >> 5U)) 
                                                 << 1U))))));
-        tracep->fullBit(oldp+877,((1U & (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__valid_table[
+        tracep->fullBit(oldp+894,((1U & (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__valid_table[
                                          (3U & ((IData)(
                                                         (vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_alu_out 
                                                          >> 5U)) 
@@ -3462,16 +3629,16 @@ void Vysyx_22040750___024root__traceFullSub0(Vysyx_22040750___024root* vlSelf, V
                                                               (vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_alu_out 
                                                                >> 5U)) 
                                                       << 1U))))))));
-        tracep->fullBit(oldp+878,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__way0_hit));
-        tracep->fullBit(oldp+879,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__way1_hit));
-        tracep->fullBit(oldp+880,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit));
-        tracep->fullBit(oldp+881,((1U & (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__dirty_table[
+        tracep->fullBit(oldp+895,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__way0_hit));
+        tracep->fullBit(oldp+896,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__way1_hit));
+        tracep->fullBit(oldp+897,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit));
+        tracep->fullBit(oldp+898,((1U & (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__dirty_table[
                                          (3U & (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mem_addr 
                                                 >> 9U))] 
                                          >> (0x1eU 
                                              & (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mem_addr 
                                                 >> 4U))))));
-        tracep->fullBit(oldp+882,((1U & (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__dirty_table[
+        tracep->fullBit(oldp+899,((1U & (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__dirty_table[
                                          (3U & (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mem_addr 
                                                 >> 9U))] 
                                          >> (0x1fU 
@@ -3479,7 +3646,7 @@ void Vysyx_22040750___024root__traceFullSub0(Vysyx_22040750___024root* vlSelf, V
                                                 | (0x7eU 
                                                    & (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mem_addr 
                                                       >> 4U))))))));
-        tracep->fullBit(oldp+883,((1U & ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__way1_hit) 
+        tracep->fullBit(oldp+900,((1U & ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__way1_hit) 
                                          | (((~ (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit)) 
                                              & (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__valid_table[
                                                 (3U 
@@ -3507,188 +3674,188 @@ void Vysyx_22040750___024root__traceFullSub0(Vysyx_22040750___024root* vlSelf, V
                                                                     (vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_alu_out 
                                                                      >> 5U)) 
                                                             << 1U)))))))))));
-        tracep->fullBit(oldp+884,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__isway0_op));
-        tracep->fullCData(oldp+885,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__wb_state),3);
-        tracep->fullCData(oldp+886,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__wdata_cnt),2);
+        tracep->fullBit(oldp+901,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__isway0_op));
+        tracep->fullCData(oldp+902,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__wb_state),3);
+        tracep->fullCData(oldp+903,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__wdata_cnt),2);
         if (vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__isway0_op) {
-            __Vtemp470[0U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[0U];
-            __Vtemp470[1U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[1U];
-            __Vtemp470[2U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[2U];
-            __Vtemp470[3U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[3U];
-            __Vtemp470[4U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[4U];
-            __Vtemp470[5U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[5U];
-            __Vtemp470[6U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[6U];
-            __Vtemp470[7U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[7U];
+            __Vtemp495[0U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[0U];
+            __Vtemp495[1U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[1U];
+            __Vtemp495[2U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[2U];
+            __Vtemp495[3U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[3U];
+            __Vtemp495[4U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[4U];
+            __Vtemp495[5U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[5U];
+            __Vtemp495[6U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[6U];
+            __Vtemp495[7U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata[7U];
         } else {
-            __Vtemp470[0U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[0U];
-            __Vtemp470[1U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[1U];
-            __Vtemp470[2U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[2U];
-            __Vtemp470[3U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[3U];
-            __Vtemp470[4U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[4U];
-            __Vtemp470[5U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[5U];
-            __Vtemp470[6U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[6U];
-            __Vtemp470[7U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[7U];
+            __Vtemp495[0U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[0U];
+            __Vtemp495[1U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[1U];
+            __Vtemp495[2U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[2U];
+            __Vtemp495[3U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[3U];
+            __Vtemp495[4U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[4U];
+            __Vtemp495[5U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[5U];
+            __Vtemp495[6U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[6U];
+            __Vtemp495[7U] = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata[7U];
         }
-        tracep->fullWData(oldp+887,(__Vtemp470),256);
-        tracep->fullBit(oldp+895,((1U & (~ (IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_wen)))));
-        __Vtemp474[0U] = (~ (((8U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))
+        tracep->fullWData(oldp+904,(__Vtemp495),256);
+        tracep->fullBit(oldp+912,((1U & (~ (IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_wen)))));
+        __Vtemp499[0U] = (~ (((8U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))
                                ? 1U : 0U) ? Vysyx_22040750__ConstPool__CONST_9e67c271_0[0U]
                               : Vysyx_22040750__ConstPool__CONST_5b979007_0[0U]));
-        __Vtemp474[1U] = (~ (((8U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))
+        __Vtemp499[1U] = (~ (((8U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))
                                ? 1U : 0U) ? Vysyx_22040750__ConstPool__CONST_9e67c271_0[1U]
                               : Vysyx_22040750__ConstPool__CONST_5b979007_0[1U]));
-        __Vtemp474[2U] = (~ (((8U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))
+        __Vtemp499[2U] = (~ (((8U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))
                                ? 1U : 0U) ? Vysyx_22040750__ConstPool__CONST_9e67c271_0[2U]
                               : Vysyx_22040750__ConstPool__CONST_5b979007_0[2U]));
-        __Vtemp474[3U] = (~ (((8U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))
+        __Vtemp499[3U] = (~ (((8U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))
                                ? 1U : 0U) ? Vysyx_22040750__ConstPool__CONST_9e67c271_0[3U]
                               : Vysyx_22040750__ConstPool__CONST_5b979007_0[3U]));
-        tracep->fullWData(oldp+896,(__Vtemp474),128);
-        tracep->fullBit(oldp+900,((1U & (~ ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_wen) 
+        tracep->fullWData(oldp+913,(__Vtemp499),128);
+        tracep->fullBit(oldp+917,((1U & (~ ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_wen) 
                                             >> 1U)))));
-        __Vtemp478[0U] = (~ (((8U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))
+        __Vtemp503[0U] = (~ (((8U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))
                                ? 1U : 0U) ? Vysyx_22040750__ConstPool__CONST_9e67c271_0[4U]
                               : Vysyx_22040750__ConstPool__CONST_5b979007_0[4U]));
-        __Vtemp478[1U] = (~ (((8U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))
+        __Vtemp503[1U] = (~ (((8U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))
                                ? 1U : 0U) ? Vysyx_22040750__ConstPool__CONST_9e67c271_0[5U]
                               : Vysyx_22040750__ConstPool__CONST_5b979007_0[5U]));
-        __Vtemp478[2U] = (~ (((8U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))
+        __Vtemp503[2U] = (~ (((8U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))
                                ? 1U : 0U) ? Vysyx_22040750__ConstPool__CONST_9e67c271_0[6U]
                               : Vysyx_22040750__ConstPool__CONST_5b979007_0[6U]));
-        __Vtemp478[3U] = (~ (((8U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))
+        __Vtemp503[3U] = (~ (((8U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))
                                ? 1U : 0U) ? Vysyx_22040750__ConstPool__CONST_9e67c271_0[7U]
                               : Vysyx_22040750__ConstPool__CONST_5b979007_0[7U]));
-        tracep->fullWData(oldp+901,(__Vtemp478),128);
-        tracep->fullBit(oldp+905,((1U & (~ ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_wen) 
+        tracep->fullWData(oldp+918,(__Vtemp503),128);
+        tracep->fullBit(oldp+922,((1U & (~ ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_wen) 
                                             >> 2U)))));
-        tracep->fullBit(oldp+906,((1U & (~ ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_wen) 
+        tracep->fullBit(oldp+923,((1U & (~ ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_wen) 
                                             >> 3U)))));
-        tracep->fullBit(oldp+907,((1U & (~ ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_wen) 
+        tracep->fullBit(oldp+924,((1U & (~ ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_wen) 
                                             >> 4U)))));
-        __Vtemp480[0U] = (~ vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_wmask[0U]);
-        __Vtemp480[1U] = (~ vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_wmask[1U]);
-        __Vtemp480[2U] = (~ vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_wmask[2U]);
-        __Vtemp480[3U] = (~ vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_wmask[3U]);
-        tracep->fullWData(oldp+908,(__Vtemp480),128);
-        tracep->fullBit(oldp+912,((1U & (~ ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_wen) 
+        __Vtemp505[0U] = (~ vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_wmask[0U]);
+        __Vtemp505[1U] = (~ vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_wmask[1U]);
+        __Vtemp505[2U] = (~ vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_wmask[2U]);
+        __Vtemp505[3U] = (~ vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_wmask[3U]);
+        tracep->fullWData(oldp+925,(__Vtemp505),128);
+        tracep->fullBit(oldp+929,((1U & (~ ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_wen) 
                                             >> 5U)))));
-        __Vtemp482[0U] = (~ vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_wmask[4U]);
-        __Vtemp482[1U] = (~ vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_wmask[5U]);
-        __Vtemp482[2U] = (~ vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_wmask[6U]);
-        __Vtemp482[3U] = (~ vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_wmask[7U]);
-        tracep->fullWData(oldp+913,(__Vtemp482),128);
-        tracep->fullBit(oldp+917,((1U & (~ ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_wen) 
+        __Vtemp507[0U] = (~ vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_wmask[4U]);
+        __Vtemp507[1U] = (~ vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_wmask[5U]);
+        __Vtemp507[2U] = (~ vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_wmask[6U]);
+        __Vtemp507[3U] = (~ vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_wmask[7U]);
+        tracep->fullWData(oldp+930,(__Vtemp507),128);
+        tracep->fullBit(oldp+934,((1U & (~ ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_wen) 
                                             >> 6U)))));
-        tracep->fullBit(oldp+918,((1U & (~ ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_wen) 
+        tracep->fullBit(oldp+935,((1U & (~ ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_wen) 
                                             >> 7U)))));
-        tracep->fullBit(oldp+919,((1U & (IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen))));
-        tracep->fullBit(oldp+920,((1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
+        tracep->fullBit(oldp+936,((1U & (IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen))));
+        tracep->fullBit(oldp+937,((1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
                                          >> 1U))));
-        tracep->fullBit(oldp+921,((1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
+        tracep->fullBit(oldp+938,((1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
                                          >> 2U))));
-        tracep->fullBit(oldp+922,((1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
+        tracep->fullBit(oldp+939,((1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
                                          >> 3U))));
-        tracep->fullBit(oldp+923,((1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
+        tracep->fullBit(oldp+940,((1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
                                          >> 4U))));
-        tracep->fullBit(oldp+924,((1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
+        tracep->fullBit(oldp+941,((1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
                                          >> 5U))));
-        tracep->fullBit(oldp+925,((1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
+        tracep->fullBit(oldp+942,((1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
                                          >> 6U))));
-        tracep->fullBit(oldp+926,((1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
+        tracep->fullBit(oldp+943,((1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
                                          >> 7U))));
-        tracep->fullCData(oldp+927,(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen),8);
-        tracep->fullBit(oldp+928,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_icache_rvalid));
-        tracep->fullBit(oldp+929,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_rvalid));
-        tracep->fullBit(oldp+930,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_icache_rlast));
-        tracep->fullBit(oldp+931,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_rlast));
-        tracep->fullBit(oldp+932,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_icache_arready));
-        tracep->fullBit(oldp+933,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_arready));
-        tracep->fullBit(oldp+934,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_icache_rvalid) 
+        tracep->fullCData(oldp+944,(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen),8);
+        tracep->fullBit(oldp+945,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_icache_rvalid));
+        tracep->fullBit(oldp+946,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_rvalid));
+        tracep->fullBit(oldp+947,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_icache_rlast));
+        tracep->fullBit(oldp+948,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_rlast));
+        tracep->fullBit(oldp+949,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_icache_arready));
+        tracep->fullBit(oldp+950,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_arready));
+        tracep->fullBit(oldp+951,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_icache_rvalid) 
                                    & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_icache_rlast))));
-        tracep->fullBit(oldp+935,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_rvalid) 
+        tracep->fullBit(oldp+952,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_rvalid) 
                                    & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_rlast))));
-        tracep->fullCData(oldp+936,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__next_state),4);
-        tracep->fullSData(oldp+937,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__next_state),13);
-        tracep->fullBit(oldp+938,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__rd_handshake));
-        tracep->fullCData(oldp+939,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__wb_next_state),3);
-        tracep->fullBit(oldp+940,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__wr_handshake));
-        tracep->fullBit(oldp+941,((1U & (~ (IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen)))));
-        tracep->fullBit(oldp+942,((1U & (~ ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
+        tracep->fullCData(oldp+953,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__next_state),4);
+        tracep->fullSData(oldp+954,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__next_state),13);
+        tracep->fullBit(oldp+955,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__rd_handshake));
+        tracep->fullCData(oldp+956,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__wb_next_state),3);
+        tracep->fullBit(oldp+957,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__wr_handshake));
+        tracep->fullBit(oldp+958,((1U & (~ (IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen)))));
+        tracep->fullBit(oldp+959,((1U & (~ ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
                                             >> 1U)))));
-        tracep->fullBit(oldp+943,((1U & (~ ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
+        tracep->fullBit(oldp+960,((1U & (~ ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
                                             >> 2U)))));
-        tracep->fullBit(oldp+944,((1U & (~ ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
+        tracep->fullBit(oldp+961,((1U & (~ ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
                                             >> 3U)))));
-        tracep->fullBit(oldp+945,((1U & (~ ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
+        tracep->fullBit(oldp+962,((1U & (~ ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
                                             >> 4U)))));
-        tracep->fullBit(oldp+946,((1U & (~ ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
+        tracep->fullBit(oldp+963,((1U & (~ ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
                                             >> 5U)))));
-        tracep->fullBit(oldp+947,((1U & (~ ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
+        tracep->fullBit(oldp+964,((1U & (~ ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
                                             >> 6U)))));
-        tracep->fullBit(oldp+948,((1U & (~ ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
+        tracep->fullBit(oldp+965,((1U & (~ ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
                                             >> 7U)))));
-        tracep->fullBit(oldp+949,(vlSelf->clock));
-        tracep->fullBit(oldp+950,(vlSelf->reset));
-        tracep->fullBit(oldp+951,(vlSelf->io_interrupt));
-        tracep->fullBit(oldp+952,(vlSelf->io_master_awready));
-        tracep->fullBit(oldp+953,(vlSelf->io_master_awvalid));
-        tracep->fullCData(oldp+954,(vlSelf->io_master_awid),4);
-        tracep->fullIData(oldp+955,(vlSelf->io_master_awaddr),32);
-        tracep->fullCData(oldp+956,(vlSelf->io_master_awlen),8);
-        tracep->fullCData(oldp+957,(vlSelf->io_master_awsize),3);
-        tracep->fullCData(oldp+958,(vlSelf->io_master_awburst),2);
-        tracep->fullBit(oldp+959,(vlSelf->io_master_wready));
-        tracep->fullBit(oldp+960,(vlSelf->io_master_wvalid));
-        tracep->fullQData(oldp+961,(vlSelf->io_master_wdata),64);
-        tracep->fullCData(oldp+963,(vlSelf->io_master_wstrb),8);
-        tracep->fullBit(oldp+964,(vlSelf->io_master_wlast));
-        tracep->fullBit(oldp+965,(vlSelf->io_master_bready));
-        tracep->fullBit(oldp+966,(vlSelf->io_master_bvalid));
-        tracep->fullCData(oldp+967,(vlSelf->io_master_bid),4);
-        tracep->fullCData(oldp+968,(vlSelf->io_master_bresp),2);
-        tracep->fullBit(oldp+969,(vlSelf->io_master_arready));
-        tracep->fullBit(oldp+970,(vlSelf->io_master_arvalid));
-        tracep->fullCData(oldp+971,(vlSelf->io_master_arid),4);
-        tracep->fullIData(oldp+972,(vlSelf->io_master_araddr),32);
-        tracep->fullCData(oldp+973,(vlSelf->io_master_arlen),8);
-        tracep->fullCData(oldp+974,(vlSelf->io_master_arsize),3);
-        tracep->fullCData(oldp+975,(vlSelf->io_master_arburst),2);
-        tracep->fullBit(oldp+976,(vlSelf->io_master_rready));
-        tracep->fullBit(oldp+977,(vlSelf->io_master_rvalid));
-        tracep->fullCData(oldp+978,(vlSelf->io_master_rid),4);
-        tracep->fullCData(oldp+979,(vlSelf->io_master_rresp),2);
-        tracep->fullQData(oldp+980,(vlSelf->io_master_rdata),64);
-        tracep->fullBit(oldp+982,(vlSelf->io_master_rlast));
-        tracep->fullBit(oldp+983,(vlSelf->io_slave_awready));
-        tracep->fullBit(oldp+984,(vlSelf->io_slave_awvalid));
-        tracep->fullCData(oldp+985,(vlSelf->io_slave_awid),4);
-        tracep->fullIData(oldp+986,(vlSelf->io_slave_awaddr),32);
-        tracep->fullCData(oldp+987,(vlSelf->io_slave_awlen),8);
-        tracep->fullCData(oldp+988,(vlSelf->io_slave_awsize),3);
-        tracep->fullCData(oldp+989,(vlSelf->io_slave_awburst),2);
-        tracep->fullBit(oldp+990,(vlSelf->io_slave_wready));
-        tracep->fullBit(oldp+991,(vlSelf->io_slave_wvalid));
-        tracep->fullQData(oldp+992,(vlSelf->io_slave_wdata),64);
-        tracep->fullCData(oldp+994,(vlSelf->io_slave_wstrb),8);
-        tracep->fullBit(oldp+995,(vlSelf->io_slave_wlast));
-        tracep->fullBit(oldp+996,(vlSelf->io_slave_bready));
-        tracep->fullBit(oldp+997,(vlSelf->io_slave_bvalid));
-        tracep->fullCData(oldp+998,(vlSelf->io_slave_bid),4);
-        tracep->fullCData(oldp+999,(vlSelf->io_slave_bresp),2);
-        tracep->fullBit(oldp+1000,(vlSelf->io_slave_arready));
-        tracep->fullBit(oldp+1001,(vlSelf->io_slave_arvalid));
-        tracep->fullCData(oldp+1002,(vlSelf->io_slave_arid),4);
-        tracep->fullIData(oldp+1003,(vlSelf->io_slave_araddr),32);
-        tracep->fullCData(oldp+1004,(vlSelf->io_slave_arlen),8);
-        tracep->fullCData(oldp+1005,(vlSelf->io_slave_arsize),3);
-        tracep->fullCData(oldp+1006,(vlSelf->io_slave_arburst),2);
-        tracep->fullBit(oldp+1007,(vlSelf->io_slave_rready));
-        tracep->fullBit(oldp+1008,(vlSelf->io_slave_rvalid));
-        tracep->fullCData(oldp+1009,(vlSelf->io_slave_rid),4);
-        tracep->fullCData(oldp+1010,(vlSelf->io_slave_rresp),2);
-        tracep->fullQData(oldp+1011,(vlSelf->io_slave_rdata),64);
-        tracep->fullBit(oldp+1013,(vlSelf->io_slave_rlast));
-        tracep->fullCData(oldp+1014,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__rd_hit)
+        tracep->fullBit(oldp+966,(vlSelf->clock));
+        tracep->fullBit(oldp+967,(vlSelf->reset));
+        tracep->fullBit(oldp+968,(vlSelf->io_interrupt));
+        tracep->fullBit(oldp+969,(vlSelf->io_master_awready));
+        tracep->fullBit(oldp+970,(vlSelf->io_master_awvalid));
+        tracep->fullCData(oldp+971,(vlSelf->io_master_awid),4);
+        tracep->fullIData(oldp+972,(vlSelf->io_master_awaddr),32);
+        tracep->fullCData(oldp+973,(vlSelf->io_master_awlen),8);
+        tracep->fullCData(oldp+974,(vlSelf->io_master_awsize),3);
+        tracep->fullCData(oldp+975,(vlSelf->io_master_awburst),2);
+        tracep->fullBit(oldp+976,(vlSelf->io_master_wready));
+        tracep->fullBit(oldp+977,(vlSelf->io_master_wvalid));
+        tracep->fullQData(oldp+978,(vlSelf->io_master_wdata),64);
+        tracep->fullCData(oldp+980,(vlSelf->io_master_wstrb),8);
+        tracep->fullBit(oldp+981,(vlSelf->io_master_wlast));
+        tracep->fullBit(oldp+982,(vlSelf->io_master_bready));
+        tracep->fullBit(oldp+983,(vlSelf->io_master_bvalid));
+        tracep->fullCData(oldp+984,(vlSelf->io_master_bid),4);
+        tracep->fullCData(oldp+985,(vlSelf->io_master_bresp),2);
+        tracep->fullBit(oldp+986,(vlSelf->io_master_arready));
+        tracep->fullBit(oldp+987,(vlSelf->io_master_arvalid));
+        tracep->fullCData(oldp+988,(vlSelf->io_master_arid),4);
+        tracep->fullIData(oldp+989,(vlSelf->io_master_araddr),32);
+        tracep->fullCData(oldp+990,(vlSelf->io_master_arlen),8);
+        tracep->fullCData(oldp+991,(vlSelf->io_master_arsize),3);
+        tracep->fullCData(oldp+992,(vlSelf->io_master_arburst),2);
+        tracep->fullBit(oldp+993,(vlSelf->io_master_rready));
+        tracep->fullBit(oldp+994,(vlSelf->io_master_rvalid));
+        tracep->fullCData(oldp+995,(vlSelf->io_master_rid),4);
+        tracep->fullCData(oldp+996,(vlSelf->io_master_rresp),2);
+        tracep->fullQData(oldp+997,(vlSelf->io_master_rdata),64);
+        tracep->fullBit(oldp+999,(vlSelf->io_master_rlast));
+        tracep->fullBit(oldp+1000,(vlSelf->io_slave_awready));
+        tracep->fullBit(oldp+1001,(vlSelf->io_slave_awvalid));
+        tracep->fullCData(oldp+1002,(vlSelf->io_slave_awid),4);
+        tracep->fullIData(oldp+1003,(vlSelf->io_slave_awaddr),32);
+        tracep->fullCData(oldp+1004,(vlSelf->io_slave_awlen),8);
+        tracep->fullCData(oldp+1005,(vlSelf->io_slave_awsize),3);
+        tracep->fullCData(oldp+1006,(vlSelf->io_slave_awburst),2);
+        tracep->fullBit(oldp+1007,(vlSelf->io_slave_wready));
+        tracep->fullBit(oldp+1008,(vlSelf->io_slave_wvalid));
+        tracep->fullQData(oldp+1009,(vlSelf->io_slave_wdata),64);
+        tracep->fullCData(oldp+1011,(vlSelf->io_slave_wstrb),8);
+        tracep->fullBit(oldp+1012,(vlSelf->io_slave_wlast));
+        tracep->fullBit(oldp+1013,(vlSelf->io_slave_bready));
+        tracep->fullBit(oldp+1014,(vlSelf->io_slave_bvalid));
+        tracep->fullCData(oldp+1015,(vlSelf->io_slave_bid),4);
+        tracep->fullCData(oldp+1016,(vlSelf->io_slave_bresp),2);
+        tracep->fullBit(oldp+1017,(vlSelf->io_slave_arready));
+        tracep->fullBit(oldp+1018,(vlSelf->io_slave_arvalid));
+        tracep->fullCData(oldp+1019,(vlSelf->io_slave_arid),4);
+        tracep->fullIData(oldp+1020,(vlSelf->io_slave_araddr),32);
+        tracep->fullCData(oldp+1021,(vlSelf->io_slave_arlen),8);
+        tracep->fullCData(oldp+1022,(vlSelf->io_slave_arsize),3);
+        tracep->fullCData(oldp+1023,(vlSelf->io_slave_arburst),2);
+        tracep->fullBit(oldp+1024,(vlSelf->io_slave_rready));
+        tracep->fullBit(oldp+1025,(vlSelf->io_slave_rvalid));
+        tracep->fullCData(oldp+1026,(vlSelf->io_slave_rid),4);
+        tracep->fullCData(oldp+1027,(vlSelf->io_slave_rresp),2);
+        tracep->fullQData(oldp+1028,(vlSelf->io_slave_rdata),64);
+        tracep->fullBit(oldp+1030,(vlSelf->io_slave_rlast));
+        tracep->fullCData(oldp+1031,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__rd_hit)
                                        ? ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__way0_hit)
                                            ? 0xcU : 3U)
                                        : ((1U & ((((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_rlast) 
@@ -3705,18 +3872,18 @@ void Vysyx_22040750___024root__traceFullSub0(Vysyx_22040750___024root* vlSelf, V
                                                ? 0xcU
                                                : 3U)
                                            : 0xfU))),4);
-        tracep->fullQData(oldp+1015,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT__ch0_process)
+        tracep->fullQData(oldp+1032,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT__ch0_process)
                                        ? vlSelf->io_master_rdata
                                        : 0ULL)),64);
-        tracep->fullQData(oldp+1017,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT__ch1_process)
+        tracep->fullQData(oldp+1034,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT__ch1_process)
                                        ? vlSelf->io_master_rdata
                                        : 0ULL)),64);
-        tracep->fullBit(oldp+1019,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_icache_arready) 
+        tracep->fullBit(oldp+1036,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_icache_arready) 
                                     & ((2U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))
                                         ? 1U : 0U))));
-        tracep->fullBit(oldp+1020,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_arready) 
+        tracep->fullBit(oldp+1037,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_arready) 
                                     & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_arvalid))));
-        tracep->fullBit(oldp+1021,((1U & (((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_rlast) 
+        tracep->fullBit(oldp+1038,((1U & (((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_rlast) 
                                            | ((0x10U 
                                                == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__current_state))
                                                ? 1U
@@ -3724,77 +3891,77 @@ void Vysyx_22040750___024root__traceFullSub0(Vysyx_22040750___024root* vlSelf, V
                                           | ((0x200U 
                                               == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__current_state))
                                               ? 1U : 0U)))));
-        tracep->fullBit(oldp+1022,(((IData)(vlSelf->io_master_awready) 
+        tracep->fullBit(oldp+1039,(((IData)(vlSelf->io_master_awready) 
                                     & ((2U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__wb_state))
                                         ? 1U : 0U))));
-        tracep->fullIData(oldp+1023,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__mem_addr),32);
-        tracep->fullQData(oldp+1024,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_mem_data),64);
-        tracep->fullIData(oldp+1026,(0x20U),32);
-        tracep->fullIData(oldp+1027,(3U),32);
-        tracep->fullIData(oldp+1028,(3U),32);
-        tracep->fullIData(oldp+1029,(0x7ffffffcU),32);
-        tracep->fullSData(oldp+1030,(1U),15);
-        tracep->fullSData(oldp+1031,(2U),15);
-        tracep->fullSData(oldp+1032,(4U),15);
-        tracep->fullSData(oldp+1033,(8U),15);
-        tracep->fullSData(oldp+1034,(0x10U),15);
-        tracep->fullSData(oldp+1035,(0x20U),15);
-        tracep->fullSData(oldp+1036,(0x40U),15);
-        tracep->fullSData(oldp+1037,(0x80U),15);
-        tracep->fullSData(oldp+1038,(0x100U),15);
-        tracep->fullSData(oldp+1039,(0x200U),15);
-        tracep->fullSData(oldp+1040,(0x400U),15);
-        tracep->fullSData(oldp+1041,(0x800U),15);
-        tracep->fullSData(oldp+1042,(0x1000U),15);
-        tracep->fullSData(oldp+1043,(0x2000U),15);
-        tracep->fullSData(oldp+1044,(0x4000U),15);
-        tracep->fullCData(oldp+1045,(1U),3);
-        tracep->fullCData(oldp+1046,(2U),3);
-        tracep->fullCData(oldp+1047,(4U),3);
-        tracep->fullIData(oldp+1048,(0x40U),32);
-        tracep->fullBit(oldp+1049,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__mul_valid_d));
-        tracep->fullBit(oldp+1050,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__div_valid_d));
-        tracep->fullBit(oldp+1051,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__end_flag));
-        tracep->fullIData(oldp+1052,(2U),32);
-        tracep->fullIData(oldp+1053,(2U),32);
-        tracep->fullIData(oldp+1054,(0x1000U),32);
-        tracep->fullSData(oldp+1055,(0x341U),12);
-        tracep->fullSData(oldp+1056,(0x300U),12);
-        tracep->fullSData(oldp+1057,(0x305U),12);
-        tracep->fullSData(oldp+1058,(0x342U),12);
-        tracep->fullSData(oldp+1059,(0x340U),12);
-        tracep->fullBit(oldp+1060,(1U));
-        tracep->fullCData(oldp+1061,(3U),8);
-        tracep->fullCData(oldp+1062,(3U),3);
-        tracep->fullCData(oldp+1063,(0xffU),8);
-        tracep->fullBit(oldp+1064,(0U));
-        tracep->fullBit(oldp+1065,(1U));
-        tracep->fullCData(oldp+1066,(0U),2);
-        tracep->fullCData(oldp+1067,(1U),2);
-        tracep->fullCData(oldp+1068,(2U),2);
-        tracep->fullCData(oldp+1069,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT__current_state),2);
-        tracep->fullCData(oldp+1070,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT__next_state),2);
-        tracep->fullIData(oldp+1071,(0x80U),32);
-        tracep->fullIData(oldp+1072,(5U),32);
-        tracep->fullIData(oldp+1073,(6U),32);
-        tracep->fullIData(oldp+1074,(0x15U),32);
-        tracep->fullCData(oldp+1075,(0U),4);
-        tracep->fullCData(oldp+1076,(1U),4);
-        tracep->fullCData(oldp+1077,(2U),4);
-        tracep->fullCData(oldp+1078,(4U),4);
-        tracep->fullCData(oldp+1079,(8U),4);
-        tracep->fullSData(oldp+1080,(1U),13);
-        tracep->fullSData(oldp+1081,(2U),13);
-        tracep->fullSData(oldp+1082,(4U),13);
-        tracep->fullSData(oldp+1083,(8U),13);
-        tracep->fullSData(oldp+1084,(0x10U),13);
-        tracep->fullSData(oldp+1085,(0x20U),13);
-        tracep->fullSData(oldp+1086,(0x40U),13);
-        tracep->fullSData(oldp+1087,(0x80U),13);
-        tracep->fullSData(oldp+1088,(0x100U),13);
-        tracep->fullSData(oldp+1089,(0x200U),13);
-        tracep->fullSData(oldp+1090,(0x400U),13);
-        tracep->fullSData(oldp+1091,(0x800U),13);
-        tracep->fullSData(oldp+1092,(0x1000U),13);
+        tracep->fullIData(oldp+1040,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__mem_addr),32);
+        tracep->fullQData(oldp+1041,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_mem_data),64);
+        tracep->fullIData(oldp+1043,(0x20U),32);
+        tracep->fullIData(oldp+1044,(3U),32);
+        tracep->fullIData(oldp+1045,(3U),32);
+        tracep->fullIData(oldp+1046,(0x7ffffffcU),32);
+        tracep->fullSData(oldp+1047,(1U),15);
+        tracep->fullSData(oldp+1048,(2U),15);
+        tracep->fullSData(oldp+1049,(4U),15);
+        tracep->fullSData(oldp+1050,(8U),15);
+        tracep->fullSData(oldp+1051,(0x10U),15);
+        tracep->fullSData(oldp+1052,(0x20U),15);
+        tracep->fullSData(oldp+1053,(0x40U),15);
+        tracep->fullSData(oldp+1054,(0x80U),15);
+        tracep->fullSData(oldp+1055,(0x100U),15);
+        tracep->fullSData(oldp+1056,(0x200U),15);
+        tracep->fullSData(oldp+1057,(0x400U),15);
+        tracep->fullSData(oldp+1058,(0x800U),15);
+        tracep->fullSData(oldp+1059,(0x1000U),15);
+        tracep->fullSData(oldp+1060,(0x2000U),15);
+        tracep->fullSData(oldp+1061,(0x4000U),15);
+        tracep->fullCData(oldp+1062,(1U),3);
+        tracep->fullCData(oldp+1063,(2U),3);
+        tracep->fullCData(oldp+1064,(4U),3);
+        tracep->fullIData(oldp+1065,(0x40U),32);
+        tracep->fullBit(oldp+1066,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__mul_valid_d));
+        tracep->fullBit(oldp+1067,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__div_valid_d));
+        tracep->fullBit(oldp+1068,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__end_flag));
+        tracep->fullIData(oldp+1069,(2U),32);
+        tracep->fullIData(oldp+1070,(2U),32);
+        tracep->fullIData(oldp+1071,(0x1000U),32);
+        tracep->fullSData(oldp+1072,(0x341U),12);
+        tracep->fullSData(oldp+1073,(0x300U),12);
+        tracep->fullSData(oldp+1074,(0x305U),12);
+        tracep->fullSData(oldp+1075,(0x342U),12);
+        tracep->fullSData(oldp+1076,(0x340U),12);
+        tracep->fullBit(oldp+1077,(1U));
+        tracep->fullCData(oldp+1078,(3U),8);
+        tracep->fullCData(oldp+1079,(3U),3);
+        tracep->fullCData(oldp+1080,(0xffU),8);
+        tracep->fullBit(oldp+1081,(0U));
+        tracep->fullBit(oldp+1082,(1U));
+        tracep->fullCData(oldp+1083,(0U),2);
+        tracep->fullCData(oldp+1084,(1U),2);
+        tracep->fullCData(oldp+1085,(2U),2);
+        tracep->fullCData(oldp+1086,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT__current_state),2);
+        tracep->fullCData(oldp+1087,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT__next_state),2);
+        tracep->fullIData(oldp+1088,(0x80U),32);
+        tracep->fullIData(oldp+1089,(5U),32);
+        tracep->fullIData(oldp+1090,(6U),32);
+        tracep->fullIData(oldp+1091,(0x15U),32);
+        tracep->fullCData(oldp+1092,(0U),4);
+        tracep->fullCData(oldp+1093,(1U),4);
+        tracep->fullCData(oldp+1094,(2U),4);
+        tracep->fullCData(oldp+1095,(4U),4);
+        tracep->fullCData(oldp+1096,(8U),4);
+        tracep->fullSData(oldp+1097,(1U),13);
+        tracep->fullSData(oldp+1098,(2U),13);
+        tracep->fullSData(oldp+1099,(4U),13);
+        tracep->fullSData(oldp+1100,(8U),13);
+        tracep->fullSData(oldp+1101,(0x10U),13);
+        tracep->fullSData(oldp+1102,(0x20U),13);
+        tracep->fullSData(oldp+1103,(0x40U),13);
+        tracep->fullSData(oldp+1104,(0x80U),13);
+        tracep->fullSData(oldp+1105,(0x100U),13);
+        tracep->fullSData(oldp+1106,(0x200U),13);
+        tracep->fullSData(oldp+1107,(0x400U),13);
+        tracep->fullSData(oldp+1108,(0x800U),13);
+        tracep->fullSData(oldp+1109,(0x1000U),13);
     }
 }

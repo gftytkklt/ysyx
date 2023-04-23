@@ -248,6 +248,7 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__rd_hit;
         CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__rd_handshake;
         CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__wr_hit;
+        CData/*1:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag;
         CData/*7:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cpu_mask_reg;
         CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__sram_wflag;
         CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__way0_hit;
@@ -282,9 +283,9 @@ VL_MODULE(Vysyx_22040750___024root) {
         IData/*31:0*/ ysyx_22040750__DOT__cpu_inst;
         IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__current_pc;
         IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__dnpc;
-        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__current_inst;
     };
     struct {
+        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__current_inst;
         IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__mem_addr;
         IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_pc;
         IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_inst;
@@ -348,9 +349,9 @@ VL_MODULE(Vysyx_22040750___024root) {
         QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__mulh_reg;
         QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__mul_reg;
         QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__div_reg;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__rem_reg;
     };
     struct {
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__rem_reg;
         QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__adder2;
         QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__result;
         QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__cin;
