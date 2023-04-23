@@ -78,6 +78,6 @@ void difftest_step(uint64_t pc, uint64_t* dut, uint64_t sim_time, bool* error){
   //printf("ref exec\n");
   nemu_difftest_regcpy(ref_data, DIFFTEST_TO_DUT);
   for(int i=0;i<32;i++){
-    if(dut[i] != ref_data[i]){printf("time: %ld, pc: %lx, reg %s does not match! ref: %lx, dut: %lx\n", sim_time, pc, regs[i], ref_data[i], dut[i]);*error = true;}
+    if(dut[i] != ref_data[i]){printf("time: %ld, pc: %lx(dut), %lx(ref), reg %s does not match! ref: %lx, dut: %lx\n", sim_time, pc, ref_data[32], regs[i], ref_data[i], dut[i]);*error = true;}
   }
 }
