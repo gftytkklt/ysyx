@@ -304,7 +304,7 @@ int main(int argc, char** argv, char** env) {
           //printf("mmio op at addr %lx, pc %lx\n", wb_pc_difftest, wb_memaddr_difftest);
           difftest_skip_ref();
         }
-        printf("time: %ld\n", sim_time);
+        //printf("time: %ld\n", sim_time);
         difftest_step(wb_pc_difftest, cpu_gpr, sim_time, &difftest_error);
         if(difftest_error){
           printf("error pc at %08x!\n\n", wb_pc_difftest);
