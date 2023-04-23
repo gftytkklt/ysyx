@@ -9,4 +9,4 @@
 !*.cpp
 !.gitignore
 !README.md
-build/
+build
