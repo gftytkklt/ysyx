@@ -246,7 +246,7 @@ int main(int argc, char** argv, char** env) {
       wr_process = true;
       awaddr = cpu->io_master_awaddr;
       awlen = cpu->io_master_awlen;
-      printf("awaddr: %x, awlen: %c\n",awaddr, awlen);
+      printf("awaddr: %x, awlen: %d\n",awaddr, (uint32_t)awlen);
     }
     if(wr_process){
       wvalid = cpu->io_master_wvalid;
