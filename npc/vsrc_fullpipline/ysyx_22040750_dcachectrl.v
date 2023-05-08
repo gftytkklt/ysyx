@@ -371,7 +371,7 @@ module ysyx_22040750_dcachectrl #(
             WR_WB: next_state = I_mem_bvalid ? WR_ALLOCATE : current_state;
             WR_ALLOCATE: next_state = WR_HIT;
             MMIO_AR: next_state = rd_handshake ? MMIO_RD : current_state;
-            MMIO_AW: next_state = wr_handshake ? MMIO_WR : current_state;
+            MMIO_AW: next_state = aw_handshake ? MMIO_WR : current_state;
             MMIO_RD: next_state = I_mem_rlast ? IDLE : current_state;
             MMIO_WR: next_state = I_mem_bvalid ? WR_HIT : current_state;
             default: next_state = current_state;
