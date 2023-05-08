@@ -325,8 +325,8 @@ int main(int argc, char** argv, char** env) {
     }
     #endif
     sim_time++;
-    // test dummy
-    // if(sim_time == 2000){printf("timeout!\n");break;}
+    // breakpoint for dead cycle
+    if(sim_time == 2000){printf("timeout!\n");break;}
   }
 
   //printf("a\n");
