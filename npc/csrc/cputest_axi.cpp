@@ -50,6 +50,7 @@ void inst_hist_display();
 void init_elf(char* elf_file);
 void print_ftrace(unsigned long pc, unsigned long dnpc, unsigned inst, FILE* fp);
 #endif
+
 #ifdef CONFIG_DIFFTEST
 void init_difftest(char *ref_so_file, long img_size, uint8_t* mem, uint64_t *cpu_gpr);
 void difftest_step(uint64_t pc, uint64_t* dut, uint64_t sim_time, bool* error);
@@ -288,7 +289,7 @@ int main(int argc, char** argv, char** env) {
       #ifdef CONFIG_ITRACE
       if(wb_valid_difftest){
         char *p = logbuf;
-        p += sprintf(p, "%lx: %08x ",wb_pc_difftest, wb_inst_difftest);
+        p += sprintf(p, "%08x: %08x ",wb_pc_difftest, wb_inst_difftest);
         disassemble(p, 128, wb_pc_difftest, (uint8_t *)&wb_inst_difftest, 4);
         if(sim_time > dump_time){
           fprintf(logfp, "time: %lu\n%s\n",sim_time,logbuf);
