@@ -290,7 +290,7 @@ int main(int argc, char** argv, char** env) {
       if(wb_valid_difftest){
         char *p = logbuf;
         p += sprintf(p, "%08x: %08x ",wb_pc_difftest, wb_inst_difftest);
-        disassemble(p, 128, wb_pc_difftest, (uint8_t *)&wb_inst_difftest, 4);
+        disassemble(p, 128, (uint64_t)wb_pc_difftest, (uint8_t *)&wb_inst_difftest, 4);
         if(sim_time > dump_time){
           fprintf(logfp, "time: %lu\n%s\n",sim_time,logbuf);
         }
