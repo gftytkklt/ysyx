@@ -194,6 +194,7 @@ int main(int argc, char** argv, char** env) {
   uint32_t wb_inst_difftest;
   uint32_t wb_pc_new;
   uint32_t same_pc_cnt;
+  uint64_t inst_cnt;
   bool mmio_op = false;
   bool difftest_error = false;
   // axi op
@@ -313,6 +314,7 @@ int main(int argc, char** argv, char** env) {
       #endif
       #ifdef CONFIG_DIFFTEST
       if(wb_valid_difftest) {
+        inst_cnt++;
         if(mmio_op){
           //printf("mmio op at addr %lx, pc %lx\n", wb_pc_difftest, wb_memaddr_difftest);
           difftest_skip_ref();
@@ -320,7 +322,7 @@ int main(int argc, char** argv, char** env) {
         //printf("time: %ld\n", sim_time);
         difftest_step(wb_pc_difftest, cpu_gpr, sim_time, &difftest_error);
         if(difftest_error){
-          printf("error dut pc at %08x!\n\n", wb_pc_difftest);
+          printf("after %lu inst(s), error dut pc at %08x!\n\n",inst_cnt, wb_pc_difftest);
           #ifdef CONFIG_ITRACE
           inst_hist_display();
           #endif
