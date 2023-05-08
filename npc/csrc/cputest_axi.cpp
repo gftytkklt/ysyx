@@ -337,7 +337,7 @@ int main(int argc, char** argv, char** env) {
     #endif
     sim_time++;
     // breakpoint for dead cycle
-    if(same_pc_cnt == 20){printf("%ld, check dead loop!\n", sim_time);break;}
+    //if(same_pc_cnt == 20){printf("%ld, check dead loop!\n", sim_time);break;}
   }
 
   //printf("a\n");
