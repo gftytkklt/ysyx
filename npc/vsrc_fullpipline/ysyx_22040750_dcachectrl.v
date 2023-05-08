@@ -350,7 +350,7 @@ module ysyx_22040750_dcachectrl #(
         case(current_state)
             IDLE, RD_HIT, WR_HIT: begin
                 if(mmio_flag)
-                    next_state = I_cpu_rd_req ? MMIO_RD : MMIO_WR;
+                    next_state = I_cpu_rd_req ? MMIO_AR : MMIO_AW;
                 else if(rd_hit)
                     next_state = RD_HIT;
                 else if(rd_miss)
