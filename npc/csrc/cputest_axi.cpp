@@ -248,7 +248,7 @@ int main(int argc, char** argv, char** env) {
       awlen = cpu->io_master_awlen;
     }
     if(wr_process){
-      wvalid = cpu->io_master_awvalid;
+      wvalid = cpu->io_master_wvalid;
       wdata = cpu->io_master_wdata;
       wlast = cpu->io_master_wlast;
       wstrb = cpu->io_master_wstrb;
