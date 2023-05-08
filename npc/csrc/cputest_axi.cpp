@@ -192,6 +192,8 @@ int main(int argc, char** argv, char** env) {
   uint32_t wb_memaddr_difftest;
   uint32_t wb_pc_difftest;
   uint32_t wb_inst_difftest;
+  uint32_t wb_pc_new;
+  uint32_t same_pc_cnt;
   bool mmio_op = false;
   bool difftest_error = false;
   // axi op
@@ -262,6 +264,13 @@ int main(int argc, char** argv, char** env) {
     cpu->eval();
     //dnpc = cpu->O_pc;
     if(valid_posedge){
+      wb_pc_new = *wb_pc;
+      if(wb_pc_new == wb_pc_difftest) {
+        same_pc_cnt++;
+      }
+      else{
+        same_pc_cnt = 0;
+      }
       if(rd_process){
         cpu->io_master_rvalid = 1;
         if(arlen == 0){cpu->io_master_rlast = 1;}
@@ -326,7 +335,7 @@ int main(int argc, char** argv, char** env) {
     #endif
     sim_time++;
     // breakpoint for dead cycle
-    if(sim_time == 2000){printf("timeout!\n");break;}
+    if(same_pc_cnt == 20){printf("check dead loop!\n");break;}
   }
 
   //printf("a\n");
