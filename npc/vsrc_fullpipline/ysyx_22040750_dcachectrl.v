@@ -82,8 +82,7 @@ module ysyx_22040750_dcachectrl #(
     parameter IDLE = (FSM_WIDTH)'h1, RD_HIT = (FSM_WIDTH)'h2, RD_MISS = (FSM_WIDTH)'h4, RD_RELOAD = (FSM_WIDTH)'h8, RD_WB = (FSM_WIDTH)'h10, RD_ALLOCATE = (FSM_WIDTH)'h20;
     parameter WR_HIT = (FSM_WIDTH)'h40, WR_MISS = (FSM_WIDTH)'h80, WR_RELOAD = (FSM_WIDTH)'h100, WR_WB = (FSM_WIDTH)'h200, WR_ALLOCATE = (FSM_WIDTH)'h400;
     parameter MMIO_AR = (FSM_WIDTH)'h800, MMIO_AW = (FSM_WIDTH)'h1000, MMIO_RD = (FSM_WIDTH)'h2000, MMIO_WR = (FSM_WIDTH)'h4000;
-    wire mmio_flag;
-    reg mmio_process;
+    
     reg [FSM_WIDTH-1:0] current_state, next_state;
     wire replace_dirty;
     wire rd_hit, rd_miss, rd_handshake, rd_reload, rd_wb, rd_allocate;
@@ -129,6 +128,13 @@ module ysyx_22040750_dcachectrl #(
     wire aw_handshake, wr_handshake;// awaddr/wdata handshake
     reg [1:0] wdata_cnt;
     wire [255:0] wdata;
+    wire [63:0] cache_wdata, cache_rdata;
+    wire cache_wvalid;
+    // MMIO signal
+    wire mmio_flag;
+    reg mmio_process;
+    wire [63:0] mmio_wdata, mmio_rdata;
+    wire mmio_wvalid;
     // data reg impl
     always @(posedge I_clk)
         if(I_rst)
@@ -151,7 +157,7 @@ module ysyx_22040750_dcachectrl #(
         else
             {cpu_mask_reg, cpu_reg} <= {cpu_mask_reg, cpu_reg};
     // cpu interface impl
-    assign O_cpu_rvalid = (current_state == RD_HIT) || rd_allocate;
+    assign O_cpu_rvalid = (current_state == RD_HIT) || rd_allocate || ((current_state == MMIO_RD) && I_mem_rvalid);
     always @(posedge I_clk)
         if(I_rst)
             hit_flag <= 2'b00;
@@ -162,7 +168,10 @@ module ysyx_22040750_dcachectrl #(
     //assign hit_rdata = way0_hit ? I_way0_rdata : I_way1_rdata;
     assign hit_rdata = (I_way0_rdata & {256{hit_flag[0]}}) | (I_way1_rdata & {256{hit_flag[1]}});
     assign mem_rdata = (current_state == RD_HIT) ? hit_rdata : cacheline_reg;
-    assign O_cpu_data = mem_rdata[{mem_offset[OFFT_LEN-1:3],3'b0,3'b0} +: 64];
+    assign cache_rdata = mem_rdata[{mem_offset[OFFT_LEN-1:3],3'b0,3'b0} +: 64]
+    assign mmio_rdata = I_mem_rdata;
+    assign O_cpu_data = mmio_process ? mmio_rdata : cache_rdata;
+    //assign O_cpu_data = mem_rdata[{mem_offset[OFFT_LEN-1:3],3'b0,3'b0} +: 64];
     //assign O_cpu_data = cacheline_reg[{mem_offset[OFFT_LEN-1:3],3'b0,3'b0} +: 64];
     assign O_cpu_bvalid = (current_state == WR_HIT);
     // mem interface impl
@@ -178,28 +187,34 @@ module ysyx_22040750_dcachectrl #(
         else
             wdata_cnt <= wdata_cnt;
     assign wdata = isway0_op ? I_way0_rdata : I_way1_rdata;
-    assign O_mem_wlast = O_mem_wvalid && (wdata_cnt == 2'b11);
+    assign O_mem_wlast = O_mem_wvalid && (wdata_cnt == O_mem_awlen);
     //assign O_mem_arvalid = ((current_state == RD_MISS) || (current_state == WR_MISS)) ? 1 : 0;
     assign O_mem_arvalid = mem_ar_req ? 1 : 0;
     assign O_mem_rready = 1;
-    assign O_mem_arlen = 3;// 32/8 - 1
+    assign O_mem_arlen = mmio_process ? 0 : 3;// 32/8 - 1
     assign O_mem_arsize = 3'b011;// 8B
     assign O_mem_araddr = mem_ar_req ? {mem_addr[31:OFFT_LEN],{OFFT_LEN{1'b0}}} : 0;// 32B alignment
     //assign O_mem_awaddr = (wb_state == WB_HANDSHAKE) ? O_mem_araddr : 0;
     assign O_mem_awaddr = mem_aw_req ? {mem_addr[31:OFFT_LEN],{OFFT_LEN{1'b0}}} : 0;
-    assign O_mem_awlen = 3;// 32/8 - 1
+    assign O_mem_awlen = mmio_process ? 0 : 3;// 32/8 - 1
     assign O_mem_awsize = 3'b011;// 8B
     //assign O_mem_awvalid = (wb_state == WB_HANDSHAKE) ? 1 : 0;
     assign O_mem_awvalid = mem_aw_req ? 1 : 0;
-    assign O_mem_wvalid = (wb_state == WB_DATA) ? 1 : 0;
-    assign O_mem_wdata = wdata[{wdata_cnt,3'b0,3'b0} +: 64];
-    assign O_mem_wstrb = 8'hff;
+    assign cache_wvalid = (wb_state == WB_DATA) ? 1 : 0;
+    assign mmio_wvalid = (current_state == MMIO_WR) ? 1 : 0;
+    //assign O_mem_wvalid = (wb_state == WB_DATA) ? 1 : 0;
+    assign O_mem_wvalid = mmio_process ? mmio_wvalid : cache_wvalid;
+    assign mmio_wdata = cpu_reg;
+    assign cache_wdata = wdata[{wdata_cnt,3'b0,3'b0} +: 64];
+    //assign O_mem_wdata = wdata[{wdata_cnt,3'b0,3'b0} +: 64];
+    assign O_mem_wdata = mmio_process ? mmio_wdata : cache_wdata;
+    assign O_mem_wstrb = mmio_process ? cpu_mask_reg : 8'hff;
     assign O_mem_bready = 1;
     // sram interface impl
     // sram wr_en happen at WR_HIT(cpu partial wr), XX_ALLOCATE(cacheline replacement)
     assign sram_wmask = ~cpu_mask_reg;// cpu wmask is high level valid
     assign sram_wflag = (current_state == WR_HIT) || rd_allocate || wr_allocate;
-    assign sram_rflag = I_mem_rlast || rd_wb || wr_wb;
+    assign sram_rflag = (I_mem_rlast && !mmio_process) || rd_wb || wr_wb;
     always @(*)
         if(current_state == WR_HIT)
             case(mem_offset[OFFT_LEN-1:3])
@@ -358,7 +373,7 @@ module ysyx_22040750_dcachectrl #(
             MMIO_AR: next_state = rd_handshake ? MMIO_RD : current_state;
             MMIO_AW: next_state = wr_handshake ? MMIO_WR : current_state;
             MMIO_RD: next_state = I_mem_rlast ? IDLE : current_state;
-            MMIO_WR: next_state = I_mem_bvalid ? IDLE : current_state;
+            MMIO_WR: next_state = I_mem_bvalid ? WR_HIT : current_state;
             default: next_state = current_state;
         endcase
     end
