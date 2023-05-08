@@ -193,8 +193,8 @@ int main(int argc, char** argv, char** env) {
   uint32_t wb_pc_difftest;
   uint32_t wb_inst_difftest;
   uint32_t wb_pc_new;
-  uint32_t same_pc_cnt;
-  uint64_t inst_cnt;
+  uint32_t same_pc_cnt = 0;
+  uint64_t inst_cnt = 0;
   bool mmio_op = false;
   bool difftest_error = false;
   // axi op
