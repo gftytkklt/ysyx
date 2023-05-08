@@ -73,7 +73,7 @@ void pmem_write(unsigned int waddr, unsigned long wdata, unsigned char wmask, ui
     while(wmask!=0){
       if(wmask & 0x01){
         if(waddr == SERIAL_ADDR){
-          printf("hit serial\n");
+          //printf("hit serial\n");
           putchar(*data_pt);
         }
         else if(waddr >= MEM_BASE && waddr < MEM_BASE + MEM_SIZE){
