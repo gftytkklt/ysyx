@@ -54,7 +54,7 @@ void pmem_write(unsigned int waddr, unsigned long wdata, unsigned char wmask, ui
   //       printf("wr unimp addr %lx at pc %lx\n", waddr, *skip_pc);
   //     }
   // }
-  printf("waddr: %x\n", waddr);
+  //printf("waddr: %x\n", waddr);
   unsigned index = (waddr-(unsigned int)0x80000000) & ~(0x7u);
   uint8_t *data_pt = (uint8_t*)&wdata;
   // sim of byte write enable mode

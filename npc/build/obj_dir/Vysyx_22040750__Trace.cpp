@@ -1743,8 +1743,11 @@ void Vysyx_22040750___024root__traceChgSub0(Vysyx_22040750___024root* vlSelf, Ve
             tracep->chgIData(oldp+768,((0xffffffe0U 
                                         & vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__mem_addr)),32);
             tracep->chgIData(oldp+769,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mem_ar_req)
-                                         ? (0xffffffe0U 
-                                            & vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mem_addr)
+                                         ? ((0xffffffe0U 
+                                             & vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mem_addr) 
+                                            | (0x1fU 
+                                               & ((- (IData)((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mmio_process))) 
+                                                  & vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mem_addr)))
                                          : 0U)),32);
             tracep->chgBit(oldp+770,(((2U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))
                                        ? 1U : 0U)));
@@ -1828,8 +1831,11 @@ void Vysyx_22040750___024root__traceChgSub0(Vysyx_22040750___024root* vlSelf, Ve
                                          ? (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cpu_mask_reg)
                                          : 0xffU)),8);
             tracep->chgIData(oldp+778,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mem_aw_req)
-                                         ? (0xffffffe0U 
-                                            & vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mem_addr)
+                                         ? ((0xffffffe0U 
+                                             & vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mem_addr) 
+                                            | (0x1fU 
+                                               & ((- (IData)((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mmio_process))) 
+                                                  & vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mem_addr)))
                                          : 0U)),32);
             tracep->chgBit(oldp+779,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mem_aw_req)
                                        ? 1U : 0U)));

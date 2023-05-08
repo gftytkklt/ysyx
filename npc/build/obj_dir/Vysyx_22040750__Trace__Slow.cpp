@@ -3154,8 +3154,11 @@ void Vysyx_22040750___024root__traceFullSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->fullWData(oldp+761,(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_wmask),256);
         tracep->fullIData(oldp+769,((0xffffffe0U & vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__mem_addr)),32);
         tracep->fullIData(oldp+770,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mem_ar_req)
-                                      ? (0xffffffe0U 
-                                         & vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mem_addr)
+                                      ? ((0xffffffe0U 
+                                          & vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mem_addr) 
+                                         | (0x1fU & 
+                                            ((- (IData)((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mmio_process))) 
+                                             & vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mem_addr)))
                                       : 0U)),32);
         tracep->fullBit(oldp+771,(((2U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))
                                     ? 1U : 0U)));
@@ -3234,8 +3237,11 @@ void Vysyx_22040750___024root__traceFullSub0(Vysyx_22040750___024root* vlSelf, V
                                       ? (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cpu_mask_reg)
                                       : 0xffU)),8);
         tracep->fullIData(oldp+779,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mem_aw_req)
-                                      ? (0xffffffe0U 
-                                         & vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mem_addr)
+                                      ? ((0xffffffe0U 
+                                          & vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mem_addr) 
+                                         | (0x1fU & 
+                                            ((- (IData)((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mmio_process))) 
+                                             & vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mem_addr)))
                                       : 0U)),32);
         tracep->fullBit(oldp+780,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mem_aw_req)
                                     ? 1U : 0U)));
