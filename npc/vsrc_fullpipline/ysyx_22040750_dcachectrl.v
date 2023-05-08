@@ -129,12 +129,12 @@ module ysyx_22040750_dcachectrl #(
     reg [1:0] wdata_cnt;
     wire [255:0] wdata;
     wire [63:0] cache_wdata, cache_rdata;
-    wire cache_wvalid;
+    //wire cache_wvalid;
     // MMIO signal
     wire mmio_flag;
     reg mmio_process;
     wire [63:0] mmio_wdata, mmio_rdata;
-    wire mmio_wvalid;
+    //wire mmio_wvalid;
     // data reg impl
     always @(posedge I_clk)
         if(I_rst)
@@ -200,10 +200,11 @@ module ysyx_22040750_dcachectrl #(
     assign O_mem_awsize = 3'b011;// 8B
     //assign O_mem_awvalid = (wb_state == WB_HANDSHAKE) ? 1 : 0;
     assign O_mem_awvalid = mem_aw_req ? 1 : 0;
-    assign cache_wvalid = (wb_state == WB_DATA) ? 1 : 0;
-    assign mmio_wvalid = (current_state == MMIO_WR) ? 1 : 0;
+    //assign cache_wvalid = (wb_state == WB_DATA) ? 1 : 0;
+    //assign mmio_wvalid = (current_state == MMIO_WR) ? 1 : 0;
     //assign O_mem_wvalid = (wb_state == WB_DATA) ? 1 : 0;
-    assign O_mem_wvalid = mmio_process ? mmio_wvalid : cache_wvalid;
+    //assign O_mem_wvalid = mmio_process ? mmio_wvalid : cache_wvalid;
+    assign O_mem_wvalid = (wb_state == WB_DATA) ? 1 : 0;
     assign mmio_wdata = cpu_reg;
     assign cache_wdata = wdata[{wdata_cnt,3'b0,3'b0} +: 64];
     //assign O_mem_wdata = wdata[{wdata_cnt,3'b0,3'b0} +: 64];
@@ -320,7 +321,7 @@ module ysyx_22040750_dcachectrl #(
     always @(*) begin
         wb_next_state = WB_IDLE;
         case(wb_state)
-            WB_IDLE: wb_next_state = (I_mem_rlast && replace_dirty) ? WB_HANDSHAKE : wb_state;
+            WB_IDLE: wb_next_state = ((I_mem_rlast && replace_dirty) || mmio_flag && I_cpu_wr_req) ? WB_HANDSHAKE : wb_state;
             WB_HANDSHAKE: wb_next_state = aw_handshake ? WB_DATA : wb_state;
             WB_DATA: wb_next_state = (wr_handshake && O_mem_wlast) ? WB_IDLE : wb_state;
             default: wb_next_state = wb_state;
