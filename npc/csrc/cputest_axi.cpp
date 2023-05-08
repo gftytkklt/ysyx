@@ -185,7 +185,7 @@ int main(int argc, char** argv, char** env) {
   #endif
   //inst_gen(false);
   // sim
-  
+
   char logbuf[256] = {};
   bool valid_posedge = false;
   bool wb_valid_difftest;
