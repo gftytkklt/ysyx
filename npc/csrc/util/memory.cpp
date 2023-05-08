@@ -54,6 +54,7 @@ void pmem_write(unsigned int waddr, unsigned long wdata, unsigned char wmask, ui
   //       printf("wr unimp addr %lx at pc %lx\n", waddr, *skip_pc);
   //     }
   // }
+  printf("waddr: %x\n", waddr);
   unsigned index = (waddr-(unsigned int)0x80000000) & ~(0x7u);
   uint8_t *data_pt = (uint8_t*)&wdata;
   // sim of byte write enable mode
@@ -72,6 +73,7 @@ void pmem_write(unsigned int waddr, unsigned long wdata, unsigned char wmask, ui
     while(wmask!=0){
       if(wmask & 0x01){
         if(waddr == SERIAL_ADDR){
+          printf("hit serial\n");
           putchar(*data_pt);
         }
         else if(waddr >= MEM_BASE && waddr < MEM_BASE + MEM_SIZE){
