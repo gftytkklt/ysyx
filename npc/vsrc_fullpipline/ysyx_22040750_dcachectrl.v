@@ -78,12 +78,12 @@ module ysyx_22040750_dcachectrl #(
     output O_cpu_bvalid
 );
     // FSM signal
-    parameter FSM_WIDTH = 15;
-    parameter IDLE = (FSM_WIDTH)'h1, RD_HIT = (FSM_WIDTH)'h2, RD_MISS = (FSM_WIDTH)'h4, RD_RELOAD = (FSM_WIDTH)'h8, RD_WB = (FSM_WIDTH)'h10, RD_ALLOCATE = (FSM_WIDTH)'h20;
-    parameter WR_HIT = (FSM_WIDTH)'h40, WR_MISS = (FSM_WIDTH)'h80, WR_RELOAD = (FSM_WIDTH)'h100, WR_WB = (FSM_WIDTH)'h200, WR_ALLOCATE = (FSM_WIDTH)'h400;
-    parameter MMIO_AR = (FSM_WIDTH)'h800, MMIO_AW = (FSM_WIDTH)'h1000, MMIO_RD = (FSM_WIDTH)'h2000, MMIO_WR = (FSM_WIDTH)'h4000;
+    `define FSM_WIDTH 15
+    parameter IDLE = `FSM_WIDTH'h1, RD_HIT = `FSM_WIDTH'h2, RD_MISS = `FSM_WIDTH'h4, RD_RELOAD = `FSM_WIDTH'h8, RD_WB = `FSM_WIDTH'h10, RD_ALLOCATE = `FSM_WIDTH'h20;
+    parameter WR_HIT = `FSM_WIDTH'h40, WR_MISS = `FSM_WIDTH'h80, WR_RELOAD = `FSM_WIDTH'h100, WR_WB = `FSM_WIDTH'h200, WR_ALLOCATE = `FSM_WIDTH'h400;
+    parameter MMIO_AR = `FSM_WIDTH'h800, MMIO_AW = `FSM_WIDTH'h1000, MMIO_RD = `FSM_WIDTH'h2000, MMIO_WR = `FSM_WIDTH'h4000;
     
-    reg [FSM_WIDTH-1:0] current_state, next_state;
+    reg [`FSM_WIDTH-1:0] current_state, next_state;
     wire replace_dirty;
     wire rd_hit, rd_miss, rd_handshake, rd_reload, rd_wb, rd_allocate;
     wire wr_hit, wr_miss, wr_reload, wr_wb, wr_allocate;
@@ -168,7 +168,7 @@ module ysyx_22040750_dcachectrl #(
     //assign hit_rdata = way0_hit ? I_way0_rdata : I_way1_rdata;
     assign hit_rdata = (I_way0_rdata & {256{hit_flag[0]}}) | (I_way1_rdata & {256{hit_flag[1]}});
     assign mem_rdata = (current_state == RD_HIT) ? hit_rdata : cacheline_reg;
-    assign cache_rdata = mem_rdata[{mem_offset[OFFT_LEN-1:3],3'b0,3'b0} +: 64]
+    assign cache_rdata = mem_rdata[{mem_offset[OFFT_LEN-1:3],3'b0,3'b0} +: 64];
     assign mmio_rdata = I_mem_rdata;
     assign O_cpu_data = mmio_process ? mmio_rdata : cache_rdata;
     //assign O_cpu_data = mem_rdata[{mem_offset[OFFT_LEN-1:3],3'b0,3'b0} +: 64];
@@ -187,7 +187,7 @@ module ysyx_22040750_dcachectrl #(
         else
             wdata_cnt <= wdata_cnt;
     assign wdata = isway0_op ? I_way0_rdata : I_way1_rdata;
-    assign O_mem_wlast = O_mem_wvalid && (wdata_cnt == O_mem_awlen);
+    assign O_mem_wlast = O_mem_wvalid && (wdata_cnt == O_mem_awlen[1:0]);
     //assign O_mem_arvalid = ((current_state == RD_MISS) || (current_state == WR_MISS)) ? 1 : 0;
     assign O_mem_arvalid = mem_ar_req ? 1 : 0;
     assign O_mem_rready = 1;
