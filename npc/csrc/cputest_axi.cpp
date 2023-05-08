@@ -230,7 +230,7 @@ int main(int argc, char** argv, char** env) {
     else if((sim_time % 6) == 3){cpu->clock = 0;}
     if(((sim_time % 6) == 0) && (cpu->reset == 0)){valid_posedge = true;}
     else{valid_posedge = false;}
-    
+
     // rd wr data & req
     arvalid = cpu->io_master_arvalid;
     awvalid = cpu->io_master_awvalid;
@@ -337,7 +337,7 @@ int main(int argc, char** argv, char** env) {
     #endif
     sim_time++;
     // breakpoint for dead cycle
-    if(same_pc_cnt == 20){printf("check dead loop!\n");break;}
+    if(same_pc_cnt == 20){printf("%ld, check dead loop!\n", sim_time);break;}
   }
 
   //printf("a\n");
