@@ -315,7 +315,9 @@ int main(int argc, char** argv, char** env) {
       }
       #endif
       #ifdef CONFIG_FTRACE
-      print_ftrace(sim_time, wb_pc_difftest, wb_pc_new, wb_inst_difftest, ftrace);
+      if(wb_valid_difftest){
+        print_ftrace(sim_time, wb_pc_difftest, wb_pc_new, wb_inst_difftest, ftrace);
+      }
       #endif
       #ifdef CONFIG_DIFFTEST
       if(wb_valid_difftest) {
