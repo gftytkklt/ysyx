@@ -119,7 +119,7 @@ void init_elf(char* elf_file) {
         buf_assignment(elf_fp, (strofft+symname_offt), SEEK_SET, buf, BUF_SIZE-1);
         // add name to func list
         strcpy(func_pool[func_idx].func_name, buf);
-        printf("NO.%d func: %s\n", func_idx, buf);
+        //printf("NO.%d func: %s\n", func_idx, buf);
       }
       //printf("%d %s %lx\n",func_idx, func_pool[func_idx].func_name, func_pool[func_idx].entry_addr);
       func_idx++;
@@ -128,13 +128,13 @@ void init_elf(char* elf_file) {
   }
 }
 static int func_depth = 0;
-void print_ftrace(unsigned long time, unsigned long pc, unsigned long dnpc, unsigned inst, FILE* fp) {
+void print_ftrace(unsigned long time, unsigned long pc, unsigned inst, FILE* fp) {
   //unsigned long func_addr=0;
   //char func_name[128] = {'\0'};
   unsigned dest = BITS(inst,11,7);
   for(int i=0;i<func_idx;i++){  
     //printf("%s %lx\n", func_pool[func_idx].func_name, func_pool[func_idx].entry_addr);
-    if(dnpc == func_pool[i].entry_addr && (dest != 0)){
+    if(pc == func_pool[i].entry_addr && (dest != 0)){
       func_depth++;
       //fprintf(fp, "%lx:%*s",pc,func_depth," ");
       // print info & depth update
