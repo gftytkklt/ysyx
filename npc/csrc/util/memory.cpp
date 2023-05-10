@@ -3,7 +3,7 @@
 #include <mmio.h>
 #include <util.h>
 
-void pmem_read(unsigned int raddr, unsigned long* rdata, uint32_t *skip_pc){
+void pmem_read(unsigned int raddr, unsigned long* rdata, FILE* mtrace){
   switch (raddr){
     case RTC_ADDR: get_time(rdata);break;
     case (VGA_ADDR + VGA_H_OFFT): 
@@ -13,12 +13,16 @@ void pmem_read(unsigned int raddr, unsigned long* rdata, uint32_t *skip_pc){
       if(raddr >= MEM_BASE && raddr < MEM_BASE + MEM_SIZE){
         unsigned index = (raddr-(unsigned)MEM_BASE) & ~(0x7u);
         *rdata = index > MEM_SIZE ? 0 : *((unsigned long*)&mem[index]);
+        #ifdef CONFIG_MTRACE
+        fprintf(mtrace, "rd %016lx from %08x\n", *rdata, raddr);
+        #endif
       }
       else{
         //printf("rd unimp addr %lx at pc %lx\n", raddr, *skip_pc);
         *rdata = 0;
       }
   }
+  
   /*if (raddr == RTC_ADDR){
     struct timeval now;
     gettimeofday(&now, NULL);
@@ -34,7 +38,7 @@ void pmem_read(unsigned int raddr, unsigned long* rdata, uint32_t *skip_pc){
   }*/
 }
 
-void pmem_write(unsigned int waddr, unsigned long wdata, unsigned char wmask, uint32_t *skip_pc){
+void pmem_write(unsigned int waddr, unsigned long wdata, unsigned char wmask, FILE* mtrace){
   // unsigned index = (waddr-(unsigned long)0x80000000) & ~(0x7ul);
   // uint8_t *data_pt = (uint8_t*)&wdata;
   // switch(waddr){
@@ -55,6 +59,11 @@ void pmem_write(unsigned int waddr, unsigned long wdata, unsigned char wmask, ui
   //     }
   // }
   //printf("waddr: %x\n", waddr);
+  #ifdef CONFIG_MTRACE
+  if(waddr >= MEM_BASE && waddr < MEM_BASE + MEM_SIZE){
+    fprintf(mtrace, "wr %016lx from %08x, strb = %x\n", wdata, waddr, wmask);
+  }
+  #endif
   unsigned index = (waddr-(unsigned int)0x80000000) & ~(0x7u);
   uint8_t *data_pt = (uint8_t*)&wdata;
   // sim of byte write enable mode
