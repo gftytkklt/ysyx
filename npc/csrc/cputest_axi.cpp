@@ -21,7 +21,7 @@ uint8_t* mem=NULL;
 //static svBit good = false;
 //extern void check();
 vluint64_t sim_time = 0;
-uint64_t dump_time = 0;
+uint64_t dump_time = 2000000;
 
 
 struct cpu_context {
