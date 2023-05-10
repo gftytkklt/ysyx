@@ -119,7 +119,7 @@ void init_elf(char* elf_file) {
         buf_assignment(elf_fp, (strofft+symname_offt), SEEK_SET, buf, BUF_SIZE-1);
         // add name to func list
         strcpy(func_pool[func_idx].func_name, buf);
-        printf("NO.%d func: %s", func_idx, buf);
+        printf("NO.%d func: %s\n", func_idx, buf);
       }
       //printf("%d %s %lx\n",func_idx, func_pool[func_idx].func_name, func_pool[func_idx].entry_addr);
       func_idx++;
