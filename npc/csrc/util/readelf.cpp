@@ -140,7 +140,7 @@ void print_ftrace(unsigned long time, unsigned long pc, unsigned long dnpc, unsi
       fprintf(fp, "[lvl%d]%lx: call [%s@0x%lx](%lu)\n",func_depth, pc, func_pool[i].func_name,func_pool[i].entry_addr, time);
     }
     //else if((dnpc > func_pool[i].entry_addr) && (dnpc < func_pool[i].entry_addr + func_pool[i].func_size) && (inst==0x00008067)){
-    else if((pc > func_pool[i].entry_addr) && (pc < func_pool[i].entry_addr + func_pool[i].func_size) && (inst==0x00008067)){
+    else if((pc >= func_pool[i].entry_addr) && (pc < func_pool[i].entry_addr + func_pool[i].func_size) && (inst==0x00008067)){
       //fprintf(fp, "%lx:%*s",pc,func_depth," ");
       fprintf(fp, "[lvl%d]%lx: ret [%s](%lu)\n",func_depth, pc, func_pool[i].func_name, time);
       func_depth--;
