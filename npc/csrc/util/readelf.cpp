@@ -135,14 +135,14 @@ void print_ftrace(unsigned long pc, unsigned long dnpc, unsigned inst, FILE* fp)
     //printf("%s %lx\n", func_pool[func_idx].func_name, func_pool[func_idx].entry_addr);
     if(dnpc == func_pool[i].entry_addr && (dest != 0)){
       func_depth++;
-      fprintf(fp, "%lx:%*s",pc,func_depth," ");
+      //fprintf(fp, "%lx:%*s",pc,func_depth," ");
       // print info & depth update
-      fprintf(fp, "call [%s@0x%lx]\n",func_pool[i].func_name,func_pool[i].entry_addr);
+      fprintf(fp, "[lvl%d]%lx: call [%s@0x%lx]\n",func_depth, pc, func_pool[i].func_name,func_pool[i].entry_addr);
     }
     //else if((dnpc > func_pool[i].entry_addr) && (dnpc < func_pool[i].entry_addr + func_pool[i].func_size) && (inst==0x00008067)){
     else if((pc > func_pool[i].entry_addr) && (pc < func_pool[i].entry_addr + func_pool[i].func_size) && (inst==0x00008067)){
-      fprintf(fp, "%lx:%*s",pc,func_depth," ");
-      fprintf(fp, "ret [%s]\n",func_pool[i].func_name);
+      //fprintf(fp, "%lx:%*s",pc,func_depth," ");
+      fprintf(fp, "[lvl%d]%lx: ret [%s]\n",func_depth, pc, func_pool[i].func_name);
       func_depth--;
     }
     else if(inst == 0x00100073){
