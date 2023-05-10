@@ -166,7 +166,7 @@ int main(int argc, char** argv, char** env) {
   img_size = load_img();
   #ifdef CONFIG_ITRACE
   printf("itrace: %s\n",ASNI_FMT("ON", ASNI_FG_GREEN));
-  FILE* logfp = fopen("npc-log.txt","w");
+  FILE* itrace = fopen("npc-itrace.txt","w");
   init_disasm("riscv64" "-pc-linux-gnu");
   init_ringbuf();
   #else
@@ -174,6 +174,7 @@ int main(int argc, char** argv, char** env) {
   #endif
   #ifdef CONFIG_FTRACE
   printf("ftrace: %s\n",ASNI_FMT("ON", ASNI_FG_GREEN));
+  FILE* ftrace = fopen("npc-ftrace.txt","w");
   elf_file = argv[2];
   init_elf(elf_file);
   #else
@@ -308,13 +309,13 @@ int main(int argc, char** argv, char** env) {
         p += sprintf(p, "%08x: %08x ",wb_pc_difftest, wb_inst_difftest);
         disassemble(p, 128, (uint64_t)wb_pc_difftest, (uint8_t *)&wb_inst_difftest, 4);
         if(sim_time > dump_time){
-          fprintf(logfp, "time: %lu\n%s\n",sim_time,logbuf);
+          fprintf(itrace, "time: %lu\n%s\n",sim_time,logbuf);
         }
         write_ringbuf(logbuf);
       }
       #endif
       #ifdef CONFIG_FTRACE
-      print_ftrace(pc, dnpc, cpu->I_inst, logfp);
+      print_ftrace(wb_pc_difftest, wb_pc_new, wb_inst_difftest, ftrace);
       #endif
       #ifdef CONFIG_DIFFTEST
       if(wb_valid_difftest) {
