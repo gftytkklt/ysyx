@@ -180,6 +180,12 @@ int main(int argc, char** argv, char** env) {
   #else
   printf("ftrace: %s\n",ASNI_FMT("OFF", ASNI_FG_RED));
   #endif
+  #ifdef CONFIG_MTRACE
+  printf("mtrace: %s\n",ASNI_FMT("ON", ASNI_FG_GREEN));
+  FILE* mtrace = fopen("npc-mtrace.txt","w");
+  #else
+  printf("mtrace: %s\n",ASNI_FMT("OFF", ASNI_FG_RED));
+  #endif
   #ifdef CONFIG_GUI
     init_screen();
     init_input();
@@ -283,6 +289,9 @@ int main(int argc, char** argv, char** env) {
         cpu->io_master_rvalid = 1;
         if(arlen == 0){cpu->io_master_rlast = 1;}
         axi_read(&araddr, &arlen, &(cpu->io_master_rdata), skip_pc, &rd_process);
+        #ifdef CONFIG_MTRACE
+        fprintf(mtrace, "(%lu)pc %x, rd %lx from addr %08x\n", sim_time, *skip_pc, (cpu->io_master_rdata), araddr);
+        #endif
       }
       else{
         cpu->io_master_rvalid = 0;
@@ -290,6 +299,9 @@ int main(int argc, char** argv, char** env) {
       }
       if(wr_process && wvalid){
         axi_write(&awaddr, &awlen, wdata, wstrb, skip_pc, &wr_process);
+        #ifdef CONFIG_MTRACE
+        fprintf(mtrace, "(%lu)pc %x, wr %lx to addr %08x\n", sim_time, *skip_pc, wdata, awaddr);
+        #endif
         if(wlast){
           cpu->io_master_bvalid = 1;
         }
