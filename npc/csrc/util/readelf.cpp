@@ -130,7 +130,7 @@ void init_elf(char* elf_file) {
   }
 }
 static int func_depth = 0;
-void print_ftrace(unsigned long time, unsigned long pc, unsigned inst, FILE* fp) {
+void print_ftrace(unsigned long time, unsigned long dnpc, unsigned long pc, unsigned inst, FILE* fp) {
   //unsigned long func_addr=0;
   //char func_name[128] = {'\0'};
   unsigned dest = BITS(inst,11,7);
@@ -143,8 +143,8 @@ void print_ftrace(unsigned long time, unsigned long pc, unsigned inst, FILE* fp)
       func_pool[i].call_depth = func_depth;
       fprintf(fp, "[lvl%d]%lx: call [%s@0x%lx](%lu)\n",func_depth, pc, func_pool[i].func_name,func_pool[i].entry_addr, time);
     }
-    //else if((dnpc > func_pool[i].entry_addr) && (dnpc < func_pool[i].entry_addr + func_pool[i].func_size) && (inst==0x00008067)){
-    else if((pc >= func_pool[i].entry_addr) && (pc < func_pool[i].entry_addr + func_pool[i].func_size) && (inst==0x00008067)){
+    else if((dnpc > func_pool[i].entry_addr) && (dnpc < func_pool[i].entry_addr + func_pool[i].func_size) && (inst==0x00008067)){
+    //else if((pc >= func_pool[i].entry_addr) && (pc < func_pool[i].entry_addr + func_pool[i].func_size) && (inst==0x00008067)){
       //fprintf(fp, "%lx:%*s",pc,func_depth," ");
       fprintf(fp, "[lvl%d]%lx: ret [%s](%lu)\n",func_depth, pc, func_pool[i].func_name, time);
       func_depth = func_pool[i].call_depth;
