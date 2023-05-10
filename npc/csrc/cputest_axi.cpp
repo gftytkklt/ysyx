@@ -48,7 +48,7 @@ void inst_hist_display();
 #endif
 #ifdef CONFIG_FTRACE
 void init_elf(char* elf_file);
-void print_ftrace(unsigned long pc, unsigned long dnpc, unsigned inst, FILE* fp);
+void print_ftrace(unsigned long time, unsigned long pc, unsigned long dnpc, unsigned inst, FILE* fp);
 #endif
 
 #ifdef CONFIG_DIFFTEST
@@ -315,7 +315,7 @@ int main(int argc, char** argv, char** env) {
       }
       #endif
       #ifdef CONFIG_FTRACE
-      print_ftrace(wb_pc_difftest, wb_pc_new, wb_inst_difftest, ftrace);
+      print_ftrace(sim_time, wb_pc_difftest, wb_pc_new, wb_inst_difftest, ftrace);
       #endif
       #ifdef CONFIG_DIFFTEST
       if(wb_valid_difftest) {
