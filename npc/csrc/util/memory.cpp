@@ -61,7 +61,7 @@ void pmem_write(unsigned int waddr, unsigned long wdata, unsigned char wmask, FI
   //printf("waddr: %x\n", waddr);
   #ifdef CONFIG_MTRACE
   if(waddr >= MEM_BASE && waddr < MEM_BASE + MEM_SIZE){
-    fprintf(mtrace, "wr %016lx from %08x, strb = %x\n", wdata, waddr, wmask);
+    fprintf(mtrace, "wr %016lx to %08x, strb = %x\n", wdata, waddr, wmask);
   }
   #endif
   unsigned index = (waddr-(unsigned int)0x80000000) & ~(0x7u);
