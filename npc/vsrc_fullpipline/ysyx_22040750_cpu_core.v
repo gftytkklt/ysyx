@@ -160,7 +160,7 @@ module ysyx_22040750_cpu_core(
     import "DPI-C" function void set_wb_memaddr_ptr(input logic [31:0] a []);
     initial set_wb_memaddr_ptr(MEM_WB_mem_addr);
 	import "DPI-C" function void set_cpu_mem_addr(input logic [31:0] a []);
-    initial set_cpu_mem_addr(O_mem_addr);
+    initial set_cpu_mem_addr(EX_MEM_mem_addr);
 	import "DPI-C" function void set_cpu_rd_data(input logic [63:0] a []);
     initial set_cpu_rd_data(I_mem_rd_data);
 	import "DPI-C" function void set_cpu_wr_data(input logic [63:0] a []);

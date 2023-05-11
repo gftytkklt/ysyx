@@ -347,7 +347,7 @@ int main(int argc, char** argv, char** env) {
         char *p = logbuf;
         p += sprintf(p, "%08x: %08x ",wb_pc_difftest, wb_inst_difftest);
         disassemble(p, 128, (uint64_t)wb_pc_difftest, (uint8_t *)&wb_inst_difftest, 4);
-        if(inst_cnt > dump_inst){
+        if(inst_cnt >= dump_inst){
           fprintf(itrace, "time: %lu\n%s\n",sim_time,logbuf);
         }
         write_ringbuf(logbuf);
@@ -388,7 +388,7 @@ int main(int argc, char** argv, char** env) {
       #endif
     }
     #ifdef CONFIG_WAVEFORM
-    if(inst_cnt > dump_inst){
+    if(inst_cnt >= dump_inst){
       tfp->dump(sim_time);
     }
     #endif
