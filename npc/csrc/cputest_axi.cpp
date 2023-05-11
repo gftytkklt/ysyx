@@ -217,7 +217,7 @@ int main(int argc, char** argv, char** env) {
   FILE* axitrace = fopen("npc-axitrace.txt","w");
   #else
   printf("axitrace: %s\n",ASNI_FMT("OFF", ASNI_FG_RED));
-  FILE* mtrace = NULL;
+  FILE* axitrace = NULL;
   #endif
 
   #ifdef CONFIG_GUI
