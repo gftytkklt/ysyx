@@ -233,7 +233,7 @@ int main(int argc, char** argv, char** env) {
   uint32_t wb_pc_difftest;
   uint32_t wb_inst_difftest;
   uint32_t wb_pc_new;
-  uint32_t same_pc_cnt = 0;
+  //uint32_t same_pc_cnt = 0;
   uint64_t inst_cnt = 0;
   // uint32_t max_same_cnt = 0;
   // uint64_t max_cnt_time = 0;
