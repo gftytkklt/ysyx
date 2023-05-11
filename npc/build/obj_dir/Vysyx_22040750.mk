@@ -45,7 +45,6 @@ VM_USER_CFLAGS = \
 	-D__STDC_CONSTANT_MACROS \
 	-D__STDC_LIMIT_MACROS \
 	-fPIE \
-	-I/home/gftyt/ysyx-workbench/npc/csrc/include \
 	-DTOP_NAME="Vysyx_22040750" \
 
 # User LDLIBS (from -LDFLAGS on Verilator command line)

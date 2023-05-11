@@ -21,6 +21,7 @@ uint8_t* mem=NULL;
 //static svBit good = false;
 //extern void check();
 vluint64_t sim_time = 0;
+uint64_t dump_inst = 49000;
 
 struct cpu_context {
   uint64_t gpr[32];
@@ -313,7 +314,7 @@ int main(int argc, char** argv, char** env) {
         char *p = logbuf;
         p += sprintf(p, "%08x: %08x ",wb_pc_difftest, wb_inst_difftest);
         disassemble(p, 128, (uint64_t)wb_pc_difftest, (uint8_t *)&wb_inst_difftest, 4);
-        if(sim_time > dump_time){
+        if(inst_cnt > dump_inst){
           fprintf(itrace, "time: %lu\n%s\n",sim_time,logbuf);
         }
         write_ringbuf(logbuf);
