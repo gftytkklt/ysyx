@@ -35,6 +35,8 @@ VM_PREFIX = Vysyx_22040750
 VM_MODPREFIX = Vysyx_22040750
 # User CFLAGS (from -CFLAGS on Verilator command line)
 VM_USER_CFLAGS = \
+	-MMD \
+	-O3 \
 	-I/home/gftyt/ysyx-workbench/npc/csrc/include \
 	-I/usr/lib/llvm-12/include \
 	-std=c++14 \
@@ -48,6 +50,7 @@ VM_USER_CFLAGS = \
 
 # User LDLIBS (from -LDFLAGS on Verilator command line)
 VM_USER_LDLIBS = \
+	/home/gftyt/ysyx-workbench/npc/csrc/util/build/util.a \
 	-lLLVM-12 \
 	-ldl \
 	-lSDL2 \
@@ -56,19 +59,10 @@ VM_USER_LDLIBS = \
 # User .cpp files (from .cpp's on Verilator command line)
 VM_USER_CLASSES = \
 	cputest_axi \
-	axi \
-	difftest \
-	disasm \
-	memory \
-	mmio \
-	readelf \
-	ringbuf \
-	util \
 
 # User .cpp directories (from .cpp's on Verilator command line)
 VM_USER_DIR = \
 	/home/gftyt/ysyx-workbench/npc/csrc \
-	/home/gftyt/ysyx-workbench/npc/csrc/util \
 
 
 ### Default rules...
@@ -81,22 +75,6 @@ include $(VERILATOR_ROOT)/include/verilated.mk
 VPATH += $(VM_USER_DIR)
 
 cputest_axi.o: /home/gftyt/ysyx-workbench/npc/csrc/cputest_axi.cpp
-	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-axi.o: /home/gftyt/ysyx-workbench/npc/csrc/util/axi.cpp
-	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-difftest.o: /home/gftyt/ysyx-workbench/npc/csrc/util/difftest.cpp
-	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-disasm.o: /home/gftyt/ysyx-workbench/npc/csrc/util/disasm.cpp
-	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-memory.o: /home/gftyt/ysyx-workbench/npc/csrc/util/memory.cpp
-	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-mmio.o: /home/gftyt/ysyx-workbench/npc/csrc/util/mmio.cpp
-	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-readelf.o: /home/gftyt/ysyx-workbench/npc/csrc/util/readelf.cpp
-	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-ringbuf.o: /home/gftyt/ysyx-workbench/npc/csrc/util/ringbuf.cpp
-	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-util.o: /home/gftyt/ysyx-workbench/npc/csrc/util/util.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 
 ### Link rules... (from --exe)
