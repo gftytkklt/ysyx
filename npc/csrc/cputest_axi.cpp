@@ -147,6 +147,9 @@ int main(int argc, char** argv, char** env) {
   //const svScope scope = svGetScope();
   //assert(scope);
   //svSetScope(scope);
+  // init imgfile
+  img_file=argv[1];
+  img_size = load_img();
   
   #ifdef CONFIG_WAVEFORM
   // waveform file pointer
@@ -190,10 +193,6 @@ int main(int argc, char** argv, char** env) {
     init_screen();
     init_input();
   #endif
-
-  // init imgfile
-  img_file=argv[1];
-  img_size = load_img();
 
   char logbuf[256] = {};
   bool valid_posedge = false;
