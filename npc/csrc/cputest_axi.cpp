@@ -21,7 +21,7 @@ uint8_t* mem=NULL;
 //static svBit good = false;
 //extern void check();
 vluint64_t sim_time = 0;
-uint64_t dump_time = 2000000;
+uint64_t dump_time = 0;
 
 
 struct cpu_context {
@@ -204,8 +204,8 @@ int main(int argc, char** argv, char** env) {
   uint32_t wb_pc_new;
   uint32_t same_pc_cnt = 0;
   uint64_t inst_cnt = 0;
-  uint32_t max_same_cnt = 0;
-  uint64_t max_cnt_time = 0;
+  // uint32_t max_same_cnt = 0;
+  // uint64_t max_cnt_time = 0;
   bool mmio_op = false;
   bool difftest_error = false;
   // axi op
@@ -278,14 +278,14 @@ int main(int argc, char** argv, char** env) {
     cpu->eval();
     //dnpc = cpu->O_pc;
     if(valid_posedge){
-      wb_pc_new = *wb_pc;
-      if(wb_pc_new == wb_pc_difftest) {
-        same_pc_cnt++;
-        if(same_pc_cnt > max_same_cnt){max_same_cnt = same_pc_cnt;max_cnt_time = sim_time;}
-      }
-      else{
-        same_pc_cnt = 0;
-      }
+      // wb_pc_new = *wb_pc;
+      // if(wb_pc_new == wb_pc_difftest) {
+      //   same_pc_cnt++;
+      //   if(same_pc_cnt > max_same_cnt){max_same_cnt = same_pc_cnt;max_cnt_time = sim_time;}
+      // }
+      // else{
+      //   same_pc_cnt = 0;
+      // }
       if(rd_process){
         cpu->io_master_rvalid = 1;
         if(arlen == 0){cpu->io_master_rlast = 1;}
@@ -337,7 +337,7 @@ int main(int argc, char** argv, char** env) {
         difftest_step(wb_pc_difftest, cpu_gpr, sim_time, &difftest_error);
         if(difftest_error){
           printf("after %lu inst(s), error dut pc at %08x!\n\n",inst_cnt, wb_pc_difftest);
-          printf("max stuck pc cnt = %u, time: %lu\n", max_same_cnt, max_cnt_time);
+          // printf("max stuck pc cnt = %u, time: %lu\n", max_same_cnt, max_cnt_time);
           #ifdef CONFIG_ITRACE
           inst_hist_display();
           #endif
