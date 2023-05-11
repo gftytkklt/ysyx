@@ -21,7 +21,7 @@ uint8_t* mem=NULL;
 //static svBit good = false;
 //extern void check();
 vluint64_t sim_time = 0;
-uint64_t dump_inst = 49000;
+uint64_t dump_inst = 0;
 
 struct cpu_context {
   uint64_t gpr[32];
