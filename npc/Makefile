@@ -42,8 +42,8 @@ default: $(BIN)
 
 $(shell mkdir -p $(BUILD_DIR))
 
-INCFLAGS = $(addprefix -I, $(INC_PATH))
-CFLAGS += $(INCFLAGS) -DTOP_NAME="\"V$(TOPNAME)\""
+#INCFLAGS = $(addprefix -I, $(INC_PATH))
+CFLAGS += -DTOP_NAME="\"V$(TOPNAME)\""
 LDFLAGS += -lSDL2 -lSDL2_image
 #-include *.d
 $(BIN): $(VSRC) $(CSRC) $(UTIL_ARCHIVE)
