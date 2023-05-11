@@ -197,7 +197,8 @@ module ysyx_22040750_dcachectrl #(
     //assign O_mem_awaddr = mem_aw_req ? {mem_addr[31:OFFT_LEN],{OFFT_LEN{1'b0}}} : 0;
     //assign O_mem_awaddr = (wb_state == WB_HANDSHAKE) ? O_mem_araddr : 0;
     assign O_mem_araddr = mem_ar_req ? {mem_addr[31:OFFT_LEN],{{OFFT_LEN{mmio_process}} & mem_addr[OFFT_LEN-1:0]}} : 0;// 32B alignment
-    assign O_mem_awaddr = mem_aw_req ? {mem_addr[31:OFFT_LEN],{{OFFT_LEN{mmio_process}} & mem_addr[OFFT_LEN-1:0]}} : 0;
+    //assign O_mem_awaddr = mem_aw_req ? {mem_addr[31:OFFT_LEN],{{OFFT_LEN{mmio_process}} & mem_addr[OFFT_LEN-1:0]}} : 0;
+    assign O_mem_awaddr = mem_aw_req ? {lookup_table[{mem_index, ~isway0_op}],mem_index,{{OFFT_LEN{mmio_process}} & mem_addr[OFFT_LEN-1:0]}} : 0;
     assign O_mem_awlen = mmio_process ? 0 : 3;// 32/8 - 1
     assign O_mem_awsize = 3'b011;// 8B
     //assign O_mem_awvalid = (wb_state == WB_HANDSHAKE) ? 1 : 0;
