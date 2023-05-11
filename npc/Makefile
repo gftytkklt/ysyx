@@ -45,7 +45,7 @@ $(shell mkdir -p $(BUILD_DIR))
 INCFLAGS = $(addprefix -I, $(INC_PATH))
 CFLAGS += $(INCFLAGS) -DTOP_NAME="\"V$(TOPNAME)\""
 LDFLAGS += -lSDL2 -lSDL2_image
-#-include $(CSRC:.o=.d)
+-include *.d
 $(BIN): $(VSRC) $(CSRC)
 	@rm -rf $(OBJ_DIR)
 	$(VERILATOR) $(VERILATOR_CFLAGS) \
@@ -53,7 +53,7 @@ $(BIN): $(VSRC) $(CSRC)
 		$(addprefix -CFLAGS , $(CFLAGS)) $(addprefix -LDFLAGS , $(LDFLAGS)) \
 		--Mdir $(OBJ_DIR) --exe -o $(abspath $(BIN))
 
--include *.d
+#-include *.d
 
 RUNARGS := $(BIN) $(IMG).bin $(IMG).elf
 DIFF_NEMU = $(NEMU_HOME)/build/riscv64-nemu-interpreter-so
