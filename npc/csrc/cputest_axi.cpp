@@ -160,9 +160,6 @@ int main(int argc, char** argv, char** env) {
   printf("waveform: %s\n",ASNI_FMT("OFF", ASNI_FG_RED));
   #endif
   
-  // init imgfile
-  img_file=argv[1];
-  img_size = load_img();
   #ifdef CONFIG_ITRACE
   printf("itrace: %s\n",ASNI_FMT("ON", ASNI_FG_GREEN));
   FILE* itrace = fopen("npc-itrace.txt","w");
@@ -171,6 +168,7 @@ int main(int argc, char** argv, char** env) {
   #else
   printf("itrace: %s\n",ASNI_FMT("OFF", ASNI_FG_RED));
   #endif
+
   #ifdef CONFIG_FTRACE
   printf("ftrace: %s\n",ASNI_FMT("ON", ASNI_FG_GREEN));
   FILE* ftrace = fopen("npc-ftrace.txt","w");
@@ -179,6 +177,7 @@ int main(int argc, char** argv, char** env) {
   #else
   printf("ftrace: %s\n",ASNI_FMT("OFF", ASNI_FG_RED));
   #endif
+
   #ifdef CONFIG_MTRACE
   printf("mtrace: %s\n",ASNI_FMT("ON", ASNI_FG_GREEN));
   FILE* mtrace = fopen("npc-mtrace.txt","w");
@@ -186,12 +185,15 @@ int main(int argc, char** argv, char** env) {
   printf("mtrace: %s\n",ASNI_FMT("OFF", ASNI_FG_RED));
   FILE* mtrace = NULL;
   #endif
+
   #ifdef CONFIG_GUI
     init_screen();
     init_input();
   #endif
-  //inst_gen(false);
-  // sim
+
+  // init imgfile
+  img_file=argv[1];
+  img_size = load_img();
 
   char logbuf[256] = {};
   bool valid_posedge = false;
