@@ -21,7 +21,6 @@
 //////////////////////////////////////////////////////////////////////////////////
 // `include "global_def.v"
 //import "DPI-C" function void sim_end();
-import "DPI-C" function void set_inst_ptr(input logic [31:0] a []);
 module ysyx_22040750_decoder(
     input I_sys_clk,
     input I_rst,
@@ -56,7 +55,8 @@ module ysyx_22040750_decoder(
     output [1:0] O_stall_en// en[1] for rs1, en[2] for rs2
     //output O_sim_end
     );
-    initial set_inst_ptr(I_inst);
+    // import "DPI-C" function void set_inst_ptr(input logic [31:0] a []);
+    // initial set_inst_ptr(I_inst);
     wire [6:0] funct7;
     wire [6:0] opcode;
     wire [4:0] rs2,rs1,rd;

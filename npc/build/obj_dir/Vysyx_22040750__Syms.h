@@ -15,7 +15,6 @@
 
 // INCLUDE MODULE CLASSES
 #include "Vysyx_22040750___024root.h"
-#include "Vysyx_22040750___024unit.h"
 
 // DPI TYPES for DPI Export callbacks (Internal use)
 
@@ -30,7 +29,6 @@ class Vysyx_22040750__Syms final : public VerilatedSyms {
 
     // MODULE INSTANCE STATE
     Vysyx_22040750___024root       TOP;
-    Vysyx_22040750___024unit       TOP____024unit;
 
     // CONSTRUCTORS
     Vysyx_22040750__Syms(VerilatedContext* contextp, const char* namep, Vysyx_22040750* modelp);

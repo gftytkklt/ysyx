@@ -72,7 +72,6 @@ Vysyx_22040750::Vysyx_22040750(VerilatedContext* _vcontextp__, const char* _vcna
     , io_slave_rresp{vlSymsp->TOP.io_slave_rresp}
     , io_slave_rdata{vlSymsp->TOP.io_slave_rdata}
     , io_slave_rlast{vlSymsp->TOP.io_slave_rlast}
-    , __PVT____024unit{vlSymsp->TOP.__PVT____024unit}
     , rootp{&(vlSymsp->TOP)}
 {
 }

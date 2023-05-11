@@ -33,8 +33,8 @@ module ysyx_22040750_pc(
     output [31:0] O_inst,
     output O_pc_valid
     );
-    import "DPI-C" function void set_pc_ptr(input logic [31:0] a []);
-    initial set_pc_ptr(O_pc);
+    // import "DPI-C" function void set_pc_ptr(input logic [31:0] a []);
+    // initial set_pc_ptr(O_pc);
     localparam PC_RESET = 32'h7FFFFFFC;
     wire IF_ready_go;
     wire IF_allow_in;

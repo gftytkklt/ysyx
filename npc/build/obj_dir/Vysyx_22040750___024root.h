@@ -11,15 +11,12 @@
 
 class Vysyx_22040750__Syms;
 class Vysyx_22040750_VerilatedVcd;
-class Vysyx_22040750___024unit;
 
 
 //----------
 
 VL_MODULE(Vysyx_22040750___024root) {
   public:
-    // CELLS
-    Vysyx_22040750___024unit* __PVT____024unit;
 
     // PORTS
     VL_IN8(clock,0,0);

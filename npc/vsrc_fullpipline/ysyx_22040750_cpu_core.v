@@ -151,8 +151,8 @@ module ysyx_22040750_cpu_core(
     initial set_wb_bubble_ptr(MEM_WB_bubble);
     import "DPI-C" function void set_wb_pc_ptr(input logic [31:0] a []);
     initial set_wb_pc_ptr(MEM_WB_pc);
-    import "DPI-C" function void set_skip_pc_ptr(input logic [31:0] a []);
-    initial set_skip_pc_ptr(EX_MEM_pc);
+    // import "DPI-C" function void set_skip_pc_ptr(input logic [31:0] a []);
+    // initial set_skip_pc_ptr(EX_MEM_pc);
     import "DPI-C" function void set_wb_inst_ptr(input logic [31:0] a []);
     initial set_wb_inst_ptr(MEM_WB_inst);
     import "DPI-C" function void set_wb_memop_ptr(input logic a []);

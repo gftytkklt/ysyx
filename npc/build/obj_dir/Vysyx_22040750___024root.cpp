@@ -39,16 +39,6 @@ VL_INLINE_OPT void Vysyx_22040750___024root____Vdpiimwrap_ysyx_22040750__DOT__cp
     set_wb_pc_ptr(&a__Vopenarray);
 }
 
-extern "C" void set_skip_pc_ptr(const svOpenArrayHandle a);
-
-VL_INLINE_OPT void Vysyx_22040750___024root____Vdpiimwrap_ysyx_22040750__DOT__cpu_core_e__DOT__set_skip_pc_ptr__Vdpioc2_TOP(const IData/*31:0*/ &a) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vysyx_22040750___024root____Vdpiimwrap_ysyx_22040750__DOT__cpu_core_e__DOT__set_skip_pc_ptr__Vdpioc2_TOP\n"); );
-    // Body
-    static const VerilatedVarProps a__Vopenprops(VLVT_UINT32, VLVD_IN, VerilatedVarProps::Packed(), 31, 0);
-    VerilatedDpiOpenVar a__Vopenarray (&a__Vopenprops, &a);
-    set_skip_pc_ptr(&a__Vopenarray);
-}
-
 extern "C" void set_wb_inst_ptr(const svOpenArrayHandle a);
 
 VL_INLINE_OPT void Vysyx_22040750___024root____Vdpiimwrap_ysyx_22040750__DOT__cpu_core_e__DOT__set_wb_inst_ptr__Vdpioc2_TOP(const IData/*31:0*/ &a) {
@@ -135,16 +125,6 @@ VL_INLINE_OPT void Vysyx_22040750___024root____Vdpiimwrap_ysyx_22040750__DOT__cp
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vysyx_22040750___024root____Vdpiimwrap_ysyx_22040750__DOT__cpu_core_e__DOT__sim_end_TOP\n"); );
     // Body
     sim_end();
-}
-
-extern "C" void set_pc_ptr(const svOpenArrayHandle a);
-
-VL_INLINE_OPT void Vysyx_22040750___024root____Vdpiimwrap_ysyx_22040750__DOT__cpu_core_e__DOT__pc_e__DOT__set_pc_ptr__Vdpioc2_TOP(const IData/*31:0*/ &a) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vysyx_22040750___024root____Vdpiimwrap_ysyx_22040750__DOT__cpu_core_e__DOT__pc_e__DOT__set_pc_ptr__Vdpioc2_TOP\n"); );
-    // Body
-    static const VerilatedVarProps a__Vopenprops(VLVT_UINT32, VLVD_IN, VerilatedVarProps::Packed(), 31, 0);
-    VerilatedDpiOpenVar a__Vopenarray (&a__Vopenprops, &a);
-    set_pc_ptr(&a__Vopenarray);
 }
 
 extern "C" void set_gpr_ptr(const svOpenArrayHandle a);

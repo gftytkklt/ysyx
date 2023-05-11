@@ -25,12 +25,6 @@ extern "C" {
     extern void set_cpu_wr_valid(const svOpenArrayHandle a);
     // DPI import at /home/gftyt/ysyx-workbench/npc/vsrc_fullpipline/ysyx_22040750_gpr.v:35:34
     extern void set_gpr_ptr(const svOpenArrayHandle a);
-    // DPI import at /home/gftyt/ysyx-workbench/npc/vsrc_fullpipline/ysyx_22040750_decoder.v:24:30
-    extern void set_inst_ptr(const svOpenArrayHandle a);
-    // DPI import at /home/gftyt/ysyx-workbench/npc/vsrc_fullpipline/ysyx_22040750_pc.v:36:34
-    extern void set_pc_ptr(const svOpenArrayHandle a);
-    // DPI import at /home/gftyt/ysyx-workbench/npc/vsrc_fullpipline/ysyx_22040750_cpu_core.v:154:34
-    extern void set_skip_pc_ptr(const svOpenArrayHandle a);
     // DPI import at /home/gftyt/ysyx-workbench/npc/vsrc_fullpipline/ysyx_22040750_cpu_core.v:150:34
     extern void set_wb_bubble_ptr(const svOpenArrayHandle a);
     // DPI import at /home/gftyt/ysyx-workbench/npc/vsrc_fullpipline/ysyx_22040750_cpu_core.v:156:34

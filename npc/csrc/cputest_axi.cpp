@@ -9,8 +9,6 @@
 #include <axi.h>
 #include <util.h>
 static Vysyx_22040750* cpu;
-//static int mem_size = 0x8000000;
-//static uint8_t* mem = NULL;
 static bool finish = false;
 static char *img_file = NULL;
 static char *elf_file = NULL;
@@ -18,8 +16,6 @@ static char *ref_so_file = NULL;
 static long img_size = 0;
 extern const char* regs[];
 uint8_t* mem=NULL;
-//static svBit good = false;
-//extern void check();
 vluint64_t sim_time = 0;
 uint64_t dump_inst = 0;
 
@@ -30,10 +26,10 @@ struct cpu_context {
 // rtl signal watchpoints
 static struct cpu_context context = {};
 static uint64_t *cpu_gpr = NULL;
-static uint32_t *cpu_pc = NULL;
+//static uint32_t *cpu_pc = NULL;
 static uint32_t *wb_pc = NULL;
-static uint32_t *skip_pc = NULL;
-static uint32_t *inst = NULL;
+//static uint32_t *skip_pc = NULL;
+// static uint32_t *inst = NULL;
 static uint32_t *wb_inst = NULL;
 static bool *wb_valid = NULL;
 static bool *wb_bubble = NULL;
@@ -66,10 +62,10 @@ extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
   //cpu_context->gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
-extern "C" void set_pc_ptr(const svOpenArrayHandle r) {
-  cpu_pc = (uint32_t *)(((VerilatedDpiOpenVar*)r)->datap());
-  //cpu_context->pc = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
-}
+// extern "C" void set_pc_ptr(const svOpenArrayHandle r) {
+//   cpu_pc = (uint32_t *)(((VerilatedDpiOpenVar*)r)->datap());
+//   //cpu_context->pc = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
+// }
 extern "C" void set_wb_ptr(const svOpenArrayHandle r) {
   wb_valid = (bool *)(((VerilatedDpiOpenVar*)r)->datap());
   //cpu_context->pc = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
@@ -78,13 +74,13 @@ extern "C" void set_wb_pc_ptr(const svOpenArrayHandle r) {
   wb_pc = (uint32_t *)(((VerilatedDpiOpenVar*)r)->datap());
   //cpu_context->pc = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
-extern "C" void set_skip_pc_ptr(const svOpenArrayHandle r) {
-  skip_pc = (uint32_t *)(((VerilatedDpiOpenVar*)r)->datap());
-  //cpu_context->pc = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
-}
-extern "C" void set_inst_ptr(const svOpenArrayHandle r) {
-  inst = (uint32_t *)(((VerilatedDpiOpenVar*)r)->datap());
-}
+// extern "C" void set_skip_pc_ptr(const svOpenArrayHandle r) {
+//   skip_pc = (uint32_t *)(((VerilatedDpiOpenVar*)r)->datap());
+//   //cpu_context->pc = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
+// }
+// extern "C" void set_inst_ptr(const svOpenArrayHandle r) {
+//   inst = (uint32_t *)(((VerilatedDpiOpenVar*)r)->datap());
+// }
 extern "C" void set_wb_inst_ptr(const svOpenArrayHandle r) {
   wb_inst = (uint32_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
@@ -232,7 +228,7 @@ int main(int argc, char** argv, char** env) {
   uint32_t wb_memaddr_difftest;
   uint32_t wb_pc_difftest;
   uint32_t wb_inst_difftest;
-  uint32_t wb_pc_new;
+  // uint32_t wb_pc_new;
   //uint32_t same_pc_cnt = 0;
   uint64_t inst_cnt = 0;
   // uint32_t max_same_cnt = 0;

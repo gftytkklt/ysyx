@@ -29,13 +29,11 @@ VM_CLASSES_FAST += \
 	Vysyx_22040750___024root \
 	Vysyx_22040750___024root__1 \
 	Vysyx_22040750___024root__2 \
-	Vysyx_22040750___024unit \
 
 # Generated module classes, non-fast-path, compile with low/medium optimization
 VM_CLASSES_SLOW += \
 	Vysyx_22040750__ConstPool_0 \
 	Vysyx_22040750___024root__Slow \
-	Vysyx_22040750___024unit__Slow \
 
 # Generated support classes, fast-path, compile with highest optimization
 VM_SUPPORT_FAST += \
