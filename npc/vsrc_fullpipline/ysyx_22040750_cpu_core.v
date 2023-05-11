@@ -98,7 +98,7 @@ module ysyx_22040750_cpu_core(
     wire EX_MEM_valid;
     wire [8:0] EX_MEM_rstrb;
     wire [7:0] EX_MEM_wstrb;
-	wire [31:0]  EX_MEM_mem_addr;
+	wire [31:0] EX_MEM_mem_addr;
     wire [63:0] EX_MEM_alu_out, EX_MEM_rs2, EX_MEM_csr;
     wire EX_MEM_mem_wen;// indicate mem wr stage, maybe multicycle
 	wire EX_MEM_mem_rd_en, EX_MEM_mem_wr_en;// actual single cycle valid flag
