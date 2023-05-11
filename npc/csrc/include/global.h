@@ -11,7 +11,7 @@
 #define CONFIG_MTRACE
 #define CONFIG_ITRACE
 #define CONFIG_DIFFTEST
-//#define CONFIG_WAVEFORM
+#define CONFIG_WAVEFORM
 #define CONFIG_GUI
 //#define CONFIG_AUDIO
 #define ASNI_FG_RED     "\33[1;31m"
@@ -20,4 +20,5 @@
 #define ASNI_FMT(str, fmt) fmt str ASNI_NONE
 #define MEM_BASE 0x80000000
 #define MEM_SIZE 0x8000000
+uint64_t dump_inst = 49000;
 #endif

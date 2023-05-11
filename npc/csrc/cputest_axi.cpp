@@ -21,8 +21,6 @@ uint8_t* mem=NULL;
 //static svBit good = false;
 //extern void check();
 vluint64_t sim_time = 0;
-uint64_t dump_time = 0;
-
 
 struct cpu_context {
   uint64_t gpr[32];
@@ -348,7 +346,7 @@ int main(int argc, char** argv, char** env) {
       #endif
     }
     #ifdef CONFIG_WAVEFORM
-    if(sim_time > dump_time){
+    if(inst_cnt > dump_inst){
       tfp->dump(sim_time);
     }
     #endif
