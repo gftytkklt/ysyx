@@ -16,7 +16,7 @@ INCLUDES = $(addprefix -I, $(INC_PATH))
 #CONFIG_DIFFTEST=n
 #ifdef CONFIG_ITRACE
 #CXXSRC += $(abspath ./csrc/disasm.cpp)
-CFLAGS += -MMD $(INCLUDES) -I/usr/lib/llvm-12/include -std=c++14   -fno-exceptions -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -fPIE
+CFLAGS += $(INCLUDES) -I/usr/lib/llvm-12/include -std=c++14   -fno-exceptions -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -fPIE
 LDFLAGS += $(shell llvm-config --libs) -ldl
 #endif
 #ifdef CONFIG_FTRACE
@@ -45,7 +45,7 @@ $(shell mkdir -p $(BUILD_DIR))
 INCFLAGS = $(addprefix -I, $(INC_PATH))
 CFLAGS += $(INCFLAGS) -DTOP_NAME="\"V$(TOPNAME)\""
 LDFLAGS += -lSDL2 -lSDL2_image
-
+#-include $(CSRC:.o=.d)
 $(BIN): $(VSRC) $(CSRC)
 	@rm -rf $(OBJ_DIR)
 	$(VERILATOR) $(VERILATOR_CFLAGS) \
