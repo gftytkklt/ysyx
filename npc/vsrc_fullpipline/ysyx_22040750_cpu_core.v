@@ -159,6 +159,16 @@ module ysyx_22040750_cpu_core(
     initial set_wb_memop_ptr(MEM_WB_mem_op);
     import "DPI-C" function void set_wb_memaddr_ptr(input logic [31:0] a []);
     initial set_wb_memaddr_ptr(MEM_WB_mem_addr);
+	import "DPI-C" function void set_cpu_mem_addr(input logic [31:0] a []);
+    initial set_cpu_mem_addr(O_mem_addr);
+	import "DPI-C" function void set_cpu_rd_data(input logic [63:0] a []);
+    initial set_cpu_rd_data(I_mem_rd_data);
+	import "DPI-C" function void set_cpu_wr_data(input logic [63:0] a []);
+    initial set_cpu_wr_data(O_mem_wr_data);
+	import "DPI-C" function void set_cpu_rd_valid(input logic a []);
+    initial set_cpu_rd_valid(I_mem_rd_data_valid);
+	import "DPI-C" function void set_cpu_wr_valid(input logic a []);
+    initial set_cpu_wr_valid(O_mem_wen);
     import "DPI-C" function void sim_end();
     always @(posedge I_sys_clk)
     	if ((MEM_WB_inst == 32'h00100073) && !I_rst)

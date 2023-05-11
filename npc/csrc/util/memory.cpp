@@ -13,7 +13,7 @@ void pmem_read(unsigned int raddr, unsigned long* rdata, FILE* mtrace, unsigned 
       if(raddr >= MEM_BASE && raddr < MEM_BASE + MEM_SIZE){
         unsigned index = (raddr-(unsigned)MEM_BASE) & ~(0x7u);
         *rdata = index > MEM_SIZE ? 0 : *((unsigned long*)&mem[index]);
-        #ifdef CONFIG_MTRACE
+        #ifdef CONFIG_AXITRACE
         fprintf(mtrace, "%lu: rd %016lx from %08x\n", sim_time, *rdata, raddr);
         #endif
       }
@@ -59,7 +59,7 @@ void pmem_write(unsigned int waddr, unsigned long wdata, unsigned char wmask, FI
   //     }
   // }
   //printf("waddr: %x\n", waddr);
-  #ifdef CONFIG_MTRACE
+  #ifdef CONFIG_AXITRACE
   if(waddr >= MEM_BASE && waddr < MEM_BASE + MEM_SIZE){
     fprintf(mtrace, "%lu: wr %016lx to %08x, strb = %x\n", sim_time, wdata, waddr, wmask);
   }

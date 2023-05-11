@@ -27,6 +27,7 @@ struct cpu_context {
   uint64_t gpr[32];
   uint64_t *pc;
 };
+// rtl signal watchpoints
 static struct cpu_context context = {};
 static uint64_t *cpu_gpr = NULL;
 static uint32_t *cpu_pc = NULL;
@@ -38,6 +39,12 @@ static bool *wb_valid = NULL;
 static bool *wb_bubble = NULL;
 static bool *wb_mem_op = NULL;
 static uint32_t *wb_mem_addr = NULL;
+// catch cpu core output, axi_read/write only show 32B bus query, cache query is blocked
+static uint32_t *cpu_mem_addr = NULL;
+static uint64_t *cpu_rd_data = NULL;
+static uint64_t *cpu_wr_data = NULL;
+static bool* cpu_rd_valid = NULL;
+static bool* cpu_wr_valid = NULL;
 #ifdef CONFIG_ITRACE
 void init_disasm(const char *triple);
 void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
@@ -90,6 +97,22 @@ extern "C" void set_wb_memop_ptr(const svOpenArrayHandle r) {
 extern "C" void set_wb_memaddr_ptr(const svOpenArrayHandle r) {
   wb_mem_addr = (uint32_t *)(((VerilatedDpiOpenVar*)r)->datap());
   //cpu_context->pc = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
+}
+
+extern "C" void set_cpu_mem_addr(const svOpenArrayHandle r) {
+  cpu_mem_addr = (uint32_t *)(((VerilatedDpiOpenVar*)r)->datap());
+}
+extern "C" void set_cpu_rd_data(const svOpenArrayHandle r) {
+  cpu_rd_data = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
+}
+extern "C" void set_cpu_wr_data(const svOpenArrayHandle r) {
+  cpu_wr_data = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
+}
+extern "C" void set_cpu_rd_valid(const svOpenArrayHandle r) {
+  cpu_rd_valid = (bool *)(((VerilatedDpiOpenVar*)r)->datap());
+}
+extern "C" void set_cpu_wr_valid(const svOpenArrayHandle r) {
+  cpu_wr_valid = (bool *)(((VerilatedDpiOpenVar*)r)->datap());
 }
 
 double sc_time_stamp(){
@@ -186,6 +209,14 @@ int main(int argc, char** argv, char** env) {
   FILE* mtrace = fopen("npc-mtrace.txt","w");
   #else
   printf("mtrace: %s\n",ASNI_FMT("OFF", ASNI_FG_RED));
+  FILE* mtrace = NULL;
+  #endif
+
+  #ifdef CONFIG_AXITRACE
+  printf("axitrace: %s\n",ASNI_FMT("ON", ASNI_FG_GREEN));
+  FILE* axitrace = fopen("npc-axitrace.txt","w");
+  #else
+  printf("axitrace: %s\n",ASNI_FMT("OFF", ASNI_FG_RED));
   FILE* mtrace = NULL;
   #endif
 
@@ -286,17 +317,18 @@ int main(int argc, char** argv, char** env) {
       // else{
       //   same_pc_cnt = 0;
       // }
+      
       if(rd_process){
         cpu->io_master_rvalid = 1;
         if(arlen == 0){cpu->io_master_rlast = 1;}
-        axi_read(&araddr, &arlen, &(cpu->io_master_rdata), &rd_process, mtrace, sim_time);
+        axi_read(&araddr, &arlen, &(cpu->io_master_rdata), &rd_process, axitrace, sim_time);
       }
       else{
         cpu->io_master_rvalid = 0;
         cpu->io_master_rlast = 0;
       }
       if(wr_process && wvalid){
-        axi_write(&awaddr, &awlen, wdata, wstrb, &wr_process, mtrace, sim_time);
+        axi_write(&awaddr, &awlen, wdata, wstrb, &wr_process, axitrace, sim_time);
         if(wlast){
           cpu->io_master_bvalid = 1;
         }
@@ -324,6 +356,14 @@ int main(int argc, char** argv, char** env) {
       #ifdef CONFIG_FTRACE
       if(wb_valid_difftest){
         print_ftrace(sim_time, wb_pc_difftest, wb_inst_difftest, ftrace);
+      }
+      #endif
+      #ifdef CONFIG_MTRACE
+      if(*cpu_rd_valid == true){
+        fprintf(mtrace,"%lu: rd data %lx from addr %x\n", sim_time, *cpu_rd_data, *cpu_mem_addr);
+      }
+      if(*cpu_wr_valid == true){
+        fprintf(mtrace,"%lu: wr data %lx to addr %x\n", sim_time, *cpu_wr_data, *cpu_mem_addr);
       }
       #endif
       #ifdef CONFIG_DIFFTEST
