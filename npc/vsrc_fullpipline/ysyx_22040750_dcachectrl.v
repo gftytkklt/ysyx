@@ -129,11 +129,13 @@ module ysyx_22040750_dcachectrl #(
     reg [1:0] wdata_cnt;
     wire [255:0] wdata;
     wire [63:0] cache_wdata, cache_rdata;
+    wire [31:0] cache_awaddr;
     //wire cache_wvalid;
     // MMIO signal
     wire mmio_flag;
     reg mmio_process;
     wire [63:0] mmio_wdata, mmio_rdata;
+    wire [31:0] mmio_awaddr;
     //wire mmio_wvalid;
     // data reg impl
     always @(posedge I_clk)
@@ -198,7 +200,11 @@ module ysyx_22040750_dcachectrl #(
     //assign O_mem_awaddr = (wb_state == WB_HANDSHAKE) ? O_mem_araddr : 0;
     assign O_mem_araddr = mem_ar_req ? {mem_addr[31:OFFT_LEN],{{OFFT_LEN{mmio_process}} & mem_addr[OFFT_LEN-1:0]}} : 0;// 32B alignment
     //assign O_mem_awaddr = mem_aw_req ? {mem_addr[31:OFFT_LEN],{{OFFT_LEN{mmio_process}} & mem_addr[OFFT_LEN-1:0]}} : 0;
-    assign O_mem_awaddr = mem_aw_req ? {lookup_table[{mem_index, ~isway0_op}],mem_index,{{OFFT_LEN{mmio_process}} & mem_addr[OFFT_LEN-1:0]}} : 0;
+    // cache wb: cacheline tag + index + offt'b0
+    assign cache_awaddr = {lookup_table[{mem_index, ~isway0_op}],mem_index,{OFFT_LEN{1'b0}}};
+    assign mmio_awaddr = mem_addr;
+    assign O_mem_awaddr = mem_aw_req ? ((cache_awaddr & {32{~mmio_process}}) | (mmio_awaddr & {32{mmio_process}})) : 0;
+    // assign O_mem_awaddr = mem_aw_req ? {lookup_table[{mem_index, ~isway0_op}],mem_index,{{OFFT_LEN{mmio_process}} & mem_addr[OFFT_LEN-1:0]}} : 0;
     assign O_mem_awlen = mmio_process ? 0 : 3;// 32/8 - 1
     assign O_mem_awsize = 3'b011;// 8B
     //assign O_mem_awvalid = (wb_state == WB_HANDSHAKE) ? 1 : 0;
