@@ -18,6 +18,8 @@ extern const char* regs[];
 uint8_t* mem=NULL;
 vluint64_t sim_time = 0;
 uint64_t dump_inst = 50000;
+uint32_t dump_pc = 0x80000ba0;
+bool dump_en = false;
 
 struct cpu_context {
   uint64_t gpr[32];
@@ -352,22 +354,21 @@ int main(int argc, char** argv, char** env) {
       
     //dnpc = cpu->O_pc;
     //if(valid_posedge){
-      #ifdef CONFIG_ITRACE
       if(wb_valid_difftest){
+        if((inst_cnt >= dump_inst) || (dump_pc == wb_pc_difftest)){dump_en = true;}
+        #ifdef CONFIG_ITRACE
         char *p = logbuf;
         p += sprintf(p, "%08x: %08x ",wb_pc_difftest, wb_inst_difftest);
         disassemble(p, 128, (uint64_t)wb_pc_difftest, (uint8_t *)&wb_inst_difftest, 4);
-        if(inst_cnt >= dump_inst){
+        if(dump_en){
           fprintf(itrace, "time: %lu\n%s\n",sim_time,logbuf);
         }
         write_ringbuf(logbuf);
-      }
-      #endif
-      #ifdef CONFIG_FTRACE
-      if(wb_valid_difftest){
+        #endif
+        #ifdef CONFIG_FTRACE
         print_ftrace(sim_time, wb_pc_difftest, wb_inst_difftest, ftrace);
+        #endif
       }
-      #endif
       #ifdef CONFIG_MTRACE
       if(cpu_rvalid){
         fprintf(mtrace,"%lu: rd data %lx from addr %x\n", sim_time, cpu_rdata, cpu_raddr);
@@ -398,7 +399,8 @@ int main(int argc, char** argv, char** env) {
       #endif
     }
     #ifdef CONFIG_WAVEFORM
-    if(inst_cnt >= dump_inst){
+    //if(inst_cnt >= dump_inst){
+    if(dump_en){
       tfp->dump(sim_time);
     }
     #endif
