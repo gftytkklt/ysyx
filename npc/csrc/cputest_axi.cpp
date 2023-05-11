@@ -298,7 +298,7 @@ int main(int argc, char** argv, char** env) {
       wlast = cpu->io_master_wlast;
       wstrb = cpu->io_master_wstrb;
     }
-    if(*wb_valid == true){
+    if(wb_valid){
       wb_valid_difftest = *wb_valid & ~*wb_bubble;
       wb_pc_difftest = *wb_pc;
       wb_inst_difftest = *wb_inst;
