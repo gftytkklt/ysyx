@@ -53,6 +53,8 @@ $(BIN): $(VSRC) $(CSRC)
 		$(addprefix -CFLAGS , $(CFLAGS)) $(addprefix -LDFLAGS , $(LDFLAGS)) \
 		--Mdir $(OBJ_DIR) --exe -o $(abspath $(BIN))
 
+-include *.d
+
 RUNARGS := $(BIN) $(IMG).bin $(IMG).elf
 DIFF_NEMU = $(NEMU_HOME)/build/riscv64-nemu-interpreter-so
 run: $(BIN) $(DIFFTEST_NEMU)
