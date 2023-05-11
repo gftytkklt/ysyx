@@ -175,7 +175,7 @@ module ysyx_22040750_dcachectrl #(
     assign O_cpu_data = mmio_process ? mmio_rdata : cache_rdata;
     //assign O_cpu_data = mem_rdata[{mem_offset[OFFT_LEN-1:3],3'b0,3'b0} +: 64];
     //assign O_cpu_data = cacheline_reg[{mem_offset[OFFT_LEN-1:3],3'b0,3'b0} +: 64];
-    assign O_cpu_bvalid = (current_state == WR_HIT);
+    assign O_cpu_bvalid = (current_state == WR_HIT) || ((current_state == MMIO_WR) && I_mem_bvalid);
     // mem interface impl
     assign aw_handshake = I_mem_awready && O_mem_awvalid;
     assign wr_handshake = I_mem_wready && O_mem_wvalid;
@@ -383,7 +383,7 @@ module ysyx_22040750_dcachectrl #(
             MMIO_AR: next_state = rd_handshake ? MMIO_RD : current_state;
             MMIO_AW: next_state = aw_handshake ? MMIO_WR : current_state;
             MMIO_RD: next_state = I_mem_rlast ? IDLE : current_state;
-            MMIO_WR: next_state = I_mem_bvalid ? WR_HIT : current_state;
+            MMIO_WR: next_state = I_mem_bvalid ? IDLE : current_state;
             //MMIO_WR: next_state = (wr_handshake && O_mem_wlast) ? IDLE : current_state;
             default: next_state = current_state;
         endcase

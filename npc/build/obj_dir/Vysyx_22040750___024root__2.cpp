@@ -4909,7 +4909,9 @@ VL_INLINE_OPT void Vysyx_22040750___024root___combo__TOP__7(Vysyx_22040750___024
                       | ((0x20U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__current_state))
                           ? 1U : 0U)) | ((0x2000U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__current_state)) 
                                          & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_rvalid)))) 
-                 | (0x40U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__current_state))));
+                 | ((0x40U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__current_state)) 
+                    | ((0x4000U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__current_state)) 
+                       & (IData)(vlSelf->io_master_bvalid)))));
     vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__wb_next_state 
         = ((1U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__wb_state))
             ? ((((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_rlast) 
@@ -5005,8 +5007,7 @@ VL_INLINE_OPT void Vysyx_22040750___024root___combo__TOP__7(Vysyx_22040750___024
                                         ? 1U : (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__current_state))
                                     : ((0x4000U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__current_state))
                                         ? ((IData)(vlSelf->io_master_bvalid)
-                                            ? 0x40U
-                                            : (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__current_state))
+                                            ? 1U : (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__current_state))
                                         : (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__current_state)))))));
     vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_allowin 
         = (1U & ((~ (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_reg_e__DOT__input_valid)) 
