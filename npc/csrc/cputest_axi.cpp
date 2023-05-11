@@ -289,14 +289,14 @@ int main(int argc, char** argv, char** env) {
       if(rd_process){
         cpu->io_master_rvalid = 1;
         if(arlen == 0){cpu->io_master_rlast = 1;}
-        axi_read(&araddr, &arlen, &(cpu->io_master_rdata), &rd_process, mtrace);
+        axi_read(&araddr, &arlen, &(cpu->io_master_rdata), &rd_process, mtrace, sim_time);
       }
       else{
         cpu->io_master_rvalid = 0;
         cpu->io_master_rlast = 0;
       }
       if(wr_process && wvalid){
-        axi_write(&awaddr, &awlen, wdata, wstrb, &wr_process, mtrace);
+        axi_write(&awaddr, &awlen, wdata, wstrb, &wr_process, mtrace, sim_time);
         if(wlast){
           cpu->io_master_bvalid = 1;
         }

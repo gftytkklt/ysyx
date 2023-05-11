@@ -3,7 +3,7 @@
 #include <mmio.h>
 #include <util.h>
 
-void pmem_read(unsigned int raddr, unsigned long* rdata, FILE* mtrace){
+void pmem_read(unsigned int raddr, unsigned long* rdata, FILE* mtrace, unsigned long sim_time){
   switch (raddr){
     case RTC_ADDR: get_time(rdata);break;
     case (VGA_ADDR + VGA_H_OFFT): 
@@ -14,7 +14,7 @@ void pmem_read(unsigned int raddr, unsigned long* rdata, FILE* mtrace){
         unsigned index = (raddr-(unsigned)MEM_BASE) & ~(0x7u);
         *rdata = index > MEM_SIZE ? 0 : *((unsigned long*)&mem[index]);
         #ifdef CONFIG_MTRACE
-        fprintf(mtrace, "rd %016lx from %08x\n", *rdata, raddr);
+        fprintf(mtrace, "%lu: rd %016lx from %08x\n", sim_time, *rdata, raddr);
         #endif
       }
       else{
@@ -38,7 +38,7 @@ void pmem_read(unsigned int raddr, unsigned long* rdata, FILE* mtrace){
   }*/
 }
 
-void pmem_write(unsigned int waddr, unsigned long wdata, unsigned char wmask, FILE* mtrace){
+void pmem_write(unsigned int waddr, unsigned long wdata, unsigned char wmask, FILE* mtrace, unsigned long sim_time){
   // unsigned index = (waddr-(unsigned long)0x80000000) & ~(0x7ul);
   // uint8_t *data_pt = (uint8_t*)&wdata;
   // switch(waddr){
@@ -61,7 +61,7 @@ void pmem_write(unsigned int waddr, unsigned long wdata, unsigned char wmask, FI
   //printf("waddr: %x\n", waddr);
   #ifdef CONFIG_MTRACE
   if(waddr >= MEM_BASE && waddr < MEM_BASE + MEM_SIZE){
-    fprintf(mtrace, "wr %016lx to %08x, strb = %x\n", wdata, waddr, wmask);
+    fprintf(mtrace, "%lu: wr %016lx to %08x, strb = %x\n", sim_time, wdata, waddr, wmask);
   }
   #endif
   unsigned index = (waddr-(unsigned int)0x80000000) & ~(0x7u);
