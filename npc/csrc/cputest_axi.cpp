@@ -246,6 +246,10 @@ int main(int argc, char** argv, char** env) {
   bool rd_process = false;
   bool wr_process = false;
   bool arvalid, awvalid, rready, wvalid, wlast;
+
+  uint32_t cpu_waddr, cpu_raddr;
+  uint64_t cpu_wdata, cpu_rdata;
+  bool cpu_wvalid, cpu_rvalid;
   
   while (!finish){
     if(sim_time == 1){
@@ -306,6 +310,16 @@ int main(int argc, char** argv, char** env) {
       wb_memaddr_difftest = *wb_mem_addr;
       mmio_op = wb_memop_difftest && ((wb_memaddr_difftest<MEM_BASE) || (wb_memaddr_difftest>=(MEM_BASE+MEM_SIZE)));
     }
+    if(cpu_rd_valid){
+      cpu_raddr = *cpu_mem_addr;
+      cpu_rvalid = *cpu_rd_valid;
+      cpu_rdata = *cpu_rd_data;
+    }
+    if(cpu_wr_valid){
+      cpu_waddr = *cpu_mem_addr;
+      cpu_wvalid = *cpu_wr_valid;
+      cpu_wdata = *cpu_wr_data;
+    }
     cpu->eval();
     //dnpc = cpu->O_pc;
     if(valid_posedge){
@@ -359,11 +373,11 @@ int main(int argc, char** argv, char** env) {
       }
       #endif
       #ifdef CONFIG_MTRACE
-      if(*cpu_rd_valid == true){
-        fprintf(mtrace,"%lu: rd data %lx from addr %x\n", sim_time, *cpu_rd_data, *cpu_mem_addr);
+      if(cpu_rvalid){
+        fprintf(mtrace,"%lu: rd data %lx from addr %x\n", sim_time, cpu_rdata, cpu_raddr);
       }
-      if(*cpu_wr_valid == true){
-        fprintf(mtrace,"%lu: wr data %lx to addr %x\n", sim_time, *cpu_wr_data, *cpu_mem_addr);
+      if(cpu_wvalid){
+        fprintf(mtrace,"%lu: wr data %lx to addr %x\n", sim_time, cpu_wdata, cpu_waddr);
       }
       #endif
       #ifdef CONFIG_DIFFTEST
