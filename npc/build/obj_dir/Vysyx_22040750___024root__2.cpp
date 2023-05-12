@@ -4310,9 +4310,6 @@ VL_INLINE_OPT void Vysyx_22040750___024root___sequent__TOP__5(Vysyx_22040750___0
     vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__radix2_div_e__DOT__divisor_flag 
         = ((vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__op2_sext[1U] 
             >> 0x1fU) & (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__sext1));
-    vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT____Vcellinp__npc_e__I_IF_ID_valid 
-        = ((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_valid) 
-           & (~ (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_bubble)));
     vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__radix2_div_e__DOT__dividend_flag 
         = ((vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__op1_sext[1U] 
             >> 0x1fU) & (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__sext1));
@@ -5040,11 +5037,10 @@ VL_INLINE_OPT void Vysyx_22040750___024root___combo__TOP__7(Vysyx_22040750___024
                                                     & (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_allowin))) 
                                                 & (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__pc_e__DOT__IF_en));
     vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__npc_e__DOT__store_dnpc 
-        = (((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT____Vcellinp__npc_e__I_IF_ID_valid) 
-            & ((~ (IData)(vlSelf->ysyx_22040750__DOT__cpu_pc_valid)) 
-               | (~ (IData)(vlSelf->ysyx_22040750__DOT__cpu_pc_ready)))) 
-           | ((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__npc_e__DOT__dnpc_reg_valid) 
-              & (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT____Vcellinp__npc_e__I_IF_ID_valid)));
+        = ((((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_valid) 
+             & (~ (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_bubble))) 
+            & (IData)(vlSelf->ysyx_22040750__DOT__cpu_pc_valid)) 
+           & (~ (IData)(vlSelf->ysyx_22040750__DOT__cpu_pc_ready)));
     vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__pc_e__DOT__IF_handshake 
         = ((IData)(vlSelf->ysyx_22040750__DOT__cpu_pc_valid) 
            & (IData)(vlSelf->ysyx_22040750__DOT__cpu_pc_ready));

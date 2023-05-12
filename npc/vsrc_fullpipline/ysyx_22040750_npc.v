@@ -31,10 +31,10 @@ module ysyx_22040750_npc(
     assign dnpc_src2 = I_dnpc_sel[3] ? I_rs1_data[31:0] : I_pc;
     assign dnpc_sum = dnpc_src1 + dnpc_src2;
     assign pc_handshake = I_pc_ready && I_pc_valid;
-    //assign store_dnpc = (I_IF_ID_valid && I_pc_valid && !I_pc_ready);
+    assign store_dnpc = (I_IF_ID_valid && I_pc_valid && !I_pc_ready);
     // case 2: dnpc is generated, but next reg wb flush valid dnpc
     //assign store_dnpc = (I_pc_valid && !I_pc_ready && !dnpc_reg_valid) || (I_IF_ID_valid && dnpc_sel && !I_pc_valid && !dnpc_reg_valid);
-    assign store_dnpc = (I_IF_ID_valid && (!I_pc_valid || !I_pc_ready)) || (dnpc_reg_valid && I_IF_ID_valid);
+    //assign store_dnpc = (I_IF_ID_valid && (!I_pc_valid || !I_pc_ready)) || (dnpc_reg_valid && I_IF_ID_valid);
     ysyx_22040750_mux_Nbit_Msel #(32, 3)
     nextpc_64bit_3sel (
 	.I_sel_data({I_intr_pc[31:0],dnpc_sum,I_snpc}),

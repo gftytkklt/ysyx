@@ -158,10 +158,10 @@ VL_INLINE_OPT void Vysyx_22040750___024root___sequent__TOP__3(Vysyx_22040750___0
         = vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cpu_reg;
     vlSelf->__Vdly__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__mem_addr 
         = vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__mem_addr;
-    vlSelf->__Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_rstrb 
-        = vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_rstrb;
     vlSelf->__Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_bubble 
         = vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_bubble;
+    vlSelf->__Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_rstrb 
+        = vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_rstrb;
     vlSelf->__Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_csr_op_sel 
         = vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_csr_op_sel;
     vlSelf->__Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_csr_mret 
@@ -1315,21 +1315,26 @@ VL_INLINE_OPT void Vysyx_22040750___024root___sequent__TOP__3(Vysyx_22040750___0
                                          | ((~ ((IData)(vlSelf->ysyx_22040750__DOT__cpu_pc_ready) 
                                                 & (IData)(vlSelf->ysyx_22040750__DOT__cpu_pc_valid))) 
                                             & (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__npc_e__DOT__dnpc_reg_valid))));
-    vlSelf->__Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_rstrb 
-        = ((IData)(vlSelf->reset) ? 0U : (((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_valid) 
-                                           & (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_allowin))
-                                           ? (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__mem_rstrb)
-                                           : (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_rstrb)));
     vlSelf->__Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_bubble 
         = ((~ (IData)(vlSelf->reset)) & (((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_valid) 
                                           & (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_allowin))
                                           ? (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_bubble)
                                           : (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_bubble)));
-    vlSelf->__Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_csr_op_sel 
-        = ((IData)(vlSelf->reset) ? 0U : (((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_valid) 
-                                           & (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_allowin))
-                                           ? (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__csr_op_sel)
-                                           : (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_csr_op_sel)));
+    if (vlSelf->reset) {
+        vlSelf->__Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_rstrb = 0U;
+        vlSelf->__Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_csr_op_sel = 0U;
+    } else {
+        vlSelf->__Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_rstrb 
+            = (((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_valid) 
+                & (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_allowin))
+                ? (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__mem_rstrb)
+                : (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_rstrb));
+        vlSelf->__Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_csr_op_sel 
+            = (((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_valid) 
+                & (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_allowin))
+                ? (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__csr_op_sel)
+                : (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_csr_op_sel));
+    }
     vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_alu_multicycle 
         = ((~ (IData)(vlSelf->reset)) & (((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_valid) 
                                           & (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_allowin)) 
