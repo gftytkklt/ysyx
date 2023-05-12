@@ -5037,7 +5037,9 @@ VL_INLINE_OPT void Vysyx_22040750___024root___combo__TOP__7(Vysyx_22040750___024
                                                     & (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_allowin))) 
                                                 & (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__pc_e__DOT__IF_en));
     vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__npc_e__DOT__store_dnpc 
-        = ((IData)(vlSelf->ysyx_22040750__DOT__cpu_pc_valid) 
+        = ((((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_valid) 
+             & (~ (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_bubble))) 
+            & (IData)(vlSelf->ysyx_22040750__DOT__cpu_pc_valid)) 
            & (~ (IData)(vlSelf->ysyx_22040750__DOT__cpu_pc_ready)));
     vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__pc_e__DOT__IF_handshake 
         = ((IData)(vlSelf->ysyx_22040750__DOT__cpu_pc_valid) 
