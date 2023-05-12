@@ -19,7 +19,7 @@ uint8_t* mem=NULL;
 vluint64_t sim_time = 0;
 uint64_t dump_inst = 0;
 uint32_t dump_pc = 0x0;
-bool dump_en = false;
+bool dump_en = true;
 
 struct cpu_context {
   uint64_t gpr[32];
