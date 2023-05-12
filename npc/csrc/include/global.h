@@ -11,7 +11,7 @@
 //#define CONFIG_MTRACE
 //#define CONFIG_AXITRACE
 //#define CONFIG_ITRACE
-#define CONFIG_DIFFTEST
+//#define CONFIG_DIFFTEST
 //#define CONFIG_WAVEFORM
 #define CONFIG_GUI
 //#define CONFIG_AUDIO
