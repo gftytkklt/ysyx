@@ -250,7 +250,7 @@ int main(int argc, char** argv, char** env) {
   bool cpu_wvalid, cpu_rvalid;
   
   while (!finish){
-    if((inst_cnt >= dump_inst) || (dump_pc == wb_pc_difftest)){dump_en = true;}
+    
     if(sim_time == 1){
       #ifdef CONFIG_DIFFTEST
       printf("difftest: %s\n",ASNI_FMT("ON", ASNI_FG_GREEN));
@@ -323,6 +323,7 @@ int main(int argc, char** argv, char** env) {
     //dnpc = cpu->O_pc;
     
     if(valid_posedge){
+      if((inst_cnt >= dump_inst) || (dump_pc == wb_pc_difftest)){dump_en = true;}
       // wb_pc_new = *wb_pc;
       // if(wb_pc_new == wb_pc_difftest) {
       //   same_pc_cnt++;
