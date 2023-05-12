@@ -607,6 +607,7 @@ module ysyx_22040750_cpu_core(
 	ysyx_22040750_csr csr_e(
 		.I_sys_clk(I_sys_clk),
 		.I_rst(I_rst),
+		.I_MEM_WB_valid(MEM_WB_valid),
 		.I_csr_wen(MEM_WB_csr_wen),
 		.I_csr_intr_wr(MEM_WB_csr_intr),
 		.I_csr_intr_rd(csr_intr),
