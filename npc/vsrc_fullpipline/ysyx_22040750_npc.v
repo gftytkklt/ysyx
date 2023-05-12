@@ -4,6 +4,7 @@ module ysyx_22040750_npc(
     input I_rst,
     input I_pc_valid,// dnpc valid
     input I_pc_ready,// dnpc ready
+    input I_IF_ID_valid,
     input [63:0] I_rs1_data,
     input [63:0] I_rs2_data,
     input [63:0] I_imm,
@@ -32,7 +33,7 @@ module ysyx_22040750_npc(
     assign pc_handshake = I_pc_ready && I_pc_valid;
     //assign store_dnpc = (I_pc_valid && !I_pc_ready);
     // case 2: dnpc is generated, but next reg wb flush valid dnpc
-    assign store_dnpc = (I_pc_valid && !I_pc_ready) || (dnpc_sel && !I_pc_valid && !dnpc_reg_valid);
+    assign store_dnpc = (I_pc_valid && !I_pc_ready) || (I_IF_ID_valid && dnpc_sel && !I_pc_valid && !dnpc_reg_valid);
     ysyx_22040750_mux_Nbit_Msel #(32, 3)
     nextpc_64bit_3sel (
 	.I_sel_data({I_intr_pc[31:0],dnpc_sum,I_snpc}),

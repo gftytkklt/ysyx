@@ -201,6 +201,7 @@ module ysyx_22040750_cpu_core(
 		.I_rst(I_rst),
 		.I_pc_valid(O_pc_valid),
 		.I_pc_ready(I_pc_ready),
+		.I_IF_ID_valid(IF_ID_valid),
     	// stall
     	//.I_rs1_data(rs1_data),
     	//.I_rs2_data(rs2_data),

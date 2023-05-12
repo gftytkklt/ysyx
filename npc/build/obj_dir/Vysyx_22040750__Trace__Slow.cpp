@@ -357,6 +357,7 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBit(c+989,"ysyx_22040750 cpu_core_e npc_e I_rst", false,-1);
         tracep->declBit(c+951,"ysyx_22040750 cpu_core_e npc_e I_pc_valid", false,-1);
         tracep->declBit(c+77,"ysyx_22040750 cpu_core_e npc_e I_pc_ready", false,-1);
+        tracep->declBit(c+134,"ysyx_22040750 cpu_core_e npc_e I_IF_ID_valid", false,-1);
         tracep->declQuad(c+219,"ysyx_22040750 cpu_core_e npc_e I_rs1_data", false,-1, 63,0);
         tracep->declQuad(c+221,"ysyx_22040750 cpu_core_e npc_e I_rs2_data", false,-1, 63,0);
         tracep->declQuad(c+88,"ysyx_22040750 cpu_core_e npc_e I_imm", false,-1, 63,0);
