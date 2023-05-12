@@ -19,7 +19,7 @@ uint8_t* mem=NULL;
 vluint64_t sim_time = 0;
 uint64_t dump_inst = 0;
 uint32_t dump_pc = 0x0;
-bool dump_en = true;
+bool dump_en = false;
 
 struct cpu_context {
   uint64_t gpr[32];
@@ -250,6 +250,7 @@ int main(int argc, char** argv, char** env) {
   bool cpu_wvalid, cpu_rvalid;
   
   while (!finish){
+    if((inst_cnt >= dump_inst) || (dump_pc == wb_pc_difftest)){dump_en = true;}
     if(sim_time == 1){
       #ifdef CONFIG_DIFFTEST
       printf("difftest: %s\n",ASNI_FMT("ON", ASNI_FG_GREEN));
@@ -320,6 +321,7 @@ int main(int argc, char** argv, char** env) {
     }
     cpu->eval();
     //dnpc = cpu->O_pc;
+    
     if(valid_posedge){
       // wb_pc_new = *wb_pc;
       // if(wb_pc_new == wb_pc_difftest) {
@@ -355,7 +357,7 @@ int main(int argc, char** argv, char** env) {
     //dnpc = cpu->O_pc;
     //if(valid_posedge){
       if(wb_valid_difftest){
-        if((inst_cnt >= dump_inst) || (dump_pc == wb_pc_difftest)){dump_en = true;}
+        
         #ifdef CONFIG_ITRACE
         char *p = logbuf;
         p += sprintf(p, "%08x: %08x ",wb_pc_difftest, wb_inst_difftest);
