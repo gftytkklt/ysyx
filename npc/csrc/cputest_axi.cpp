@@ -248,17 +248,16 @@ int main(int argc, char** argv, char** env) {
   uint32_t cpu_waddr, cpu_raddr;
   uint64_t cpu_wdata, cpu_rdata;
   bool cpu_wvalid, cpu_rvalid;
-  #ifdef CONFIG_DIFFTEST
+  
+  while (!finish){
+    if(sim_time == 1){
+      #ifdef CONFIG_DIFFTEST
       printf("difftest: %s\n",ASNI_FMT("ON", ASNI_FG_GREEN));
       ref_so_file = argv[3];
       init_difftest(ref_so_file, img_size, mem, cpu_gpr);
       #else
       printf("difftest: %s\n",ASNI_FMT("OFF", ASNI_FG_RED));
-  #endif
-  while (!finish){
-    
-    if(sim_time == 1){
-      
+      #endif
     }
     if(sim_time < 10){
       cpu->reset = 1;
