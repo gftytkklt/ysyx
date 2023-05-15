@@ -17,8 +17,8 @@ static long img_size = 0;
 extern const char* regs[];
 uint8_t* mem=NULL;
 vluint64_t sim_time = 0;
-uint64_t dump_inst = 196950;
-uint32_t dump_pc = 0x01;
+uint64_t dump_inst = -1;
+uint32_t dump_pc = 0x83021e14;
 bool dump_en = false;
 
 struct cpu_context {
