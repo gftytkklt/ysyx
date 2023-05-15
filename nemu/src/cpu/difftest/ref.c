@@ -2,6 +2,7 @@
 #include <cpu/cpu.h>
 #include <difftest-def.h>
 #include <memory/paddr.h>
+uint64_t cur_pc;
 void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction) {
   //assert(0);
   uint8_t* addr_pt = guest_to_host(addr);
@@ -21,14 +22,18 @@ void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction) {
 }
 // here, *dut must be dut reg
 // TODO: add pc cp, set pc to correct value
-void difftest_regcpy(void *dut, bool direction) {
+void difftest_regcpy(void *dut, bool direction, bool iscpreg) {
   //assert(0);
   unsigned long* tmp = (unsigned long*) dut;
   if(direction == DIFFTEST_TO_DUT){
-    for (int i=0;i<32;i++){
-      tmp[i] = cpu.gpr[i];
+    if(iscpreg){
+      for (int i=0;i<32;i++){
+        tmp[i] = cpu.gpr[i];
+      }
     }
-    //tmp[32] = cpu.pc;
+    else{
+      tmp[32] = cpu.pc;
+    }
   }
   else{
     //printf("dut to ref\n");
