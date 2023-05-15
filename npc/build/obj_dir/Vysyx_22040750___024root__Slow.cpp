@@ -2837,8 +2837,9 @@ void Vysyx_22040750___024root___settle__TOP__1(Vysyx_22040750___024root* vlSelf)
                                                     : vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_pc))))) 
                    >> 0x20U));
     vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__npc_e__DOT__store_dnpc 
-        = (((IData)(vlSelf->ysyx_22040750__DOT__cpu_pc_valid) 
-            & (~ (IData)(vlSelf->ysyx_22040750__DOT__cpu_pc_ready))) 
+        = ((((IData)(vlSelf->ysyx_22040750__DOT__cpu_pc_valid) 
+             & (~ (IData)(vlSelf->ysyx_22040750__DOT__cpu_pc_ready))) 
+            & (~ (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__npc_e__DOT__dnpc_reg_valid))) 
            | (((((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_valid) 
                  & (~ (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_bubble))) 
                 & (~ (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__npc_e__DOT__pc_handshake))) 
