@@ -389,7 +389,7 @@ int main(int argc, char** argv, char** env) {
         //printf("time: %ld\n", sim_time);
         difftest_step(wb_pc_difftest, cpu_gpr, sim_time, &difftest_error);
         if(difftest_error){
-          printf("after %lu inst(s), error dut pc at %08x!\n\n",inst_cnt, wb_pc_difftest);
+          printf("after %lu inst(s), error dut at %08x: %08x!\n\n",inst_cnt, wb_pc_difftest, wb_inst_difftest);
           // printf("max stuck pc cnt = %u, time: %lu\n", max_same_cnt, max_cnt_time);
           #ifdef CONFIG_ITRACE
           inst_hist_display();
