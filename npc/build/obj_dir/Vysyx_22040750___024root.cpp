@@ -1305,7 +1305,7 @@ VL_INLINE_OPT void Vysyx_22040750___024root___sequent__TOP__3(Vysyx_22040750___0
                                             & (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__npc_e__DOT__dnpc_reg_valid))));
     vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__npc_e__DOT__dnpc_reg 
         = ((IData)(vlSelf->reset) ? 0U : ((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__npc_e__DOT__store_dnpc)
-                                           ? vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__dnpc
+                                           ? vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__npc_e__DOT__dnpc
                                            : vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__npc_e__DOT__dnpc_reg));
     vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__pc_e__DOT__IF_en 
         = (1U & (~ (IData)(vlSelf->reset)));
