@@ -144,60 +144,60 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBus(c+1050,"ysyx_22040750 io_slave_rresp", false,-1, 1,0);
         tracep->declQuad(c+1051,"ysyx_22040750 io_slave_rdata", false,-1, 63,0);
         tracep->declBit(c+1053,"ysyx_22040750 io_slave_rlast", false,-1);
-        tracep->declBus(c+942,"ysyx_22040750 io_sram0_addr", false,-1, 5,0);
-        tracep->declBit(c+943,"ysyx_22040750 io_sram0_cen", false,-1);
+        tracep->declBus(c+943,"ysyx_22040750 io_sram0_addr", false,-1, 5,0);
+        tracep->declBit(c+944,"ysyx_22040750 io_sram0_cen", false,-1);
         tracep->declBit(c+1,"ysyx_22040750 io_sram0_wen", false,-1);
         tracep->declArray(c+2,"ysyx_22040750 io_sram0_wmask", false,-1, 127,0);
         tracep->declArray(c+6,"ysyx_22040750 io_sram0_wdata", false,-1, 127,0);
         tracep->declArray(c+10,"ysyx_22040750 io_sram0_rdata", false,-1, 127,0);
-        tracep->declBus(c+942,"ysyx_22040750 io_sram1_addr", false,-1, 5,0);
-        tracep->declBit(c+944,"ysyx_22040750 io_sram1_cen", false,-1);
+        tracep->declBus(c+943,"ysyx_22040750 io_sram1_addr", false,-1, 5,0);
+        tracep->declBit(c+945,"ysyx_22040750 io_sram1_cen", false,-1);
         tracep->declBit(c+14,"ysyx_22040750 io_sram1_wen", false,-1);
         tracep->declArray(c+15,"ysyx_22040750 io_sram1_wmask", false,-1, 127,0);
         tracep->declArray(c+19,"ysyx_22040750 io_sram1_wdata", false,-1, 127,0);
         tracep->declArray(c+23,"ysyx_22040750 io_sram1_rdata", false,-1, 127,0);
-        tracep->declBus(c+942,"ysyx_22040750 io_sram2_addr", false,-1, 5,0);
-        tracep->declBit(c+945,"ysyx_22040750 io_sram2_cen", false,-1);
+        tracep->declBus(c+943,"ysyx_22040750 io_sram2_addr", false,-1, 5,0);
+        tracep->declBit(c+946,"ysyx_22040750 io_sram2_cen", false,-1);
         tracep->declBit(c+27,"ysyx_22040750 io_sram2_wen", false,-1);
         tracep->declArray(c+2,"ysyx_22040750 io_sram2_wmask", false,-1, 127,0);
         tracep->declArray(c+6,"ysyx_22040750 io_sram2_wdata", false,-1, 127,0);
         tracep->declArray(c+28,"ysyx_22040750 io_sram2_rdata", false,-1, 127,0);
-        tracep->declBus(c+942,"ysyx_22040750 io_sram3_addr", false,-1, 5,0);
-        tracep->declBit(c+946,"ysyx_22040750 io_sram3_cen", false,-1);
+        tracep->declBus(c+943,"ysyx_22040750 io_sram3_addr", false,-1, 5,0);
+        tracep->declBit(c+947,"ysyx_22040750 io_sram3_cen", false,-1);
         tracep->declBit(c+32,"ysyx_22040750 io_sram3_wen", false,-1);
         tracep->declArray(c+15,"ysyx_22040750 io_sram3_wmask", false,-1, 127,0);
         tracep->declArray(c+19,"ysyx_22040750 io_sram3_wdata", false,-1, 127,0);
         tracep->declArray(c+33,"ysyx_22040750 io_sram3_rdata", false,-1, 127,0);
         tracep->declBus(c+37,"ysyx_22040750 io_sram4_addr", false,-1, 5,0);
-        tracep->declBit(c+947,"ysyx_22040750 io_sram4_cen", false,-1);
+        tracep->declBit(c+948,"ysyx_22040750 io_sram4_cen", false,-1);
         tracep->declBit(c+38,"ysyx_22040750 io_sram4_wen", false,-1);
         tracep->declArray(c+39,"ysyx_22040750 io_sram4_wmask", false,-1, 127,0);
         tracep->declArray(c+43,"ysyx_22040750 io_sram4_wdata", false,-1, 127,0);
         tracep->declArray(c+47,"ysyx_22040750 io_sram4_rdata", false,-1, 127,0);
         tracep->declBus(c+37,"ysyx_22040750 io_sram5_addr", false,-1, 5,0);
-        tracep->declBit(c+948,"ysyx_22040750 io_sram5_cen", false,-1);
+        tracep->declBit(c+949,"ysyx_22040750 io_sram5_cen", false,-1);
         tracep->declBit(c+51,"ysyx_22040750 io_sram5_wen", false,-1);
         tracep->declArray(c+52,"ysyx_22040750 io_sram5_wmask", false,-1, 127,0);
         tracep->declArray(c+56,"ysyx_22040750 io_sram5_wdata", false,-1, 127,0);
         tracep->declArray(c+60,"ysyx_22040750 io_sram5_rdata", false,-1, 127,0);
         tracep->declBus(c+37,"ysyx_22040750 io_sram6_addr", false,-1, 5,0);
-        tracep->declBit(c+949,"ysyx_22040750 io_sram6_cen", false,-1);
+        tracep->declBit(c+950,"ysyx_22040750 io_sram6_cen", false,-1);
         tracep->declBit(c+64,"ysyx_22040750 io_sram6_wen", false,-1);
         tracep->declArray(c+39,"ysyx_22040750 io_sram6_wmask", false,-1, 127,0);
         tracep->declArray(c+43,"ysyx_22040750 io_sram6_wdata", false,-1, 127,0);
         tracep->declArray(c+65,"ysyx_22040750 io_sram6_rdata", false,-1, 127,0);
         tracep->declBus(c+37,"ysyx_22040750 io_sram7_addr", false,-1, 5,0);
-        tracep->declBit(c+950,"ysyx_22040750 io_sram7_cen", false,-1);
+        tracep->declBit(c+951,"ysyx_22040750 io_sram7_cen", false,-1);
         tracep->declBit(c+69,"ysyx_22040750 io_sram7_wen", false,-1);
         tracep->declArray(c+52,"ysyx_22040750 io_sram7_wmask", false,-1, 127,0);
         tracep->declArray(c+56,"ysyx_22040750 io_sram7_wdata", false,-1, 127,0);
         tracep->declArray(c+70,"ysyx_22040750 io_sram7_rdata", false,-1, 127,0);
-        tracep->declBus(c+942,"ysyx_22040750 iaddr", false,-1, 5,0);
+        tracep->declBus(c+943,"ysyx_22040750 iaddr", false,-1, 5,0);
         tracep->declBus(c+37,"ysyx_22040750 daddr", false,-1, 5,0);
         tracep->declBus(c+74,"ysyx_22040750 cpu_inst", false,-1, 31,0);
         tracep->declBus(c+75,"ysyx_22040750 cpu_pc", false,-1, 31,0);
         tracep->declBit(c+76,"ysyx_22040750 cpu_inst_valid", false,-1);
-        tracep->declBit(c+951,"ysyx_22040750 cpu_pc_valid", false,-1);
+        tracep->declBit(c+952,"ysyx_22040750 cpu_pc_valid", false,-1);
         tracep->declBit(c+77,"ysyx_22040750 cpu_pc_ready", false,-1);
         tracep->declBus(c+78,"ysyx_22040750 mem_addr", false,-1, 31,0);
         tracep->declBit(c+79,"ysyx_22040750 cpu_rreq", false,-1);
@@ -215,7 +215,7 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBit(c+77,"ysyx_22040750 cpu_core_e I_pc_ready", false,-1);
         tracep->declBit(c+83,"ysyx_22040750 cpu_core_e I_mem_ready", false,-1);
         tracep->declBus(c+75,"ysyx_22040750 cpu_core_e O_pc", false,-1, 31,0);
-        tracep->declBit(c+951,"ysyx_22040750 cpu_core_e O_pc_valid", false,-1);
+        tracep->declBit(c+952,"ysyx_22040750 cpu_core_e O_pc_valid", false,-1);
         tracep->declBus(c+78,"ysyx_22040750 cpu_core_e O_mem_addr", false,-1, 31,0);
         tracep->declBit(c+79,"ysyx_22040750 cpu_core_e O_mem_rd_en", false,-1);
         tracep->declBit(c+80,"ysyx_22040750 cpu_core_e O_mem_wen", false,-1);
@@ -264,7 +264,7 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBit(c+131,"ysyx_22040750 cpu_core_e IF_valid", false,-1);
         tracep->declBus(c+132,"ysyx_22040750 cpu_core_e IF_ID_pc", false,-1, 31,0);
         tracep->declBus(c+133,"ysyx_22040750 cpu_core_e IF_ID_inst", false,-1, 31,0);
-        tracep->declBit(c+952,"ysyx_22040750 cpu_core_e IF_ID_allowin", false,-1);
+        tracep->declBit(c+953,"ysyx_22040750 cpu_core_e IF_ID_allowin", false,-1);
         tracep->declBit(c+134,"ysyx_22040750 cpu_core_e IF_ID_valid", false,-1);
         tracep->declBit(c+135,"ysyx_22040750 cpu_core_e IF_ID_stall", false,-1);
         tracep->declBit(c+136,"ysyx_22040750 cpu_core_e IF_ID_bubble", false,-1);
@@ -286,7 +286,7 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBit(c+156,"ysyx_22040750 cpu_core_e ID_EX_mem_wen", false,-1);
         tracep->declBit(c+157,"ysyx_22040750 cpu_core_e ID_EX_word_op_mask", false,-1);
         tracep->declBit(c+158,"ysyx_22040750 cpu_core_e ID_EX_valid", false,-1);
-        tracep->declBit(c+953,"ysyx_22040750 cpu_core_e ID_EX_allowin", false,-1);
+        tracep->declBit(c+954,"ysyx_22040750 cpu_core_e ID_EX_allowin", false,-1);
         tracep->declBus(c+159,"ysyx_22040750 cpu_core_e ID_EX_stall", false,-1, 1,0);
         tracep->declBus(c+160,"ysyx_22040750 cpu_core_e ID_EX_inst", false,-1, 31,0);
         tracep->declBit(c+161,"ysyx_22040750 cpu_core_e ID_EX_bubble", false,-1);
@@ -300,7 +300,7 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBus(c+169,"ysyx_22040750 cpu_core_e ID_EX_csr_op_sel", false,-1, 6,0);
         tracep->declBus(c+170,"ysyx_22040750 cpu_core_e ID_EX_csr_uimm", false,-1, 4,0);
         tracep->declQuad(c+171,"ysyx_22040750 cpu_core_e ID_EX_csr_intr_no", false,-1, 63,0);
-        tracep->declBit(c+954,"ysyx_22040750 cpu_core_e EX_MEM_valid", false,-1);
+        tracep->declBit(c+955,"ysyx_22040750 cpu_core_e EX_MEM_valid", false,-1);
         tracep->declBus(c+173,"ysyx_22040750 cpu_core_e EX_MEM_rstrb", false,-1, 8,0);
         tracep->declBus(c+174,"ysyx_22040750 cpu_core_e EX_MEM_wstrb", false,-1, 7,0);
         tracep->declBus(c+78,"ysyx_22040750 cpu_core_e EX_MEM_mem_addr", false,-1, 31,0);
@@ -316,7 +316,7 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBus(c+182,"ysyx_22040750 cpu_core_e EX_MEM_rd_addr", false,-1, 4,0);
         tracep->declBus(c+183,"ysyx_22040750 cpu_core_e EX_MEM_regin_sel", false,-1, 2,0);
         tracep->declBus(c+184,"ysyx_22040750 cpu_core_e EX_MEM_shamt", false,-1, 2,0);
-        tracep->declBit(c+955,"ysyx_22040750 cpu_core_e EX_MEM_allowin", false,-1);
+        tracep->declBit(c+956,"ysyx_22040750 cpu_core_e EX_MEM_allowin", false,-1);
         tracep->declBus(c+185,"ysyx_22040750 cpu_core_e EX_MEM_stall", false,-1, 1,0);
         tracep->declBus(c+186,"ysyx_22040750 cpu_core_e EX_MEM_inst", false,-1, 31,0);
         tracep->declBit(c+187,"ysyx_22040750 cpu_core_e EX_MEM_bubble", false,-1);
@@ -355,7 +355,7 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBus(c+227,"ysyx_22040750 cpu_core_e MEM_WB_mem_addr", false,-1, 31,0);
         tracep->declBit(c+989,"ysyx_22040750 cpu_core_e npc_e I_clk", false,-1);
         tracep->declBit(c+990,"ysyx_22040750 cpu_core_e npc_e I_rst", false,-1);
-        tracep->declBit(c+951,"ysyx_22040750 cpu_core_e npc_e I_pc_valid", false,-1);
+        tracep->declBit(c+952,"ysyx_22040750 cpu_core_e npc_e I_pc_valid", false,-1);
         tracep->declBit(c+77,"ysyx_22040750 cpu_core_e npc_e I_pc_ready", false,-1);
         tracep->declBit(c+228,"ysyx_22040750 cpu_core_e npc_e I_IF_ID_valid", false,-1);
         tracep->declQuad(c+219,"ysyx_22040750 cpu_core_e npc_e I_rs1_data", false,-1, 63,0);
@@ -366,7 +366,7 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBus(c+86,"ysyx_22040750 cpu_core_e npc_e I_snpc", false,-1, 31,0);
         tracep->declBus(c+113,"ysyx_22040750 cpu_core_e npc_e I_dnpc_sel", false,-1, 4,0);
         tracep->declBus(c+75,"ysyx_22040750 cpu_core_e npc_e O_dnpc", false,-1, 31,0);
-        tracep->declBit(c+956,"ysyx_22040750 cpu_core_e npc_e pc_handshake", false,-1);
+        tracep->declBit(c+936,"ysyx_22040750 cpu_core_e npc_e pc_handshake", false,-1);
         tracep->declBus(c+229,"ysyx_22040750 cpu_core_e npc_e dnpc_src1", false,-1, 31,0);
         tracep->declBus(c+230,"ysyx_22040750 cpu_core_e npc_e dnpc_src2", false,-1, 31,0);
         tracep->declBus(c+231,"ysyx_22040750 cpu_core_e npc_e dnpc_sum", false,-1, 31,0);
@@ -390,14 +390,14 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBus(c+74,"ysyx_22040750 cpu_core_e pc_e I_inst", false,-1, 31,0);
         tracep->declBit(c+76,"ysyx_22040750 cpu_core_e pc_e I_inst_valid", false,-1);
         tracep->declBit(c+77,"ysyx_22040750 cpu_core_e pc_e I_inst_ready", false,-1);
-        tracep->declBit(c+952,"ysyx_22040750 cpu_core_e pc_e I_IF_ID_allowin", false,-1);
+        tracep->declBit(c+953,"ysyx_22040750 cpu_core_e pc_e I_IF_ID_allowin", false,-1);
         tracep->declBit(c+131,"ysyx_22040750 cpu_core_e pc_e O_IF_valid", false,-1);
         tracep->declBus(c+85,"ysyx_22040750 cpu_core_e pc_e O_pc", false,-1, 31,0);
         tracep->declBus(c+87,"ysyx_22040750 cpu_core_e pc_e O_inst", false,-1, 31,0);
-        tracep->declBit(c+951,"ysyx_22040750 cpu_core_e pc_e O_pc_valid", false,-1);
+        tracep->declBit(c+952,"ysyx_22040750 cpu_core_e pc_e O_pc_valid", false,-1);
         tracep->declBus(c+1063,"ysyx_22040750 cpu_core_e pc_e PC_RESET", false,-1, 31,0);
         tracep->declBit(c+244,"ysyx_22040750 cpu_core_e pc_e IF_ready_go", false,-1);
-        tracep->declBit(c+936,"ysyx_22040750 cpu_core_e pc_e IF_allow_in", false,-1);
+        tracep->declBit(c+937,"ysyx_22040750 cpu_core_e pc_e IF_allow_in", false,-1);
         tracep->declBit(c+958,"ysyx_22040750 cpu_core_e pc_e IF_handshake", false,-1);
         tracep->declBit(c+245,"ysyx_22040750 cpu_core_e pc_e IF_valid", false,-1);
         tracep->declBit(c+246,"ysyx_22040750 cpu_core_e pc_e IF_en", false,-1);
@@ -408,10 +408,10 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBus(c+85,"ysyx_22040750 cpu_core_e IF_ID_reg_e I_pc", false,-1, 31,0);
         tracep->declBus(c+87,"ysyx_22040750 cpu_core_e IF_ID_reg_e I_inst", false,-1, 31,0);
         tracep->declBit(c+131,"ysyx_22040750 cpu_core_e IF_ID_reg_e I_IF_ID_valid", false,-1);
-        tracep->declBit(c+953,"ysyx_22040750 cpu_core_e IF_ID_reg_e I_IF_ID_allowout", false,-1);
+        tracep->declBit(c+954,"ysyx_22040750 cpu_core_e IF_ID_reg_e I_IF_ID_allowout", false,-1);
         tracep->declBit(c+135,"ysyx_22040750 cpu_core_e IF_ID_reg_e I_IF_ID_stall", false,-1);
         tracep->declBit(c+249,"ysyx_22040750 cpu_core_e IF_ID_reg_e I_IF_ID_jmp", false,-1);
-        tracep->declBit(c+952,"ysyx_22040750 cpu_core_e IF_ID_reg_e O_IF_ID_allowin", false,-1);
+        tracep->declBit(c+953,"ysyx_22040750 cpu_core_e IF_ID_reg_e O_IF_ID_allowin", false,-1);
         tracep->declBus(c+132,"ysyx_22040750 cpu_core_e IF_ID_reg_e O_pc", false,-1, 31,0);
         tracep->declBus(c+133,"ysyx_22040750 cpu_core_e IF_ID_reg_e O_inst", false,-1, 31,0);
         tracep->declBit(c+136,"ysyx_22040750 cpu_core_e IF_ID_reg_e O_bubble_inst_debug", false,-1);
@@ -645,8 +645,8 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBit(c+989,"ysyx_22040750 cpu_core_e ID_EX_reg_e I_sys_clk", false,-1);
         tracep->declBit(c+990,"ysyx_22040750 cpu_core_e ID_EX_reg_e I_rst", false,-1);
         tracep->declBit(c+134,"ysyx_22040750 cpu_core_e ID_EX_reg_e I_ID_EX_valid", false,-1);
-        tracep->declBit(c+955,"ysyx_22040750 cpu_core_e ID_EX_reg_e I_ID_EX_allowout", false,-1);
-        tracep->declBit(c+953,"ysyx_22040750 cpu_core_e ID_EX_reg_e O_ID_EX_allowin", false,-1);
+        tracep->declBit(c+956,"ysyx_22040750 cpu_core_e ID_EX_reg_e I_ID_EX_allowout", false,-1);
+        tracep->declBit(c+954,"ysyx_22040750 cpu_core_e ID_EX_reg_e O_ID_EX_allowin", false,-1);
         tracep->declBit(c+158,"ysyx_22040750 cpu_core_e ID_EX_reg_e O_ID_EX_valid", false,-1);
         tracep->declBit(c+164,"ysyx_22040750 cpu_core_e ID_EX_reg_e I_alu_output_valid", false,-1);
         tracep->declQuad(c+88,"ysyx_22040750 cpu_core_e ID_EX_reg_e I_imm", false,-1, 63,0);
@@ -727,7 +727,7 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBus(c+153,"ysyx_22040750 cpu_core_e alu_e I_alu_op_sext", false,-1, 1,0);
         tracep->declBit(c+157,"ysyx_22040750 cpu_core_e alu_e I_word_op_mask", false,-1);
         tracep->declBit(c+163,"ysyx_22040750 cpu_core_e alu_e I_multicycle", false,-1);
-        tracep->declBit(c+955,"ysyx_22040750 cpu_core_e alu_e I_EX_MEM_ready", false,-1);
+        tracep->declBit(c+956,"ysyx_22040750 cpu_core_e alu_e I_EX_MEM_ready", false,-1);
         tracep->declQuad(c+144,"ysyx_22040750 cpu_core_e alu_e I_csr_data", false,-1, 63,0);
         tracep->declBus(c+170,"ysyx_22040750 cpu_core_e alu_e I_uimm", false,-1, 4,0);
         tracep->declBus(c+169,"ysyx_22040750 cpu_core_e alu_e I_csr_op_sel", false,-1, 6,0);
@@ -743,7 +743,7 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBus(c+153,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e I_alu_op_sext", false,-1, 1,0);
         tracep->declBit(c+157,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e I_word_op_mask", false,-1);
         tracep->declBit(c+163,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e I_multicycle", false,-1);
-        tracep->declBit(c+955,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e I_EX_MEM_ready", false,-1);
+        tracep->declBit(c+956,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e I_EX_MEM_ready", false,-1);
         tracep->declQuad(c+100,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e O_result", false,-1, 63,0);
         tracep->declBit(c+164,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e O_result_valid", false,-1);
         tracep->declBit(c+397,"ysyx_22040750 cpu_core_e alu_e gpr_alu_e op_add", false,-1);
@@ -893,8 +893,8 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBit(c+990,"ysyx_22040750 cpu_core_e EX_MEM_reg_e I_rst", false,-1);
         tracep->declBit(c+158,"ysyx_22040750 cpu_core_e EX_MEM_reg_e I_EX_MEM_valid", false,-1);
         tracep->declBit(c+208,"ysyx_22040750 cpu_core_e EX_MEM_reg_e I_EX_MEM_allowout", false,-1);
-        tracep->declBit(c+955,"ysyx_22040750 cpu_core_e EX_MEM_reg_e O_EX_MEM_allowin", false,-1);
-        tracep->declBit(c+954,"ysyx_22040750 cpu_core_e EX_MEM_reg_e O_EX_MEM_valid", false,-1);
+        tracep->declBit(c+956,"ysyx_22040750 cpu_core_e EX_MEM_reg_e O_EX_MEM_allowin", false,-1);
+        tracep->declBit(c+955,"ysyx_22040750 cpu_core_e EX_MEM_reg_e O_EX_MEM_valid", false,-1);
         tracep->declBus(c+149,"ysyx_22040750 cpu_core_e EX_MEM_reg_e I_rstrb", false,-1, 8,0);
         tracep->declBus(c+148,"ysyx_22040750 cpu_core_e EX_MEM_reg_e I_wstrb", false,-1, 7,0);
         tracep->declQuad(c+100,"ysyx_22040750 cpu_core_e EX_MEM_reg_e I_alu_out", false,-1, 63,0);
@@ -946,7 +946,7 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declQuad(c+81,"ysyx_22040750 cpu_core_e mem_sd_e O_sd_data", false,-1, 63,0);
         tracep->declBit(c+989,"ysyx_22040750 cpu_core_e MEM_WB_reg_e I_sys_clk", false,-1);
         tracep->declBit(c+990,"ysyx_22040750 cpu_core_e MEM_WB_reg_e I_rst", false,-1);
-        tracep->declBit(c+954,"ysyx_22040750 cpu_core_e MEM_WB_reg_e I_MEM_WB_valid", false,-1);
+        tracep->declBit(c+955,"ysyx_22040750 cpu_core_e MEM_WB_reg_e I_MEM_WB_valid", false,-1);
         tracep->declBit(c+208,"ysyx_22040750 cpu_core_e MEM_WB_reg_e O_MEM_WB_allowin", false,-1);
         tracep->declBit(c+196,"ysyx_22040750 cpu_core_e MEM_WB_reg_e O_MEM_WB_valid", false,-1);
         tracep->declBus(c+180,"ysyx_22040750 cpu_core_e MEM_WB_reg_e I_pc", false,-1, 31,0);
@@ -1051,7 +1051,7 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBit(c+989,"ysyx_22040750 cache_e I_clk", false,-1);
         tracep->declBit(c+990,"ysyx_22040750 cache_e I_rst", false,-1);
         tracep->declBus(c+75,"ysyx_22040750 cache_e I_cpu_pc", false,-1, 31,0);
-        tracep->declBit(c+951,"ysyx_22040750 cache_e I_cpu_pc_valid", false,-1);
+        tracep->declBit(c+952,"ysyx_22040750 cache_e I_cpu_pc_valid", false,-1);
         tracep->declBit(c+77,"ysyx_22040750 cache_e O_cpu_pc_ready", false,-1);
         tracep->declBit(c+83,"ysyx_22040750 cache_e O_cpu_mem_ready", false,-1);
         tracep->declBus(c+78,"ysyx_22040750 cache_e I_cpu_addr", false,-1, 31,0);
@@ -1067,7 +1067,7 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declArray(c+60,"ysyx_22040750 cache_e I_sram5_rdata", false,-1, 127,0);
         tracep->declArray(c+65,"ysyx_22040750 cache_e I_sram6_rdata", false,-1, 127,0);
         tracep->declArray(c+70,"ysyx_22040750 cache_e I_sram7_rdata", false,-1, 127,0);
-        tracep->declBus(c+942,"ysyx_22040750 cache_e O_sram_iaddr", false,-1, 5,0);
+        tracep->declBus(c+943,"ysyx_22040750 cache_e O_sram_iaddr", false,-1, 5,0);
         tracep->declBus(c+37,"ysyx_22040750 cache_e O_sram_daddr", false,-1, 5,0);
         tracep->declBus(c+960,"ysyx_22040750 cache_e O_sram_cen", false,-1, 7,0);
         tracep->declBus(c+705,"ysyx_22040750 cache_e O_sram_wen", false,-1, 7,0);
@@ -1119,7 +1119,7 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declArray(c+715,"ysyx_22040750 cache_e icache_way1_rdata", false,-1, 255,0);
         tracep->declArray(c+723,"ysyx_22040750 cache_e icache_wdata", false,-1, 255,0);
         tracep->declArray(c+731,"ysyx_22040750 cache_e icache_wmask", false,-1, 255,0);
-        tracep->declBus(c+937,"ysyx_22040750 cache_e dcache_cen", false,-1, 3,0);
+        tracep->declBus(c+938,"ysyx_22040750 cache_e dcache_cen", false,-1, 3,0);
         tracep->declBus(c+739,"ysyx_22040750 cache_e dcache_wen", false,-1, 3,0);
         tracep->declArray(c+740,"ysyx_22040750 cache_e dcache_way0_rdata", false,-1, 255,0);
         tracep->declArray(c+748,"ysyx_22040750 cache_e dcache_way1_rdata", false,-1, 255,0);
@@ -1196,8 +1196,8 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBit(c+786,"ysyx_22040750 cache_e crossbar_e req_both", false,-1);
         tracep->declBit(c+787,"ysyx_22040750 cache_e crossbar_e resp0", false,-1);
         tracep->declBit(c+788,"ysyx_22040750 cache_e crossbar_e resp1", false,-1);
-        tracep->declBit(c+938,"ysyx_22040750 cache_e crossbar_e ch0_arhandshake", false,-1);
-        tracep->declBit(c+939,"ysyx_22040750 cache_e crossbar_e ch1_arhandshake", false,-1);
+        tracep->declBit(c+939,"ysyx_22040750 cache_e crossbar_e ch0_arhandshake", false,-1);
+        tracep->declBit(c+940,"ysyx_22040750 cache_e crossbar_e ch1_arhandshake", false,-1);
         tracep->declBit(c+970,"ysyx_22040750 cache_e crossbar_e ch0_last_handshake", false,-1);
         tracep->declBit(c+971,"ysyx_22040750 cache_e crossbar_e ch1_last_handshake", false,-1);
         tracep->declBit(c+789,"ysyx_22040750 cache_e crossbar_e ch0_process", false,-1);
@@ -1213,11 +1213,11 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBit(c+989,"ysyx_22040750 cache_e icache_e I_clk", false,-1);
         tracep->declBit(c+990,"ysyx_22040750 cache_e icache_e I_rst", false,-1);
         tracep->declBus(c+75,"ysyx_22040750 cache_e icache_e I_cpu_addr", false,-1, 31,0);
-        tracep->declBit(c+951,"ysyx_22040750 cache_e icache_e I_cpu_rd_req", false,-1);
+        tracep->declBit(c+952,"ysyx_22040750 cache_e icache_e I_cpu_rd_req", false,-1);
         tracep->declBit(c+77,"ysyx_22040750 cache_e icache_e O_cpu_rd_ready", false,-1);
         tracep->declArray(c+707,"ysyx_22040750 cache_e icache_e I_way0_rdata", false,-1, 255,0);
         tracep->declArray(c+715,"ysyx_22040750 cache_e icache_e I_way1_rdata", false,-1, 255,0);
-        tracep->declBus(c+942,"ysyx_22040750 cache_e icache_e O_sram_addr", false,-1, 5,0);
+        tracep->declBus(c+943,"ysyx_22040750 cache_e icache_e O_sram_addr", false,-1, 5,0);
         tracep->declBus(c+961,"ysyx_22040750 cache_e icache_e O_sram_cen", false,-1, 3,0);
         tracep->declBus(c+706,"ysyx_22040750 cache_e icache_e O_sram_wen", false,-1, 3,0);
         tracep->declArray(c+723,"ysyx_22040750 cache_e icache_e O_sram_wdata", false,-1, 255,0);
@@ -1255,7 +1255,7 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declArray(c+723,"ysyx_22040750 cache_e icache_e cacheline_reg", false,-1, 255,0);
         tracep->declBit(c+974,"ysyx_22040750 cache_e icache_e rd_hit", false,-1);
         tracep->declBit(c+975,"ysyx_22040750 cache_e icache_e rd_miss", false,-1);
-        tracep->declBit(c+938,"ysyx_22040750 cache_e icache_e rd_handshake", false,-1);
+        tracep->declBit(c+939,"ysyx_22040750 cache_e icache_e rd_handshake", false,-1);
         tracep->declBit(c+826,"ysyx_22040750 cache_e icache_e rd_reload", false,-1);
         tracep->declBit(c+827,"ysyx_22040750 cache_e icache_e rd_allocate", false,-1);
         tracep->declBit(c+958,"ysyx_22040750 cache_e icache_e pc_handshake", false,-1);
@@ -1285,7 +1285,7 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declArray(c+740,"ysyx_22040750 cache_e dcache_e I_way0_rdata", false,-1, 255,0);
         tracep->declArray(c+748,"ysyx_22040750 cache_e dcache_e I_way1_rdata", false,-1, 255,0);
         tracep->declBus(c+37,"ysyx_22040750 cache_e dcache_e O_sram_addr", false,-1, 5,0);
-        tracep->declBus(c+937,"ysyx_22040750 cache_e dcache_e O_sram_cen", false,-1, 3,0);
+        tracep->declBus(c+938,"ysyx_22040750 cache_e dcache_e O_sram_cen", false,-1, 3,0);
         tracep->declBus(c+739,"ysyx_22040750 cache_e dcache_e O_sram_wen", false,-1, 3,0);
         tracep->declArray(c+756,"ysyx_22040750 cache_e dcache_e O_sram_wdata", false,-1, 255,0);
         tracep->declArray(c+764,"ysyx_22040750 cache_e dcache_e O_sram_wmask", false,-1, 255,0);
@@ -1357,10 +1357,10 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declArray(c+756,"ysyx_22040750 cache_e dcache_e cacheline_reg", false,-1, 255,0);
         tracep->declQuad(c+867,"ysyx_22040750 cache_e dcache_e cpu_reg", false,-1, 63,0);
         tracep->declBus(c+869,"ysyx_22040750 cache_e dcache_e cpu_mask_reg", false,-1, 7,0);
-        tracep->declBus(c+937,"ysyx_22040750 cache_e dcache_e cen_dcache", false,-1, 3,0);
+        tracep->declBus(c+938,"ysyx_22040750 cache_e dcache_e cen_dcache", false,-1, 3,0);
         tracep->declBus(c+739,"ysyx_22040750 cache_e dcache_e wen_dcache", false,-1, 3,0);
         tracep->declBit(c+870,"ysyx_22040750 cache_e dcache_e sram_wflag", false,-1);
-        tracep->declBit(c+940,"ysyx_22040750 cache_e dcache_e sram_rflag", false,-1);
+        tracep->declBit(c+941,"ysyx_22040750 cache_e dcache_e sram_rflag", false,-1);
         tracep->declArray(c+871,"ysyx_22040750 cache_e dcache_e valid_table", false,-1, 127,0);
         tracep->declArray(c+875,"ysyx_22040750 cache_e dcache_e dirty_table", false,-1, 127,0);
         tracep->declBus(c+879,"ysyx_22040750 cache_e dcache_e way0_tag", false,-1, 20,0);
@@ -1378,7 +1378,7 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBus(c+1080,"ysyx_22040750 cache_e dcache_e WB_HANDSHAKE", false,-1, 2,0);
         tracep->declBus(c+1081,"ysyx_22040750 cache_e dcache_e WB_DATA", false,-1, 2,0);
         tracep->declBus(c+890,"ysyx_22040750 cache_e dcache_e wb_state", false,-1, 2,0);
-        tracep->declBus(c+941,"ysyx_22040750 cache_e dcache_e wb_next_state", false,-1, 2,0);
+        tracep->declBus(c+942,"ysyx_22040750 cache_e dcache_e wb_next_state", false,-1, 2,0);
         tracep->declBit(c+891,"ysyx_22040750 cache_e dcache_e mem_ar_req", false,-1);
         tracep->declBit(c+892,"ysyx_22040750 cache_e dcache_e mem_aw_req", false,-1);
         tracep->declBit(c+979,"ysyx_22040750 cache_e dcache_e aw_handshake", false,-1);
@@ -1399,10 +1399,10 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBus(c+1104,"ysyx_22040750 sram0 Wen_Width", false,-1, 31,0);
         tracep->declArray(c+10,"ysyx_22040750 sram0 Q", false,-1, 127,0);
         tracep->declBit(c+989,"ysyx_22040750 sram0 CLK", false,-1);
-        tracep->declBit(c+943,"ysyx_22040750 sram0 CEN", false,-1);
+        tracep->declBit(c+944,"ysyx_22040750 sram0 CEN", false,-1);
         tracep->declBit(c+1,"ysyx_22040750 sram0 WEN", false,-1);
         tracep->declArray(c+2,"ysyx_22040750 sram0 BWEN", false,-1, 127,0);
-        tracep->declBus(c+942,"ysyx_22040750 sram0 A", false,-1, 5,0);
+        tracep->declBus(c+943,"ysyx_22040750 sram0 A", false,-1, 5,0);
         tracep->declArray(c+6,"ysyx_22040750 sram0 D", false,-1, 127,0);
         tracep->declBit(c+981,"ysyx_22040750 sram0 cen", false,-1);
         tracep->declBit(c+909,"ysyx_22040750 sram0 wen", false,-1);
@@ -1413,10 +1413,10 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBus(c+1104,"ysyx_22040750 sram1 Wen_Width", false,-1, 31,0);
         tracep->declArray(c+23,"ysyx_22040750 sram1 Q", false,-1, 127,0);
         tracep->declBit(c+989,"ysyx_22040750 sram1 CLK", false,-1);
-        tracep->declBit(c+944,"ysyx_22040750 sram1 CEN", false,-1);
+        tracep->declBit(c+945,"ysyx_22040750 sram1 CEN", false,-1);
         tracep->declBit(c+14,"ysyx_22040750 sram1 WEN", false,-1);
         tracep->declArray(c+15,"ysyx_22040750 sram1 BWEN", false,-1, 127,0);
-        tracep->declBus(c+942,"ysyx_22040750 sram1 A", false,-1, 5,0);
+        tracep->declBus(c+943,"ysyx_22040750 sram1 A", false,-1, 5,0);
         tracep->declArray(c+19,"ysyx_22040750 sram1 D", false,-1, 127,0);
         tracep->declBit(c+982,"ysyx_22040750 sram1 cen", false,-1);
         tracep->declBit(c+914,"ysyx_22040750 sram1 wen", false,-1);
@@ -1427,10 +1427,10 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBus(c+1104,"ysyx_22040750 sram2 Wen_Width", false,-1, 31,0);
         tracep->declArray(c+28,"ysyx_22040750 sram2 Q", false,-1, 127,0);
         tracep->declBit(c+989,"ysyx_22040750 sram2 CLK", false,-1);
-        tracep->declBit(c+945,"ysyx_22040750 sram2 CEN", false,-1);
+        tracep->declBit(c+946,"ysyx_22040750 sram2 CEN", false,-1);
         tracep->declBit(c+27,"ysyx_22040750 sram2 WEN", false,-1);
         tracep->declArray(c+2,"ysyx_22040750 sram2 BWEN", false,-1, 127,0);
-        tracep->declBus(c+942,"ysyx_22040750 sram2 A", false,-1, 5,0);
+        tracep->declBus(c+943,"ysyx_22040750 sram2 A", false,-1, 5,0);
         tracep->declArray(c+6,"ysyx_22040750 sram2 D", false,-1, 127,0);
         tracep->declBit(c+983,"ysyx_22040750 sram2 cen", false,-1);
         tracep->declBit(c+919,"ysyx_22040750 sram2 wen", false,-1);
@@ -1441,10 +1441,10 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBus(c+1104,"ysyx_22040750 sram3 Wen_Width", false,-1, 31,0);
         tracep->declArray(c+33,"ysyx_22040750 sram3 Q", false,-1, 127,0);
         tracep->declBit(c+989,"ysyx_22040750 sram3 CLK", false,-1);
-        tracep->declBit(c+946,"ysyx_22040750 sram3 CEN", false,-1);
+        tracep->declBit(c+947,"ysyx_22040750 sram3 CEN", false,-1);
         tracep->declBit(c+32,"ysyx_22040750 sram3 WEN", false,-1);
         tracep->declArray(c+15,"ysyx_22040750 sram3 BWEN", false,-1, 127,0);
-        tracep->declBus(c+942,"ysyx_22040750 sram3 A", false,-1, 5,0);
+        tracep->declBus(c+943,"ysyx_22040750 sram3 A", false,-1, 5,0);
         tracep->declArray(c+19,"ysyx_22040750 sram3 D", false,-1, 127,0);
         tracep->declBit(c+984,"ysyx_22040750 sram3 cen", false,-1);
         tracep->declBit(c+920,"ysyx_22040750 sram3 wen", false,-1);
@@ -1455,7 +1455,7 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBus(c+1104,"ysyx_22040750 sram4 Wen_Width", false,-1, 31,0);
         tracep->declArray(c+47,"ysyx_22040750 sram4 Q", false,-1, 127,0);
         tracep->declBit(c+989,"ysyx_22040750 sram4 CLK", false,-1);
-        tracep->declBit(c+947,"ysyx_22040750 sram4 CEN", false,-1);
+        tracep->declBit(c+948,"ysyx_22040750 sram4 CEN", false,-1);
         tracep->declBit(c+38,"ysyx_22040750 sram4 WEN", false,-1);
         tracep->declArray(c+39,"ysyx_22040750 sram4 BWEN", false,-1, 127,0);
         tracep->declBus(c+37,"ysyx_22040750 sram4 A", false,-1, 5,0);
@@ -1469,7 +1469,7 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBus(c+1104,"ysyx_22040750 sram5 Wen_Width", false,-1, 31,0);
         tracep->declArray(c+60,"ysyx_22040750 sram5 Q", false,-1, 127,0);
         tracep->declBit(c+989,"ysyx_22040750 sram5 CLK", false,-1);
-        tracep->declBit(c+948,"ysyx_22040750 sram5 CEN", false,-1);
+        tracep->declBit(c+949,"ysyx_22040750 sram5 CEN", false,-1);
         tracep->declBit(c+51,"ysyx_22040750 sram5 WEN", false,-1);
         tracep->declArray(c+52,"ysyx_22040750 sram5 BWEN", false,-1, 127,0);
         tracep->declBus(c+37,"ysyx_22040750 sram5 A", false,-1, 5,0);
@@ -1483,7 +1483,7 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBus(c+1104,"ysyx_22040750 sram6 Wen_Width", false,-1, 31,0);
         tracep->declArray(c+65,"ysyx_22040750 sram6 Q", false,-1, 127,0);
         tracep->declBit(c+989,"ysyx_22040750 sram6 CLK", false,-1);
-        tracep->declBit(c+949,"ysyx_22040750 sram6 CEN", false,-1);
+        tracep->declBit(c+950,"ysyx_22040750 sram6 CEN", false,-1);
         tracep->declBit(c+64,"ysyx_22040750 sram6 WEN", false,-1);
         tracep->declArray(c+39,"ysyx_22040750 sram6 BWEN", false,-1, 127,0);
         tracep->declBus(c+37,"ysyx_22040750 sram6 A", false,-1, 5,0);
@@ -1497,7 +1497,7 @@ void Vysyx_22040750___024root__traceInitSub0(Vysyx_22040750___024root* vlSelf, V
         tracep->declBus(c+1104,"ysyx_22040750 sram7 Wen_Width", false,-1, 31,0);
         tracep->declArray(c+70,"ysyx_22040750 sram7 Q", false,-1, 127,0);
         tracep->declBit(c+989,"ysyx_22040750 sram7 CLK", false,-1);
-        tracep->declBit(c+950,"ysyx_22040750 sram7 CEN", false,-1);
+        tracep->declBit(c+951,"ysyx_22040750 sram7 CEN", false,-1);
         tracep->declBit(c+69,"ysyx_22040750 sram7 WEN", false,-1);
         tracep->declArray(c+52,"ysyx_22040750 sram7 BWEN", false,-1, 127,0);
         tracep->declBus(c+37,"ysyx_22040750 sram7 A", false,-1, 5,0);
@@ -3939,10 +3939,12 @@ void Vysyx_22040750___024root__traceFullSub0(Vysyx_22040750___024root* vlSelf, V
                                          | ((0x2000U 
                                              == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__current_state)) 
                                             & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_rvalid))))));
-        tracep->fullBit(oldp+936,((1U & ((~ (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__pc_e__DOT__IF_valid)) 
+        tracep->fullBit(oldp+936,(((IData)(vlSelf->ysyx_22040750__DOT__cpu_pc_ready) 
+                                   & (IData)(vlSelf->ysyx_22040750__DOT__cpu_pc_valid))));
+        tracep->fullBit(oldp+937,((1U & ((~ (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__pc_e__DOT__IF_valid)) 
                                          | ((IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__pc_e__DOT__IF_ready_go) 
                                             & (IData)(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_allowin))))));
-        tracep->fullCData(oldp+937,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__rd_hit)
+        tracep->fullCData(oldp+938,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__rd_hit)
                                       ? ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__way0_hit)
                                           ? 0xcU : 3U)
                                       : ((1U & (((((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_rlast) 
@@ -3960,13 +3962,13 @@ void Vysyx_22040750___024root__traceFullSub0(Vysyx_22040750___024root* vlSelf, V
                                               ? 0xcU
                                               : 3U)
                                           : 0xfU))),4);
-        tracep->fullBit(oldp+938,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_icache_arready) 
+        tracep->fullBit(oldp+939,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_icache_arready) 
                                    & ((2U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state))
                                        ? 1U : 0U))));
-        tracep->fullBit(oldp+939,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_arready) 
+        tracep->fullBit(oldp+940,(((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_arready) 
                                    & ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mem_ar_req)
                                        ? 1U : 0U))));
-        tracep->fullBit(oldp+940,((1U & ((((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_rlast) 
+        tracep->fullBit(oldp+941,((1U & ((((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_rlast) 
                                            & (~ (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mmio_process))) 
                                           | ((0x10U 
                                               == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__current_state))
@@ -3974,7 +3976,7 @@ void Vysyx_22040750___024root__traceFullSub0(Vysyx_22040750___024root* vlSelf, V
                                          | ((0x200U 
                                              == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__current_state))
                                              ? 1U : 0U)))));
-        tracep->fullCData(oldp+941,(((1U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__wb_state))
+        tracep->fullCData(oldp+942,(((1U == (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__wb_state))
                                       ? ((((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__axi_dcache_rlast) 
                                            & (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__replace_dirty)) 
                                           | ((IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mmio_flag) 
@@ -3989,28 +3991,27 @@ void Vysyx_22040750___024root__traceFullSub0(Vysyx_22040750___024root* vlSelf, V
                                                   ? 1U
                                                   : (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__wb_state))
                                               : (IData)(vlSelf->ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__wb_state))))),3);
-        tracep->fullCData(oldp+942,(vlSelf->ysyx_22040750__DOT__iaddr),6);
-        tracep->fullBit(oldp+943,((1U & (IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen))));
-        tracep->fullBit(oldp+944,((1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
-                                         >> 1U))));
+        tracep->fullCData(oldp+943,(vlSelf->ysyx_22040750__DOT__iaddr),6);
+        tracep->fullBit(oldp+944,((1U & (IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen))));
         tracep->fullBit(oldp+945,((1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
-                                         >> 2U))));
+                                         >> 1U))));
         tracep->fullBit(oldp+946,((1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
-                                         >> 3U))));
+                                         >> 2U))));
         tracep->fullBit(oldp+947,((1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
-                                         >> 4U))));
+                                         >> 3U))));
         tracep->fullBit(oldp+948,((1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
-                                         >> 5U))));
+                                         >> 4U))));
         tracep->fullBit(oldp+949,((1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
-                                         >> 6U))));
+                                         >> 5U))));
         tracep->fullBit(oldp+950,((1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
+                                         >> 6U))));
+        tracep->fullBit(oldp+951,((1U & ((IData)(vlSelf->ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen) 
                                          >> 7U))));
-        tracep->fullBit(oldp+951,(vlSelf->ysyx_22040750__DOT__cpu_pc_valid));
-        tracep->fullBit(oldp+952,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_allowin));
-        tracep->fullBit(oldp+953,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_allowin));
-        tracep->fullBit(oldp+954,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_valid));
-        tracep->fullBit(oldp+955,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_allowin));
-        tracep->fullBit(oldp+956,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__npc_e__DOT__pc_handshake));
+        tracep->fullBit(oldp+952,(vlSelf->ysyx_22040750__DOT__cpu_pc_valid));
+        tracep->fullBit(oldp+953,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_allowin));
+        tracep->fullBit(oldp+954,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_allowin));
+        tracep->fullBit(oldp+955,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_valid));
+        tracep->fullBit(oldp+956,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_allowin));
         tracep->fullBit(oldp+957,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__npc_e__DOT__store_dnpc));
         tracep->fullBit(oldp+958,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__pc_e__DOT__IF_handshake));
         tracep->fullBit(oldp+959,(vlSelf->ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_reg_e__DOT__output_valid));
