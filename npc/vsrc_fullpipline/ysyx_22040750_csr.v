@@ -2,10 +2,11 @@
 module ysyx_22040750_csr(
     input I_sys_clk,
     input I_rst,
+    input I_MEM_WB_valid,
     input I_csr_wen,
     input I_csr_intr_wr,
     input I_csr_intr_rd,
-    input [63:0] I_intr_pc,
+    input [31:0] I_intr_pc,
     input [63:0] I_csr_intr_no,
     input I_csr_mret_wr,
     input I_csr_mret_rd,
@@ -23,6 +24,8 @@ module ysyx_22040750_csr(
     reg [63:0] mepc, mstatus, mtvec, mcause, mscratch;
     reg [63:0] rd_data;
     wire mie, mpie;
+    wire csr_wen, csr_intr_wr, csr_mret_wr;
+    assign {csr_wen, csr_intr_wr, csr_mret_wr} = {I_csr_wen, I_csr_intr_wr, I_csr_mret_wr} & {3{I_MEM_WB_valid}};
     assign mie = mstatus[3];
     assign mpie = mstatus[7];
     assign O_rd_data = rd_data;
@@ -33,7 +36,7 @@ module ysyx_22040750_csr(
             mstatus <= 64'ha00001800;
         end
         // these ena signals will not occur at the same time
-        else if(I_csr_wen) 
+        else if(csr_wen) 
             case(I_wr_addr)
                 MEPC: mepc <= I_wr_data;
                 MSTATUS: mstatus <= I_wr_data;
@@ -42,14 +45,14 @@ module ysyx_22040750_csr(
                 MSCRATCH: mscratch <= I_wr_data;
                 default:;
             endcase
-        else if(I_csr_intr_wr) begin
+        else if(csr_intr_wr) begin
             mcause <= I_csr_intr_no;
-            mepc <= I_intr_pc;
+            mepc <= {32'b0, I_intr_pc};
             mstatus <= {mstatus[63:8],mie,mstatus[6:4],1'b0,mstatus[2:0]};
             mtvec <= mtvec;
             mscratch <= mscratch;
         end
-        else if(I_csr_mret_wr) begin
+        else if(csr_mret_wr) begin
             mcause <= mcause;
             mepc <= mepc;
             mstatus <= {mstatus[63:8],1'b1,mstatus[6:4],mpie,mstatus[2:0]};

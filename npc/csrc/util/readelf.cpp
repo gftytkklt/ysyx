@@ -12,6 +12,7 @@ typedef struct elf_func{
   char func_name[BUF_SIZE];
   unsigned long entry_addr;
   unsigned long func_size;
+  //unsigned int call_depth;
 }func;
 static func func_pool[FUNC_NUM] = {};
 
@@ -105,6 +106,7 @@ void init_elf(char* elf_file) {
     buf_assignment(elf_fp, (symofft+i*symentsize+STINFO_OFFT), SEEK_SET, buf, sizeof(unsigned char));
     symtype = *((unsigned char*) buf);
     if (symtype == FUNC) {
+      //func_pool[func_idx].call_depth = 0;
       // get func entry addr
       buf_assignment(elf_fp, (symofft+i*symentsize+STADDR_OFFT), SEEK_SET, buf, sizeof(unsigned long));
       func_pool[func_idx].entry_addr = *((unsigned long*) buf);
@@ -119,6 +121,7 @@ void init_elf(char* elf_file) {
         buf_assignment(elf_fp, (strofft+symname_offt), SEEK_SET, buf, BUF_SIZE-1);
         // add name to func list
         strcpy(func_pool[func_idx].func_name, buf);
+        //printf("NO.%d func: %s\n", func_idx, buf);
       }
       //printf("%d %s %lx\n",func_idx, func_pool[func_idx].func_name, func_pool[func_idx].entry_addr);
       func_idx++;
@@ -127,26 +130,28 @@ void init_elf(char* elf_file) {
   }
 }
 static int func_depth = 0;
-void print_ftrace(unsigned long pc, unsigned long dnpc, unsigned inst, FILE* fp) {
+void print_ftrace(unsigned long time, unsigned long pc, unsigned inst, FILE* fp) {
   //unsigned long func_addr=0;
   //char func_name[128] = {'\0'};
   unsigned dest = BITS(inst,11,7);
   for(int i=0;i<func_idx;i++){  
     //printf("%s %lx\n", func_pool[func_idx].func_name, func_pool[func_idx].entry_addr);
-    if(dnpc == func_pool[i].entry_addr && (dest != 0)){
+    if(pc == func_pool[i].entry_addr && (dest != 0)){
       func_depth++;
-      fprintf(fp, "%lx:%*s",pc,func_depth," ");
+      //fprintf(fp, "%lx:%*s",pc,func_depth," ");
       // print info & depth update
-      fprintf(fp, "call [%s@0x%lx]\n",func_pool[i].func_name,func_pool[i].entry_addr);
+      //func_pool[i].call_depth = func_depth;
+      fprintf(fp, "[lvl%d]%lx: call [%s@0x%lx](%lu)\n",func_depth, pc, func_pool[i].func_name,func_pool[i].entry_addr, time);
     }
     //else if((dnpc > func_pool[i].entry_addr) && (dnpc < func_pool[i].entry_addr + func_pool[i].func_size) && (inst==0x00008067)){
-    else if((pc > func_pool[i].entry_addr) && (pc < func_pool[i].entry_addr + func_pool[i].func_size) && (inst==0x00008067)){
-      fprintf(fp, "%lx:%*s",pc,func_depth," ");
-      fprintf(fp, "ret [%s]\n",func_pool[i].func_name);
+    else if((pc >= func_pool[i].entry_addr) && (pc < func_pool[i].entry_addr + func_pool[i].func_size) && (inst==0x00008067)){
+      //fprintf(fp, "%lx:%*s",pc,func_depth," ");
+      fprintf(fp, "[lvl%d]%lx: ret [%s](%lu)\n",func_depth, pc, func_pool[i].func_name, time);
+      //func_depth = func_pool[i].call_depth;
       func_depth--;
     }
     else if(inst == 0x00100073){
-      fprintf(fp, "%lx:%*s[ebreak]\n",pc,func_depth," ");
+      fprintf(fp, "%lx:%*s[ebreak](%lu)\n",pc,func_depth," ", time);
       //func_depth--;
       break;
       

@@ -1,6 +1,5 @@
 #include <am.h>
 #include <npc.h>
-#include <stdio.h>
 extern char _heap_start;
 int main(const char *args);
 
@@ -20,7 +19,7 @@ void putch(char ch) {
 }
 
 void halt(int code) {
-  printf("return code = %02xh\n", code);
+  //printf("return code = %02xh\n", code);
   //asm volatile("mv a0, %0; ebreak" : :"r"(code));
   npc_trap(code);
   while (1);

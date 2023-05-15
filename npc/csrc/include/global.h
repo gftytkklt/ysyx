@@ -9,6 +9,7 @@
 #include <sys/time.h>
 //#define CONFIG_FTRACE
 //#define CONFIG_MTRACE
+//#define CONFIG_AXITRACE
 //#define CONFIG_ITRACE
 #define CONFIG_DIFFTEST
 //#define CONFIG_WAVEFORM
@@ -20,4 +21,5 @@
 #define ASNI_FMT(str, fmt) fmt str ASNI_NONE
 #define MEM_BASE 0x80000000
 #define MEM_SIZE 0x8000000
+
 #endif

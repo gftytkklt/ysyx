@@ -5,11 +5,11 @@
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 static char buf[2048] = "\0";
-enum {CHAR, INTD, INTX, INTLD, INTLX, INVALID_TYPE, };
+enum {STR, INTD, INTX, INTLD, INTLX, CHAR, INVALID_TYPE, };
 //static bool isdec = true;
 static bool ispad = false;
 static int width = 0;
-static int type = CHAR;
+static int type = STR;
 
 // check if char wr out of bound, if outofbound, do nothing and return
 //static bool outofbound(char *tmp, const char input, char *end){
@@ -96,7 +96,7 @@ static int print_pattern(const char *fmt, int *width, bool *ispad, int *type){
     case 'p': *type = INTLX;break;
     case 'l': tmp++;switch(*tmp){case 'd':*type = INTLD;break;case 'x':*type = INTLX;break;default: *type = INVALID_TYPE;return 0;}break;
     case 'c': *type = CHAR;break;
-    case 's': *type = CHAR;break;
+    case 's': *type = STR;break;
     default: *type = INVALID_TYPE;return 0;// invalid format, treat it as str
   }
   return (tmp-fmt);
@@ -130,12 +130,18 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
         tmp = num2str(tmp, val, width, ispad);
         continue;
       }
-      else if(type == CHAR){
+      else if(type == STR){
         char *str = va_arg(ap, char*);
         while(*str != '\0'){
           *tmp = *str;
           tmp++;str++;
         }
+        continue;
+      }
+      else if(type == CHAR){
+        char val = va_arg(ap, int);
+        *tmp = val;
+        tmp++;
         continue;
       }
     }
@@ -162,12 +168,18 @@ int sprintf(char *out, const char *fmt, ...) {
         tmp = num2str(tmp, val, width, ispad);
         continue;
       }
-      else if(type == CHAR){
+      else if(type == STR){
         char *str = va_arg(ap, char*);
         while(*str != '\0'){
           *tmp = *str;
           tmp++;str++;
         }
+        continue;
+      }
+      else if(type == CHAR){
+        char val = va_arg(ap, int);
+        *tmp = val;
+        tmp++;
         continue;
       }
     }
@@ -191,12 +203,18 @@ int snprintf(char *out, size_t n, const char *fmt, ...) {
         tmp = num2str(tmp, val, width, ispad);
         continue;
       }
-      else if(type == CHAR){
+      else if(type == STR){
         char *str = va_arg(ap, char*);
         while(*str != '\0'){
           *tmp = *str;
           tmp++;str++;
         }
+        continue;
+      }
+      else if(type == CHAR){
+        char val = va_arg(ap, int);
+        *tmp = val;
+        tmp++;
         continue;
       }
     }
