@@ -271,9 +271,9 @@ int main(int argc, char** argv, char** env) {
       cpu->io_master_arready = 1;
       cpu->io_master_wready = 1;
     }
-    if((sim_time % 6) == 0){cpu->clock = 1;}
-    else if((sim_time % 6) == 3){cpu->clock = 0;}
-    if(((sim_time % 6) == 0) && (cpu->reset == 0)){valid_posedge = true;}
+    if((sim_time % 2) == 0){cpu->clock = 1;}
+    else if((sim_time % 2) == 1){cpu->clock = 0;}
+    if(((sim_time % 2) == 0) && (cpu->reset == 0)){valid_posedge = true;}
     else{valid_posedge = false;}
 
     // rd wr data & req
