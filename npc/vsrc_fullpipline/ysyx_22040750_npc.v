@@ -45,7 +45,7 @@ module ysyx_22040750_npc(
         if(I_rst)
             dnpc_reg <= 0;
         else if(store_dnpc)
-            dnpc_reg <= dnpc;
+            dnpc_reg <= O_dnpc;
         else
             dnpc_reg <= dnpc_reg;
     always @(posedge I_clk)
