@@ -25,7 +25,8 @@ module ysyx_22040750_booth_mul_serial(
     input rst,
     input [63:0] mul1,
     input [63:0] mul2,
-    input is_signed,
+    //input is_signed,
+    input [1:0] sext_flag,
     input mul_valid,
     output P_valid,
     output [127:0] P
@@ -46,7 +47,8 @@ module ysyx_22040750_booth_mul_serial(
     wire end_flag;
     reg mul_process;
     // mul num
-    assign {sgn_ext1,sgn_ext2} = {mul1[63]&is_signed,mul2[63]&is_signed};
+    //assign {sgn_ext1,sgn_ext2} = {mul1[63]&is_signed,mul2[63]&is_signed};
+    assign {sgn_ext1, sgn_ext2} = {mul1[63] & sext_flag[1], mul2[63] & sext_flag[0]};
     always @(posedge clk)
         if(rst)
             booth_mul1 <= 0;

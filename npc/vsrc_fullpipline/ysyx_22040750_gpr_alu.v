@@ -69,7 +69,8 @@ module ysyx_22040750_gpr_alu(
     //wire [63:0] divu_result;
     wire [63:0] rem_result;
     wire [63:0] csr_result;
-    wire [64:0] op1_sext, op2_sext;
+    //wire [64:0] op1_sext, op2_sext;
+    wire [63:0] op1_sext, op2_sext;
     wire sign_bit1, sign_bit2;
     wire sext1, sext2;
     
@@ -87,11 +88,13 @@ module ysyx_22040750_gpr_alu(
     // sext bit sel : sign bit for signed, 0 for unsigned
     assign sext1 = I_alu_op_sext[1] ? sign_bit1 : 0;
     assign sext2 = I_alu_op_sext[0] ? sign_bit2 : 0;
-    assign op1_sext[64] = sext1;
-    assign op2_sext[64] = sext2;
+    //assign op1_sext[64] = sext1;
+    //assign op2_sext[64] = sext2;
     // DW/W sel
-    assign op1_sext[63:0] = I_word_op_mask ? {{32{sext1}}, I_op1[31:0]} : I_op1;
-    assign op2_sext[63:0] = I_word_op_mask ? {{32{sext2}}, I_op2[31:0]} : I_op2;
+    //assign op1_sext[63:0] = I_word_op_mask ? {{32{sext1}}, I_op1[31:0]} : I_op1;
+    //assign op2_sext[63:0] = I_word_op_mask ? {{32{sext2}}, I_op2[31:0]} : I_op2;
+    assign op1_sext = I_word_op_mask ? {{32{sext1}}, I_op1[31:0]} : I_op1;
+    assign op2_sext = I_word_op_mask ? {{32{sext2}}, I_op2[31:0]} : I_op2;
     //assign op1_sext[64] = I_alu_op_sext[1] ? sign_bit1 : 0;
     //assign op1_sext[63:0] = I_word_op_mask ? {{32{op1_sext[64]}}, I_op1[31:0]}: I_op1;
     //assign op2_sext[64] = I_alu_op_sext[0] ? sign_bit2 : 0;
@@ -119,9 +122,12 @@ module ysyx_22040750_gpr_alu(
     ysyx_22040750_booth_mul_serial booth_mul_serial_e(
     	.clk(I_sys_clk),
     	.rst(I_rst),
-    	.mul1(op1_sext[63:0]),
-    	.mul2(op2_sext[63:0]),
-    	.is_signed(sext1),
+    	// .mul1(op1_sext[63:0]),
+    	// .mul2(op2_sext[63:0]),
+        .mul1(op1_sext),
+    	.mul2(op2_sext),
+    	// .is_signed(sext1),
+        .sext_flag(I_alu_op_sext),
     	.mul_valid(mul_valid),
     	.P_valid(mul_out_valid),
     	.P({mulh_result, mul_result})
@@ -130,9 +136,12 @@ module ysyx_22040750_gpr_alu(
 		.clk(I_sys_clk),
 		.rst(I_rst),
 		// out = dividend / divisor
-		.dividend(op1_sext[63:0]),
-		.divisor(op2_sext[63:0]),
-		.is_signed(sext1),
+		// .dividend(op1_sext[63:0]),
+		// .divisor(op2_sext[63:0]),
+        .dividend(op1_sext),
+		.divisor(op2_sext),
+		// .is_signed(sext1),
+        .is_signed(|I_alu_op_sext),
 		.div_valid(div_valid),
 		.quotient(div_result),
 		.remainder(rem_result),
