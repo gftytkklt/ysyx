@@ -3,8 +3,8 @@
 
 /* Uncomment these macros to enable corresponding functionality. */
 #define HAS_CTE
-//#define HAS_VME
-#define TEST_NPC
+#define HAS_VME
+//#define TEST_NPC
 //#define MULTIPROGRAM
 //#define TIME_SHARING
 
