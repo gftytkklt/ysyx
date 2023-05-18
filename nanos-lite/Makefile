@@ -3,7 +3,7 @@ HAS_NAVY = 1
 HAS_RAMDISK = 1
 # 0615 add end
 RAMDISK_FILE = build/ramdisk.img
-
+TEST_NPC = 1
 NAME = nanos-lite
 SRCS = $(shell find -L ./src/ -name "*.c" -o -name "*.cpp" -o -name "*.S")
 include $(AM_HOME)/Makefile
