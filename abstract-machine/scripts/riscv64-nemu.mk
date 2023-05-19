@@ -4,7 +4,8 @@ CFLAGS  += -DISA_H=\"riscv/riscv.h\"
 ifeq ($(TEST_NPC),)
 	AM_SRCS += riscv/npc/start.S \
 		   riscv/npc/cte.c \
-		   riscv/npc/trap.S
+		   riscv/npc/trap.S \
+		   riscv/npc/vme.c
 else
 	AM_SRCS += riscv/nemu/start.S \
 		   riscv/nemu/cte.c \
