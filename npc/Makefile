@@ -58,7 +58,7 @@ $(BIN): $(VSRC) $(CSRC) $(UTIL_ARCHIVE)
 
 RUNARGS := $(BIN) $(IMG).bin $(IMG).elf
 DIFF_NEMU = $(NEMU_HOME)/build/riscv64-nemu-interpreter-so
-run: $(BIN) $(DIFFTEST_NEMU)
+run: $(BIN)
 	$(call git_commit, "sim RTL")
 	@$(RUNARGS) $(DIFF_NEMU)
 #gdb: $(BIN)
