@@ -263,7 +263,7 @@ int main(int argc, char** argv, char** env) {
   uint32_t cpu_waddr, cpu_raddr;
   uint64_t cpu_wdata, cpu_rdata;
   bool cpu_wvalid, cpu_rvalid;
-  
+  restore_model("ckpt5000");
   while (!finish){
     if(sim_time == 1){
       #ifdef CONFIG_DIFFTEST
@@ -422,7 +422,7 @@ int main(int argc, char** argv, char** env) {
     }
     #endif
     sim_time++;
-    if(sim_time == 5000){save_model("5000ckpt");printf("save model\n");break;}
+    //if(sim_time == 5000){save_model("5000ckpt");break;}
     // breakpoint for dead cycle
     //if(same_pc_cnt == 50){printf("%ld, check dead loop!\n", sim_time);break;}
   }
