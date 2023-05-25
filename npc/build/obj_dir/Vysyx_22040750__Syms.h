@@ -37,6 +37,8 @@ class Vysyx_22040750__Syms final : public VerilatedSyms {
 
     // METHODS
     const char* name() { return TOP.name(); }
+    void __Vserialize(VerilatedSerialize& os);
+    void __Vdeserialize(VerilatedDeserialize& os);
 } VL_ATTR_ALIGNED(VL_CACHE_LINE_BYTES);
 
 #endif  // guard

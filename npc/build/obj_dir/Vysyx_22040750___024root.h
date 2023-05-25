@@ -6,6 +6,7 @@
 #define VERILATED_VYSYX_22040750___024ROOT_H_  // guard
 
 #include "verilated.h"
+#include "verilated_save.h"
 
 class Vysyx_22040750__Syms;
 
@@ -2098,6 +2099,8 @@ class Vysyx_22040750___024root final : public VerilatedModule {
 
     // INTERNAL METHODS
     void __Vconfigure(bool first);
+    void __Vserialize(VerilatedSerialize& os);
+    void __Vdeserialize(VerilatedDeserialize& os);
 } VL_ATTR_ALIGNED(VL_CACHE_LINE_BYTES);
 
 

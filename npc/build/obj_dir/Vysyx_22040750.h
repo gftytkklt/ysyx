@@ -9,6 +9,7 @@
 #define VERILATED_VYSYX_22040750_H_  // guard
 
 #include "verilated.h"
+#include "verilated_save.h"
 #include "svdpi.h"
 
 class Vysyx_22040750__Syms;
@@ -127,6 +128,10 @@ class Vysyx_22040750 VL_NOT_FINAL : public VerilatedModel {
     void trace(VerilatedVcdC* tfp, int levels, int options = 0);
     /// Retrieve name of this model instance (as passed to constructor).
     const char* name() const;
+
+    // Serialization functions
+    friend VerilatedSerialize& operator<<(VerilatedSerialize& os, Vysyx_22040750& rhs);
+    friend VerilatedDeserialize& operator>>(VerilatedDeserialize& os, Vysyx_22040750& rhs);
 
     // Abstract methods from VerilatedModel
     const char* hierName() const override final;

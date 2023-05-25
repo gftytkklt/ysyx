@@ -160,6 +160,21 @@ void dut_reg_display(uint64_t* dut){
   }
 }
 
+void save_model(const char* filenamep) {
+    VerilatedSave os;
+    os.open(filenamep);
+    os << sim_time;  // user code must save the timestamp
+    os << *cpu;
+    printf("save model at %lu\n", sim_time);
+}
+void restore_model(const char* filenamep) {
+    VerilatedRestore os;
+    os.open(filenamep);
+    os >> sim_time;
+    os >> *cpu;
+    printf("load model at %lu\n", sim_time);
+}
+
 int main(int argc, char** argv, char** env) {
   printf("Hello, ysyx!\n");
   Verilated::commandArgs(argc, argv);
@@ -410,7 +425,7 @@ int main(int argc, char** argv, char** env) {
     // breakpoint for dead cycle
     //if(same_pc_cnt == 50){printf("%ld, check dead loop!\n", sim_time);break;}
   }
-
+  printf("sim end at time %lu\n", sim_time);
   //printf("a\n");
   cpu->final();
   //printf("b\n");

@@ -5,6 +5,21 @@
 #include "Vysyx_22040750.h"
 #include "Vysyx_22040750___024root.h"
 
+void Vysyx_22040750__Syms::__Vserialize(VerilatedSerialize& os) {
+    // Internal state
+    os<<__Vm_activity;
+    os << __Vm_didInit;
+    // Module instance state
+    TOP.__Vserialize(os);
+}
+void Vysyx_22040750__Syms::__Vdeserialize(VerilatedDeserialize& os) {
+    // Internal state
+    os>>__Vm_activity;
+    os >> __Vm_didInit;
+    // Module instance state
+    TOP.__Vdeserialize(os);
+}
+
 // FUNCTIONS
 Vysyx_22040750__Syms::~Vysyx_22040750__Syms()
 {

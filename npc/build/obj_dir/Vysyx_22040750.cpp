@@ -194,3 +194,18 @@ VL_ATTR_COLD void Vysyx_22040750::trace(VerilatedVcdC* tfp, int levels, int opti
     tfp->spTrace()->addInitCb(&trace_init, &(vlSymsp->TOP));
     Vysyx_22040750___024root__trace_register(&(vlSymsp->TOP), tfp->spTrace());
 }
+
+//============================================================
+// Model serialization
+
+VerilatedSerialize& operator<<(VerilatedSerialize& os, Vysyx_22040750& rhs) {
+    Verilated::quiesce();
+    rhs.vlSymsp->__Vserialize(os);
+    return os;
+}
+
+VerilatedDeserialize& operator>>(VerilatedDeserialize& os, Vysyx_22040750& rhs) {
+    Verilated::quiesce();
+    rhs.vlSymsp->__Vdeserialize(os);
+    return os;
+}
