@@ -5,97 +5,82 @@
 #ifndef VERILATED_VYSYX_22040750___024ROOT_H_
 #define VERILATED_VYSYX_22040750___024ROOT_H_  // guard
 
-#include "verilated_heavy.h"
-
-//==========
+#include "verilated.h"
 
 class Vysyx_22040750__Syms;
-class Vysyx_22040750_VerilatedVcd;
 
-
-//----------
-
-VL_MODULE(Vysyx_22040750___024root) {
+class Vysyx_22040750___024root final : public VerilatedModule {
   public:
 
-    // PORTS
-    VL_IN8(clock,0,0);
-    VL_IN8(reset,0,0);
-    VL_IN8(io_interrupt,0,0);
-    VL_IN8(io_master_awready,0,0);
-    VL_OUT8(io_master_awvalid,0,0);
-    VL_OUT8(io_master_awid,3,0);
-    VL_OUT8(io_master_awlen,7,0);
-    VL_OUT8(io_master_awsize,2,0);
-    VL_OUT8(io_master_awburst,1,0);
-    VL_IN8(io_master_wready,0,0);
-    VL_OUT8(io_master_wvalid,0,0);
-    VL_OUT8(io_master_wstrb,7,0);
-    VL_OUT8(io_master_wlast,0,0);
-    VL_OUT8(io_master_bready,0,0);
-    VL_IN8(io_master_bvalid,0,0);
-    VL_IN8(io_master_bid,3,0);
-    VL_IN8(io_master_bresp,1,0);
-    VL_IN8(io_master_arready,0,0);
-    VL_OUT8(io_master_arvalid,0,0);
-    VL_OUT8(io_master_arid,3,0);
-    VL_OUT8(io_master_arlen,7,0);
-    VL_OUT8(io_master_arsize,2,0);
-    VL_OUT8(io_master_arburst,1,0);
-    VL_OUT8(io_master_rready,0,0);
-    VL_IN8(io_master_rvalid,0,0);
-    VL_IN8(io_master_rid,3,0);
-    VL_IN8(io_master_rresp,1,0);
-    VL_IN8(io_master_rlast,0,0);
-    VL_IN8(io_slave_awready,0,0);
-    VL_OUT8(io_slave_awvalid,0,0);
-    VL_OUT8(io_slave_awid,3,0);
-    VL_OUT8(io_slave_awlen,7,0);
-    VL_OUT8(io_slave_awsize,2,0);
-    VL_OUT8(io_slave_awburst,1,0);
-    VL_IN8(io_slave_wready,0,0);
-    VL_OUT8(io_slave_wvalid,0,0);
-    VL_OUT8(io_slave_wstrb,7,0);
-    VL_OUT8(io_slave_wlast,0,0);
-    VL_OUT8(io_slave_bready,0,0);
-    VL_IN8(io_slave_bvalid,0,0);
-    VL_IN8(io_slave_bid,3,0);
-    VL_IN8(io_slave_bresp,1,0);
-    VL_IN8(io_slave_arready,0,0);
-    VL_OUT8(io_slave_arvalid,0,0);
-    VL_OUT8(io_slave_arid,3,0);
-    VL_OUT8(io_slave_arlen,7,0);
-    VL_OUT8(io_slave_arsize,2,0);
-    VL_OUT8(io_slave_arburst,1,0);
-    VL_OUT8(io_slave_rready,0,0);
-    VL_IN8(io_slave_rvalid,0,0);
-    VL_IN8(io_slave_rid,3,0);
-    VL_IN8(io_slave_rresp,1,0);
-    VL_IN8(io_slave_rlast,0,0);
-    VL_OUT(io_master_awaddr,31,0);
-    VL_OUT(io_master_araddr,31,0);
-    VL_OUT(io_slave_awaddr,31,0);
-    VL_OUT(io_slave_araddr,31,0);
-    VL_OUT64(io_master_wdata,63,0);
-    VL_IN64(io_master_rdata,63,0);
-    VL_OUT64(io_slave_wdata,63,0);
-    VL_IN64(io_slave_rdata,63,0);
-
-    // LOCAL SIGNALS
+    // DESIGN SPECIFIC STATE
     // Anonymous structures to workaround compiler member-count bugs
     struct {
-        CData/*5:0*/ ysyx_22040750__DOT__iaddr;
-        CData/*5:0*/ ysyx_22040750__DOT__daddr;
+        VL_IN8(clock,0,0);
+        VL_IN8(reset,0,0);
+        VL_IN8(io_interrupt,0,0);
+        VL_IN8(io_master_awready,0,0);
+        VL_OUT8(io_master_awvalid,0,0);
+        VL_OUT8(io_master_awid,3,0);
+        VL_OUT8(io_master_awlen,7,0);
+        VL_OUT8(io_master_awsize,2,0);
+        VL_OUT8(io_master_awburst,1,0);
+        VL_IN8(io_master_wready,0,0);
+        VL_OUT8(io_master_wvalid,0,0);
+        VL_OUT8(io_master_wstrb,7,0);
+        VL_OUT8(io_master_wlast,0,0);
+        VL_OUT8(io_master_bready,0,0);
+        VL_IN8(io_master_bvalid,0,0);
+        VL_IN8(io_master_bid,3,0);
+        VL_IN8(io_master_bresp,1,0);
+        VL_IN8(io_master_arready,0,0);
+        VL_OUT8(io_master_arvalid,0,0);
+        VL_OUT8(io_master_arid,3,0);
+        VL_OUT8(io_master_arlen,7,0);
+        VL_OUT8(io_master_arsize,2,0);
+        VL_OUT8(io_master_arburst,1,0);
+        VL_OUT8(io_master_rready,0,0);
+        VL_IN8(io_master_rvalid,0,0);
+        VL_IN8(io_master_rid,3,0);
+        VL_IN8(io_master_rresp,1,0);
+        VL_IN8(io_master_rlast,0,0);
+        VL_IN8(io_slave_awready,0,0);
+        VL_OUT8(io_slave_awvalid,0,0);
+        VL_OUT8(io_slave_awid,3,0);
+        VL_OUT8(io_slave_awlen,7,0);
+        VL_OUT8(io_slave_awsize,2,0);
+        VL_OUT8(io_slave_awburst,1,0);
+        VL_IN8(io_slave_wready,0,0);
+        VL_OUT8(io_slave_wvalid,0,0);
+        VL_OUT8(io_slave_wstrb,7,0);
+        VL_OUT8(io_slave_wlast,0,0);
+        VL_OUT8(io_slave_bready,0,0);
+        VL_IN8(io_slave_bvalid,0,0);
+        VL_IN8(io_slave_bid,3,0);
+        VL_IN8(io_slave_bresp,1,0);
+        VL_IN8(io_slave_arready,0,0);
+        VL_OUT8(io_slave_arvalid,0,0);
+        VL_OUT8(io_slave_arid,3,0);
+        VL_OUT8(io_slave_arlen,7,0);
+        VL_OUT8(io_slave_arsize,2,0);
+        VL_OUT8(io_slave_arburst,1,0);
+        VL_OUT8(io_slave_rready,0,0);
+        VL_IN8(io_slave_rvalid,0,0);
+        VL_IN8(io_slave_rid,3,0);
+        VL_IN8(io_slave_rresp,1,0);
+        VL_IN8(io_slave_rlast,0,0);
+        CData/*5:0*/ ysyx_22040750__DOT__io_sram0_addr;
+        CData/*5:0*/ ysyx_22040750__DOT__io_sram4_addr;
+        CData/*0:0*/ ysyx_22040750__DOT__io_sram4_wen;
+        CData/*0:0*/ ysyx_22040750__DOT__io_sram6_wen;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_inst_valid;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_pc_valid;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_pc_ready;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_mem_ready;
-        CData/*4:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__dnpc_sel;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__reg_wen;
-        CData/*1:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_op_sext;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__csr_wen;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__csr_intr;
-        CData/*6:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__csr_op_sel;
+    };
+    struct {
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__IF_valid;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_allowin;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_valid;
@@ -112,7 +97,6 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_word_op_mask;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_valid;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_allowin;
-        CData/*1:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_stall;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_bubble;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_alu_multicycle;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_out_valid;
@@ -128,7 +112,6 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*4:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_rd_addr;
         CData/*2:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_regin_sel;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_allowin;
-        CData/*1:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_stall;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_bubble;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_csr_wen;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_csr_intr;
@@ -137,35 +120,36 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*4:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_rd_addr;
         CData/*2:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_regin_sel;
         CData/*2:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_shamt;
-        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_allowin;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_bubble;
-        CData/*1:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_stall;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_csr_wen;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_csr_intr;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_csr_mret;
-        CData/*1:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__stall_en;
+        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_mem_op;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_mem_op;
+        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT____Vcellinp__IF_ID_reg_e__I_IF_ID_jmp;
+        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT____Vcellinp__gpr_e__I_wen;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__npc_e__DOT__pc_handshake;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__npc_e__DOT__dnpc_reg_valid;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__npc_e__DOT__dnpc_sel;
-    };
-    struct {
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__npc_e__DOT__store_dnpc;
+        CData/*2:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__npc_e__DOT____Vcellinp__nextpc_64bit_3sel__I_sel;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__pc_e__DOT__IF_ready_go;
-        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__pc_e__DOT__IF_handshake;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__pc_e__DOT__IF_valid;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__pc_e__DOT__IF_en;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__pc_e__DOT__cache_valid;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_reg_e__DOT__input_valid;
+        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__stall_unit_e__DOT____VdfgTmp_h88e45e92__0;
+        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__stall_unit_e__DOT____VdfgTmp_hc1eea830__0;
+        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__stall_unit_e__DOT____VdfgTmp_hc1e979ad__0;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT__typeI;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT__typeR;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT__typeU;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT__JALR;
+    };
+    struct {
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT__LD;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT__LW;
-        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT__LWU;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT__LH;
-        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT__LHU;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT__LB;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT__MUL;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT__MULH;
@@ -181,14 +165,30 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT__CSRRWI;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT__CSRRSI;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT__CSRRCI;
-        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT__typeB_jr;
+        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT__csr_rd_gpr;
+        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT__csr_jr;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT__eq;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT__lt;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT__ltu;
-        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT__add_flag;
+        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT__four_flag;
+        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT____VdfgTmp_h125768eb__0;
+        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT____VdfgTmp_hd3f320f9__0;
+        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT____VdfgTmp_hab9a9c4b__0;
+        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT____VdfgTmp_hc959b280__0;
+        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT____VdfgTmp_h502844a7__0;
+        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT____VdfgTmp_h139d36bc__0;
+        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT____VdfgTmp_h15a3213f__0;
+        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT____VdfgTmp_hfb08a2b7__0;
+        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT____VdfgTmp_hdab5176e__0;
+        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT____VdfgTmp_h15034ced__0;
+        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT____VdfgTmp_hfba8f8e9__0;
+        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT____VdfgTmp_hddd4a2b8__0;
+        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT____VdfgTmp_h537b7cc2__0;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_reg_e__DOT__input_valid;
+        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__sign_bit1;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__mul_valid_d;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__div_valid_d;
+        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__div_flag;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__mul_valid;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__div_valid;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__mul_out_valid;
@@ -196,11 +196,13 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__mul_reg_valid;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__div_reg_valid;
         CData/*5:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__shamt;
+        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT____VdfgTmp_h56ad12d5__0;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__end_flag;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__mul_process;
         CData/*5:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__iter_cnt;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__radix4_unit_e__DOT__sel_negative;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__radix4_unit_e__DOT__sel_double_negative;
+        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__radix4_unit_e__DOT____VdfgTmp_h5f13bd08__0;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__radix2_div_e__DOT__current_q;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__radix2_div_e__DOT__dividend_flag;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__radix2_div_e__DOT__divisor_flag;
@@ -209,24 +211,25 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_reg_e__DOT__mem_rd_en;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_reg_e__DOT__mem_wr_en;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_reg_e__DOT__input_valid;
+    };
+    struct {
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_reg_e__DOT__output_valid;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_reg_e__DOT__rd_handshake;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_reg_e__DOT__wr_handshake;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_reg_e__DOT__input_valid;
+        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__mem_ld_e__DOT__sext_bit;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__csr_e__DOT__mie;
-    };
-    struct {
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__csr_e__DOT__mpie;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__csr_e__DOT__csr_wen;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__csr_e__DOT__csr_intr_wr;
         CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__csr_e__DOT__csr_mret_wr;
+        CData/*3:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_cen;
         CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__axi_icache_rvalid;
         CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__axi_dcache_rvalid;
         CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__axi_icache_rlast;
         CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__axi_dcache_rlast;
-        CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__axi_icache_arready;
         CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__axi_dcache_arready;
-        CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__axi_dcache_wlast;
+        CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__axi_dcache_arvalid;
         CData/*1:0*/ ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT__current_state;
         CData/*1:0*/ ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT__next_state;
         CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT__req_both;
@@ -235,11 +238,14 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT__ch0_process;
         CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT__ch1_process;
         CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT__priority_flag;
+        CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT____VdfgTmp_h0a53ccac__0;
         CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__way0_hit;
         CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__way1_hit;
         CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__way1_replace;
         CData/*1:0*/ ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__hit_flag;
         CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__rd_hit;
+        CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__rd_handshake;
+        CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__pc_handshake;
         CData/*3:0*/ ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__current_state;
         CData/*3:0*/ ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__next_state;
         CData/*3:0*/ ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cen_icache;
@@ -250,173 +256,41 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*1:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit_flag;
         CData/*7:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cpu_mask_reg;
         CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__sram_wflag;
+        CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__way0_valid;
+        CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__way1_valid;
         CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__way0_hit;
         CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__way1_hit;
         CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__hit;
         CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__isway0_op;
         CData/*2:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__wb_state;
         CData/*2:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__wb_next_state;
-        CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mem_ar_req;
-        CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mem_aw_req;
         CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__aw_handshake;
         CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__wr_handshake;
         CData/*1:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__wdata_cnt;
         CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mmio_flag;
         CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mmio_process;
-        SData/*14:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_op_sel;
-        SData/*8:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__mem_rstrb;
-        SData/*8:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_rstrb;
-        SData/*14:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_alu_op_sel;
-        SData/*11:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_csr_addr;
-        SData/*8:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_rstrb;
-        SData/*11:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_csr_addr;
-        SData/*8:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_mem_rstrb;
-        SData/*11:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_csr_addr;
-        SData/*11:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT__immS;
-        SData/*12:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT__immB;
-        SData/*14:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__current_state;
-        SData/*14:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__next_state;
-        VlWide<4>/*127:0*/ ysyx_22040750__DOT__io_sram0_rdata;
-        VlWide<4>/*127:0*/ ysyx_22040750__DOT__io_sram1_rdata;
-        VlWide<4>/*127:0*/ ysyx_22040750__DOT__io_sram2_rdata;
-        VlWide<4>/*127:0*/ ysyx_22040750__DOT__io_sram3_rdata;
+        CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT____VdfgTmp_h38ac643d__0;
+        CData/*0:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT____VdfgTmp_h7da4f4cc__0;
+        CData/*0:0*/ __VdfgTmp_h0bbf1c38__0;
+        CData/*0:0*/ __VdfgTmp_h18d9713c__0;
+        CData/*0:0*/ __VdfgTmp_h4ea8ab03__0;
+        CData/*0:0*/ __VdfgTmp_hf0457c2d__0;
+        CData/*0:0*/ __VdfgTmp_h206f12e5__0;
+        CData/*0:0*/ __VdfgTmp_h04648f5f__0;
     };
     struct {
-        VlWide<4>/*127:0*/ ysyx_22040750__DOT__io_sram4_rdata;
-        VlWide<4>/*127:0*/ ysyx_22040750__DOT__io_sram5_rdata;
-        VlWide<4>/*127:0*/ ysyx_22040750__DOT__io_sram6_rdata;
-        VlWide<4>/*127:0*/ ysyx_22040750__DOT__io_sram7_rdata;
-        IData/*31:0*/ ysyx_22040750__DOT__cpu_inst;
-        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__current_pc;
-        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__dnpc;
-        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__current_inst;
-        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__mem_addr;
-        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_pc;
-        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_inst;
-        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_pc;
-        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_inst;
-        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_pc;
-        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_inst;
-        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_pc;
-        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_inst;
-        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_mem_addr;
-        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__npc_e__DOT__dnpc;
-        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__npc_e__DOT__dnpc_reg;
-        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__pc_e__DOT__inst_cache;
-        IData/*20:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT__immJ;
-        VlWide<3>/*66:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__booth_mul1;
-        VlWide<5>/*131:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__booth_mul2;
-        VlWide<5>/*131:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__mid_result;
-        VlWide<5>/*131:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__S;
-        VlWide<4>/*127:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__radix2_div_e__DOT__abs_dividend;
-        VlWide<4>/*127:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__radix2_div_e__DOT__abs_divisor;
-        VlWide<4>/*127:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__radix2_div_e__DOT__current_sub_result;
-        VlWide<8>/*255:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata;
-        VlWide<8>/*255:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata;
-        VlWide<8>/*255:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_wmask;
-        IData/*31:0*/ ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__mem_addr;
-        VlWide<4>/*127:0*/ ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__valid_table;
-        VlWide<8>/*255:0*/ ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cacheline_reg;
-        IData/*31:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mem_addr;
-        IData/*31:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__sram_wmaskB;
-        VlWide<8>/*255:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg;
-        VlWide<4>/*127:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__valid_table;
-        VlWide<4>/*127:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__dirty_table;
-        QData/*63:0*/ ysyx_22040750__DOT__mem_wdata;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__imm;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__wr_data;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_op1;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_op2;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_out;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__mem_in;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_imm;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_rs1;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_rs2;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_csr;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_csr_intr_no;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_alu_out;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_rs2;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_csr;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_mem_data;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_csr_intr_no;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_mem_data;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_alu_out;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_csr;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_csr_intr_no;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__rs1_forward_data;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__rs2_forward_data;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__csr_forward_data;
-    };
-    struct {
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__slt_result;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__div_result;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__rem_result;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__op1_sext;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__op2_sext;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__mulh_reg;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__mul_reg;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__div_reg;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__rem_reg;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__adder2;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__result;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__cin;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__reverse_op1;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__shift_op;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__shift_result;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__slldw_result;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__dword_result;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__radix2_div_e__DOT__abs_quotient;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__csr_alu_e__DOT__op;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__mem_ld_e__DOT__ld_data;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__csr_e__DOT__mepc;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__csr_e__DOT__mstatus;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__csr_e__DOT__mtvec;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__csr_e__DOT__mcause;
-        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__csr_e__DOT__mscratch;
-        QData/*63:0*/ ysyx_22040750__DOT__cache_e__DOT__axi_dcache_rdata;
-        QData/*63:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cpu_reg;
-        VlUnpacked<IData/*31:0*/, 3> ysyx_22040750__DOT__cpu_core_e__DOT__npc_e__DOT__nextpc_64bit_3sel__DOT__sel_data;
-        VlUnpacked<QData/*63:0*/, 3> ysyx_22040750__DOT__cpu_core_e__DOT__alu_op1_64bit_3sel__DOT__sel_data;
-        VlUnpacked<QData/*63:0*/, 3> ysyx_22040750__DOT__cpu_core_e__DOT__alu_op2_64bit_3sel__DOT__sel_data;
-        VlUnpacked<QData/*63:0*/, 2> ysyx_22040750__DOT__cpu_core_e__DOT__regin_64bit_2sel__DOT__sel_data;
-        VlUnpacked<QData/*63:0*/, 32> ysyx_22040750__DOT__cpu_core_e__DOT__gpr_e__DOT__gpr;
-        VlUnpacked<CData/*0:0*/, 32> ysyx_22040750__DOT__cpu_core_e__DOT__gpr_e__DOT__wen;
-        VlUnpacked<IData/*20:0*/, 128> ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table;
-        VlUnpacked<IData/*20:0*/, 128> ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table;
-        VlUnpacked<VlWide<4>/*127:0*/, 64> ysyx_22040750__DOT__sram0__DOT__ram;
-        VlUnpacked<VlWide<4>/*127:0*/, 64> ysyx_22040750__DOT__sram1__DOT__ram;
-        VlUnpacked<VlWide<4>/*127:0*/, 64> ysyx_22040750__DOT__sram2__DOT__ram;
-        VlUnpacked<VlWide<4>/*127:0*/, 64> ysyx_22040750__DOT__sram3__DOT__ram;
-        VlUnpacked<VlWide<4>/*127:0*/, 64> ysyx_22040750__DOT__sram4__DOT__ram;
-        VlUnpacked<VlWide<4>/*127:0*/, 64> ysyx_22040750__DOT__sram5__DOT__ram;
-        VlUnpacked<VlWide<4>/*127:0*/, 64> ysyx_22040750__DOT__sram6__DOT__ram;
-        VlUnpacked<VlWide<4>/*127:0*/, 64> ysyx_22040750__DOT__sram7__DOT__ram;
-    };
-
-    // LOCAL VARIABLES
-    // Anonymous structures to workaround compiler member-count bugs
-    struct {
-        CData/*7:0*/ ysyx_22040750__DOT____Vcellout__cache_e__O_sram_wen;
-        CData/*7:0*/ ysyx_22040750__DOT____Vcellout__cache_e__O_sram_cen;
-        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT____Vcellinp__npc_e__I_IF_ID_valid;
-        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT____Vcellinp__forward_unit_e__I_WB_reg_wen;
-        CData/*0:0*/ ysyx_22040750__DOT__cpu_core_e__DOT____Vcellinp__gpr_e__I_wen;
-        CData/*2:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__npc_e__DOT____Vcellinp__nextpc_64bit_3sel__I_sel;
+        CData/*1:0*/ __Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_alu_sext;
         CData/*0:0*/ __Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_reg_wen;
-        CData/*0:0*/ __Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_bubble;
-        CData/*6:0*/ __Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_csr_op_sel;
         CData/*0:0*/ __Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__mul_process;
         CData/*0:0*/ __Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__radix2_div_e__DOT__div_process;
         CData/*5:0*/ __Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__radix2_div_e__DOT__iter_cnt;
         CData/*0:0*/ __Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_reg_e__DOT__mem_wr_en;
         CData/*0:0*/ __Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_reg_e__DOT__mem_rd_en;
-        CData/*0:0*/ __Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_bubble;
         CData/*2:0*/ __Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_regin_sel;
+        CData/*4:0*/ __Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_rd_addr;
         CData/*7:0*/ __Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_wstrb;
         CData/*0:0*/ __Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_reg_wen;
-        CData/*0:0*/ __Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_csr_wen;
-        CData/*0:0*/ __Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_csr_intr;
-        CData/*0:0*/ __Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_csr_mret;
+        CData/*0:0*/ __Vdly__ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT__ch0_process;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v0;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v1;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v1;
@@ -460,8 +334,6 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v30;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v31;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v31;
-    };
-    struct {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v32;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v33;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v34;
@@ -471,6 +343,8 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v37;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v37;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v38;
+    };
+    struct {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v39;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v40;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v40;
@@ -526,8 +400,6 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v78;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v79;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v79;
-    };
-    struct {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v80;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v81;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v82;
@@ -537,6 +409,8 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v85;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v85;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v86;
+    };
+    struct {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v87;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v88;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v88;
@@ -592,8 +466,6 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v126;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v127;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v127;
-    };
-    struct {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v128;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v129;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v130;
@@ -603,6 +475,8 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v133;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v133;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v134;
+    };
+    struct {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v135;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v136;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v136;
@@ -658,8 +532,6 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v174;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v175;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v175;
-    };
-    struct {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v176;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v177;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v178;
@@ -669,6 +541,8 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v181;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v181;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v182;
+    };
+    struct {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v183;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v184;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v184;
@@ -724,8 +598,6 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v222;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v223;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v223;
-    };
-    struct {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v224;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v225;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v226;
@@ -735,6 +607,8 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v229;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v229;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v230;
+    };
+    struct {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v231;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v232;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v232;
@@ -790,8 +664,6 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v270;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v271;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v271;
-    };
-    struct {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v272;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v273;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v274;
@@ -801,6 +673,8 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v277;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v277;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v278;
+    };
+    struct {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v279;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v280;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v280;
@@ -856,8 +730,6 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v318;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v319;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v319;
-    };
-    struct {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v320;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v321;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v322;
@@ -867,6 +739,8 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v325;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v325;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v326;
+    };
+    struct {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v327;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v328;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v328;
@@ -922,8 +796,6 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v366;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v367;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v367;
-    };
-    struct {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v368;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v369;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v370;
@@ -933,6 +805,8 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v373;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v373;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v374;
+    };
+    struct {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v375;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v376;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v376;
@@ -988,8 +862,6 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v29;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v30;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v31;
-    };
-    struct {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v31;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v32;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v33;
@@ -999,6 +871,8 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v36;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v37;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v37;
+    };
+    struct {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v38;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v39;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v40;
@@ -1054,8 +928,6 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v77;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v78;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v79;
-    };
-    struct {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v79;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v80;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v81;
@@ -1065,6 +937,8 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v84;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v85;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v85;
+    };
+    struct {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v86;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v87;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v88;
@@ -1120,8 +994,6 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v125;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v126;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v127;
-    };
-    struct {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v127;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v128;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v129;
@@ -1131,6 +1003,8 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v132;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v133;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v133;
+    };
+    struct {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v134;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v135;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v136;
@@ -1186,8 +1060,6 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v173;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v174;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v175;
-    };
-    struct {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v175;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v176;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v177;
@@ -1197,6 +1069,8 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v180;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v181;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v181;
+    };
+    struct {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v182;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v183;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v184;
@@ -1252,8 +1126,6 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v221;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v222;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v223;
-    };
-    struct {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v223;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v224;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v225;
@@ -1263,6 +1135,8 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v228;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v229;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v229;
+    };
+    struct {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v230;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v231;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v232;
@@ -1318,8 +1192,6 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v269;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v270;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v271;
-    };
-    struct {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v271;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v272;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v273;
@@ -1329,6 +1201,8 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v276;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v277;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v277;
+    };
+    struct {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v278;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v279;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v280;
@@ -1384,8 +1258,6 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v317;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v318;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v319;
-    };
-    struct {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v319;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v320;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v321;
@@ -1395,6 +1267,8 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v324;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v325;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v325;
+    };
+    struct {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v326;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v327;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v328;
@@ -1450,8 +1324,6 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v365;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v366;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v367;
-    };
-    struct {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v367;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v368;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v369;
@@ -1461,6 +1333,8 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v372;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v373;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v373;
+    };
+    struct {
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v374;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v375;
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v376;
@@ -1474,35 +1348,85 @@ VL_MODULE(Vysyx_22040750___024root) {
         CData/*6:0*/ __Vdlyvdim0__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v382;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v382;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v383;
-        CData/*5:0*/ __Vdlyvdim0__ysyx_22040750__DOT__sram0__DOT__ram__v0;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__sram0__DOT__ram__v0;
-        CData/*5:0*/ __Vdlyvdim0__ysyx_22040750__DOT__sram1__DOT__ram__v0;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__sram1__DOT__ram__v0;
-        CData/*5:0*/ __Vdlyvdim0__ysyx_22040750__DOT__sram2__DOT__ram__v0;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__sram2__DOT__ram__v0;
-        CData/*5:0*/ __Vdlyvdim0__ysyx_22040750__DOT__sram3__DOT__ram__v0;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__sram3__DOT__ram__v0;
-        CData/*5:0*/ __Vdlyvdim0__ysyx_22040750__DOT__sram4__DOT__ram__v0;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__sram4__DOT__ram__v0;
-        CData/*5:0*/ __Vdlyvdim0__ysyx_22040750__DOT__sram5__DOT__ram__v0;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__sram5__DOT__ram__v0;
-        CData/*5:0*/ __Vdlyvdim0__ysyx_22040750__DOT__sram6__DOT__ram__v0;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__sram6__DOT__ram__v0;
-        CData/*5:0*/ __Vdlyvdim0__ysyx_22040750__DOT__sram7__DOT__ram__v0;
         CData/*0:0*/ __Vdlyvset__ysyx_22040750__DOT__sram7__DOT__ram__v0;
-        CData/*0:0*/ __Vclklast__TOP__clock;
-        SData/*8:0*/ __Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_rstrb;
-        SData/*11:0*/ __Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_csr_addr;
+        CData/*0:0*/ __Vtrigrprev__TOP__clock;
+        CData/*0:0*/ __VactContinue;
+        SData/*14:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_op_sel;
+        SData/*8:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_rstrb;
+        SData/*14:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_alu_op_sel;
+        SData/*11:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_csr_addr;
+        SData/*8:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_rstrb;
+        SData/*11:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_csr_addr;
+        SData/*8:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_mem_rstrb;
+        SData/*11:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_csr_addr;
+        SData/*14:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__current_state;
+        SData/*14:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__next_state;
         SData/*8:0*/ __Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_rstrb;
         SData/*11:0*/ __Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_csr_addr;
-        VlWide<6>/*191:0*/ ysyx_22040750__DOT__cpu_core_e__DOT____Vcellinp__alu_op1_64bit_3sel__I_sel_data;
-        VlWide<6>/*191:0*/ ysyx_22040750__DOT__cpu_core_e__DOT____Vcellinp__alu_op2_64bit_3sel__I_sel_data;
-        VlWide<4>/*127:0*/ ysyx_22040750__DOT__cpu_core_e__DOT____Vcellinp__regin_64bit_2sel__I_sel_data;
-        VlWide<3>/*95:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__npc_e__DOT____Vcellinp__nextpc_64bit_3sel__I_sel_data;
+        VL_OUT(io_master_awaddr,31,0);
+        VL_OUT(io_master_araddr,31,0);
+        VL_OUT(io_slave_awaddr,31,0);
+        VL_OUT(io_slave_araddr,31,0);
+        VlWide<4>/*127:0*/ ysyx_22040750__DOT__io_sram0_rdata;
+        VlWide<4>/*127:0*/ ysyx_22040750__DOT__io_sram1_rdata;
+        VlWide<4>/*127:0*/ ysyx_22040750__DOT__io_sram2_rdata;
+        VlWide<4>/*127:0*/ ysyx_22040750__DOT__io_sram3_rdata;
+        VlWide<4>/*127:0*/ ysyx_22040750__DOT__io_sram4_wmask;
+        VlWide<4>/*127:0*/ ysyx_22040750__DOT__io_sram4_rdata;
+        VlWide<4>/*127:0*/ ysyx_22040750__DOT__io_sram5_wmask;
+        VlWide<4>/*127:0*/ ysyx_22040750__DOT__io_sram5_rdata;
+        VlWide<4>/*127:0*/ ysyx_22040750__DOT__io_sram6_rdata;
+        VlWide<4>/*127:0*/ ysyx_22040750__DOT__io_sram7_rdata;
+        IData/*31:0*/ ysyx_22040750__DOT__cpu_inst;
+        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__current_pc;
+        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__dnpc;
+        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__current_inst;
+        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__mem_addr;
+        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_pc;
+        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_inst;
+        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_pc;
+        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_inst;
+        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_pc;
+        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_inst;
+        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_pc;
+        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_inst;
+        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_mem_addr;
+        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__npc_e__DOT__dnpc_src2;
+    };
+    struct {
+        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__npc_e__DOT__dnpc;
+        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__npc_e__DOT__dnpc_reg;
+        IData/*31:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__pc_e__DOT__inst_cache;
+        VlWide<4>/*127:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT____VdfgTmp_hb66986a0__0;
+        VlWide<4>/*127:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT____VdfgTmp_hf6233cdf__0;
+        VlWide<3>/*66:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__booth_mul1;
+        VlWide<5>/*131:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__booth_mul2;
+        VlWide<5>/*131:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__mid_result;
+        VlWide<5>/*131:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__S;
+        VlWide<4>/*127:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__radix2_div_e__DOT__abs_dividend;
+        VlWide<4>/*127:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__radix2_div_e__DOT__abs_divisor;
+        VlWide<4>/*127:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__radix2_div_e__DOT__current_sub_result;
+        VlWide<8>/*255:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_way0_rdata;
+        VlWide<8>/*255:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_way1_rdata;
+        VlWide<8>/*255:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_wmask;
+        IData/*31:0*/ ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__mem_addr;
+        VlWide<4>/*127:0*/ ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__valid_table;
+        VlWide<8>/*255:0*/ ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cacheline_reg;
+        IData/*31:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mem_addr;
+        IData/*31:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__sram_wmaskB;
+        VlWide<8>/*255:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg;
+        VlWide<4>/*127:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__valid_table;
+        VlWide<4>/*127:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__dirty_table;
         IData/*31:0*/ __Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__current_pc;
         IData/*31:0*/ __Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_pc;
         IData/*31:0*/ __Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_inst;
-        IData/*31:0*/ __Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_inst;
         IData/*31:0*/ __Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_pc;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v1;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v2;
@@ -1516,8 +1440,6 @@ VL_MODULE(Vysyx_22040750___024root) {
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v13;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v14;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v16;
-    };
-    struct {
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v17;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v19;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v20;
@@ -1543,6 +1465,8 @@ VL_MODULE(Vysyx_22040750___024root) {
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v50;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v52;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v53;
+    };
+    struct {
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v55;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v56;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v58;
@@ -1582,8 +1506,6 @@ VL_MODULE(Vysyx_22040750___024root) {
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v109;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v110;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v112;
-    };
-    struct {
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v113;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v115;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v116;
@@ -1609,6 +1531,8 @@ VL_MODULE(Vysyx_22040750___024root) {
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v146;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v148;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v149;
+    };
+    struct {
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v151;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v152;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v154;
@@ -1648,8 +1572,6 @@ VL_MODULE(Vysyx_22040750___024root) {
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v205;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v206;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v208;
-    };
-    struct {
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v209;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v211;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v212;
@@ -1675,6 +1597,8 @@ VL_MODULE(Vysyx_22040750___024root) {
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v242;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v244;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v245;
+    };
+    struct {
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v247;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v248;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v250;
@@ -1714,8 +1638,6 @@ VL_MODULE(Vysyx_22040750___024root) {
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v301;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v302;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v304;
-    };
-    struct {
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v305;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v307;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v308;
@@ -1741,6 +1663,8 @@ VL_MODULE(Vysyx_22040750___024root) {
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v338;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v340;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v341;
+    };
+    struct {
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v343;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v344;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v346;
@@ -1770,6 +1694,7 @@ VL_MODULE(Vysyx_22040750___024root) {
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v382;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table__v383;
         IData/*31:0*/ __Vdly__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__mem_addr;
+        VlWide<8>/*255:0*/ __Vdly__ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__cacheline_reg;
         VlWide<8>/*255:0*/ __Vdly__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cacheline_reg;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v1;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v2;
@@ -1780,8 +1705,6 @@ VL_MODULE(Vysyx_22040750___024root) {
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v7;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v8;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v10;
-    };
-    struct {
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v11;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v13;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v14;
@@ -1806,6 +1729,8 @@ VL_MODULE(Vysyx_22040750___024root) {
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v43;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v44;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v46;
+    };
+    struct {
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v47;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v49;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v50;
@@ -1846,8 +1771,6 @@ VL_MODULE(Vysyx_22040750___024root) {
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v103;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v104;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v106;
-    };
-    struct {
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v107;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v109;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v110;
@@ -1872,6 +1795,8 @@ VL_MODULE(Vysyx_22040750___024root) {
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v139;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v140;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v142;
+    };
+    struct {
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v143;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v145;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v146;
@@ -1912,8 +1837,6 @@ VL_MODULE(Vysyx_22040750___024root) {
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v199;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v200;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v202;
-    };
-    struct {
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v203;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v205;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v206;
@@ -1938,6 +1861,8 @@ VL_MODULE(Vysyx_22040750___024root) {
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v235;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v236;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v238;
+    };
+    struct {
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v239;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v241;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v242;
@@ -1978,8 +1903,6 @@ VL_MODULE(Vysyx_22040750___024root) {
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v295;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v296;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v298;
-    };
-    struct {
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v299;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v301;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v302;
@@ -2004,6 +1927,8 @@ VL_MODULE(Vysyx_22040750___024root) {
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v331;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v332;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v334;
+    };
+    struct {
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v335;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v337;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v338;
@@ -2038,18 +1963,66 @@ VL_MODULE(Vysyx_22040750___024root) {
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v382;
         IData/*20:0*/ __Vdlyvval__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table__v383;
         IData/*31:0*/ __Vdly__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__mem_addr;
-        VlWide<4>/*127:0*/ __Vdlyvval__ysyx_22040750__DOT__sram0__DOT__ram__v0;
-        VlWide<4>/*127:0*/ __Vdlyvval__ysyx_22040750__DOT__sram1__DOT__ram__v0;
-        VlWide<4>/*127:0*/ __Vdlyvval__ysyx_22040750__DOT__sram2__DOT__ram__v0;
-        VlWide<4>/*127:0*/ __Vdlyvval__ysyx_22040750__DOT__sram3__DOT__ram__v0;
-        VlWide<4>/*127:0*/ __Vdlyvval__ysyx_22040750__DOT__sram4__DOT__ram__v0;
-        VlWide<4>/*127:0*/ __Vdlyvval__ysyx_22040750__DOT__sram5__DOT__ram__v0;
+        IData/*31:0*/ __VstlIterCount;
+        IData/*31:0*/ __VicoIterCount;
+        IData/*31:0*/ __VactIterCount;
+        VL_OUT64(io_master_wdata,63,0);
+        VL_IN64(io_master_rdata,63,0);
+        VL_OUT64(io_slave_wdata,63,0);
+        VL_IN64(io_slave_rdata,63,0);
+        QData/*63:0*/ ysyx_22040750__DOT__mem_wdata;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__imm;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__wr_data;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_op1;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_op2;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_out;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__mem_in;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_imm;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_rs1;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_rs2;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_csr;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_csr_intr_no;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_alu_out;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_rs2;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_csr;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_mem_data;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_csr_intr_no;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_mem_data;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_alu_out;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_csr;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_csr_intr_no;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__rs1_forward_data;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__rs2_forward_data;
     };
     struct {
-        VlWide<4>/*127:0*/ __Vdlyvval__ysyx_22040750__DOT__sram6__DOT__ram__v0;
-        VlWide<4>/*127:0*/ __Vdlyvval__ysyx_22040750__DOT__sram7__DOT__ram__v0;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__csr_forward_data;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__add_sub_result;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__srl_result;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__div_result;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__rem_result;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__op1_sext;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__op2_sext;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__mulh_reg;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__mul_reg;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__div_reg;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__rem_reg;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__adder2;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__reverse_op1;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__shift_op;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__sllw_result;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__slldw_result;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__dword_result;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__radix2_div_e__DOT__abs_quotient;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__csr_alu_e__DOT__op;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__mem_ld_e__DOT__ld_data;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__csr_e__DOT__mepc;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__csr_e__DOT__mstatus;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__csr_e__DOT__mtvec;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__csr_e__DOT__mcause;
+        QData/*63:0*/ ysyx_22040750__DOT__cpu_core_e__DOT__csr_e__DOT__mscratch;
+        QData/*63:0*/ ysyx_22040750__DOT__cache_e__DOT__axi_dcache_rdata;
+        QData/*63:0*/ ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cpu_reg;
         QData/*63:0*/ __Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_alu_out;
-        QData/*63:0*/ __Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_csr_intr_no;
         QData/*63:0*/ __Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_csr_intr_no;
         QData/*63:0*/ __Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_csr;
         QData/*63:0*/ __Vdlyvval__ysyx_22040750__DOT__cpu_core_e__DOT__gpr_e__DOT__gpr__v0;
@@ -2086,28 +2059,46 @@ VL_MODULE(Vysyx_22040750___024root) {
         QData/*63:0*/ __Vdlyvval__ysyx_22040750__DOT__cpu_core_e__DOT__gpr_e__DOT__gpr__v31;
         QData/*63:0*/ __Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__csr_e__DOT__mstatus;
         QData/*63:0*/ __Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__csr_e__DOT__mscratch;
+    };
+    struct {
         QData/*63:0*/ __Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__csr_e__DOT__mcause;
         QData/*63:0*/ __Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__csr_e__DOT__mepc;
         QData/*63:0*/ __Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__csr_e__DOT__mtvec;
         QData/*63:0*/ __Vdly__ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__cpu_reg;
+        VlUnpacked<IData/*31:0*/, 3> ysyx_22040750__DOT__cpu_core_e__DOT__npc_e__DOT__nextpc_64bit_3sel__DOT__sel_data;
+        VlUnpacked<QData/*63:0*/, 3> ysyx_22040750__DOT__cpu_core_e__DOT__alu_op1_64bit_3sel__DOT__sel_data;
+        VlUnpacked<QData/*63:0*/, 3> ysyx_22040750__DOT__cpu_core_e__DOT__alu_op2_64bit_3sel__DOT__sel_data;
+        VlUnpacked<QData/*63:0*/, 2> ysyx_22040750__DOT__cpu_core_e__DOT__regin_64bit_2sel__DOT__sel_data;
+        VlUnpacked<QData/*63:0*/, 32> ysyx_22040750__DOT__cpu_core_e__DOT__gpr_e__DOT__gpr;
+        VlUnpacked<CData/*0:0*/, 32> ysyx_22040750__DOT__cpu_core_e__DOT__gpr_e__DOT__wen;
+        VlUnpacked<IData/*20:0*/, 128> ysyx_22040750__DOT__cache_e__DOT__icache_e__DOT__lookup_table;
+        VlUnpacked<IData/*20:0*/, 128> ysyx_22040750__DOT__cache_e__DOT__dcache_e__DOT__lookup_table;
+        VlUnpacked<VlWide<4>/*127:0*/, 64> ysyx_22040750__DOT__sram0__DOT__ram;
+        VlUnpacked<VlWide<4>/*127:0*/, 64> ysyx_22040750__DOT__sram1__DOT__ram;
+        VlUnpacked<VlWide<4>/*127:0*/, 64> ysyx_22040750__DOT__sram2__DOT__ram;
+        VlUnpacked<VlWide<4>/*127:0*/, 64> ysyx_22040750__DOT__sram3__DOT__ram;
+        VlUnpacked<VlWide<4>/*127:0*/, 64> ysyx_22040750__DOT__sram4__DOT__ram;
+        VlUnpacked<VlWide<4>/*127:0*/, 64> ysyx_22040750__DOT__sram5__DOT__ram;
+        VlUnpacked<VlWide<4>/*127:0*/, 64> ysyx_22040750__DOT__sram6__DOT__ram;
+        VlUnpacked<VlWide<4>/*127:0*/, 64> ysyx_22040750__DOT__sram7__DOT__ram;
         VlUnpacked<CData/*0:0*/, 3> __Vm_traceActivity;
     };
+    VlTriggerVec<1> __VstlTriggered;
+    VlTriggerVec<1> __VicoTriggered;
+    VlTriggerVec<1> __VactTriggered;
+    VlTriggerVec<1> __VnbaTriggered;
 
     // INTERNAL VARIABLES
-    Vysyx_22040750__Syms* vlSymsp;  // Symbol table
+    Vysyx_22040750__Syms* const vlSymsp;
 
     // CONSTRUCTORS
-  private:
-    VL_UNCOPYABLE(Vysyx_22040750___024root);  ///< Copying not allowed
-  public:
-    Vysyx_22040750___024root(const char* name);
+    Vysyx_22040750___024root(Vysyx_22040750__Syms* symsp, const char* v__name);
     ~Vysyx_22040750___024root();
+    VL_UNCOPYABLE(Vysyx_22040750___024root);
 
     // INTERNAL METHODS
-    void __Vconfigure(Vysyx_22040750__Syms* symsp, bool first);
+    void __Vconfigure(bool first);
 } VL_ATTR_ALIGNED(VL_CACHE_LINE_BYTES);
-
-//----------
 
 
 #endif  // guard
