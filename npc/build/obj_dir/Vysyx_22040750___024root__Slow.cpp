@@ -12,20 +12,11 @@ void Vysyx_22040750___024root___ctor_var_reset(Vysyx_22040750___024root* vlSelf)
 
 Vysyx_22040750___024root::Vysyx_22040750___024root(Vysyx_22040750__Syms* symsp, const char* v__name)
     : VerilatedModule{v__name}
-    , __Vm_mtaskstate_2(1U)
-    , __Vm_mtaskstate_16(3U)
-    , __Vm_mtaskstate_28(3U)
-    , __Vm_mtaskstate_17(2U)
-    , __Vm_mtaskstate_26(6U)
-    , __Vm_mtaskstate_23(1U)
-    , __Vm_mtaskstate_24(1U)
-    , __Vm_mtaskstate_18(2U)
-    , __Vm_mtaskstate_27(1U)
-    , __Vm_mtaskstate_22(3U)
-    , __Vm_mtaskstate_25(1U)
-    , __Vm_mtaskstate_19(3U)
-    , __Vm_mtaskstate_21(1U)
-    , __Vm_mtaskstate_final__nba(4U)
+    , __Vm_mtaskstate_10(2U)
+    , __Vm_mtaskstate_8(1U)
+    , __Vm_mtaskstate_9(1U)
+    , __Vm_mtaskstate_11(3U)
+    , __Vm_mtaskstate_final__nba(2U)
     , vlSymsp{symsp}
  {
     // Reset structure values
