@@ -263,7 +263,7 @@ int main(int argc, char** argv, char** env) {
   uint32_t cpu_waddr, cpu_raddr;
   uint64_t cpu_wdata, cpu_rdata;
   bool cpu_wvalid, cpu_rvalid;
-  restore_model("ckpt5000");
+  restore_model("5000ckpt");
   while (!finish){
     if(sim_time == 1){
       #ifdef CONFIG_DIFFTEST
