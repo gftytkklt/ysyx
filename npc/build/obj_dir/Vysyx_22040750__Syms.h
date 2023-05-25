@@ -8,7 +8,6 @@
 #define VERILATED_VYSYX_22040750__SYMS_H_  // guard
 
 #include "verilated.h"
-#include "verilated_profiler.h"
 
 // INCLUDE MODEL CLASS
 
@@ -34,9 +33,6 @@ class Vysyx_22040750__Syms final : public VerilatedSyms {
     bool __Vm_even_cycle__ico = false;
     bool __Vm_even_cycle__act = false;
     bool __Vm_even_cycle__nba = false;
-
-    // EXECUTION PROFILING
-    VlExecutionProfiler* const __Vm_executionProfilerp;
 
     // MODULE INSTANCE STATE
     Vysyx_22040750___024root       TOP;

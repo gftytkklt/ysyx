@@ -18,7 +18,7 @@ SYSTEMC_LIBDIR ?= /home/gftyt/systemc/systemc-2.3.3/lib-linux64
 
 ### Switches...
 # C++ code coverage  0/1 (from --prof-c)
-VM_PROFC = 1
+VM_PROFC = 0
 # SystemC output mode?  0/1 (from --sc)
 VM_SC = 0
 # Legacy or SystemC output mode?  0/1 (from --sc)
