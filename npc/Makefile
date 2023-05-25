@@ -32,8 +32,9 @@ $(UTIL_ARCHIVE): $(UTIL_OBJS)
 # verilator flag
 TOPNAME = ysyx_22040750
 VERILATOR = verilator
-VERILATOR_CFLAGS += -MMD --build -cc --prof-cfuncs --prof-exec -j 8 \
-		    -O3 --x-assign fast --x-initial fast --noassert --trace
+VERILATOR_CFLAGS += -MMD --build -cc --prof-cfuncs --prof-exec \
+		    -O3 --x-assign fast --x-initial fast \
+		    --noassert --trace --threads 4
 BUILD_DIR = ./build
 OBJ_DIR = $(BUILD_DIR)/obj_dir
 BIN = $(BUILD_DIR)/$(TOPNAME)

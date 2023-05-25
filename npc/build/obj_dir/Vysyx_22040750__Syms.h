@@ -29,6 +29,12 @@ class Vysyx_22040750__Syms final : public VerilatedSyms {
     VlDeleter __Vm_deleter;
     bool __Vm_didInit = false;
 
+    // MULTI-THREADING
+    VlThreadPool* const __Vm_threadPoolp;
+    bool __Vm_even_cycle__ico = false;
+    bool __Vm_even_cycle__act = false;
+    bool __Vm_even_cycle__nba = false;
+
     // EXECUTION PROFILING
     VlExecutionProfiler* const __Vm_executionProfilerp;
 
