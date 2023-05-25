@@ -120,11 +120,14 @@ void Vysyx_22040750::eval_step() {
     // MTask 0 start
     VL_DEBUG_IF(VL_DBG_MSGF("MTask0 starting\n"););
     Verilated::mtaskId(0);
+    vlSymsp->__Vm_executionProfilerp->configure();
+    VL_EXEC_TRACE_ADD_RECORD(vlSymsp).evalBegin();
     VL_DEBUG_IF(VL_DBG_MSGF("+ Eval\n"););
     Vysyx_22040750___024root___eval(&(vlSymsp->TOP));
     // Evaluate cleanup
     Verilated::endOfThreadMTask(vlSymsp->__Vm_evalMsgQp);
     Verilated::endOfEval(vlSymsp->__Vm_evalMsgQp);
+    VL_EXEC_TRACE_ADD_RECORD(vlSymsp).evalEnd();
 }
 
 //============================================================
