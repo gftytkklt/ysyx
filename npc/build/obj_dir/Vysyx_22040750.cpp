@@ -12,38 +12,34 @@
 Vysyx_22040750::Vysyx_22040750(VerilatedContext* _vcontextp__, const char* _vcname__)
     : VerilatedModel{*_vcontextp__}
     , vlSymsp{new Vysyx_22040750__Syms(contextp(), _vcname__, this)}
-    , io_master_bvalid{vlSymsp->TOP.io_master_bvalid}
+    , clock{vlSymsp->TOP.clock}
+    , reset{vlSymsp->TOP.reset}
+    , io_interrupt{vlSymsp->TOP.io_interrupt}
+    , io_master_awready{vlSymsp->TOP.io_master_awready}
+    , io_master_awvalid{vlSymsp->TOP.io_master_awvalid}
+    , io_master_awid{vlSymsp->TOP.io_master_awid}
     , io_master_awlen{vlSymsp->TOP.io_master_awlen}
-    , io_master_wlast{vlSymsp->TOP.io_master_wlast}
-    , io_master_arvalid{vlSymsp->TOP.io_master_arvalid}
-    , io_master_awaddr{vlSymsp->TOP.io_master_awaddr}
-    , io_master_wdata{vlSymsp->TOP.io_master_wdata}
-    , io_master_rvalid{vlSymsp->TOP.io_master_rvalid}
-    , io_master_rlast{vlSymsp->TOP.io_master_rlast}
+    , io_master_awsize{vlSymsp->TOP.io_master_awsize}
+    , io_master_awburst{vlSymsp->TOP.io_master_awburst}
     , io_master_wready{vlSymsp->TOP.io_master_wready}
     , io_master_wvalid{vlSymsp->TOP.io_master_wvalid}
     , io_master_wstrb{vlSymsp->TOP.io_master_wstrb}
-    , io_master_awready{vlSymsp->TOP.io_master_awready}
-    , io_master_rdata{vlSymsp->TOP.io_master_rdata}
-    , io_master_arlen{vlSymsp->TOP.io_master_arlen}
-    , io_master_arsize{vlSymsp->TOP.io_master_arsize}
-    , io_master_araddr{vlSymsp->TOP.io_master_araddr}
-    , io_master_arready{vlSymsp->TOP.io_master_arready}
-    , io_master_awvalid{vlSymsp->TOP.io_master_awvalid}
-    , io_master_rready{vlSymsp->TOP.io_master_rready}
-    , reset{vlSymsp->TOP.reset}
-    , clock{vlSymsp->TOP.clock}
-    , io_interrupt{vlSymsp->TOP.io_interrupt}
-    , io_master_awid{vlSymsp->TOP.io_master_awid}
-    , io_master_awsize{vlSymsp->TOP.io_master_awsize}
-    , io_master_awburst{vlSymsp->TOP.io_master_awburst}
+    , io_master_wlast{vlSymsp->TOP.io_master_wlast}
     , io_master_bready{vlSymsp->TOP.io_master_bready}
+    , io_master_bvalid{vlSymsp->TOP.io_master_bvalid}
     , io_master_bid{vlSymsp->TOP.io_master_bid}
     , io_master_bresp{vlSymsp->TOP.io_master_bresp}
+    , io_master_arready{vlSymsp->TOP.io_master_arready}
+    , io_master_arvalid{vlSymsp->TOP.io_master_arvalid}
     , io_master_arid{vlSymsp->TOP.io_master_arid}
+    , io_master_arlen{vlSymsp->TOP.io_master_arlen}
+    , io_master_arsize{vlSymsp->TOP.io_master_arsize}
     , io_master_arburst{vlSymsp->TOP.io_master_arburst}
+    , io_master_rready{vlSymsp->TOP.io_master_rready}
+    , io_master_rvalid{vlSymsp->TOP.io_master_rvalid}
     , io_master_rid{vlSymsp->TOP.io_master_rid}
     , io_master_rresp{vlSymsp->TOP.io_master_rresp}
+    , io_master_rlast{vlSymsp->TOP.io_master_rlast}
     , io_slave_awready{vlSymsp->TOP.io_slave_awready}
     , io_slave_awvalid{vlSymsp->TOP.io_slave_awvalid}
     , io_slave_awid{vlSymsp->TOP.io_slave_awid}
@@ -69,8 +65,12 @@ Vysyx_22040750::Vysyx_22040750(VerilatedContext* _vcontextp__, const char* _vcna
     , io_slave_rid{vlSymsp->TOP.io_slave_rid}
     , io_slave_rresp{vlSymsp->TOP.io_slave_rresp}
     , io_slave_rlast{vlSymsp->TOP.io_slave_rlast}
+    , io_master_awaddr{vlSymsp->TOP.io_master_awaddr}
+    , io_master_araddr{vlSymsp->TOP.io_master_araddr}
     , io_slave_awaddr{vlSymsp->TOP.io_slave_awaddr}
     , io_slave_araddr{vlSymsp->TOP.io_slave_araddr}
+    , io_master_wdata{vlSymsp->TOP.io_master_wdata}
+    , io_master_rdata{vlSymsp->TOP.io_master_rdata}
     , io_slave_wdata{vlSymsp->TOP.io_slave_wdata}
     , io_slave_rdata{vlSymsp->TOP.io_slave_rdata}
     , rootp{&(vlSymsp->TOP)}
@@ -117,9 +117,13 @@ void Vysyx_22040750::eval_step() {
         Vysyx_22040750___024root___eval_initial(&(vlSymsp->TOP));
         Vysyx_22040750___024root___eval_settle(&(vlSymsp->TOP));
     }
+    // MTask 0 start
+    VL_DEBUG_IF(VL_DBG_MSGF("MTask0 starting\n"););
+    Verilated::mtaskId(0);
     VL_DEBUG_IF(VL_DBG_MSGF("+ Eval\n"););
     Vysyx_22040750___024root___eval(&(vlSymsp->TOP));
     // Evaluate cleanup
+    Verilated::endOfThreadMTask(vlSymsp->__Vm_evalMsgQp);
     Verilated::endOfEval(vlSymsp->__Vm_evalMsgQp);
 }
 
@@ -153,9 +157,9 @@ VL_ATTR_COLD void Vysyx_22040750::final() {
 
 const char* Vysyx_22040750::hierName() const { return vlSymsp->name(); }
 const char* Vysyx_22040750::modelName() const { return "Vysyx_22040750"; }
-unsigned Vysyx_22040750::threads() const { return 4; }
+unsigned Vysyx_22040750::threads() const { return 1; }
 std::unique_ptr<VerilatedTraceConfig> Vysyx_22040750::traceConfig() const {
-    return std::unique_ptr<VerilatedTraceConfig>{new VerilatedTraceConfig{true, false, false}};
+    return std::unique_ptr<VerilatedTraceConfig>{new VerilatedTraceConfig{false, false, false}};
 };
 
 //============================================================

@@ -14,7 +14,6 @@ Vysyx_22040750__Syms::Vysyx_22040750__Syms(VerilatedContext* contextp, const cha
     : VerilatedSyms{contextp}
     // Setup internal state of the Syms class
     , __Vm_modelp{modelp}
-    , __Vm_threadPoolp{static_cast<VlThreadPool*>(contextp->threadPoolp())}
     // Setup module instances
     , TOP{this, namep}
 {
