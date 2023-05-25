@@ -28,6 +28,7 @@ VM_CLASSES_FAST += \
 	Vysyx_22040750___024root__DepSet_hfbeffe87__0 \
 	Vysyx_22040750___024root__DepSet_hfbeffe87__1 \
 	Vysyx_22040750___024root__DepSet_hfbeffe87__2 \
+	Vysyx_22040750___024root__DepSet_hfbeffe87__3 \
 
 # Generated module classes, non-fast-path, compile with low/medium optimization
 VM_CLASSES_SLOW += \
