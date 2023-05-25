@@ -422,6 +422,7 @@ int main(int argc, char** argv, char** env) {
     }
     #endif
     sim_time++;
+    if(sim_time == 5000){save_model("5000ckpt");printf("save model\n");break;}
     // breakpoint for dead cycle
     //if(same_pc_cnt == 50){printf("%ld, check dead loop!\n", sim_time);break;}
   }
