@@ -13,7 +13,7 @@ UTIL_OBJS := $(addprefix $(UTIL_DIR)/, $(addsuffix .o, $(basename $(notdir $(UTI
 
 INC_PATH ?= $(NPC_HOME)/csrc/include
 INCLUDES = $(addprefix -I, $(INC_PATH))
-CFLAGS += -MMD -O3 $(INCLUDES) -I/usr/lib/llvm-12/include -std=c++14   -fno-exceptions -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -fPIE
+CFLAGS += -MMD -O3 $(INCLUDES) -I/usr/lib/llvm-12/include -std=c++14   -fno-exceptions -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -fPIE -pg
 LDFLAGS += $(shell llvm-config --libs) -ldl
 
 #archive build rules
