@@ -13,7 +13,7 @@ UTIL_OBJS := $(addprefix $(UTIL_DIR)/, $(addsuffix .o, $(basename $(notdir $(UTI
 
 INC_PATH ?= $(NPC_HOME)/csrc/include
 INCLUDES = $(addprefix -I, $(INC_PATH))
-CFLAGS += -MMD -O3 $(INCLUDES) -I/usr/lib/llvm-12/include -std=c++14   -fno-exceptions -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -fPIE -pg
+CFLAGS += -MMD -O3 $(INCLUDES) -I/usr/lib/llvm-12/include -std=c++14   -fno-exceptions -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -fPIE
 LDFLAGS += $(shell llvm-config --libs) -ldl
 
 #archive build rules
@@ -32,7 +32,7 @@ $(UTIL_ARCHIVE): $(UTIL_OBJS)
 # verilator flag
 TOPNAME = ysyx_22040750
 VERILATOR = verilator
-VERILATOR_CFLAGS += -MMD --build -cc --prof-cfuncs \
+VERILATOR_CFLAGS += -MMD --build -cc --prof-cfuncs --prof-exec \
 		    -O3 --x-assign fast --x-initial fast --noassert --trace
 BUILD_DIR = ./build
 OBJ_DIR = $(BUILD_DIR)/obj_dir
