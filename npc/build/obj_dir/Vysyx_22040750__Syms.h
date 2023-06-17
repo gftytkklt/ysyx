@@ -7,7 +7,7 @@
 #ifndef VERILATED_VYSYX_22040750__SYMS_H_
 #define VERILATED_VYSYX_22040750__SYMS_H_  // guard
 
-#include "verilated_heavy.h"
+#include "verilated.h"
 
 // INCLUDE MODEL CLASS
 
@@ -25,6 +25,7 @@ class Vysyx_22040750__Syms final : public VerilatedSyms {
     Vysyx_22040750* const __Vm_modelp;
     bool __Vm_activity = false;  ///< Used by trace routines to determine change occurred
     uint32_t __Vm_baseCode = 0;  ///< Used by trace routines when tracing multiple models
+    VlDeleter __Vm_deleter;
     bool __Vm_didInit = false;
 
     // MODULE INSTANCE STATE
@@ -36,6 +37,8 @@ class Vysyx_22040750__Syms final : public VerilatedSyms {
 
     // METHODS
     const char* name() { return TOP.name(); }
+    void __Vserialize(VerilatedSerialize& os);
+    void __Vdeserialize(VerilatedDeserialize& os);
 } VL_ATTR_ALIGNED(VL_CACHE_LINE_BYTES);
 
 #endif  // guard

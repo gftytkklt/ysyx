@@ -105,20 +105,33 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   uint32_t *true_pixel_pt = NULL;
   SDL_Color* palette = NULL;
   int r, g, b;
+  int debug_flag = 0;
   if(full_screen){
     draw_w = s->w;
     draw_h = s->h;
     //printf("full screen: %d %d\n", draw_w, draw_h);
     if(s->format->palette == NULL){
-      true_pixel_pt = s->pixels;
+      true_pixel_pt = (uint32_t *)s->pixels;
     }
     else{
       // palette
       //printf("palette\n");
       palette = s->format->palette->colors;
       assert(palette != NULL);
+      true_pixel_pt = (uint32_t*)malloc(draw_w*draw_h*4);
+      //printf("maprgb begin\n");
+      for(int i=0;i<draw_w*draw_h;i++){
+        //if(i>60000){printf("%d ", i);}
+        r = palette[s->pixels[i]].r;
+        g = palette[s->pixels[i]].g;
+        b = palette[s->pixels[i]].b;
+        true_pixel_pt[i] = ((r << 16) + (g << 8) + b);
+      }
+      //printf("maprgb end\n");
+      //true_pixel_pt = true_pixel;
+      //free(true_pixel);
       //uint32_t true_pixel[draw_w*draw_h];
-      uint32_t *true_pixel = (uint32_t*)malloc(draw_w*draw_h*4);
+      /*uint32_t *true_pixel = (uint32_t*)malloc(draw_w*draw_h*4);
       //printf("maprgb begin\n");
       for(int i=0;i<draw_w*draw_h;i++){
         //if(i>60000){printf("%d ", i);}
@@ -129,7 +142,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
       }
       //printf("maprgb end\n");
       true_pixel_pt = true_pixel;
-      free(true_pixel);
+      free(true_pixel);*/
     }
   }
   else{
@@ -139,8 +152,10 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     int offset = x+y*s->w;
     //printf("offset = %d\n", offset);
     //uint32_t true_pixel1[draw_w*draw_h];
-    uint32_t *true_pixel1 = (uint32_t*)malloc(draw_w*draw_h*4);
-    uint32_t *current_dst = true_pixel1;
+    //uint32_t *true_pixel1 = (uint32_t*)malloc(draw_w*draw_h*4);
+    //uint32_t *current_dst = true_pixel1;
+    true_pixel_pt = (uint32_t*)malloc(draw_w*draw_h*4);
+    uint32_t *current_dst = true_pixel_pt;
     if(s->format->palette == NULL){
       uint32_t *current_src = (uint32_t *)s->pixels;
       current_src += offset;
@@ -161,14 +176,15 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
           r = palette[*(current_src+j)].r;
           g = palette[*(current_src+j)].g;
           b = palette[*(current_src+j)].b;
-          true_pixel1[index] = ((r << 16) + (g << 8) + b);
+          //true_pixel1[index] = ((r << 16) + (g << 8) + b);
+          true_pixel_pt[index] = ((r << 16) + (g << 8) + b);
           index++;
         }
         current_src += s->w;
       }
     }
-    true_pixel_pt = true_pixel1;
-    free(true_pixel1);
+    //true_pixel_pt = true_pixel1;
+    //free(true_pixel1);
   }
   assert(true_pixel_pt != NULL);
   //printf("draw begin\n");
