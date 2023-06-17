@@ -90,8 +90,8 @@ void NDL_OpenAudio(int freq, int channels, int samples) {
 void NDL_CloseAudio() {
   //int audio_para[3] = {0, 0, 0};
   //write(sbctl, audio_para, 12);
-  close(fbctl);
-  close(fbdev);
+  close(sbctl);
+  close(sbdev);
 }
 
 int NDL_PlayAudio(void *buf, int len) {
