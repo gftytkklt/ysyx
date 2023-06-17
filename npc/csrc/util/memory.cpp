@@ -68,6 +68,7 @@ void pmem_write(unsigned int waddr, unsigned long wdata, unsigned char wmask, FI
   uint8_t *data_pt = (uint8_t*)&wdata;
   // sim of byte write enable mode
   if ((waddr >= FB_ADDR) && (waddr < FB_ADDR + FB_SIZE)){
+    printf("%x %08x\n", waddr, wmask);
     uint32_t fb_index = (waddr - FB_ADDR) >> 2;
     update_pixel((uint32_t) wdata, fb_index);
   }
