@@ -110,15 +110,27 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     draw_h = s->h;
     //printf("full screen: %d %d\n", draw_w, draw_h);
     if(s->format->palette == NULL){
-      true_pixel_pt = s->pixels;
+      true_pixel_pt = (uint32_t *)s->pixels;
     }
     else{
       // palette
       //printf("palette\n");
       palette = s->format->palette->colors;
       assert(palette != NULL);
+      true_pixel_pt = (uint32_t*)malloc(draw_w*draw_h*4);
+      //printf("maprgb begin\n");
+      for(int i=0;i<draw_w*draw_h;i++){
+        //if(i>60000){printf("%d ", i);}
+        r = palette[s->pixels[i]].r;
+        g = palette[s->pixels[i]].g;
+        b = palette[s->pixels[i]].b;
+        true_pixel_pt[i] = ((r << 16) + (g << 8) + b);
+      }
+      //printf("maprgb end\n");
+      //true_pixel_pt = true_pixel;
+      //free(true_pixel);
       //uint32_t true_pixel[draw_w*draw_h];
-      uint32_t *true_pixel = (uint32_t*)malloc(draw_w*draw_h*4);
+      /*uint32_t *true_pixel = (uint32_t*)malloc(draw_w*draw_h*4);
       //printf("maprgb begin\n");
       for(int i=0;i<draw_w*draw_h;i++){
         //if(i>60000){printf("%d ", i);}
@@ -129,7 +141,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
       }
       //printf("maprgb end\n");
       true_pixel_pt = true_pixel;
-      free(true_pixel);
+      free(true_pixel);*/
     }
   }
   else{
