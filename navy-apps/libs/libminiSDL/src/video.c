@@ -105,6 +105,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   uint32_t *true_pixel_pt = NULL;
   SDL_Color* palette = NULL;
   int r, g, b;
+  int debug_flag = 0;
   if(full_screen){
     draw_w = s->w;
     draw_h = s->h;
@@ -178,13 +179,9 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
         }
         current_src += s->w;
       }
-      if(offset == 30525){
-        for(int d = 0; d < 10; d++){printf("%x ", true_pixel1[d]);}
-        printf("\n");
-      }
     }
     true_pixel_pt = true_pixel1;
-    free(true_pixel1);
+    //free(true_pixel1);
   }
   assert(true_pixel_pt != NULL);
   //printf("draw begin\n");
