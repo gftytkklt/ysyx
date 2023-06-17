@@ -23,6 +23,10 @@ void init_screen(){
   fb = (uint32_t *)malloc(FB_SIZE);
   drawinfo = (screeninfo *)malloc(32);
   drawinfo->pixels = fb;
+  drawinfo->x = 0;
+  drawinfo->y = 0;
+  drawinfo->w = 0;
+  drawinfo->h = 0;
 }
 void update_screen(){
   int x = drawinfo->x, y = drawinfo->y, w = drawinfo->w, h = drawinfo->h;
