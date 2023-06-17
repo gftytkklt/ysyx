@@ -149,7 +149,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     draw_w = w;
     draw_h = h;
     int offset = x+y*s->w;
-    printf("offset = %d\n", offset);
+    //printf("offset = %d\n", offset);
     //uint32_t true_pixel1[draw_w*draw_h];
     uint32_t *true_pixel1 = (uint32_t*)malloc(draw_w*draw_h*4);
     uint32_t *current_dst = true_pixel1;
@@ -177,6 +177,10 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
           index++;
         }
         current_src += s->w;
+      }
+      if(offset == 30525){
+        for(int d = 0; d < 10; d++){printf("%x ", true_pixel1[d]);}
+        printf("\n");
       }
     }
     true_pixel_pt = true_pixel1;
