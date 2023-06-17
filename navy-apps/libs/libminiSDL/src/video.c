@@ -148,7 +148,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     //printf("partial screen\n");
     draw_w = w;
     draw_h = h;
-    int offset = x+y*s->w-4;
+    int offset = x+y*s->w;
     //printf("offset = %d\n", offset);
     //uint32_t true_pixel1[draw_w*draw_h];
     uint32_t *true_pixel1 = (uint32_t*)malloc(draw_w*draw_h*4);
