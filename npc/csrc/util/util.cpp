@@ -26,7 +26,7 @@ void init_screen(){
 }
 void update_screen(){
   int x = drawinfo->x, y = drawinfo->y, w = drawinfo->w, h = drawinfo->h;
-  //printf("drawing: %d, %d, %d, %d\n",x,y,w,h);
+  printf("drawing: %d, %d, %d, %d\n",x,y,w,h);
   if (w == 0 || h == 0) return;
   feclearexcept(-1);
   SDL_Surface *s = SDL_CreateRGBSurfaceFrom(drawinfo->pixels, w, h, 32, w * sizeof(uint32_t),
