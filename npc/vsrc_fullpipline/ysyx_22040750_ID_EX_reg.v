@@ -80,10 +80,10 @@ module ysyx_22040750_ID_EX_reg(
     always @(posedge I_sys_clk)
     	if(I_rst)
     	    input_valid <= 0;
-	else if(O_ID_EX_allowin)
-	    input_valid <= I_ID_EX_valid;
-	else
-	    input_valid <= input_valid;
+		else if(O_ID_EX_allowin)
+			input_valid <= I_ID_EX_valid;
+		else
+			input_valid <= input_valid;
     always @(posedge I_sys_clk)
 		if(I_rst) begin
 			O_imm <= 0;

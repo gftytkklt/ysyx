@@ -76,7 +76,7 @@ module ysyx_22040750_icachectrl #(
     // lookup table
     // table index LSB indecates way num, remaining 7-bit MSB indicate cacheline index[6:0]
     genvar i;
-    reg [TAG_LEN-1:0] lookup_table [0:BLOCK_NUM-1];
+    reg [TAG_LEN-1:0] lookup_table [BLOCK_NUM-1:0];
     reg [BLOCK_NUM-1:0] valid_table;
     wire [TAG_LEN-1:0] way0_tag, way1_tag;
     wire way0_valid, way1_valid;

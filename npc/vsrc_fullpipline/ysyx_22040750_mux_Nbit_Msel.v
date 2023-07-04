@@ -29,7 +29,7 @@ module ysyx_22040750_mux_Nbit_Msel#(
     input [M-1:0] I_sel,
     output reg [N-1:0] O_sel_data
     );
-    wire [N-1:0] sel_data [0:M-1];
+    wire [N-1:0] sel_data [M-1:0];
     generate
     	for(genvar i = 0;i<M;i=i+1) begin
     	    assign sel_data[i] = I_sel_data[i*N +: N];  
