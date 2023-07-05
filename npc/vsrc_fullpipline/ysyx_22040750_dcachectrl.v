@@ -108,7 +108,7 @@ module ysyx_22040750_dcachectrl #(
     wire sram_wflag, sram_rflag;
     // lookup table
     genvar i;
-    reg [TAG_LEN-1:0] lookup_table [0:BLOCK_NUM-1];
+    reg [TAG_LEN-1:0] lookup_table [BLOCK_NUM-1:0];
     reg [BLOCK_NUM-1:0] valid_table, dirty_table;
     // signals below compare hit & miss(use in IDLE state)
     wire [TAG_LEN-1:0] way0_tag, way1_tag;

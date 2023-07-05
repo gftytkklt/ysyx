@@ -33,7 +33,7 @@ module ysyx_22040750_gpr(
     );
     //export "DPI-C" function check;
     import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
-    reg [63:0] gpr [0:31];
+    reg [63:0] gpr [31:0];
     initial set_gpr_ptr(gpr);
     wire wen [31:0];
     assign wen[0] = 0;

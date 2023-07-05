@@ -74,7 +74,7 @@ module ysyx_22040750_gpr_alu(
     wire sign_bit1, sign_bit2;
     wire sext1, sext2;
     
-    reg mul_valid_d, div_valid_d;
+    // reg mul_valid_d, div_valid_d;
     wire mul_flag, div_flag;
     wire mul_valid, div_valid;
     wire mul_out_valid, div_out_valid;

@@ -55,37 +55,36 @@ module ysyx_22040750(
     input [63:0] io_master_rdata,
     input io_master_rlast,
 
-    input io_slave_awready,
-    output io_slave_awvalid,
-    output [3:0] io_slave_awid,
-    output [31:0] io_slave_awaddr,
-    output [7:0] io_slave_awlen,
-    output [2:0] io_slave_awsize,
-    output [1:0] io_slave_awburst,
-    input io_slave_wready,
-    output io_slave_wvalid,
-    output [63:0] io_slave_wdata,
-    output [7:0] io_slave_wstrb,
-    output io_slave_wlast,
-    output io_slave_bready,
-    input io_slave_bvalid,
-    input [3:0] io_slave_bid,
-    input [1:0] io_slave_bresp,
-    input io_slave_arready,
-    output io_slave_arvalid,
-    output [3:0] io_slave_arid,
-    output [31:0] io_slave_araddr,
-    output [7:0] io_slave_arlen,
-    output [2:0] io_slave_arsize,
-    output [1:0] io_slave_arburst,
-    output io_slave_rready,
-    input io_slave_rvalid,
-    input [3:0] io_slave_rid,
-    input [1:0] io_slave_rresp,
-    input [63:0] io_slave_rdata,
-    input io_slave_rlast
+    output io_slave_awready,
+    input io_slave_awvalid,
+    input [3:0] io_slave_awid,
+    input [31:0] io_slave_awaddr,
+    input [7:0] io_slave_awlen,
+    input [2:0] io_slave_awsize,
+    input [1:0] io_slave_awburst,
+    output io_slave_wready,
+    input io_slave_wvalid,
+    input [63:0] io_slave_wdata,
+    input [7:0] io_slave_wstrb,
+    input io_slave_wlast,
+    input io_slave_bready,
+    output io_slave_bvalid,
+    output [3:0] io_slave_bid,
+    output [1:0] io_slave_bresp,
+    output io_slave_arready,
+    input io_slave_arvalid,
+    input [3:0] io_slave_arid,
+    input [31:0] io_slave_araddr,
+    input [7:0] io_slave_arlen,
+    input [2:0] io_slave_arsize,
+    input [1:0] io_slave_arburst,
+    input io_slave_rready,
+    output io_slave_rvalid,
+    output [3:0] io_slave_rid,
+    output [1:0] io_slave_rresp,
+    output [63:0] io_slave_rdata,
+    output io_slave_rlast/*,
 
-    /*
     output [5:0] io_sram0_addr,
     output io_sram0_cen,
     output io_sram0_wen,
@@ -133,10 +132,10 @@ module ysyx_22040750(
     output io_sram7_wen,
     output [127:0] io_sram7_wmask,
     output [127:0] io_sram7_wdata,
-    input [127:0] io_sram7_rdata
-    */
+    input [127:0] io_sram7_rdata*/
 );
     // test cache signal begin, delete it when test in SoC
+    
     wire [5:0] io_sram0_addr;
     wire io_sram0_cen;
     wire io_sram0_wen;
@@ -185,6 +184,7 @@ module ysyx_22040750(
     wire [127:0] io_sram7_wmask;
     wire [127:0] io_sram7_wdata;
     wire [127:0] io_sram7_rdata;
+    
     // test signal end
     wire [5:0] iaddr, daddr;
     wire [31:0] cpu_inst;
@@ -197,6 +197,22 @@ module ysyx_22040750(
     wire [63:0] mem_rdata, mem_wdata;
     wire mem_rvalid, mem_bvalid, cpu_mem_ready;
     wire [7:0] cpu_wmask;
+
+    assign io_slave_awready = 0;
+    assign io_slave_wready = 0;
+    assign io_slave_bvalid = 0;
+    assign io_slave_bid = 0;
+    assign io_slave_bresp = 0;
+    assign io_slave_arready = 0;
+    assign io_slave_rvalid = 0;
+    assign io_slave_rid = 0;
+    assign io_slave_rresp = 0;
+    assign io_slave_rdata = 0;
+    assign io_slave_rlast = 0;
+    assign io_master_awid = 0;
+    assign io_master_arid = 0;
+    assign io_master_awburst = 0;
+    assign io_master_arburst = 0;
 
     assign io_sram3_addr = iaddr;
     assign io_sram2_addr = iaddr;

@@ -15,7 +15,7 @@ module ysyx_22040750_csr(
     input [63:0] I_wr_data,
     output [63:0] O_rd_data
 );
-    localparam CSR_NUM = 1 << 12;
+    // localparam CSR_NUM = 1 << 12;
     localparam MEPC = 12'h341;
     localparam MSTATUS = 12'h300;
     localparam MTVEC = 12'h305;

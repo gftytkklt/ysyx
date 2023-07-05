@@ -22,8 +22,8 @@
 // `include "global_def.v"
 //import "DPI-C" function void sim_end();
 module ysyx_22040750_decoder(
-    input I_sys_clk,
-    input I_rst,
+    // input I_sys_clk,
+    // input I_rst,
     input [31:0] I_inst,
     output [63:0] O_imm,
     input [63:0] I_rs1_data,
@@ -38,14 +38,14 @@ module ysyx_22040750_decoder(
     //output O_mem_ren,
     //output [2:0] O_funct3,
     //output [6:0] O_funct7,
-    output [4:0] O_dnpc_sel,
-    output [2:0] O_regin_sel,
+    output [2:0] O_dnpc_sel,
+    output [1:0] O_regin_sel,
     output [2:0] O_opnum1_sel,
     output [2:0] O_opnum2_sel,
     output [14:0] O_alu_op_sel,
     output [1:0] O_alu_op_sext,
     output O_word_op_mask,
-    output [6:0] O_csr_op_sel,
+    output [5:0] O_csr_op_sel,
     output [4:0] O_csr_imm,
     output [11:0] O_csr_addr,
     output O_csr_wen,
@@ -260,8 +260,8 @@ module ysyx_22040750_decoder(
                     | ({64{typeJ}} & {{43{immJ[20]}},immJ});
 
     // ctrl signal gen
-    assign O_csr_op_sel[6] = ECALL | EBREAK | MRET;
-    assign O_csr_op_sel[5:0] = {CSRRW, CSRRS, CSRRC, CSRRWI, CSRRSI, CSRRCI};
+    // assign O_csr_op_sel[6] = ECALL | EBREAK | MRET;
+    assign O_csr_op_sel = {CSRRW, CSRRS, CSRRC, CSRRWI, CSRRSI, CSRRCI};
     // csr wr en
     wire [63:0] NO;
     assign NO = ECALL ? 64'hb : EBREAK ? 64'h4 : 64'h0;
@@ -275,7 +275,7 @@ module ysyx_22040750_decoder(
     // O_regin_sel: 4 for reserved, 2 for memory in, 1 for alu in
     // csr data to gpr is merged into alu
     //assign O_regin_sel[2] = O_reg_wen & (JAL | JALR);
-    assign O_regin_sel[2] = 0;
+    //assign O_regin_sel[2] = 0;
     assign O_regin_sel[1] = O_reg_wen & regin_from_mem;
     assign O_regin_sel[0] = O_reg_wen & (~regin_from_mem);
     assign O_reg_wen = typeR | typeI | typeU | typeJ | O_csr_wen;
@@ -302,10 +302,12 @@ module ysyx_22040750_decoder(
     assign ge = ~lt;
     assign typeB_jr = (BEQ&eq) | (BNE&neq) | (BLT&lt) | (BGE&ge) | (BLTU&ltu) | (BGEU&geu);
     assign csr_jr = ECALL | EBREAK | MRET;
-    assign O_dnpc_sel[4] = ECALL | EBREAK | MRET;
-    assign O_dnpc_sel[3] = JALR;
-    assign O_dnpc_sel[2] = JAL;
-    assign O_dnpc_sel[1] = typeB_jr;
+    // assign O_dnpc_sel[4] = csr_jr;
+    // assign O_dnpc_sel[3] = JALR;
+    // assign O_dnpc_sel[2] = JAL;
+    // assign O_dnpc_sel[1] = typeB_jr;
+    assign O_dnpc_sel[2] = csr_jr;
+    assign O_dnpc_sel[1] = JALR;
     assign O_dnpc_sel[0] = ~(JALR | JAL | typeB_jr | csr_jr);
     // alu op
     localparam OP_ADD = 15'b000_0000_0000_0001;

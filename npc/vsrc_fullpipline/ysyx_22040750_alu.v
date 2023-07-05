@@ -11,7 +11,7 @@ module ysyx_22040750_alu(
     input I_EX_MEM_ready,
     input [63:0] I_csr_data,
     input [4:0] I_uimm,
-    input [6:0] I_csr_op_sel,
+    input [5:0] I_csr_op_sel,
     output [63:0] O_result,
     //output [63:0] O_mem_addr,
     output [63:0] O_csr_data,

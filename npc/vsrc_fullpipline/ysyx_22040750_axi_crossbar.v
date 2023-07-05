@@ -56,10 +56,10 @@ module ysyx_22040750_axi_crossbar(
 );
     localparam CH0 = 1'b0;
     localparam CH1 = 1'b1;
-    localparam IDLE = 2'h0;
-    localparam RESP0 = 2'h1;
-    localparam RESP1 = 2'h2;
-    reg [1:0] current_state, next_state;
+    // localparam IDLE = 2'h0;
+    // localparam RESP0 = 2'h1;
+    // localparam RESP1 = 2'h2;
+    // reg [1:0] current_state, next_state;
     wire req0_only, req1_only, req_both;// current channel req state
     wire resp0, resp1;// channel should be responsed
     wire ch0_arhandshake, ch1_arhandshake;

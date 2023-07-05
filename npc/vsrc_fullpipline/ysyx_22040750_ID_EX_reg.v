@@ -16,13 +16,13 @@ module ysyx_22040750_ID_EX_reg(
     input [7:0] I_wstrb,
     input [8:0] I_rstrb,
     //input [3:0] I_dnpc_sel,
-    input [2:0] I_regin_sel,
+    input [1:0] I_regin_sel,
     input [2:0] I_op1_sel,
     input [2:0] I_op2_sel,
     input [1:0] I_alu_sext,
     input [14:0] I_alu_op_sel,
     input I_word_op_mask,
-	input [6:0] I_csr_op_sel,
+	input [5:0] I_csr_op_sel,
 	input [4:0] I_csr_imm,
 	input [11:0] I_csr_addr,
 	input I_csr_wen,
@@ -31,7 +31,7 @@ module ysyx_22040750_ID_EX_reg(
 	input [63:0] I_csr,
 	input I_csr_mret,
     //input I_ID_EX_block,
-	output reg [6:0] O_csr_op_sel,
+	output reg [5:0] O_csr_op_sel,
 	output reg [4:0] O_csr_imm,
 	output reg [11:0] O_csr_addr,
 	output reg O_csr_wen,
@@ -49,7 +49,7 @@ module ysyx_22040750_ID_EX_reg(
     output reg [7:0] O_wstrb,
     output reg [8:0] O_rstrb,
     //output reg [3:0] O_dnpc_sel,
-    output reg [2:0] O_regin_sel,
+    output reg [1:0] O_regin_sel,
     output reg [2:0] O_op1_sel,
     output reg [2:0] O_op2_sel,
     output reg [1:0] O_alu_sext,
@@ -80,10 +80,10 @@ module ysyx_22040750_ID_EX_reg(
     always @(posedge I_sys_clk)
     	if(I_rst)
     	    input_valid <= 0;
-	else if(O_ID_EX_allowin)
-	    input_valid <= I_ID_EX_valid;
-	else
-	    input_valid <= input_valid;
+		else if(O_ID_EX_allowin)
+			input_valid <= I_ID_EX_valid;
+		else
+			input_valid <= input_valid;
     always @(posedge I_sys_clk)
 		if(I_rst) begin
 			O_imm <= 0;

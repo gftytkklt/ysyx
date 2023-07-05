@@ -64,7 +64,7 @@ module ysyx_22040750_icachectrl #(
 );
     // addr division
     // cpu IDLE info
-    wire [OFFT_LEN-1:0] offset;
+    // wire [OFFT_LEN-1:0] offset;
     wire [INDEX_LEN-1:0] index;
     wire [TAG_LEN-1:0] tag;
     // cache miss mem info
@@ -76,7 +76,7 @@ module ysyx_22040750_icachectrl #(
     // lookup table
     // table index LSB indecates way num, remaining 7-bit MSB indicate cacheline index[6:0]
     genvar i;
-    reg [TAG_LEN-1:0] lookup_table [0:BLOCK_NUM-1];
+    reg [TAG_LEN-1:0] lookup_table [BLOCK_NUM-1:0];
     reg [BLOCK_NUM-1:0] valid_table;
     wire [TAG_LEN-1:0] way0_tag, way1_tag;
     wire way0_valid, way1_valid;
@@ -138,7 +138,8 @@ module ysyx_22040750_icachectrl #(
         else
             cen_icache = 4'b1111;
     // icache rd hit/miss logic
-    assign {tag, index, offset} = I_cpu_addr;
+    // assign {tag, index, offset} = I_cpu_addr;
+    assign {tag, index} = I_cpu_addr[31:OFFT_LEN];
     assign {mem_tag, mem_index, mem_offset} = mem_addr;
     assign way0_tag = lookup_table[{index,1'b0}];
     assign way1_tag = lookup_table[{index,1'b1}];
