@@ -5,7 +5,7 @@ module ysyx_22040750_forward_unit(
     input [63:0] I_EX_data,// EX_MEM out
     input [63:0] I_MEM_data,// MEM_WB out
     input [63:0] I_WB_data,// reg rd port
-    input [1:0] I_stall_en,
+    // input [1:0] I_stall_en,
     input [1:0] I_EX_stall,
     input [1:0] I_MEM_stall,
     input [1:0] I_WB_stall,

@@ -44,7 +44,7 @@ module ysyx_22040750_booth_mul_serial(
     wire [2:0] booth;
     wire [131:0] S;// 132 bit addend A
     wire Ci;// 132 bit adder carry_in
-    wire end_flag;
+    // wire end_flag;
     reg mul_process;
     reg [5:0] iter_cnt;
     // mul num

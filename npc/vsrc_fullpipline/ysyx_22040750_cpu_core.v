@@ -40,12 +40,12 @@ module ysyx_22040750_cpu_core(
     );
     wire [31:0] current_pc,dnpc,snpc;
     wire [31:0] current_inst;
-	wire [31:0] mem_addr;
+	//wire [31:0] mem_addr;
     wire [63:0] imm,wr_data,rs1_data,rs2_data,alu_op1,alu_op2,alu_out,mem_in,mem_out,csr_rd_data,alu_csr_data;
     wire [4:0] rs1_addr,rs2_addr,rd_addr;
     //wire [2:0] funct3;
-    wire [4:0] dnpc_sel;
-    wire [2:0] regin_sel;
+    wire [2:0] dnpc_sel;
+    wire [1:0] regin_sel;
     wire [2:0] opnum1_sel;
     wire [2:0] opnum2_sel;
     wire [14:0] alu_op_sel;
@@ -58,7 +58,7 @@ module ysyx_22040750_cpu_core(
 	// csr
 	wire [11:0] csr_addr;
 	wire csr_wen, csr_intr, csr_mret;
-	wire [6:0] csr_op_sel;
+	wire [5:0] csr_op_sel;
 	wire [4:0] csr_uimm;
 	wire [63:0] csr_intr_no;
     //IF_ID
@@ -76,8 +76,8 @@ module ysyx_22040750_cpu_core(
 	wire [4:0] ID_EX_rd_addr;
     wire [7:0] ID_EX_wstrb;
     wire [8:0] ID_EX_rstrb;
-    wire [2:0] ID_EX_op2_sel,ID_EX_op1_sel,ID_EX_regin_sel;
-    wire [1:0] ID_EX_alu_sext;
+    wire [2:0] ID_EX_op2_sel,ID_EX_op1_sel;
+    wire [1:0] ID_EX_alu_sext,ID_EX_regin_sel;
     wire [14:0] ID_EX_alu_op_sel;
     wire ID_EX_reg_wen, ID_EX_mem_wen;
     wire ID_EX_word_op_mask;
@@ -91,7 +91,7 @@ module ysyx_22040750_cpu_core(
     wire alu_out_valid;
 	wire [11:0] ID_EX_csr_addr;
 	wire ID_EX_csr_wen, ID_EX_csr_intr, ID_EX_csr_mret;
-	wire [6:0] ID_EX_csr_op_sel;
+	wire [5:0] ID_EX_csr_op_sel;
 	wire [4:0] ID_EX_csr_uimm;
 	wire [63:0] ID_EX_csr_intr_no;
     //EX_MEM
@@ -103,10 +103,10 @@ module ysyx_22040750_cpu_core(
     wire EX_MEM_mem_wen;// indicate mem wr stage, maybe multicycle
 	wire EX_MEM_mem_rd_en, EX_MEM_mem_wr_en;// actual single cycle valid flag
     wire [31:0] EX_MEM_pc;
-    wire [63:0] EX_MEM_mem_data;
+    //wire [63:0] EX_MEM_mem_data;
     wire EX_MEM_reg_wen;
     wire [4:0] EX_MEM_rd_addr;
-    wire [2:0] EX_MEM_regin_sel;
+    wire [1:0] EX_MEM_regin_sel;
     wire [2:0] EX_MEM_shamt;// mem wr shamt
     wire EX_MEM_allowin;
     wire [1:0] EX_MEM_stall;
@@ -127,7 +127,7 @@ module ysyx_22040750_cpu_core(
 	wire [63:0] MEM_WB_csr;
     wire MEM_WB_reg_wen;
     wire [4:0] MEM_WB_rd_addr;
-    wire [2:0] MEM_WB_regin_sel;
+    wire [1:0] MEM_WB_regin_sel;
     wire [2:0] MEM_WB_shamt;// mem rd shamt
     wire MEM_WB_allowin;
     wire [31:0] MEM_WB_inst;
@@ -206,10 +206,10 @@ module ysyx_22040750_cpu_core(
     	//.I_rs1_data(rs1_data),
     	//.I_rs2_data(rs2_data),
     	// forward
-    	.I_rs1_data(rs1_forward_data),
-    	.I_rs2_data(rs2_forward_data),
-		.I_intr_pc(csr_forward_data),
-    	.I_imm(imm),
+    	.I_rs1_data(rs1_forward_data[31:0]),
+    	// .I_rs2_data(rs2_forward_data[31:0]),
+		.I_intr_pc(csr_forward_data[31:0]),
+    	.I_imm(imm[31:0]),
     	.I_pc(IF_ID_pc),// for jal addr cal
     	.I_snpc(snpc),
     	.I_dnpc_sel(dnpc_sel),
@@ -275,7 +275,7 @@ module ysyx_22040750_cpu_core(
     	.I_EX_data(alu_out),// alu out
     	.I_MEM_data(EX_MEM_alu_out),// also out only currently
     	.I_WB_data(wr_data),// wb port
-    	.I_stall_en(stall_en),
+    	// .I_stall_en(stall_en),
     	.I_EX_stall(ID_EX_stall),
     	.I_MEM_stall(EX_MEM_stall),
     	.I_WB_stall(MEM_WB_stall),
@@ -303,8 +303,8 @@ module ysyx_22040750_cpu_core(
 	);
 	
     ysyx_22040750_decoder decoder_e(
-		.I_sys_clk(I_sys_clk),
-		.I_rst(I_rst),
+		// .I_sys_clk(I_sys_clk),
+		// .I_rst(I_rst),
 		.I_inst(IF_ID_inst),
 		.O_imm(imm),
 		// pipline stall
@@ -588,7 +588,7 @@ module ysyx_22040750_cpu_core(
     ysyx_22040750_mux_Nbit_Msel #(64, 2)
     regin_64bit_2sel (
 		.I_sel_data({mem_in,MEM_WB_alu_out}),
-		.I_sel(MEM_WB_regin_sel[1:0]),
+		.I_sel(MEM_WB_regin_sel),
 		.O_sel_data(wr_data)
     );
     

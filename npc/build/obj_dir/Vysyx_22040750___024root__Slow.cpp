@@ -27,7 +27,7 @@ Vysyx_22040750___024root::~Vysyx_22040750___024root() {
 
 // Savable
 void Vysyx_22040750___024root::__Vserialize(VerilatedSerialize& os) {
-    uint64_t __Vcheckval = 0x436adcd5797b712fULL;
+    uint64_t __Vcheckval = 0xa44a9251d5083174ULL;
     os << __Vcheckval;
     os << vlSymsp->_vm_contextp__;
     os<<clock;
@@ -103,8 +103,8 @@ void Vysyx_22040750___024root::__Vserialize(VerilatedSerialize& os) {
     os<<ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_wstrb;
     os<<ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_op2_sel;
     os<<ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_op1_sel;
-    os<<ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_regin_sel;
     os<<ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_alu_sext;
+    os<<ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_regin_sel;
     os<<ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_reg_wen;
     os<<ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_mem_wen;
     os<<ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_word_op_mask;
@@ -197,8 +197,6 @@ void Vysyx_22040750___024root::__Vserialize(VerilatedSerialize& os) {
     os<<ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT____VdfgTmp_h537b7cc2__0;
     os<<ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_reg_e__DOT__input_valid;
     os<<ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__sign_bit1;
-    os<<ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__mul_valid_d;
-    os<<ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__div_valid_d;
     os<<ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__div_flag;
     os<<ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__mul_valid;
     os<<ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__div_valid;
@@ -208,7 +206,6 @@ void Vysyx_22040750___024root::__Vserialize(VerilatedSerialize& os) {
     os<<ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__div_reg_valid;
     os<<ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__shamt;
     os<<ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT____VdfgTmp_h56ad12d5__0;
-    os<<ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__end_flag;
     os<<ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__mul_process;
     os<<ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__iter_cnt;
     os<<ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__radix4_unit_e__DOT__sel_negative;
@@ -239,8 +236,6 @@ void Vysyx_22040750___024root::__Vserialize(VerilatedSerialize& os) {
     os<<ysyx_22040750__DOT__cache_e__DOT__axi_dcache_rlast;
     os<<ysyx_22040750__DOT__cache_e__DOT__axi_dcache_arready;
     os<<ysyx_22040750__DOT__cache_e__DOT__axi_dcache_arvalid;
-    os<<ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT__current_state;
-    os<<ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT__next_state;
     os<<ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT__req_both;
     os<<ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT__resp0;
     os<<ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT__resp1;
@@ -285,7 +280,6 @@ void Vysyx_22040750___024root::__Vserialize(VerilatedSerialize& os) {
     os<<__VdfgTmp_h4ea8ab03__0;
     os<<__VdfgTmp_hf0457c2d__0;
     os<<__VdfgTmp_h206f12e5__0;
-    os<<__VdfgTmp_h04648f5f__0;
     os<<__Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_alu_sext;
     os<<__Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_reg_wen;
     os<<__Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__mul_process;
@@ -1383,7 +1377,6 @@ void Vysyx_22040750___024root::__Vserialize(VerilatedSerialize& os) {
     os<<ysyx_22040750__DOT__cpu_core_e__DOT__current_pc;
     os<<ysyx_22040750__DOT__cpu_core_e__DOT__dnpc;
     os<<ysyx_22040750__DOT__cpu_core_e__DOT__current_inst;
-    os<<ysyx_22040750__DOT__cpu_core_e__DOT__mem_addr;
     os<<ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_pc;
     os<<ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_inst;
     os<<ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_pc;
@@ -2006,7 +1999,6 @@ void Vysyx_22040750___024root::__Vserialize(VerilatedSerialize& os) {
     os<<ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_alu_out;
     os<<ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_rs2;
     os<<ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_csr;
-    os<<ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_mem_data;
     os<<ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_csr_intr_no;
     os<<ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_mem_data;
     os<<ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_alu_out;
@@ -2151,7 +2143,7 @@ void Vysyx_22040750___024root::__Vserialize(VerilatedSerialize& os) {
     }
 }
 void Vysyx_22040750___024root::__Vdeserialize(VerilatedDeserialize& os) {
-    uint64_t __Vcheckval = 0x436adcd5797b712fULL;
+    uint64_t __Vcheckval = 0xa44a9251d5083174ULL;
     os.readAssert(__Vcheckval);
     os >> vlSymsp->_vm_contextp__;
     os>>clock;
@@ -2227,8 +2219,8 @@ void Vysyx_22040750___024root::__Vdeserialize(VerilatedDeserialize& os) {
     os>>ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_wstrb;
     os>>ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_op2_sel;
     os>>ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_op1_sel;
-    os>>ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_regin_sel;
     os>>ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_alu_sext;
+    os>>ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_regin_sel;
     os>>ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_reg_wen;
     os>>ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_mem_wen;
     os>>ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_word_op_mask;
@@ -2321,8 +2313,6 @@ void Vysyx_22040750___024root::__Vdeserialize(VerilatedDeserialize& os) {
     os>>ysyx_22040750__DOT__cpu_core_e__DOT__decoder_e__DOT____VdfgTmp_h537b7cc2__0;
     os>>ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_reg_e__DOT__input_valid;
     os>>ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__sign_bit1;
-    os>>ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__mul_valid_d;
-    os>>ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__div_valid_d;
     os>>ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__div_flag;
     os>>ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__mul_valid;
     os>>ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__div_valid;
@@ -2332,7 +2322,6 @@ void Vysyx_22040750___024root::__Vdeserialize(VerilatedDeserialize& os) {
     os>>ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__div_reg_valid;
     os>>ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__shamt;
     os>>ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT____VdfgTmp_h56ad12d5__0;
-    os>>ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__end_flag;
     os>>ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__mul_process;
     os>>ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__iter_cnt;
     os>>ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__radix4_unit_e__DOT__sel_negative;
@@ -2363,8 +2352,6 @@ void Vysyx_22040750___024root::__Vdeserialize(VerilatedDeserialize& os) {
     os>>ysyx_22040750__DOT__cache_e__DOT__axi_dcache_rlast;
     os>>ysyx_22040750__DOT__cache_e__DOT__axi_dcache_arready;
     os>>ysyx_22040750__DOT__cache_e__DOT__axi_dcache_arvalid;
-    os>>ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT__current_state;
-    os>>ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT__next_state;
     os>>ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT__req_both;
     os>>ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT__resp0;
     os>>ysyx_22040750__DOT__cache_e__DOT__crossbar_e__DOT__resp1;
@@ -2409,7 +2396,6 @@ void Vysyx_22040750___024root::__Vdeserialize(VerilatedDeserialize& os) {
     os>>__VdfgTmp_h4ea8ab03__0;
     os>>__VdfgTmp_hf0457c2d__0;
     os>>__VdfgTmp_h206f12e5__0;
-    os>>__VdfgTmp_h04648f5f__0;
     os>>__Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_alu_sext;
     os>>__Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_reg_wen;
     os>>__Vdly__ysyx_22040750__DOT__cpu_core_e__DOT__alu_e__DOT__gpr_alu_e__DOT__booth_mul_serial_e__DOT__mul_process;
@@ -3507,7 +3493,6 @@ void Vysyx_22040750___024root::__Vdeserialize(VerilatedDeserialize& os) {
     os>>ysyx_22040750__DOT__cpu_core_e__DOT__current_pc;
     os>>ysyx_22040750__DOT__cpu_core_e__DOT__dnpc;
     os>>ysyx_22040750__DOT__cpu_core_e__DOT__current_inst;
-    os>>ysyx_22040750__DOT__cpu_core_e__DOT__mem_addr;
     os>>ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_pc;
     os>>ysyx_22040750__DOT__cpu_core_e__DOT__IF_ID_inst;
     os>>ysyx_22040750__DOT__cpu_core_e__DOT__ID_EX_pc;
@@ -4130,7 +4115,6 @@ void Vysyx_22040750___024root::__Vdeserialize(VerilatedDeserialize& os) {
     os>>ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_alu_out;
     os>>ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_rs2;
     os>>ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_csr;
-    os>>ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_mem_data;
     os>>ysyx_22040750__DOT__cpu_core_e__DOT__EX_MEM_csr_intr_no;
     os>>ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_mem_data;
     os>>ysyx_22040750__DOT__cpu_core_e__DOT__MEM_WB_alu_out;
