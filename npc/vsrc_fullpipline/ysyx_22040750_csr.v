@@ -16,55 +16,71 @@ module ysyx_22040750_csr(
     output [63:0] O_rd_data
 );
     // localparam CSR_NUM = 1 << 12;
-    localparam MEPC = 12'h341;
+    localparam SATP = 12'h180;
     localparam MSTATUS = 12'h300;
+    localparam MIE = 12'h304;
     localparam MTVEC = 12'h305;
+    // localparam MSCRATCH = 12'h340;
+    localparam MEPC = 12'h341;
     localparam MCAUSE = 12'h342;
-    localparam MSCRATCH = 12'h340;
-    reg [63:0] mepc, mstatus, mtvec, mcause, mscratch;
+    localparam MIP = 12'h344;
+    
+    reg [63:0] satp, mstatus, mie, mtvec, mepc, mcause, mip;
     reg [63:0] rd_data;
-    wire mie, mpie;
+    wire mstatus_mie, mstatus_mpie;
     wire csr_wen, csr_intr_wr, csr_mret_wr;
     assign {csr_wen, csr_intr_wr, csr_mret_wr} = {I_csr_wen, I_csr_intr_wr, I_csr_mret_wr} & {3{I_MEM_WB_valid}};
-    assign mie = mstatus[3];
-    assign mpie = mstatus[7];
+    assign mstatus_mie = mstatus[3];
+    assign mstatus_mpie = mstatus[7];
     assign O_rd_data = rd_data;
     //reg [63:0] mip, mie, mtime, mtimecmp; clint as mmio p
     always @(posedge I_sys_clk)
         if(I_rst) begin
-            {mepc, mtvec, mcause, mscratch} <= 'h0;
+            {satp, mie, mtvec, mepc, mcause, mip} <= 'h0;
             mstatus <= 64'ha00001800;
         end
         // these ena signals will not occur at the same time
         else if(csr_wen) 
             case(I_wr_addr)
-                MEPC: mepc <= I_wr_data;
+                SATP: satp <= I_wr_data;
                 MSTATUS: mstatus <= I_wr_data;
+                MIE: mie <= I_wr_data
                 MTVEC: mtvec <= I_wr_data;
+                MEPC: mepc <= I_wr_data;
                 MCAUSE: mcause <= I_wr_data;
-                MSCRATCH: mscratch <= I_wr_data;
+                MIP: mcause <= I_wr_data;
+                // MSCRATCH: mscratch <= I_wr_data;
                 default:;
             endcase
         else if(csr_intr_wr) begin
-            mcause <= I_csr_intr_no;
-            mepc <= {32'b0, I_intr_pc};
-            mstatus <= {mstatus[63:8],mie,mstatus[6:4],1'b0,mstatus[2:0]};
+            satp <= satp;
+            mstatus <= {mstatus[63:8],mstatus_mie,mstatus[6:4],1'b0,mstatus[2:0]};
+            mie <= mie;
             mtvec <= mtvec;
-            mscratch <= mscratch;
+            mepc <= {32'b0, I_intr_pc};
+            mcause <= I_csr_intr_no;
+            mip <= mip;
+            // mscratch <= mscratch;
         end
         else if(csr_mret_wr) begin
-            mcause <= mcause;
-            mepc <= mepc;
-            mstatus <= {mstatus[63:8],1'b1,mstatus[6:4],mpie,mstatus[2:0]};
+            satp <= satp;
+            mstatus <= {mstatus[63:8],1'b1,mstatus[6:4],mstatus_mpie,mstatus[2:0]};
+            mie <= mie;
             mtvec <= mtvec;
-            mscratch <= mscratch;
+            mepc <= mepc;
+            mcause <= mcause;
+            mip <= mip;
+            // mscratch <= mscratch;
         end
         else begin
-            mepc <= mepc;
+            satp <= satp;
             mstatus <= mstatus;
+            mie <= mie;
             mtvec <= mtvec;
+            mepc <= mepc;
             mcause <= mcause;
-            mscratch <= mscratch;
+            mie <= mie;
+            // mscratch <= mscratch;
         end
     always @(*)
         case({I_csr_intr_rd, I_csr_mret_rd})
@@ -72,11 +88,14 @@ module ysyx_22040750_csr(
             2'b01: rd_data = mepc;
             2'b00:
                 case(I_rd_addr)
-                    MEPC: rd_data = mepc;
+                    SATP: rd_data = satp;
                     MSTATUS: rd_data = mstatus;
+                    MIE: rd_data = mie;
                     MTVEC: rd_data = mtvec;
+                    MEPC: rd_data = mepc;
                     MCAUSE: rd_data = mcause;
-                    MSCRATCH: rd_data = mscratch;
+                    MIP: rd_data = mip;
+                    // MSCRATCH: rd_data = mscratch;
                     default: rd_data = 'h0;
                 endcase
             default: rd_data = 'h0;// should not reach here!
