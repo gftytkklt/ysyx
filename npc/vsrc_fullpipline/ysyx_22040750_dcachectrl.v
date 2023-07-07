@@ -59,6 +59,7 @@ module ysyx_22040750_dcachectrl #(
     output O_mem_rready,
     output [7:0] O_mem_arlen,
     output [2:0] O_mem_arsize,
+    output [1:0] O_mem_arburst,
     // mem data, wr addr & req
     input I_mem_awready,
     input I_mem_wready,
@@ -71,6 +72,7 @@ module ysyx_22040750_dcachectrl #(
     output O_mem_wlast,
     output [7:0] O_mem_awlen,
     output [2:0] O_mem_awsize,
+    output [1:0] O_mem_awburst,
     output [7:0] O_mem_wstrb,
     // data & valid flag to cpu
     output reg [63:0] O_cpu_data,
@@ -194,11 +196,12 @@ module ysyx_22040750_dcachectrl #(
     assign O_mem_arvalid = mem_ar_req ? 1 : 0;
     assign O_mem_rready = 1;
     assign O_mem_arlen = mmio_process ? 0 : 3;// 32/8 - 1
-    assign O_mem_arsize = 3'b011;// 8B
+    assign O_mem_arsize = mmio_process ? 3'b010 : 3'b011;// 8B
+    assign O_mem_arburst = mmio_process ? 2'b00 : 2'b01;
     //assign O_mem_araddr = mem_ar_req ? {mem_addr[31:OFFT_LEN],{OFFT_LEN{1'b0}}} : 0;// 32B alignment
     //assign O_mem_awaddr = mem_aw_req ? {mem_addr[31:OFFT_LEN],{OFFT_LEN{1'b0}}} : 0;
     //assign O_mem_awaddr = (wb_state == WB_HANDSHAKE) ? O_mem_araddr : 0;
-    assign O_mem_araddr = mem_ar_req ? {mem_addr[31:OFFT_LEN],{{OFFT_LEN{mmio_process}} & mem_addr[OFFT_LEN-1:0]}} : 0;// 32B alignment
+    assign O_mem_araddr = mem_ar_req ? {mem_addr[31:OFFT_LEN],{{OFFT_LEN{mmio_process}} & mem_offset}} : 0;// 32B alignment
     //assign O_mem_awaddr = mem_aw_req ? {mem_addr[31:OFFT_LEN],{{OFFT_LEN{mmio_process}} & mem_addr[OFFT_LEN-1:0]}} : 0;
     // cache wb: cacheline tag + index + offt'b0
     assign cache_awaddr = {lookup_table[{mem_index, ~isway0_op}],mem_index,{OFFT_LEN{1'b0}}};
@@ -206,7 +209,8 @@ module ysyx_22040750_dcachectrl #(
     assign O_mem_awaddr = mem_aw_req ? ((cache_awaddr & {32{~mmio_process}}) | (mmio_awaddr & {32{mmio_process}})) : 0;
     // assign O_mem_awaddr = mem_aw_req ? {lookup_table[{mem_index, ~isway0_op}],mem_index,{{OFFT_LEN{mmio_process}} & mem_addr[OFFT_LEN-1:0]}} : 0;
     assign O_mem_awlen = mmio_process ? 0 : 3;// 32/8 - 1
-    assign O_mem_awsize = 3'b011;// 8B
+    assign O_mem_awsize = mmio_process ? 3'b010 : 3'b011;// 8B
+    assign O_mem_awburst = mmio_process ? 2'b00 : 2'b01;
     //assign O_mem_awvalid = (wb_state == WB_HANDSHAKE) ? 1 : 0;
     assign O_mem_awvalid = mem_aw_req ? 1 : 0;
     //assign cache_wvalid = (wb_state == WB_DATA) ? 1 : 0;
@@ -330,7 +334,8 @@ module ysyx_22040750_dcachectrl #(
     always @(*) begin
         wb_next_state = WB_IDLE;
         case(wb_state)
-            WB_IDLE: wb_next_state = ((I_mem_rlast && replace_dirty) || mmio_flag && I_cpu_wr_req) ? WB_HANDSHAKE : wb_state;
+            // cache wb and mmio wr, cache wb case must consider ~mmio_process
+            WB_IDLE: wb_next_state = ((I_mem_rlast && replace_dirty && ~mmio_process) || (mmio_flag && I_cpu_wr_req)) ? WB_HANDSHAKE : wb_state;
             WB_HANDSHAKE: wb_next_state = aw_handshake ? WB_DATA : wb_state;
             WB_DATA: wb_next_state = (wr_handshake && O_mem_wlast) ? WB_IDLE : wb_state;
             default: wb_next_state = wb_state;
@@ -348,7 +353,8 @@ module ysyx_22040750_dcachectrl #(
         else if(I_mem_rlast | I_mem_bvalid)
             mmio_process <= 0;
         
-    assign mmio_flag = (I_cpu_addr[31:27] != 5'b10000) && (I_cpu_rd_req || I_cpu_wr_req);
+    // assign mmio_flag = (I_cpu_addr[31:27] != 5'b10000) && (I_cpu_rd_req || I_cpu_wr_req);
+    assign mmio_flag = !I_cpu_addr[31] && (I_cpu_rd_req || I_cpu_wr_req);
     assign O_cpu_mem_ready = (current_state == IDLE) || (current_state == RD_HIT) || (current_state == WR_HIT);
     always @(posedge I_clk)
         if(I_rst)

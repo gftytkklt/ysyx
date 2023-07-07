@@ -33,6 +33,7 @@ module ysyx_22040750_axi_crossbar(
     output O_axi_arvalid,
     output [7:0] O_axi_arlen,
     output [2:0] O_axi_arsize,
+    output [1:0] O_axi_arburst,
     // ch0
     output [63:0] O_ch0_rdata,
     output O_ch0_rvalid,
@@ -43,6 +44,7 @@ module ysyx_22040750_axi_crossbar(
     input I_ch0_arvalid,
     input [7:0] I_ch0_arlen,
     input [2:0] I_ch0_arsize,
+    input [1:0] I_ch0_arburst,
     // ch1
     output [63:0] O_ch1_rdata,
     output O_ch1_rvalid,
@@ -52,7 +54,8 @@ module ysyx_22040750_axi_crossbar(
     output O_ch1_arready,
     input I_ch1_arvalid,
     input [7:0] I_ch1_arlen,
-    input [2:0] I_ch1_arsize
+    input [2:0] I_ch1_arsize,
+    input [1:0] I_ch1_arburst
 );
     localparam CH0 = 1'b0;
     localparam CH1 = 1'b1;
@@ -83,6 +86,7 @@ module ysyx_22040750_axi_crossbar(
     assign O_axi_araddr = resp0 ? I_ch0_araddr : (resp1 ? I_ch1_araddr : 0);
     assign O_axi_arlen = resp0 ? I_ch0_arlen : (resp1 ? I_ch1_arlen : 0);
     assign O_axi_arsize = resp0 ? I_ch0_arsize : (resp1 ? I_ch1_arsize : 0);
+    assign O_axi_arburst = resp0 ? I_ch0_arburst : (resp1 ? I_ch1_arburst : 0);
     assign ch0_last_handshake = O_ch0_rvalid && I_ch0_rready && O_ch0_rlast;
     assign ch1_last_handshake = O_ch1_rvalid && I_ch1_rready && O_ch1_rlast;
     // r channel

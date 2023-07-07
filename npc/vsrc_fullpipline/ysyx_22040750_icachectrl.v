@@ -58,6 +58,7 @@ module ysyx_22040750_icachectrl #(
     //output O_mem_bready,
     output [7:0] O_mem_arlen,
     output [2:0] O_mem_arsize,
+    output [1:0] O_mem_arburst,
     // data & valid flag to cpu
     output [31:0] O_cpu_inst,
     output O_cpu_rvalid
@@ -91,16 +92,30 @@ module ysyx_22040750_icachectrl #(
     reg [255:0] cacheline_reg;
     // ctrl signal
     wire rd_hit, rd_miss, rd_handshake, rd_reload, rd_allocate, pc_handshake;
+    wire mmio_flag;
+    reg mmio_process;
+    wire mmio_rvalid;
+    wire mem_ar_req;
+    // mmio & cache inst
+    wire [31:0] mmio_inst, cache_inst;
     // FSM
-    localparam IDLE = 4'b0000, RD_HIT = 4'b0001, RD_MISS = 4'b0010, RD_RELOAD = 4'b0100, RD_ALLOCATE = 4'b1000;
-    reg [3:0] current_state, next_state;
+    `define IFSM_WIDTH 6
+    parameter IDLE = `IFSM_WIDTH'b000000; 
+    parameter RD_HIT = `IFSM_WIDTH'b000001;
+    parameter RD_MISS = `IFSM_WIDTH'b000010;
+    parameter RD_RELOAD = `IFSM_WIDTH'b000100;
+    parameter RD_ALLOCATE = `IFSM_WIDTH'b001000;
+    parameter MMIO_AR = `IFSM_WIDTH'b010000;
+    parameter MMIO_RD = `IFSM_WIDTH'b100000;
+    reg [`IFSM_WIDTH-1:0] current_state, next_state;
     // cache addr cen gen
     reg [3:0] cen_icache; // TODO: add ctrl logic
     // axi constant
     assign O_mem_rready = 1;// always enable rdata
     //assign O_mem_bready = 0;// always disable wresp
-    assign O_mem_arlen = 3;// 32/8 - 1
-    assign O_mem_arsize = 3'b011;// 8B
+    assign O_mem_arlen = mmio_process ? 0 : 3;// 32/8 - 1
+    assign O_mem_arsize = mmio_process ? 3'b010 : 3'b011;// 8B
+    assign O_mem_arburst = mmio_process ? 2'b00 : 2'b01;
     // cache addr/en logic
     assign O_sram_addr = rd_hit ? index : mem_index;// 64 depth ram index
     assign O_sram_cen = cen_icache;
@@ -150,10 +165,12 @@ module ysyx_22040750_icachectrl #(
     assign rd_hit = way0_hit || way1_hit;
     assign rd_miss = pc_handshake && ~rd_hit;
     // rd miss signal
-    assign O_mem_arvalid = (current_state == RD_MISS) ? 1 : 0;
+    assign mem_ar_req = (current_state == RD_MISS) || (current_state == MMIO_AR);
+    assign O_mem_arvalid = mem_ar_req ? 1 : 0;
     assign rd_handshake = I_mem_arready && O_mem_arvalid;
     assign pc_handshake = I_cpu_rd_req && O_cpu_rd_ready;
-    assign O_mem_araddr = {mem_addr[31:OFFT_LEN],{OFFT_LEN{1'b0}}};
+    // assign O_mem_araddr = {mem_addr[31:OFFT_LEN],{OFFT_LEN{1'b0}}};
+    assign O_mem_araddr = mem_ar_req ? {mem_addr[31:OFFT_LEN],{{OFFT_LEN{mmio_process}} & mem_offset}} : 0;
     // latch mem addr
     always @(posedge I_clk)
         if(I_rst)
@@ -175,7 +192,8 @@ module ysyx_22040750_icachectrl #(
             cacheline_reg <= cacheline_reg;
     // rd allocate signal
     assign rd_allocate = (current_state == RD_ALLOCATE) ? 1 : 0;
-    assign O_cpu_rvalid = (current_state == RD_HIT) || rd_allocate;
+    assign mmio_rvalid = (current_state == MMIO_RD) && I_mem_rvalid;
+    assign O_cpu_rvalid = (current_state == RD_HIT) || rd_allocate || mmio_rvalid;
     always @(posedge I_clk)
         if(I_rst)
             hit_flag <= 2'b00;
@@ -186,7 +204,10 @@ module ysyx_22040750_icachectrl #(
     //assign hit_rdata = way0_hit ? I_way0_rdata : I_way1_rdata;
     assign hit_rdata = (I_way0_rdata & {256{hit_flag[0]}}) | (I_way1_rdata & {256{hit_flag[1]}});
     assign mem_rdata = (current_state == RD_HIT) ? hit_rdata : cacheline_reg;
-    assign O_cpu_inst = mem_rdata[{mem_offset[OFFT_LEN-1:2],2'b0,3'b0} +: 32];
+    assign cache_inst = mem_rdata[{mem_offset[OFFT_LEN-1:2],2'b0,3'b0} +: 32];
+    assign mmio_inst = I_mem_rdata[31:0];
+    assign O_cpu_inst = mmio_process ? mmio_inst : cache_inst;
+    // assign O_cpu_inst = mem_rdata[{mem_offset[OFFT_LEN-1:2],2'b0,3'b0} +: 32];
     //assign O_cpu_inst = cacheline_reg[{mem_offset[OFFT_LEN-1:2],2'b0,3'b0} +: 32];
     assign O_sram_wen = rd_allocate ? 4'b0 : 4'hf;
     assign O_sram_wmask = rd_allocate ? 0 : {256{1'b1}};
@@ -199,6 +220,15 @@ module ysyx_22040750_icachectrl #(
     // RD_MISS: rd mem req
     // RD_RELOAD: get axi rdata
     // RD_ALLOCATE: reload cacheline & send data to cpu
+    assign mmio_flag = !I_cpu_addr[31] && I_cpu_rd_req;
+    always @(posedge I_clk)
+        if(I_rst)
+            mmio_process <= 0;
+        else if(mmio_flag)
+            mmio_process <= 1;
+        else if(I_mem_rlast)
+            mmio_process <= 0;
+
     assign O_cpu_rd_ready = (current_state == IDLE) || (current_state == RD_HIT);
     always @(posedge I_clk)
         if(I_rst)
@@ -209,7 +239,9 @@ module ysyx_22040750_icachectrl #(
         next_state = IDLE;
         case(current_state)
             IDLE, RD_HIT: begin
-                if(rd_hit)
+                if(mmio_flag)
+                    next_state = MMIO_AR;
+                else if(rd_hit)
                     next_state = RD_HIT;
                 else if(rd_miss)
                     next_state = RD_MISS;
@@ -219,6 +251,8 @@ module ysyx_22040750_icachectrl #(
             RD_MISS: next_state = rd_handshake ? RD_RELOAD : current_state;
             RD_RELOAD: next_state = I_mem_rlast ? RD_ALLOCATE : current_state;
             RD_ALLOCATE: next_state = IDLE;
+            MMIO_AR: next_state = rd_handshake ? MMIO_RD : current_state;
+            MMIO_RD: next_state = I_mem_rlast ? IDLE : current_state;
             default: next_state = IDLE;
         endcase
     end

@@ -77,6 +77,7 @@ module ysyx_22040750_cache(
     output O_mem_arvalid,
     output [7:0] O_mem_arlen,
     output [2:0] O_mem_arsize,
+    output [1:0] O_mem_arburst,
 
     output [63:0] O_mem_wdata,
     output O_mem_wvalid,
@@ -89,6 +90,7 @@ module ysyx_22040750_cache(
     input I_mem_awready,
     output [7:0] O_mem_awlen,
     output [2:0] O_mem_awsize,
+    output [1:0] O_mem_awburst,
 
     input I_mem_bvalid,
     output O_mem_bready,
@@ -119,6 +121,7 @@ module ysyx_22040750_cache(
     wire axi_icache_arvalid, axi_dcache_arvalid;
     wire [7:0] axi_icache_arlen, axi_dcache_arlen;
     wire [2:0] axi_icache_arsize, axi_dcache_arsize;
+    wire [1:0] axi_icache_arburst, axi_dcache_arburst;
     // w channel
     wire [63:0] axi_dcache_wdata;
     wire axi_dcache_wvalid, axi_dcache_wready, axi_dcache_wlast;
@@ -128,6 +131,7 @@ module ysyx_22040750_cache(
     wire axi_dcache_awvalid, axi_dcache_awready;
     wire [7:0] axi_dcache_awlen;
     wire [2:0] axi_dcache_awsize;
+    wire [1:0] axi_dcache_awburst;
     // b channel
     wire axi_dcache_bvalid, axi_dcache_bready;
 
@@ -157,6 +161,7 @@ module ysyx_22040750_cache(
     assign axi_dcache_awready = I_mem_awready;
     assign O_mem_awlen = axi_dcache_awlen;
     assign O_mem_awsize = axi_dcache_awsize;
+    assign O_mem_awburst = axi_dcache_awburst;
     assign axi_dcache_bvalid = I_mem_bvalid;
     assign O_mem_bready = axi_dcache_bready;
     // axi crossbar(simplified for ar & r ch only)
@@ -173,6 +178,7 @@ module ysyx_22040750_cache(
         .O_axi_arvalid(O_mem_arvalid),
         .O_axi_arlen(O_mem_arlen),
         .O_axi_arsize(O_mem_arsize),
+        .O_axi_arburst(O_mem_arburst),
         // ch0: icache
         .O_ch0_rdata(axi_icache_rdata),
         .O_ch0_rvalid(axi_icache_rvalid),
@@ -183,6 +189,7 @@ module ysyx_22040750_cache(
         .I_ch0_arvalid(axi_icache_arvalid),
         .I_ch0_arlen(axi_icache_arlen),
         .I_ch0_arsize(axi_icache_arsize),
+        .I_ch0_arburst(axi_icache_arburst),
         // ch1: dcache
         .O_ch1_rdata(axi_dcache_rdata),
         .O_ch1_rvalid(axi_dcache_rvalid),
@@ -192,7 +199,8 @@ module ysyx_22040750_cache(
         .O_ch1_arready(axi_dcache_arready),
         .I_ch1_arvalid(axi_dcache_arvalid),
         .I_ch1_arlen(axi_dcache_arlen),
-        .I_ch1_arsize(axi_dcache_arsize)
+        .I_ch1_arsize(axi_dcache_arsize),
+        .I_ch1_arburst(axi_dcache_arburst)
     );
     // icache
     ysyx_22040750_icachectrl icache_e(
@@ -217,6 +225,7 @@ module ysyx_22040750_cache(
         .O_mem_rready(axi_icache_rready),
         .O_mem_arlen(axi_icache_arlen),
         .O_mem_arsize(axi_icache_arsize),
+        .O_mem_arburst(axi_icache_arburst),
         // data & valid flag to cpu
         .O_cpu_inst(O_cpu_inst),
         .O_cpu_rvalid(O_cpu_inst_valid)
@@ -247,6 +256,7 @@ module ysyx_22040750_cache(
         .O_mem_rready(axi_dcache_rready),
         .O_mem_arlen(axi_dcache_arlen),
         .O_mem_arsize(axi_dcache_arsize),
+        .O_mem_arburst(axi_dcache_arburst),
         .I_mem_awready(axi_dcache_awready),
         .I_mem_wready(axi_dcache_wready),
         .I_mem_bvalid(axi_dcache_bvalid),
@@ -258,6 +268,7 @@ module ysyx_22040750_cache(
         .O_mem_wlast(axi_dcache_wlast),
         .O_mem_awlen(axi_dcache_awlen),
         .O_mem_awsize(axi_dcache_awsize),
+        .O_mem_awburst(axi_dcache_awburst),
         .O_mem_wstrb(axi_dcache_wstrb),
         // data & valid flag to cpu
         .O_cpu_data(O_cpu_rdata),

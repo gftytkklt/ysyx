@@ -83,7 +83,7 @@ module ysyx_22040750(
     output [3:0] io_slave_rid,
     output [1:0] io_slave_rresp,
     output [63:0] io_slave_rdata,
-    output io_slave_rlast/*,
+    output io_slave_rlast,
 
     output [5:0] io_sram0_addr,
     output io_sram0_cen,
@@ -132,10 +132,10 @@ module ysyx_22040750(
     output io_sram7_wen,
     output [127:0] io_sram7_wmask,
     output [127:0] io_sram7_wdata,
-    input [127:0] io_sram7_rdata*/
+    input [127:0] io_sram7_rdata
 );
     // test cache signal begin, delete it when test in SoC
-    
+    /*
     wire [5:0] io_sram0_addr;
     wire io_sram0_cen;
     wire io_sram0_wen;
@@ -184,7 +184,7 @@ module ysyx_22040750(
     wire [127:0] io_sram7_wmask;
     wire [127:0] io_sram7_wdata;
     wire [127:0] io_sram7_rdata;
-    
+    */
     // test signal end
     wire [5:0] iaddr, daddr;
     wire [31:0] cpu_inst;
@@ -198,6 +198,7 @@ module ysyx_22040750(
     wire mem_rvalid, mem_bvalid, cpu_mem_ready;
     wire [7:0] cpu_wmask;
 
+    // axi const
     assign io_slave_awready = 0;
     assign io_slave_wready = 0;
     assign io_slave_bvalid = 0;
@@ -211,8 +212,8 @@ module ysyx_22040750(
     assign io_slave_rlast = 0;
     assign io_master_awid = 0;
     assign io_master_arid = 0;
-    assign io_master_awburst = 0;
-    assign io_master_arburst = 0;
+    // assign io_master_awburst = 0;
+    // assign io_master_arburst = 0;
 
     assign io_sram3_addr = iaddr;
     assign io_sram2_addr = iaddr;
@@ -305,7 +306,7 @@ module ysyx_22040750(
         .O_mem_arlen(io_master_arlen),
         .O_mem_arsize(io_master_arsize),
         //.O_mem_arid(io_master_arid),
-        //.O_mem_arburst(io_master_arburst),
+        .O_mem_arburst(io_master_arburst),
 
         .O_mem_wdata(io_master_wdata),
         .O_mem_wvalid(io_master_wvalid),
@@ -319,14 +320,14 @@ module ysyx_22040750(
         .O_mem_awlen(io_master_awlen),
         .O_mem_awsize(io_master_awsize),
         //.O_mem_awid(io_master_awid),
-        //.O_mem_awburst(io_master_awburst),
+        .O_mem_awburst(io_master_awburst),
 
         .I_mem_bvalid(io_master_bvalid),
         .O_mem_bready(io_master_bready)
         //.I_mem_bid(io_master_bid),
         //.I_mem_bresp(io_master_bresp),
     );
-
+    /*
     S011HD1P_X32Y2D128_BW sram0(
         .Q(io_sram0_rdata),
         .CLK(clock),
@@ -399,4 +400,5 @@ module ysyx_22040750(
         .A(io_sram7_addr),
         .D(io_sram7_wdata)
     );
+    */
 endmodule
