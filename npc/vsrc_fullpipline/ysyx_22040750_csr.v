@@ -44,7 +44,7 @@ module ysyx_22040750_csr(
             case(I_wr_addr)
                 SATP: satp <= I_wr_data;
                 MSTATUS: mstatus <= I_wr_data;
-                MIE: mie <= I_wr_data
+                MIE: mie <= I_wr_data;
                 MTVEC: mtvec <= I_wr_data;
                 MEPC: mepc <= I_wr_data;
                 MCAUSE: mcause <= I_wr_data;

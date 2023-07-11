@@ -30,18 +30,18 @@ module ysyx_22040750_IF_ID_reg(
     	else
     	    input_valid <= input_valid;
     always @(posedge I_sys_clk)
-	if(I_rst)
-	    {O_pc, O_inst} <= {32'h0, 32'h0};
-	    // if inst jump, induce a bubble
-	else if(I_IF_ID_valid && O_IF_ID_allowin)
-	    {O_pc, O_inst} <= I_IF_ID_jmp ? {O_pc, 32'h00000013} : {I_pc, I_inst};
-	else
-	    {O_pc, O_inst} <= {O_pc, O_inst};
+        if(I_rst)
+            {O_pc, O_inst} <= {32'h0, 32'h0};
+            // if inst jump, induce a bubble
+        else if(I_IF_ID_valid && O_IF_ID_allowin)
+            {O_pc, O_inst} <= I_IF_ID_jmp ? {O_pc, 32'h00000013} : {I_pc, I_inst};
+        else
+            {O_pc, O_inst} <= {O_pc, O_inst};
     always @(posedge I_sys_clk)
-	if(I_rst)
-	    O_bubble_inst_debug <= 0;
-	else if(I_IF_ID_valid && O_IF_ID_allowin)
-	    O_bubble_inst_debug <= I_IF_ID_jmp;
-	else
-	    O_bubble_inst_debug <= O_bubble_inst_debug;
+        if(I_rst)
+            O_bubble_inst_debug <= 0;
+        else if(I_IF_ID_valid && O_IF_ID_allowin)
+            O_bubble_inst_debug <= I_IF_ID_jmp;
+        else
+            O_bubble_inst_debug <= O_bubble_inst_debug;
 endmodule

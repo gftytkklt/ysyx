@@ -264,7 +264,7 @@ module ysyx_22040750_decoder(
     assign O_csr_op_sel = {CSRRW, CSRRS, CSRRC, CSRRWI, CSRRSI, CSRRCI};
     // csr wr en
     wire [63:0] NO;
-    assign NO = ECALL ? 64'hb : EBREAK ? 64'h4 : 64'h0;
+    assign NO = ECALL ? 64'hb : EBREAK ? 64'h3 : 64'h0;
     assign O_csr_wen = CSRRW | CSRRS | CSRRC | CSRRWI | CSRRSI | CSRRCI;
     assign O_csr_intr = ECALL | EBREAK;
     assign O_csr_intr_no = NO;
