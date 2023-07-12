@@ -235,6 +235,7 @@ module ysyx_22040750(
     wire clint_awready;
     wire clint_bvalid;
     wire clint_bready;
+    wire cpu_mtip;
     // axi const
     assign io_slave_awready = 0;
     assign io_slave_wready = 0;
@@ -263,6 +264,7 @@ module ysyx_22040750(
     ysyx_22040750_cpu_core cpu_core_e(
         .I_sys_clk(clock),
         .I_rst(reset),
+        .I_mtip(cpu_mtip),
         .I_inst(cpu_inst),
         .I_inst_valid(cpu_inst_valid),
         .I_pc_ready(cpu_pc_ready),
@@ -436,9 +438,26 @@ module ysyx_22040750(
         .O_clint_bready(clint_bready)
     );
 
-    // ysyx_22040750_clint clint_e(
-
-    // );
+    ysyx_22040750_clint clint_e(
+        .I_clk(clock),
+        .I_rst(reset),
+        .O_mtip(cpu_mtip),
+        .O_clint_rdata(clint_rdata),
+        .O_clint_rvalid(clint_rvalid),
+        .I_clint_rready(clint_rready),
+        .I_clint_araddr(clint_araddr),
+        .O_clint_arready(clint_arready),
+        .I_clint_arvalid(clint_arvalid),
+        .I_clint_wdata(clint_wdata),
+        .I_clint_wvalid(clint_wvalid),
+        .O_clint_wready(clint_wready),
+        .I_clint_wstrb(clint_wstrb),
+        .I_clint_awaddr(clint_awaddr),
+        .I_clint_awvalid(clint_awvalid),
+        .O_clint_awready(clint_awready),
+        .O_clint_bvalid(clint_bvalid),
+        .I_clint_bready(clint_bready)
+    );
     /*
     S011HD1P_X32Y2D128_BW sram0(
         .Q(io_sram0_rdata),

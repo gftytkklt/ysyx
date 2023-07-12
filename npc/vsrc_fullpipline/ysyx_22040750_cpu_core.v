@@ -22,6 +22,7 @@
 module ysyx_22040750_cpu_core(
     input I_sys_clk,
     input I_rst,
+	input I_mtip,
     input [31:0] I_inst,
     input I_inst_valid,
 	input I_pc_ready,
