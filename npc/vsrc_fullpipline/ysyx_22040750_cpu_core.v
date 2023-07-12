@@ -146,6 +146,8 @@ module ysyx_22040750_cpu_core(
     // debug
     wire EX_MEM_mem_op, MEM_WB_mem_op;
     wire [31:0] MEM_WB_mem_addr;
+	// intr
+	wire timer_intr;
     // import "DPI-C" function void set_wb_ptr(input logic a []);
     // initial set_wb_ptr(MEM_WB_valid);
     // import "DPI-C" function void set_wb_bubble_ptr(input logic a []);
@@ -308,6 +310,7 @@ module ysyx_22040750_cpu_core(
 		// .I_rst(I_rst),
 		.I_inst(IF_ID_inst),
 		.O_imm(imm),
+		.I_timer_intr(timer_intr),
 		// pipline stall
 		//.I_rs1_data(rs1_data),
 		// forward
@@ -609,6 +612,7 @@ module ysyx_22040750_cpu_core(
 	ysyx_22040750_csr csr_e(
 		.I_sys_clk(I_sys_clk),
 		.I_rst(I_rst),
+		.I_mtip(I_mtip),
 		.I_MEM_WB_valid(MEM_WB_valid),
 		.I_csr_wen(MEM_WB_csr_wen),
 		.I_csr_intr_wr(MEM_WB_csr_intr),
@@ -620,6 +624,7 @@ module ysyx_22040750_cpu_core(
 		.I_wr_addr(MEM_WB_csr_addr),
 		.I_rd_addr(csr_addr),
 		.I_wr_data(MEM_WB_csr),
-		.O_rd_data(csr_rd_data)
+		.O_rd_data(csr_rd_data),
+		.O_timer_intr(timer_intr)
 	);
 endmodule

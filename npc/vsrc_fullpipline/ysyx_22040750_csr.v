@@ -2,6 +2,7 @@
 module ysyx_22040750_csr(
     input I_sys_clk,
     input I_rst,
+    input I_mtip,
     input I_MEM_WB_valid,
     input I_csr_wen,
     input I_csr_intr_wr,
@@ -13,7 +14,8 @@ module ysyx_22040750_csr(
     input [11:0] I_wr_addr,
     input [11:0] I_rd_addr,
     input [63:0] I_wr_data,
-    output [63:0] O_rd_data
+    output [63:0] O_rd_data,
+    output O_timer_intr
 );
     // localparam CSR_NUM = 1 << 12;
     localparam SATP = 12'h180;
@@ -33,7 +35,13 @@ module ysyx_22040750_csr(
     assign mstatus_mie = mstatus[3];
     assign mstatus_mpie = mstatus[7];
     assign O_rd_data = rd_data;
+    assign O_timer_intr = mip[7] & mie[7] & mstatus_mie;
     //reg [63:0] mip, mie, mtime, mtimecmp; clint as mmio p
+    always @(posedge I_sys_clk)
+        if(I_rst)
+            mip <= 0;
+        else
+            mip <= {mip[63:8],I_mtip,mip[6:0]};
     always @(posedge I_sys_clk)
         if(I_rst) begin
             {satp, mie, mtvec, mepc, mcause, mip} <= 'h0;
@@ -48,7 +56,7 @@ module ysyx_22040750_csr(
                 MTVEC: mtvec <= I_wr_data;
                 MEPC: mepc <= I_wr_data;
                 MCAUSE: mcause <= I_wr_data;
-                MIP: mcause <= I_wr_data;
+                // MIP: mip <= I_wr_data;
                 // MSCRATCH: mscratch <= I_wr_data;
                 default:;
             endcase
@@ -59,7 +67,7 @@ module ysyx_22040750_csr(
             mtvec <= mtvec;
             mepc <= {32'b0, I_intr_pc};
             mcause <= I_csr_intr_no;
-            mip <= mip;
+            // mip <= mip;
             // mscratch <= mscratch;
         end
         else if(csr_mret_wr) begin
@@ -69,7 +77,7 @@ module ysyx_22040750_csr(
             mtvec <= mtvec;
             mepc <= mepc;
             mcause <= mcause;
-            mip <= mip;
+            // mip <= mip;
             // mscratch <= mscratch;
         end
         else begin
@@ -79,7 +87,7 @@ module ysyx_22040750_csr(
             mtvec <= mtvec;
             mepc <= mepc;
             mcause <= mcause;
-            mie <= mie;
+            // mie <= mie;
             // mscratch <= mscratch;
         end
     always @(*)

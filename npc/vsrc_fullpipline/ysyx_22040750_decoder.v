@@ -25,6 +25,7 @@ module ysyx_22040750_decoder(
     // input I_sys_clk,
     // input I_rst,
     input [31:0] I_inst,
+    input I_timer_intr,
     output [63:0] O_imm,
     input [63:0] I_rs1_data,
     output [4:0] O_rs1,
@@ -265,6 +266,7 @@ module ysyx_22040750_decoder(
     // csr wr en
     wire [63:0] NO;
     assign NO = ECALL ? 64'hb : EBREAK ? 64'h3 : 64'h0;
+    // assign NO = ({64{ECALL & ~}} & 64'hb) | ({64{EBREAK}}) | ();
     assign O_csr_wen = CSRRW | CSRRS | CSRRC | CSRRWI | CSRRSI | CSRRCI;
     assign O_csr_intr = ECALL | EBREAK;
     assign O_csr_intr_no = NO;
