@@ -188,16 +188,53 @@ module ysyx_22040750(
     // test signal end
     wire [5:0] iaddr, daddr;
     wire [31:0] cpu_inst;
-    // modify to 31 later!
     wire [31:0] cpu_pc;
     wire cpu_inst_valid, cpu_pc_valid, cpu_pc_ready;
-    // modify to 31 later!
     wire [31:0] mem_addr;
     wire cpu_rreq, cpu_wreq;
     wire [63:0] mem_rdata, mem_wdata;
     wire mem_rvalid, mem_bvalid, cpu_mem_ready;
     wire [7:0] cpu_wmask;
-
+    // cache interface
+    wire [63:0] cache_rdata;
+    wire cache_rvalid;
+    wire cache_rlast;
+    wire cache_rready;
+    wire [31:0] cache_araddr;
+    wire cache_arready;
+    wire cache_arvalid;
+    wire [7:0] cache_arlen;
+    wire [2:0] cache_arsize;
+    wire [1:0] cache_arburst;
+    wire [63:0] cache_wdata;
+    wire cache_wvalid;
+    wire cache_wready;
+    wire cache_wlast;
+    wire [7:0] cache_wstrb;
+    wire [31:0] cache_awaddr;
+    wire cache_awvalid;
+    wire cache_awready;
+    wire [7:0] cache_awlen;
+    wire [2:0] cache_awsize;
+    wire [1:0] cache_awburst;
+    wire cache_bvalid;
+    wire cache_bready;
+    // clint interface
+    wire [63:0] clint_rdata;
+    wire clint_rvalid;
+    wire clint_rready;
+    wire [31:0] clint_araddr;
+    wire clint_arready;
+    wire clint_arvalid;
+    wire [63:0] clint_wdata;
+    wire clint_wvalid;
+    wire clint_wready;
+    wire [7:0] clint_wstrb;
+    wire [31:0] clint_awaddr;
+    wire clint_awvalid;
+    wire clint_awready;
+    wire clint_bvalid;
+    wire clint_bready;
     // axi const
     assign io_slave_awready = 0;
     assign io_slave_wready = 0;
@@ -291,42 +328,117 @@ module ysyx_22040750(
         .O_sram5_wmask(io_sram5_wmask),
         .O_sram6_wmask(io_sram6_wmask),
         .O_sram7_wmask(io_sram7_wmask),
-        // mem data, w/r addr & req
+
         // axi interface(unused slave interface)
-        .I_mem_rdata(io_master_rdata),
-        .I_mem_rvalid(io_master_rvalid),
-        .O_mem_rready(io_master_rready),
-        .I_mem_rlast(io_master_rlast),
-        //.I_mem_rid(io_master_rid),
-        //.I_mem_rresp(io_master_rresp),
+        .I_mem_rdata(cache_rdata),
+        .I_mem_rvalid(cache_rvalid),
+        .O_mem_rready(cache_rready),
+        .I_mem_rlast(cache_rlast),
+        //.I_mem_rid(cache_rid),
+        //.I_mem_rresp(cache_rresp),
 
-        .O_mem_araddr(io_master_araddr),
-        .I_mem_arready(io_master_arready),
-        .O_mem_arvalid(io_master_arvalid),
-        .O_mem_arlen(io_master_arlen),
-        .O_mem_arsize(io_master_arsize),
-        //.O_mem_arid(io_master_arid),
-        .O_mem_arburst(io_master_arburst),
+        .O_mem_araddr(cache_araddr),
+        .I_mem_arready(cache_arready),
+        .O_mem_arvalid(cache_arvalid),
+        .O_mem_arlen(cache_arlen),
+        .O_mem_arsize(cache_arsize),
+        //.O_mem_arid(cache_arid),
+        .O_mem_arburst(cache_arburst),
 
-        .O_mem_wdata(io_master_wdata),
-        .O_mem_wvalid(io_master_wvalid),
-        .I_mem_wready(io_master_wready),
-        .O_mem_wlast(io_master_wlast),
-        .O_mem_wstrb(io_master_wstrb),
+        .O_mem_wdata(cache_wdata),
+        .O_mem_wvalid(cache_wvalid),
+        .I_mem_wready(cache_wready),
+        .O_mem_wlast(cache_wlast),
+        .O_mem_wstrb(cache_wstrb),
 
-        .O_mem_awaddr(io_master_awaddr),
-        .O_mem_awvalid(io_master_awvalid),
-        .I_mem_awready(io_master_awready),
-        .O_mem_awlen(io_master_awlen),
-        .O_mem_awsize(io_master_awsize),
-        //.O_mem_awid(io_master_awid),
-        .O_mem_awburst(io_master_awburst),
+        .O_mem_awaddr(cache_awaddr),
+        .O_mem_awvalid(cache_awvalid),
+        .I_mem_awready(cache_awready),
+        .O_mem_awlen(cache_awlen),
+        .O_mem_awsize(cache_awsize),
+        //.O_mem_awid(cache_awid),
+        .O_mem_awburst(cache_awburst),
 
-        .I_mem_bvalid(io_master_bvalid),
-        .O_mem_bready(io_master_bready)
-        //.I_mem_bid(io_master_bid),
-        //.I_mem_bresp(io_master_bresp),
+        .I_mem_bvalid(cache_bvalid),
+        .O_mem_bready(cache_bready)
+        //.I_mem_bid(cache_bid),
+        //.I_mem_bresp(cache_bresp),
     );
+
+    ysyx_22040750_slave_crossbar slave_crossbar_e(
+        .I_clk(clock),
+        .I_rst(reset),
+        // interface with cache
+        .O_cache_rdata(cache_rdata),
+        .O_cache_rvalid(cache_rvalid),
+        .O_cache_rlast(cache_rlast),
+        .I_cache_rready(cache_rready),
+        .I_cache_araddr(cache_araddr),
+        .O_cache_arready(cache_arready),
+        .I_cache_arvalid(cache_arvalid),
+        .I_cache_arlen(cache_arlen),
+        .I_cache_arsize(cache_arsize),
+        .I_cache_arburst(cache_arburst),
+        .I_cache_wdata(cache_wdata),
+        .I_cache_wvalid(cache_wvalid),
+        .O_cache_wready(cache_wready),
+        .I_cache_wlast(cache_wlast),
+        .I_cache_wstrb(cache_wstrb),
+        .I_cache_awaddr(cache_awaddr),
+        .I_cache_awvalid(cache_awvalid),
+        .O_cache_awready(cache_awready),
+        .I_cache_awlen(cache_awlen),
+        .I_cache_awsize(cache_awsize),
+        .I_cache_awburst(cache_awburst),
+        .O_cache_bvalid(cache_bvalid),
+        .I_cache_bready(cache_bready),
+        // with axi bus
+        .I_bus_rdata(io_master_rdata),
+        .I_bus_rvalid(io_master_rvalid),
+        .I_bus_rlast(io_master_rlast),
+        .O_bus_rready(io_master_rready),
+        .O_bus_araddr(io_master_araddr),
+        .I_bus_arready(io_master_arready),
+        .O_bus_arvalid(io_master_arvalid),
+        .O_bus_arlen(io_master_arlen),
+        .O_bus_arsize(io_master_arsize),
+        .O_bus_arburst(io_master_arburst),
+        .O_bus_wdata(io_master_wdata),
+        .O_bus_wvalid(io_master_wvalid),
+        .I_bus_wready(io_master_wready),
+        .O_bus_wlast(io_master_wlast),
+        .O_bus_wstrb(io_master_wstrb),
+        .O_bus_awaddr(io_master_awaddr),
+        .O_bus_awvalid(io_master_awvalid),
+        .I_bus_awready(io_master_awready),
+        .O_bus_awlen(io_master_awlen),
+        .O_bus_awsize(io_master_awsize),
+        .O_bus_awburst(io_master_awburst),
+        .I_bus_bvalid(io_master_bvalid),
+        .O_bus_bready(io_master_bready),
+        // with clint
+        // AXI4-Lite interface
+        // rlast for cache equal to rvalid
+        .I_clint_rdata(clint_rdata),
+        .I_clint_rvalid(clint_rvalid),
+        .O_clint_rready(clint_rready),
+        .O_clint_araddr(clint_araddr),
+        .I_clint_arready(clint_arready),
+        .O_clint_arvalid(clint_arvalid),
+        .O_clint_wdata(clint_wdata),
+        .O_clint_wvalid(clint_wvalid),
+        .I_clint_wready(clint_wready),
+        .O_clint_wstrb(clint_wstrb),
+        .O_clint_awaddr(clint_awaddr),
+        .O_clint_awvalid(clint_awvalid),
+        .I_clint_awready(clint_awready),
+        .I_clint_bvalid(clint_bvalid),
+        .O_clint_bready(clint_bready)
+    );
+
+    // ysyx_22040750_clint clint_e(
+
+    // );
     /*
     S011HD1P_X32Y2D128_BW sram0(
         .Q(io_sram0_rdata),

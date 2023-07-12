@@ -45,7 +45,7 @@ module ysyx_22040750_slave_crossbar(
     output [7:0] O_bus_wstrb,
     output [31:0] O_bus_awaddr,
     output O_bus_awvalid,
-    input O_bus_awready,
+    input I_bus_awready,
     output [7:0] O_bus_awlen,
     output [2:0] O_bus_awsize,
     output [1:0] O_bus_awburst,
@@ -71,7 +71,7 @@ module ysyx_22040750_slave_crossbar(
     output [7:0] O_clint_wstrb,
     output [31:0] O_clint_awaddr,
     output O_clint_awvalid,
-    input O_clint_awready,
+    input I_clint_awready,
     // output [7:0] O_clint_awlen,
     // output [2:0] O_clint_awsize,
     // output [1:0] O_clint_awburst,
@@ -85,7 +85,8 @@ module ysyx_22040750_slave_crossbar(
     // indicate last rd data handshake from bus
     // clint only return single data beats
     wire bus_rlasthandshake, clint_rlasthandshake;
-    reg clint_process, bus_process;
+    reg clint_rd_process, bus_rd_process;
+    reg clint_wr_process, bus_wr_process;
     assign clint_ar_flag = (I_cache_araddr >= CLINT_START) && (I_cache_araddr < CLINT_END);
     assign clint_aw_flag = (I_cache_awaddr >= CLINT_START) && (I_cache_awaddr < CLINT_END);
     assign bus_ar_flag = ~clint_ar_flag;
@@ -98,24 +99,60 @@ module ysyx_22040750_slave_crossbar(
     assign bus_rlasthandshake = I_bus_rvalid && O_bus_rready && I_bus_rlast;
     always @(posedge I_clk)
         if(I_rst)
-            clint_process <= 0;
-        else if(clint_ar_handshake | clint_aw_handshake)
-            clint_process <= 1;
-        else if(clint_rlasthandshake | I_clint_bvalid)// bready is always 1
-            clint_process <= 0;
+            clint_rd_process <= 0;
+        else if(clint_ar_handshake)
+            clint_rd_process <= 1;
+        else if(clint_rlasthandshake)// bready is always 1
+            clint_rd_process <= 0;
         else
-            clint_process <= clint_process;
+            clint_rd_process <= clint_rd_process;
     always @(posedge I_clk)
         if(I_rst)
-            bus_process <= 0;
-        else if(bus_ar_handshake | bus_aw_handshake)
-            bus_process <= 1;
-        else if(bus_rlasthandshake | I_bus_bvalid)// bready is always 1
-            bus_process <= 0;
+            bus_rd_process <= 0;
+        else if(bus_ar_handshake)
+            bus_rd_process <= 1;
+        else if(bus_rlasthandshake)// bready is always 1
+            bus_rd_process <= 0;
         else
-            bus_process <= bus_process;
+            bus_rd_process <= bus_rd_process;
+    always @(posedge I_clk)
+        if(I_rst)
+            clint_wr_process <= 0;
+        else if(clint_aw_handshake)
+            clint_wr_process <= 1;
+        else if(I_clint_bvalid)// bready is always 1
+            clint_wr_process <= 0;
+        else
+            clint_wr_process <= clint_wr_process;
+    always @(posedge I_clk)
+        if(I_rst)
+            bus_wr_process <= 0;
+        else if(bus_aw_handshake)
+            bus_wr_process <= 1;
+        else if(I_bus_bvalid)// bready is always 1
+            bus_wr_process <= 0;
+        else
+            bus_wr_process <= bus_wr_process;
+    // always @(posedge I_clk)
+    //     if(I_rst)
+    //         clint_process <= 0;
+    //     else if(clint_ar_handshake | clint_aw_handshake)
+    //         clint_process <= 1;
+    //     else if(clint_rlasthandshake | I_clint_bvalid)// bready is always 1
+    //         clint_process <= 0;
+    //     else
+    //         clint_process <= clint_process;
+    // always @(posedge I_clk)
+    //     if(I_rst)
+    //         bus_process <= 0;
+    //     else if(bus_ar_handshake | bus_aw_handshake)
+    //         bus_process <= 1;
+    //     else if(bus_rlasthandshake | I_bus_bvalid)// bready is always 1
+    //         bus_process <= 0;
+    //     else
+    //         bus_process <= bus_process;
     // signal boardcast, clint don't have last signal
-    // ar process
+    // ar process, notice flag here is combinational logic
     assign O_bus_araddr = bus_ar_flag ? I_cache_araddr : 0;
     assign O_bus_arburst = bus_ar_flag ? I_cache_arburst : 0;
     assign O_bus_arlen = bus_ar_flag ? I_cache_arlen : 0;
@@ -125,11 +162,11 @@ module ysyx_22040750_slave_crossbar(
     assign O_clint_arvalid = clint_ar_flag & I_cache_arvalid;
     assign O_cache_arready = clint_ar_flag ? I_clint_arready : I_bus_arready;
     // r process
-    assign O_bus_rready = I_cache_rready & bus_process;
-    assign O_clint_rready = I_cache_rready & clint_process;
-    assign O_cache_rdata = ({64{clint_process}} & I_clint_rdata) | ({64{bus_process}} & I_bus_rdata);
-    assign O_cache_rvalid = (clint_process & I_clint_rvalid) | (bus_process & I_bus_rvalid);
-    assign O_cache_rlast = (clint_process & I_clint_rvalid) | (bus_process & I_bus_rlast);
+    assign O_bus_rready = I_cache_rready & bus_rd_process;
+    assign O_clint_rready = I_cache_rready & clint_rd_process;
+    assign O_cache_rdata = ({64{clint_rd_process}} & I_clint_rdata) | ({64{bus_rd_process}} & I_bus_rdata);
+    assign O_cache_rvalid = (clint_rd_process & I_clint_rvalid) | (bus_rd_process & I_bus_rvalid);
+    assign O_cache_rlast = (clint_rd_process & I_clint_rvalid) | (bus_rd_process & I_bus_rlast);
     // aw process
     assign O_bus_awaddr = bus_aw_flag ? I_cache_awaddr : 0;
     assign O_bus_awburst = bus_aw_flag ? I_cache_awburst : 0;
@@ -140,16 +177,16 @@ module ysyx_22040750_slave_crossbar(
     assign O_clint_awvalid = clint_aw_flag & I_cache_awvalid;
     assign O_cache_awready = clint_aw_flag ? I_clint_awready : I_bus_awready;
     // w process
-    assign O_bus_wdata = bus_process ? I_cache_wdata : 0;
-    assign O_bus_wstrb = bus_process ? I_cache_wstrb : 0;
-    assign O_bus_wvalid = bus_process & I_cache_wvalid;
-    assign O_bus_wlast = bus_process & I_cache_wlast;
-    assign O_clint_wdata = clint_process ? I_cache_wdata : 0;
-    assign O_clint_wstrb = clint_process ? I_cache_wstrb : 0;
-    assign O_clint_wvalid = clint_process & I_cache_wvalid;
-    assign O_cache_wready = (clint_process & I_clint_wready) | (bus_process & I_bus_wready);
+    assign O_bus_wdata = bus_wr_process ? I_cache_wdata : 0;
+    assign O_bus_wstrb = bus_wr_process ? I_cache_wstrb : 0;
+    assign O_bus_wvalid = bus_wr_process & I_cache_wvalid;
+    assign O_bus_wlast = bus_wr_process & I_cache_wlast;
+    assign O_clint_wdata = clint_wr_process ? I_cache_wdata : 0;
+    assign O_clint_wstrb = clint_wr_process ? I_cache_wstrb : 0;
+    assign O_clint_wvalid = clint_wr_process & I_cache_wvalid;
+    assign O_cache_wready = (clint_wr_process & I_clint_wready) | (bus_wr_process & I_bus_wready);
     // b process
-    assign O_bus_bready = bus_process & I_cache_bready;
-    assign O_clint_bready = clint_process & I_cache_bready;
-    assign O_cache_bvalid = (clint_process & I_clint_bvalid) | (bus_process & I_bus_bvalid);
+    assign O_bus_bready = bus_wr_process & I_cache_bready;
+    assign O_clint_bready = clint_wr_process & I_cache_bready;
+    assign O_cache_bvalid = (clint_wr_process & I_clint_bvalid) | (bus_wr_process & I_bus_bvalid);
 endmodule
