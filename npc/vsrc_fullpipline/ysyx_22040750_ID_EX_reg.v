@@ -27,6 +27,7 @@ module ysyx_22040750_ID_EX_reg(
 	input [11:0] I_csr_addr,
 	input I_csr_wen,
 	input I_csr_intr,
+	input I_csr_mtip,
 	input [63:0] I_csr_intr_no,
 	input [63:0] I_csr,
 	input I_csr_mret,
@@ -36,6 +37,7 @@ module ysyx_22040750_ID_EX_reg(
 	output reg [11:0] O_csr_addr,
 	output reg O_csr_wen,
 	output reg O_csr_intr,
+	output reg O_csr_mtip,
 	output reg [63:0] O_csr_intr_no,
 	output reg [63:0] O_csr,
 	output reg O_csr_mret,
@@ -109,6 +111,7 @@ module ysyx_22040750_ID_EX_reg(
 			O_csr_addr <= 0;
 			O_csr_wen <= 0;
 			O_csr_intr <= 0;
+			O_csr_mtip <= 0;
 			O_csr_intr_no <= 0;
 			O_csr_mret <= 0;
 		end
@@ -136,6 +139,7 @@ module ysyx_22040750_ID_EX_reg(
 			O_csr_addr <= I_csr_addr;
 			O_csr_wen <= I_csr_wen;
 			O_csr_intr <= I_csr_intr;
+			O_csr_mtip <= I_csr_mtip;
 			O_csr_intr_no <= I_csr_intr_no;
 			O_csr_mret <= I_csr_mret;
 		end
@@ -163,6 +167,7 @@ module ysyx_22040750_ID_EX_reg(
 			O_csr_addr <= O_csr_addr;
 			O_csr_wen <= O_csr_wen;
 			O_csr_intr <= O_csr_intr;
+			O_csr_mtip <= O_csr_mtip;
 			O_csr_intr_no <= O_csr_intr_no;
 			O_csr_mret <= O_csr_mret;
 		end

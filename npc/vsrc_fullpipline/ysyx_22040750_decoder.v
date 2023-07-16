@@ -58,6 +58,7 @@ module ysyx_22040750_decoder(
     );
     // import "DPI-C" function void set_inst_ptr(input logic [31:0] a []);
     // initial set_inst_ptr(I_inst);
+    wire [31:0] decode_inst;
     wire [6:0] funct7;
     wire [6:0] opcode;
     wire [4:0] rs2,rs1,rd;
@@ -67,6 +68,8 @@ module ysyx_22040750_decoder(
     wire [31:0] immU;
     wire [20:0] immJ;
     wire typeI, typeS, typeR, typeB, typeU, typeJ, typeC;
+    // if timer intr happen, inst do nothing, but npc is chosen from mtvec
+    assign decode_inst = I_timer_intr ? 32'h00000013 : I_inst;
     // inst pattern
     // type U
     wire LUI;
@@ -200,9 +203,9 @@ module ysyx_22040750_decoder(
     assign BGEU = (opcode == 7'b1100011) && (funct3 == 3'b111);
     // ecall & ebreak
     wire ECALL;
-    assign ECALL = (I_inst == 32'h00000073);
+    assign ECALL = (decode_inst == 32'h00000073);
     wire EBREAK;
-    assign EBREAK = (I_inst == 32'h00100073);
+    assign EBREAK = (decode_inst == 32'h00100073);
     // csr op
     wire CSRRW;
     assign CSRRW = (opcode == 7'b1110011) && (funct3 == 3'b001);
@@ -217,31 +220,31 @@ module ysyx_22040750_decoder(
     wire CSRRCI;
     assign CSRRCI = (opcode == 7'b1110011) && (funct3 == 3'b111);
     wire MRET;
-    assign MRET = (I_inst == 32'h30200073);
+    assign MRET = (decode_inst == 32'h30200073);
     // inst var parsing
     wire csr_rd_gpr;
-    assign csr_rd_gpr = CSRRW | CSRRS | CSRRC;
+    assign csr_rd_gpr = CSRRW | CSRRS | CSRRC | I_timer_intr;
     assign O_stall_en[1] = (typeI | typeS | typeR | typeB | csr_rd_gpr) && (rs1 != 0);
     assign O_stall_en[0] = (typeS | typeR | typeB) && (rs2 != 0);
-    assign funct7 = I_inst[31:25];
-    assign opcode = I_inst[6:0];
-    assign rd = I_inst[11:7];
-    assign funct3 = I_inst[14:12];
-    assign rs1 = I_inst[19:15];
-    assign rs2 = I_inst[24:20];
-    assign immI = I_inst[31:20];
-    assign immS = {I_inst[31:25], I_inst[11:7]};
-    assign immB = {I_inst[31], I_inst[7], I_inst[30:25], I_inst[11:8],1'b0};
-    assign immU = {I_inst[31:12],12'b0};
-    assign immJ = {I_inst[31],I_inst[19:12],I_inst[20],I_inst[30:21],1'b0};
+    assign funct7 = decode_inst[31:25];
+    assign opcode = decode_inst[6:0];
+    assign rd = decode_inst[11:7];
+    assign funct3 = decode_inst[14:12];
+    assign rs1 = decode_inst[19:15];
+    assign rs2 = decode_inst[24:20];
+    assign immI = decode_inst[31:20];
+    assign immS = {decode_inst[31:25], decode_inst[11:7]};
+    assign immB = {decode_inst[31], decode_inst[7], decode_inst[30:25], decode_inst[11:8],1'b0};
+    assign immU = {decode_inst[31:12],12'b0};
+    assign immJ = {decode_inst[31],decode_inst[19:12],decode_inst[20],decode_inst[30:21],1'b0};
     // rs1, rs2, rd addr
     assign O_rs1 = rs1;
     assign O_rs2 = rs2;
     assign O_rd = rd;
     // csr data
-    assign O_csr_addr = I_inst[31:20];
-    assign O_csr_imm = I_inst[19:15];
-    //assign O_csr_op_sel = I_inst[14:12];
+    assign O_csr_addr = I_timer_intr ? 12'h305 : decode_inst[31:20];
+    assign O_csr_imm = decode_inst[19:15];
+    //assign O_csr_op_sel = decode_inst[14:12];
     //assign O_funct3 = funct3;
     //assign O_funct7 = funct7;
     // inst type
@@ -265,7 +268,7 @@ module ysyx_22040750_decoder(
     assign O_csr_op_sel = {CSRRW, CSRRS, CSRRC, CSRRWI, CSRRSI, CSRRCI};
     // csr wr en
     wire [63:0] NO;
-    assign NO = ECALL ? 64'hb : EBREAK ? 64'h3 : 64'h0;
+    assign NO = I_timer_intr ? 64'h8000_0000_0000_0004 : ECALL ? 64'hb : EBREAK ? 64'h3 : 64'h0;
     // assign NO = ({64{ECALL & ~}} & 64'hb) | ({64{EBREAK}}) | ();
     assign O_csr_wen = CSRRW | CSRRS | CSRRC | CSRRWI | CSRRSI | CSRRCI;
     assign O_csr_intr = ECALL | EBREAK;
@@ -303,7 +306,7 @@ module ysyx_22040750_decoder(
     assign lt = ($signed(I_rs1_data)) < ($signed(I_rs2_data));
     assign ge = ~lt;
     assign typeB_jr = (BEQ&eq) | (BNE&neq) | (BLT&lt) | (BGE&ge) | (BLTU&ltu) | (BGEU&geu);
-    assign csr_jr = ECALL | EBREAK | MRET;
+    assign csr_jr = ECALL | EBREAK | MRET | I_timer_intr;
     // assign O_dnpc_sel[4] = csr_jr;
     // assign O_dnpc_sel[3] = JALR;
     // assign O_dnpc_sel[2] = JAL;
@@ -403,7 +406,7 @@ module ysyx_22040750_decoder(
                         | OP2_FOUR & {3{four_flag}};
     // ebreak signal gen
     //always @(posedge I_sys_clk)
-    //	if ((I_inst == 32'h00100073) && !I_rst)
+    //	if ((decode_inst == 32'h00100073) && !I_rst)
     //	    sim_end();
-    //assign O_sim_end = (I_inst == 32'h00100073) ? 1:0;
+    //assign O_sim_end = (decode_inst == 32'h00100073) ? 1:0;
 endmodule

@@ -2,7 +2,11 @@
 module ysyx_22040750_csr(
     input I_sys_clk,
     input I_rst,
+    // timer intr, ID intr = I_csr_intr_rd
     input I_mtip,
+    input I_EX_intr,// from ID_EX
+    input I_MEM_intr,// from EX_MEM
+    input I_WB_intr,// from MEM_WB
     input I_MEM_WB_valid,
     input I_csr_wen,
     input I_csr_intr_wr,
@@ -14,6 +18,7 @@ module ysyx_22040750_csr(
     input [11:0] I_wr_addr,
     input [11:0] I_rd_addr,
     input [63:0] I_wr_data,
+    input I_timer_intr_wb,
     output [63:0] O_rd_data,
     output O_timer_intr
 );
@@ -35,7 +40,7 @@ module ysyx_22040750_csr(
     assign mstatus_mie = mstatus[3];
     assign mstatus_mpie = mstatus[7];
     assign O_rd_data = rd_data;
-    assign O_timer_intr = mip[7] & mie[7] & mstatus_mie;
+    assign O_timer_intr = (mip[7] & mie[7] & mstatus_mie) & ~(I_EX_intr & I_MEM_intr & I_WB_intr);
     //reg [63:0] mip, mie, mtime, mtimecmp; clint as mmio p
     always @(posedge I_sys_clk)
         if(I_rst)
@@ -60,7 +65,7 @@ module ysyx_22040750_csr(
                 // MSCRATCH: mscratch <= I_wr_data;
                 default:;
             endcase
-        else if(csr_intr_wr) begin
+        else if(csr_intr_wr | I_timer_intr_wb) begin
             satp <= satp;
             mstatus <= {mstatus[63:8],mstatus_mie,mstatus[6:4],1'b0,mstatus[2:0]};
             mie <= mie;
@@ -91,21 +96,24 @@ module ysyx_22040750_csr(
             // mscratch <= mscratch;
         end
     always @(*)
-        case({I_csr_intr_rd, I_csr_mret_rd})
-            2'b10: rd_data = mtvec;
-            2'b01: rd_data = mepc;
-            2'b00:
-                case(I_rd_addr)
-                    SATP: rd_data = satp;
-                    MSTATUS: rd_data = mstatus;
-                    MIE: rd_data = mie;
-                    MTVEC: rd_data = mtvec;
-                    MEPC: rd_data = mepc;
-                    MCAUSE: rd_data = mcause;
-                    MIP: rd_data = mip;
-                    // MSCRATCH: rd_data = mscratch;
-                    default: rd_data = 'h0;
-                endcase
-            default: rd_data = 'h0;// should not reach here!
-        endcase
+        if(O_timer_intr)
+            rd_data = mtvec;
+        else
+            case({I_csr_intr_rd, I_csr_mret_rd})
+                2'b10: rd_data = mtvec;
+                2'b01: rd_data = mepc;
+                2'b00:
+                    case(I_rd_addr)
+                        SATP: rd_data = satp;
+                        MSTATUS: rd_data = mstatus;
+                        MIE: rd_data = mie;
+                        MTVEC: rd_data = mtvec;
+                        MEPC: rd_data = mepc;
+                        MCAUSE: rd_data = mcause;
+                        MIP: rd_data = mip;
+                        // MSCRATCH: rd_data = mscratch;
+                        default: rd_data = 'h0;
+                    endcase
+                default: rd_data = 'h0;// should not reach here!
+            endcase
 endmodule

@@ -18,6 +18,7 @@ module ysyx_22040750_MEM_WB_reg(
 	input [11:0] I_csr_addr,
 	input I_csr_wen,
 	input I_csr_intr,
+	input I_csr_mtip,
 	input [63:0] I_csr_intr_no,
 	input I_csr_mret,
 	input [63:0] I_csr,
@@ -27,6 +28,7 @@ module ysyx_22040750_MEM_WB_reg(
 	output reg [11:0] O_csr_addr,
 	output reg O_csr_wen,
 	output reg O_csr_intr,
+	output reg O_csr_mtip,
 	output reg [63:0] O_csr_intr_no,
 	output reg O_csr_mret,
 	output reg [63:0] O_csr,
@@ -81,6 +83,7 @@ module ysyx_22040750_MEM_WB_reg(
 			O_csr_addr <= 0;
 			O_csr_wen <= 0;
 			O_csr_intr <= 0;
+			O_csr_mtip <= 0;
 			O_csr_intr_no <= 0;
 			O_csr_mret <= 0;
 			O_csr <= 0;
@@ -102,6 +105,7 @@ module ysyx_22040750_MEM_WB_reg(
 			O_csr_addr <= I_csr_addr;
 			O_csr_wen <= I_csr_wen;
 			O_csr_intr <= I_csr_intr;
+			O_csr_mtip <= I_csr_mtip;
 			O_csr_intr_no <= I_csr_intr_no;
 			O_csr_mret <= I_csr_mret;
 			O_csr <= I_csr;
@@ -122,6 +126,7 @@ module ysyx_22040750_MEM_WB_reg(
 			O_csr_addr <= O_csr_addr;
 			O_csr_wen <= O_csr_wen;
 			O_csr_intr <= O_csr_intr;
+			O_csr_mtip <= O_csr_mtip;
 			O_csr_intr_no <= O_csr_intr_no;
 			O_csr_mret <= O_csr_mret;
 			O_csr <= O_csr;
