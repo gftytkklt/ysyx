@@ -23,11 +23,11 @@ module ysyx_22040750_clint(
     parameter BASE_ADDR = 'h02000000;
     parameter MTIMECMP_ADDR = 'h4000 + BASE_ADDR;
     parameter MTIME_ADDR = 'hBFF8 + BASE_ADDR;
-    parameter TICKCNT = 12'h10;
+    parameter TICKCNT = 12'h01;
     reg [63:0] mtime, mtimecmp;
-    reg [11:0] tick_cnt;
+    // reg [11:0] tick_cnt;
     wire [63:0] bitmask;
-    wire incr_en;
+    // wire incr_en;
     wire ar_handshake, aw_handshake, r_handshake, w_handshake;
     reg wr_mtime, rd_mtime, wr_mtimecmp, rd_mtimecmp;
     genvar i;
@@ -45,7 +45,7 @@ module ysyx_22040750_clint(
     assign O_clint_bvalid = w_handshake;// whandshake correspond reg writeback
     assign O_clint_rvalid = rd_mtime | rd_mtimecmp;
     assign O_mtip = (mtime >= mtimecmp);
-    assign incr_en = (tick_cnt == TICKCNT-1);
+    // assign incr_en = (tick_cnt == TICKCNT-1);
     always @(posedge I_clk)
         if(I_rst)
             {wr_mtime, wr_mtimecmp} <= 0;
@@ -70,10 +70,10 @@ module ysyx_22040750_clint(
             mtime <= 0;
         else if(wr_mtime && w_handshake)
             mtime <= (mtime & (~bitmask)) | (I_clint_wdata & bitmask);
-        else if(incr_en)
-            mtime <= mtime + 1;
+        // else if(incr_en)
+        //     mtime <= mtime + 1;
         else
-            mtime <= mtime;
+            mtime <= mtime + 1;
     always @(posedge I_clk)
         if(I_rst)
             mtimecmp <= 0;
@@ -82,11 +82,11 @@ module ysyx_22040750_clint(
         else
             mtimecmp <= mtimecmp;
 
-    always @(posedge I_clk)
-        if(I_rst)
-            tick_cnt <= 0;
-        else
-            tick_cnt <= incr_en ? 0 : tick_cnt + 1;
+    // always @(posedge I_clk)
+    //     if(I_rst)
+    //         tick_cnt <= 0;
+    //     else
+    //         tick_cnt <= incr_en ? 0 : tick_cnt + 1;
 
     always @(*)
         case({rd_mtime, rd_mtimecmp})

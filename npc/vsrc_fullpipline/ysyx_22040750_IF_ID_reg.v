@@ -5,6 +5,7 @@ module ysyx_22040750_IF_ID_reg(
     input I_rst,
     input [31:0] I_pc,
     input [31:0] I_inst,
+    input I_timer_intr,
     input I_IF_ID_valid,// mem data valid
     input I_IF_ID_allowout,// receive ID_EX input en
     input I_IF_ID_stall,
@@ -12,6 +13,7 @@ module ysyx_22040750_IF_ID_reg(
     output O_IF_ID_allowin,// send IF_ID input en
     output reg [31:0] O_pc,
     output reg [31:0] O_inst,
+    output reg O_timer_intr,
     output reg O_bubble_inst_debug,
     output O_IF_ID_input_valid,// data in IF_ID valid
     output O_IF_ID_valid// corresponding to pip1_to_pip2_valid
@@ -34,9 +36,16 @@ module ysyx_22040750_IF_ID_reg(
             {O_pc, O_inst} <= {32'h0, 32'h0};
             // if inst jump, induce a bubble
         else if(I_IF_ID_valid && O_IF_ID_allowin)
-            {O_pc, O_inst} <= I_IF_ID_jmp ? {O_pc, 32'h00000013} : {I_pc, I_inst};
+            {O_pc, O_inst} <= I_IF_ID_jmp ? {I_pc, 32'h00000013} : {I_pc, I_inst};
         else
             {O_pc, O_inst} <= {O_pc, O_inst};
+    always @(posedge I_sys_clk)
+        if(I_rst)
+            O_timer_intr <= 0;
+        else if(I_IF_ID_valid && O_IF_ID_allowin)
+            O_timer_intr <= I_timer_intr;
+        else
+            O_timer_intr <= O_timer_intr;
     always @(posedge I_sys_clk)
         if(I_rst)
             O_bubble_inst_debug <= 0;
