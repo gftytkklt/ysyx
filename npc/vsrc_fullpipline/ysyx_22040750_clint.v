@@ -23,7 +23,7 @@ module ysyx_22040750_clint(
     parameter BASE_ADDR = 'h02000000;
     parameter MTIMECMP_ADDR = 'h4000 + BASE_ADDR;
     parameter MTIME_ADDR = 'hBFF8 + BASE_ADDR;
-    parameter TICKCNT = 12'h100;
+    parameter TICKCNT = 12'h10;
     reg [63:0] mtime, mtimecmp;
     reg [11:0] tick_cnt;
     wire [63:0] bitmask;
