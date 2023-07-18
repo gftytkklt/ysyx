@@ -42,8 +42,8 @@ module ysyx_22040750_IF_ID_reg(
     always @(posedge I_sys_clk)
         if(I_rst)
             O_timer_intr <= 0;
-        else if(I_IF_ID_valid && O_IF_ID_allowin)
-            O_timer_intr <= I_timer_intr;
+        else if(I_IF_ID_valid && O_IF_ID_allowin)// avoid latch bubble inst
+            O_timer_intr <= ~I_IF_ID_jmp & I_timer_intr;
         else
             O_timer_intr <= O_timer_intr;
     always @(posedge I_sys_clk)
