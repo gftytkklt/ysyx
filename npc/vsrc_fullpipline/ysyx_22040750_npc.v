@@ -11,15 +11,14 @@ module ysyx_22040750_npc(
     input [31:0] I_intr_pc,
     input [31:0] I_pc,// IF_ID_pc actually, use for jmps cal
     input [31:0] I_snpc,// snpc
-    input [2:0] I_dnpc_sel,
+    input [3:0] I_dnpc_sel,
     output [31:0] O_dnpc
     );
-    // original dnpc_sel
-    // I_dnpc_sel[4]: csr
-    // I_dnpc_sel[3]: jalr
-    // I_dnpc_sel[2]: jal
-    // I_dnpc_sel[1]: B jr
+    // I_dnpc_sel[3]: fence.i
+    // I_dnpc_sel[2]: csr
+    // I_dnpc_sel[1]: jalr
     // I_dnpc_sel[0]: snpc
+    // fence.i & jal & typeB_jr addr cal here
     // dnpc sel in this module: I_dnpc_sel[2:0] = {I_dnpc_sel_orig[4:3,0]}
     wire pc_handshake;
     wire [31:0] dnpc_src1,dnpc_src2, dnpc_sum, dnpc;
@@ -29,7 +28,8 @@ module ysyx_22040750_npc(
     wire store_dnpc;// indicate latch useful data
     assign dnpc_sel = ~(I_dnpc_sel[0] | I_dnpc_sel[2]);
     assign intr_sel = I_dnpc_sel[2];
-    assign dnpc_src1 = I_imm;
+    // assign dnpc_src1 = I_imm;
+    assign dnpc_src1 = I_dnpc_sel[3] ? 4 : I_imm;// sel dnpc op1
     assign dnpc_src2 = I_dnpc_sel[1] ? I_rs1_data : I_pc;
     assign dnpc_sum = dnpc_src1 + dnpc_src2;
     assign pc_handshake = I_pc_ready && I_pc_valid;

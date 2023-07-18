@@ -39,7 +39,7 @@ module ysyx_22040750_decoder(
     //output O_mem_ren,
     //output [2:0] O_funct3,
     //output [6:0] O_funct7,
-    output [2:0] O_dnpc_sel,
+    output [3:0] O_dnpc_sel,
     output [1:0] O_regin_sel,
     output [2:0] O_opnum1_sel,
     output [2:0] O_opnum2_sel,
@@ -221,6 +221,9 @@ module ysyx_22040750_decoder(
     assign CSRRCI = (opcode == 7'b1110011) && (funct3 == 3'b111);
     wire MRET;
     assign MRET = (decode_inst == 32'h30200073);
+    // fence.i
+    wire FENCEI;
+    assign FENCEI = (opcode == 7'b0001111) && (funct3 == 3'b001);
     // inst var parsing
     wire csr_rd_gpr;
     assign csr_rd_gpr = CSRRW | CSRRS | CSRRC | I_timer_intr;
@@ -311,9 +314,10 @@ module ysyx_22040750_decoder(
     // assign O_dnpc_sel[3] = JALR;
     // assign O_dnpc_sel[2] = JAL;
     // assign O_dnpc_sel[1] = typeB_jr;
+    assign O_dnpc_sel[3] = FENCEI;
     assign O_dnpc_sel[2] = csr_jr;
     assign O_dnpc_sel[1] = JALR;
-    assign O_dnpc_sel[0] = ~(JALR | JAL | typeB_jr | csr_jr);
+    assign O_dnpc_sel[0] = ~(JALR | JAL | typeB_jr | csr_jr | FENCEI);
     // alu op
     localparam OP_ADD = 15'b000_0000_0000_0001;
     localparam OP_SUB = 15'b000_0000_0000_0010;

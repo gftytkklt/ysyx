@@ -31,6 +31,7 @@ module ysyx_22040750_ID_EX_reg(
 	input [63:0] I_csr_intr_no,
 	input [63:0] I_csr,
 	input I_csr_mret,
+	input I_fencei,
     //input I_ID_EX_block,
 	output reg [5:0] O_csr_op_sel,
 	output reg [4:0] O_csr_imm,
@@ -57,6 +58,7 @@ module ysyx_22040750_ID_EX_reg(
     output reg [1:0] O_alu_sext,
     output reg [14:0] O_alu_op_sel,
     output reg O_word_op_mask,
+	output reg O_fencei,
     input [31:0] I_pc,
     output reg [31:0] O_pc,
     output O_ID_EX_input_valid,
@@ -114,6 +116,7 @@ module ysyx_22040750_ID_EX_reg(
 			// O_csr_mtip <= 0;
 			O_csr_intr_no <= 0;
 			O_csr_mret <= 0;
+			O_fencei <= 0;
 		end
     	else if(I_ID_EX_valid && O_ID_EX_allowin) begin
 			O_imm <= I_imm;
@@ -142,6 +145,7 @@ module ysyx_22040750_ID_EX_reg(
 			// O_csr_mtip <= I_csr_mtip;
 			O_csr_intr_no <= I_csr_intr_no;
 			O_csr_mret <= I_csr_mret;
+			O_fencei <= I_fencei;
 		end
 		else begin
 			O_imm <= O_imm;
@@ -170,5 +174,6 @@ module ysyx_22040750_ID_EX_reg(
 			// O_csr_mtip <= O_csr_mtip;
 			O_csr_intr_no <= O_csr_intr_no;
 			O_csr_mret <= O_csr_mret;
+			O_fencei <= O_fencei;
 		end
 endmodule

@@ -36,6 +36,8 @@ module ysyx_22040750_icachectrl #(
     input [31:0] I_cpu_addr,
     input I_cpu_rd_req,
     output O_cpu_rd_ready,
+    input I_cpu_fencei,// from cpu, fencei begin, disable pc_ready
+    input I_dcache_clean,// from dcache, fencei end, enable pc_ready
     // cache rd addr & req, low level valid en
     input [255:0] I_way0_rdata,
     input [255:0] I_way1_rdata,
@@ -99,7 +101,7 @@ module ysyx_22040750_icachectrl #(
     // mmio & cache inst
     wire [31:0] mmio_inst, cache_inst;
     // FSM
-    `define IFSM_WIDTH 6
+    `define IFSM_WIDTH 7
     parameter IDLE = `IFSM_WIDTH'b000000; 
     parameter RD_HIT = `IFSM_WIDTH'b000001;
     parameter RD_MISS = `IFSM_WIDTH'b000010;
@@ -107,6 +109,7 @@ module ysyx_22040750_icachectrl #(
     parameter RD_ALLOCATE = `IFSM_WIDTH'b001000;
     parameter MMIO_AR = `IFSM_WIDTH'b010000;
     parameter MMIO_RD = `IFSM_WIDTH'b100000;
+    parameter FENCEI = `IFSM_WIDTH'b1000000;
     reg [`IFSM_WIDTH-1:0] current_state, next_state;
     // cache addr cen gen
     reg [3:0] cen_icache; // TODO: add ctrl logic
@@ -123,6 +126,10 @@ module ysyx_22040750_icachectrl #(
     generate for(i=0;i<BLOCK_NUM;i=i+1) begin
     always @(posedge I_clk)
         if(I_rst) begin
+            lookup_table[i] <= 0;
+            valid_table[i] <= 0;
+        end
+        else if(I_cpu_fencei) begin
             lookup_table[i] <= 0;
             valid_table[i] <= 0;
         end
@@ -239,7 +246,9 @@ module ysyx_22040750_icachectrl #(
         next_state = IDLE;
         case(current_state)
             IDLE, RD_HIT: begin
-                if(mmio_flag)
+                if(I_cpu_fencei)
+                    next_state = FENCEI;
+                else if(mmio_flag)
                     next_state = MMIO_AR;
                 else if(rd_hit)
                     next_state = RD_HIT;
@@ -253,6 +262,7 @@ module ysyx_22040750_icachectrl #(
             RD_ALLOCATE: next_state = IDLE;
             MMIO_AR: next_state = rd_handshake ? MMIO_RD : current_state;
             MMIO_RD: next_state = I_mem_rlast ? IDLE : current_state;
+            FENCEI: next_state = I_dcache_clean ? IDLE : current_state;
             default: next_state = IDLE;
         endcase
     end

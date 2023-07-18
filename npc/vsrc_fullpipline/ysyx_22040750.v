@@ -236,6 +236,7 @@ module ysyx_22040750(
     wire clint_bvalid;
     wire clint_bready;
     wire cpu_mtip;
+    wire inst_fencei, mem_fencei;
     // axi const
     assign io_slave_awready = 0;
     assign io_slave_wready = 0;
@@ -278,7 +279,9 @@ module ysyx_22040750(
         .I_mem_rd_data_valid(mem_rvalid),
         .I_mem_wr_data_valid(mem_bvalid),
         .O_mem_wr_data(mem_wdata),
-        .O_mem_wr_strb(cpu_wmask)
+        .O_mem_wr_strb(cpu_wmask),
+        .O_inst_fencei(inst_fencei),
+        .O_mem_fencei(mem_fencei)
     );
 
     ysyx_22040750_cache cache_e(
@@ -289,6 +292,8 @@ module ysyx_22040750(
         .I_cpu_pc_valid(cpu_pc_valid),
         .O_cpu_pc_ready(cpu_pc_ready),
         .O_cpu_mem_ready(cpu_mem_ready),
+        .I_inst_fencei(inst_fencei),
+        .I_mem_fencei(mem_fencei),
         .O_cpu_inst(cpu_inst),
         .O_cpu_inst_valid(cpu_inst_valid),
         // cpu addr & w/r req

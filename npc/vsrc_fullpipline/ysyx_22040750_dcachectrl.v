@@ -24,10 +24,10 @@ module ysyx_22040750_dcachectrl #(
     parameter BLOCK_SIZE = 32,
     parameter CACHE_SIZE = 4096,
     parameter GROUP_NUM = 2,
-    parameter BLOCK_NUM = CACHE_SIZE / BLOCK_SIZE,
-    parameter OFFT_LEN = $clog2(BLOCK_SIZE),
-    parameter INDEX_LEN = $clog2(BLOCK_NUM/GROUP_NUM),
-    parameter TAG_LEN = 32-OFFT_LEN-INDEX_LEN
+    parameter BLOCK_NUM = CACHE_SIZE / BLOCK_SIZE,//128
+    parameter OFFT_LEN = $clog2(BLOCK_SIZE),//5
+    parameter INDEX_LEN = $clog2(BLOCK_NUM/GROUP_NUM),//6
+    parameter TAG_LEN = 32-OFFT_LEN-INDEX_LEN//21
 )(
     input I_clk,
     input I_rst,
@@ -38,6 +38,8 @@ module ysyx_22040750_dcachectrl #(
     input I_cpu_rd_req,
     input I_cpu_wr_req,
     output O_cpu_mem_ready,
+    input I_cpu_fencei,
+    output O_dcache_clean,
     // cache rd addr & req, low level valid en
     input [255:0] I_way0_rdata,
     input [255:0] I_way1_rdata,
@@ -80,11 +82,11 @@ module ysyx_22040750_dcachectrl #(
     output O_cpu_bvalid
 );
     // FSM signal
-    `define FSM_WIDTH 15
+    `define FSM_WIDTH 16
     parameter IDLE = `FSM_WIDTH'h1, RD_HIT = `FSM_WIDTH'h2, RD_MISS = `FSM_WIDTH'h4, RD_RELOAD = `FSM_WIDTH'h8, RD_WB = `FSM_WIDTH'h10, RD_ALLOCATE = `FSM_WIDTH'h20;
     parameter WR_HIT = `FSM_WIDTH'h40, WR_MISS = `FSM_WIDTH'h80, WR_RELOAD = `FSM_WIDTH'h100, WR_WB = `FSM_WIDTH'h200, WR_ALLOCATE = `FSM_WIDTH'h400;
     parameter MMIO_AR = `FSM_WIDTH'h800, MMIO_AW = `FSM_WIDTH'h1000, MMIO_RD = `FSM_WIDTH'h2000, MMIO_WR = `FSM_WIDTH'h4000;
-    
+    parameter FENCEI = `FSM_WIDTH'h8000;
     reg [`FSM_WIDTH-1:0] current_state, next_state;
     wire replace_dirty;
     wire rd_hit, rd_miss, rd_handshake, rd_reload, rd_wb, rd_allocate;
@@ -138,6 +140,32 @@ module ysyx_22040750_dcachectrl #(
     reg mmio_process;
     wire [63:0] mmio_wdata, mmio_rdata;
     wire [31:0] mmio_awaddr;
+    // fencei
+    wire fencei_process;
+    reg [INDEX_LEN:0] fencei_index;// index for cacheline in two groups
+    wire [31:0] fencei_addr;
+    assign fencei_process = (current_state == FENCEI);
+    assign fencei_addr = {lookup_table[fencei_index], fencei_index[INDEX_LEN:1], {OFFT_LEN{1'b0}}};
+    always @(posedge I_clk)
+        if(I_rst)
+            fencei_index <= 0;
+        else if(fencei_process & (~dirty_table[fencei_index] | I_mem_bvalid))
+            fencei_index <= fencei_index + 1;
+        else
+            fencei_index <= fencei_index;
+    // dcache clean: fencei_index incr to max(all 1) and (last cacheline clean or wb finish)
+    assign O_dcache_clean = fencei_process && (&fencei_index) && (~dirty_table[fencei_index] | I_mem_bvalid);
+    // // pending fence.i req
+    // reg fencei_process;
+    // always @(posedge I_clk)
+    //     if(I_rst)
+    //         fencei_process <= 0;
+    //     else if(I_cpu_fencei)
+    //         fencei_process <= 1;
+    //     else if(O_dcache_clean)
+    //         fencei_process <= 0;
+    //     else
+    //         fencei_process <= fencei_process;
     //wire mmio_wvalid;
     // data reg impl
     always @(posedge I_clk)
@@ -169,14 +197,11 @@ module ysyx_22040750_dcachectrl #(
             hit_flag <= way0_hit ? 2'b01 : 2'b10;
         else
             hit_flag <= 2'b00;
-    //assign hit_rdata = way0_hit ? I_way0_rdata : I_way1_rdata;
     assign hit_rdata = (I_way0_rdata & {256{hit_flag[0]}}) | (I_way1_rdata & {256{hit_flag[1]}});
     assign mem_rdata = (current_state == RD_HIT) ? hit_rdata : cacheline_reg;
     assign cache_rdata = mem_rdata[{mem_offset[OFFT_LEN-1:3],3'b0,3'b0} +: 64];
     assign mmio_rdata = I_mem_rdata;
     assign O_cpu_data = mmio_process ? mmio_rdata : cache_rdata;
-    //assign O_cpu_data = mem_rdata[{mem_offset[OFFT_LEN-1:3],3'b0,3'b0} +: 64];
-    //assign O_cpu_data = cacheline_reg[{mem_offset[OFFT_LEN-1:3],3'b0,3'b0} +: 64];
     assign O_cpu_bvalid = (current_state == WR_HIT) || ((current_state == MMIO_WR) && I_mem_bvalid);
     // mem interface impl
     assign aw_handshake = I_mem_awready && O_mem_awvalid;
@@ -192,35 +217,23 @@ module ysyx_22040750_dcachectrl #(
             wdata_cnt <= wdata_cnt;
     assign wdata = isway0_op ? I_way0_rdata : I_way1_rdata;
     assign O_mem_wlast = O_mem_wvalid && (wdata_cnt == O_mem_awlen[1:0]);
-    //assign O_mem_arvalid = ((current_state == RD_MISS) || (current_state == WR_MISS)) ? 1 : 0;
     assign O_mem_arvalid = mem_ar_req ? 1 : 0;
     assign O_mem_rready = 1;
     assign O_mem_arlen = mmio_process ? 0 : 3;// 32/8 - 1
     assign O_mem_arsize = mmio_process ? 3'b010 : 3'b011;// 8B
     assign O_mem_arburst = mmio_process ? 2'b00 : 2'b01;
-    //assign O_mem_araddr = mem_ar_req ? {mem_addr[31:OFFT_LEN],{OFFT_LEN{1'b0}}} : 0;// 32B alignment
-    //assign O_mem_awaddr = mem_aw_req ? {mem_addr[31:OFFT_LEN],{OFFT_LEN{1'b0}}} : 0;
-    //assign O_mem_awaddr = (wb_state == WB_HANDSHAKE) ? O_mem_araddr : 0;
     assign O_mem_araddr = mem_ar_req ? {mem_addr[31:OFFT_LEN],{{OFFT_LEN{mmio_process}} & mem_offset}} : 0;// 32B alignment
-    //assign O_mem_awaddr = mem_aw_req ? {mem_addr[31:OFFT_LEN],{{OFFT_LEN{mmio_process}} & mem_addr[OFFT_LEN-1:0]}} : 0;
     // cache wb: cacheline tag + index + offt'b0
-    assign cache_awaddr = {lookup_table[{mem_index, ~isway0_op}],mem_index,{OFFT_LEN{1'b0}}};
+    assign cache_awaddr = ({32{fencei_process}} & fencei_addr) | ({32{~fencei_process}} & {lookup_table[{mem_index, ~isway0_op}],mem_index,{OFFT_LEN{1'b0}}});
     assign mmio_awaddr = mem_addr;
     assign O_mem_awaddr = mem_aw_req ? ((cache_awaddr & {32{~mmio_process}}) | (mmio_awaddr & {32{mmio_process}})) : 0;
-    // assign O_mem_awaddr = mem_aw_req ? {lookup_table[{mem_index, ~isway0_op}],mem_index,{{OFFT_LEN{mmio_process}} & mem_addr[OFFT_LEN-1:0]}} : 0;
     assign O_mem_awlen = mmio_process ? 0 : 3;// 32/8 - 1
     assign O_mem_awsize = mmio_process ? 3'b010 : 3'b011;// 8B
     assign O_mem_awburst = mmio_process ? 2'b00 : 2'b01;
-    //assign O_mem_awvalid = (wb_state == WB_HANDSHAKE) ? 1 : 0;
     assign O_mem_awvalid = mem_aw_req ? 1 : 0;
-    //assign cache_wvalid = (wb_state == WB_DATA) ? 1 : 0;
-    //assign mmio_wvalid = (current_state == MMIO_WR) ? 1 : 0;
-    //assign O_mem_wvalid = (wb_state == WB_DATA) ? 1 : 0;
-    //assign O_mem_wvalid = mmio_process ? mmio_wvalid : cache_wvalid;
     assign O_mem_wvalid = (wb_state == WB_DATA) ? 1 : 0;
     assign mmio_wdata = cpu_reg;
     assign cache_wdata = wdata[{wdata_cnt,3'b0,3'b0} +: 64];
-    //assign O_mem_wdata = wdata[{wdata_cnt,3'b0,3'b0} +: 64];
     assign O_mem_wdata = mmio_process ? mmio_wdata : cache_wdata;
     assign O_mem_wstrb = mmio_process ? cpu_mask_reg : 8'hff;
     assign O_mem_bready = 1;
@@ -319,6 +332,8 @@ module ysyx_22040750_dcachectrl #(
             dirty_table[{mem_index, ~isway0_op}] <= 0;
         else if(wr_allocate)
             dirty_table[{mem_index, ~isway0_op}] <= 1;
+        else if(fencei_process & I_mem_bvalid)
+            dirty_table[fencei_index] <= 0;
         else begin
             dirty_table[i] <= dirty_table[i];
         end
@@ -335,7 +350,8 @@ module ysyx_22040750_dcachectrl #(
         wb_next_state = WB_IDLE;
         case(wb_state)
             // cache wb and mmio wr, cache wb case must consider ~mmio_process
-            WB_IDLE: wb_next_state = ((I_mem_rlast && replace_dirty && ~mmio_process) || (mmio_flag && I_cpu_wr_req)) ? WB_HANDSHAKE : wb_state;
+            // three case cause wb: replace dirty, mmio wr, fence.i
+            WB_IDLE: wb_next_state = ((I_mem_rlast && replace_dirty && ~mmio_process) || (mmio_flag && I_cpu_wr_req) || (fencei_process && dirty_table[fencei_index])) ? WB_HANDSHAKE : wb_state;
             WB_HANDSHAKE: wb_next_state = aw_handshake ? WB_DATA : wb_state;
             WB_DATA: wb_next_state = (wr_handshake && O_mem_wlast) ? WB_IDLE : wb_state;
             default: wb_next_state = wb_state;
@@ -365,7 +381,9 @@ module ysyx_22040750_dcachectrl #(
         next_state = IDLE;
         case(current_state)
             IDLE, RD_HIT, WR_HIT: begin
-                if(mmio_flag)
+                if(I_cpu_fencei)
+                    next_state = FENCEI;
+                else if(mmio_flag)
                     next_state = I_cpu_rd_req ? MMIO_AR : MMIO_AW;
                 else if(rd_hit)
                     next_state = RD_HIT;
@@ -390,6 +408,7 @@ module ysyx_22040750_dcachectrl #(
             MMIO_AW: next_state = aw_handshake ? MMIO_WR : current_state;
             MMIO_RD: next_state = I_mem_rlast ? IDLE : current_state;
             MMIO_WR: next_state = I_mem_bvalid ? IDLE : current_state;
+            FENCEI: next_state = O_dcache_clean ? IDLE : current_state;
             //MMIO_WR: next_state = (wr_handshake && O_mem_wlast) ? IDLE : current_state;
             default: next_state = current_state;
         endcase

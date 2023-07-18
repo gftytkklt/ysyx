@@ -30,6 +30,7 @@ module ysyx_22040750_EX_MEM_reg(
 	input [63:0] I_csr_intr_no,
 	input I_csr_mret,
 	input [63:0] I_csr,
+	input I_fencei,
 	// output reg [6:0] O_csr_op_sel,
 	// output reg [4:0] O_csr_imm,
 	output reg [11:0] O_csr_addr,
@@ -53,6 +54,7 @@ module ysyx_22040750_EX_MEM_reg(
     output reg [4:0] O_rd_addr,
     output reg [1:0] O_regin_sel,
     output O_EX_MEM_input_valid,
+	output reg O_fencei,
     //output reg [63:0] O_mem_data,
     input [31:0] I_inst_debug,
     output reg [31:0] O_inst_debug,
@@ -137,6 +139,7 @@ module ysyx_22040750_EX_MEM_reg(
 			O_csr_intr_no <= 0;
 			O_csr_mret <= 0;
 			O_csr <= 0;
+			O_fencei <= 0;
     	end
     	else if(I_EX_MEM_valid && O_EX_MEM_allowin) begin
 			O_reg_wen <= I_reg_wen;
@@ -160,6 +163,7 @@ module ysyx_22040750_EX_MEM_reg(
 			O_csr_intr_no <= I_csr_intr_no;
 			O_csr_mret <= I_csr_mret;
 			O_csr <= I_csr;
+			O_fencei <= I_fencei;
     	end
     	else begin
     	    O_reg_wen <= O_reg_wen;
@@ -183,5 +187,6 @@ module ysyx_22040750_EX_MEM_reg(
 			O_csr_intr_no <= O_csr_intr_no;
 			O_csr_mret <= O_csr_mret;
 			O_csr <= O_csr;
+			O_fencei <= O_fencei;
     	end			
 endmodule

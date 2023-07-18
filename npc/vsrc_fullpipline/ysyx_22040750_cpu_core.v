@@ -36,7 +36,9 @@ module ysyx_22040750_cpu_core(
     input I_mem_rd_data_valid,
 	input I_mem_wr_data_valid,
     output [63:0] O_mem_wr_data,
-    output [7:0] O_mem_wr_strb
+    output [7:0] O_mem_wr_strb,
+	output O_inst_fencei,// icache fence.i
+	output O_mem_fencei
     //output O_sim_end
     );
     wire [31:0] current_pc,dnpc,snpc;
@@ -45,7 +47,7 @@ module ysyx_22040750_cpu_core(
     wire [63:0] imm,wr_data,rs1_data,rs2_data,alu_op1,alu_op2,alu_out,mem_in,mem_out,csr_rd_data,alu_csr_data;
     wire [4:0] rs1_addr,rs2_addr,rd_addr;
     //wire [2:0] funct3;
-    wire [2:0] dnpc_sel;
+    wire [3:0] dnpc_sel;
     wire [1:0] regin_sel;
     wire [2:0] opnum1_sel;
     wire [2:0] opnum2_sel;
@@ -149,6 +151,10 @@ module ysyx_22040750_cpu_core(
     wire [31:0] MEM_WB_mem_addr;
 	// timer intr
 	wire timer_intr;// ID
+	// fence.i
+	wire fencei;
+	wire ID_EX_fencei;
+	wire EX_MEM_fencei;
 	// wire ID_EX_mtip;
 	// wire EX_MEM_mtip;
 	// wire MEM_WB_mtip;
@@ -196,12 +202,10 @@ module ysyx_22040750_cpu_core(
     assign O_mem_wr_strb = EX_MEM_wstrb << EX_MEM_shamt;
     //assign mem_rmask = mem_rstrb[7:0] << mem_addr[2:0];
     assign mem_out = EX_MEM_rs2;
-    /*mux_Nbit_Msel #(64, 3)
-    nextpc_64bit_3sel (
-	.I_sel_data({{alu_out[63:1],1'b0},alu_out,snpc}),
-	.I_sel(dnpc_sel),
-	.O_sel_data(dnpc)
-    );*/
+	// fencei
+	assign fencei = dnpc_sel[3];
+	assign O_inst_fencei = fencei;// from IF_ID, halt pc_ready
+	assign O_mem_fencei = EX_MEM_fencei;// from EX_MEM, wb dcache
     
     ysyx_22040750_npc npc_e(
 		.I_clk(I_sys_clk),
@@ -386,6 +390,7 @@ module ysyx_22040750_cpu_core(
 		.I_csr_intr_no(csr_intr_no),
 		.I_csr(csr_forward_data),
 		.I_csr_mret(csr_mret),
+		.I_fencei(fencei),
 		.O_csr_op_sel(ID_EX_csr_op_sel),
 		.O_csr_imm(ID_EX_csr_uimm),
 		.O_csr_addr(ID_EX_csr_addr),
@@ -409,6 +414,7 @@ module ysyx_22040750_cpu_core(
 		.O_alu_sext(ID_EX_alu_sext),
 		.O_alu_op_sel(ID_EX_alu_op_sel),
 		.O_word_op_mask(ID_EX_word_op_mask),
+		.O_fencei(ID_EX_fencei),
 		// IF_ID signal
 		.I_pc(IF_ID_pc),
 		.O_pc(ID_EX_pc),
@@ -506,6 +512,7 @@ module ysyx_22040750_cpu_core(
 		.I_csr_intr_no(ID_EX_csr_intr_no),
 		.I_csr_mret(ID_EX_csr_mret),
 		.I_csr(alu_csr_data),
+		.I_fencei(ID_EX_fencei),
 		//.O_csr_op_sel(),
 		//.O_csr_imm(),
 		.O_csr_addr(EX_MEM_csr_addr),
@@ -528,6 +535,7 @@ module ysyx_22040750_cpu_core(
 		.O_rd_addr(EX_MEM_rd_addr),
 		.O_regin_sel(EX_MEM_regin_sel),
 		.O_EX_MEM_input_valid(EX_MEM_input_valid),
+		.O_fencei(EX_MEM_fencei),
 		.I_inst_debug(ID_EX_inst),
 		.O_inst_debug(EX_MEM_inst),
 		.I_bubble_inst_debug(ID_EX_bubble),
