@@ -125,8 +125,8 @@ module ysyx_22040750_dcachectrl #(
     wire way1_op;
     reg isway0_op;// high indicate way0 op
     // wb fsm
-    parameter WB_IDLE = 3'b001, WB_HANDSHAKE = 3'b010, WB_DATA = 3'b100;
-    reg [2:0] wb_state, wb_next_state;
+    parameter WB_IDLE = 4'b0001, WB_HANDSHAKE = 4'b0010, WB_DATA = 4'b0100, WB_BVALID = 4'b1000;
+    reg [3:0] wb_state, wb_next_state;
     // axi interface handshake && wdata cnt
     wire mem_ar_req, mem_aw_req;
     wire aw_handshake, wr_handshake;// awaddr/wdata handshake
@@ -144,8 +144,14 @@ module ysyx_22040750_dcachectrl #(
     wire fencei_process;
     reg [INDEX_LEN:0] fencei_index;// index for cacheline in two groups
     wire [31:0] fencei_addr;
+    wire [5:0] fencei_sram_addr;
+    wire [3:0] fencei_sram_cen;
+    wire fencei_group;
+    assign fencei_sram_addr = fencei_index[INDEX_LEN:1];
+    assign fencei_group = fencei_index[0];
     assign fencei_process = (current_state == FENCEI);
     assign fencei_addr = {lookup_table[fencei_index], fencei_index[INDEX_LEN:1], {OFFT_LEN{1'b0}}};
+    assign fencei_sram_cen = fencei_group ? 4'b0011 : 4'b1100;
     always @(posedge I_clk)
         if(I_rst)
             fencei_index <= 0;
@@ -215,7 +221,7 @@ module ysyx_22040750_dcachectrl #(
             wdata_cnt <= O_mem_wlast ? 0 : wdata_cnt + 1;
         else
             wdata_cnt <= wdata_cnt;
-    assign wdata = isway0_op ? I_way0_rdata : I_way1_rdata;
+    assign wdata = ((isway0_op & ~fencei_process) | (fencei_process & ~fencei_group)) ? I_way0_rdata : I_way1_rdata;
     assign O_mem_wlast = O_mem_wvalid && (wdata_cnt == O_mem_awlen[1:0]);
     assign O_mem_arvalid = mem_ar_req ? 1 : 0;
     assign O_mem_rready = 1;
@@ -254,8 +260,8 @@ module ysyx_22040750_dcachectrl #(
             sram_wmaskB = (rd_allocate || wr_allocate) ? 0 : {32{1'b1}};
     assign O_sram_wdata = cacheline_reg;
     // only rd_hit case sram_op happen at IDLE
-    assign O_sram_addr = rd_hit ? index : mem_index;
-    assign O_sram_cen = cen_dcache;
+    assign O_sram_addr = fencei_process ? fencei_sram_addr : rd_hit ? index : mem_index;
+    assign O_sram_cen = fencei_process ? fencei_sram_cen : cen_dcache;
     assign O_sram_wen = wen_dcache;
     for(i=0;i<32;i=i+1)
         assign O_sram_wmask[8*i +: 8] = {8{sram_wmaskB[i]}};
@@ -353,7 +359,8 @@ module ysyx_22040750_dcachectrl #(
             // three case cause wb: replace dirty, mmio wr, fence.i
             WB_IDLE: wb_next_state = ((I_mem_rlast && replace_dirty && ~mmio_process) || (mmio_flag && I_cpu_wr_req) || (fencei_process && dirty_table[fencei_index])) ? WB_HANDSHAKE : wb_state;
             WB_HANDSHAKE: wb_next_state = aw_handshake ? WB_DATA : wb_state;
-            WB_DATA: wb_next_state = (wr_handshake && O_mem_wlast) ? WB_IDLE : wb_state;
+            WB_DATA: wb_next_state = (wr_handshake && O_mem_wlast) ? WB_BVALID : wb_state;
+            WB_BVALID: wb_next_state = I_mem_bvalid ? WB_IDLE : wb_state;
             default: wb_next_state = wb_state;
         endcase
     end
