@@ -359,7 +359,7 @@ module ysyx_22040750_dcachectrl #(
             // three case cause wb: replace dirty, mmio wr, fence.i
             WB_IDLE: wb_next_state = ((I_mem_rlast && replace_dirty && ~mmio_process) || (mmio_flag && I_cpu_wr_req) || (fencei_process && dirty_table[fencei_index])) ? WB_HANDSHAKE : wb_state;
             WB_HANDSHAKE: wb_next_state = aw_handshake ? WB_DATA : wb_state;
-            WB_DATA: wb_next_state = (wr_handshake && O_mem_wlast) ? WB_BVALID : wb_state;
+            WB_DATA: wb_next_state = (wr_handshake && O_mem_wlast) ? (mmio_process ? WB_IDLE : WB_BVALID) : wb_state;
             WB_BVALID: wb_next_state = I_mem_bvalid ? WB_IDLE : wb_state;
             default: wb_next_state = wb_state;
         endcase
