@@ -100,6 +100,8 @@ module ysyx_22040750_icachectrl #(
     wire mem_ar_req;
     // mmio & cache inst
     wire [31:0] mmio_inst, cache_inst;
+    wire fencei_ready, fencei_flag;
+    reg fencei_reg;
     // FSM
     `define IFSM_WIDTH 7
     parameter IDLE = `IFSM_WIDTH'b000000; 
@@ -113,6 +115,18 @@ module ysyx_22040750_icachectrl #(
     reg [`IFSM_WIDTH-1:0] current_state, next_state;
     // cache addr cen gen
     reg [3:0] cen_icache; // TODO: add ctrl logic
+    // fence.i
+    assign fencei_ready = (current_state == IDLE) || (current_state == RD_HIT);// CPU_rd_ready actually
+    always @(posedge I_clk)
+        if(I_rst)
+            fencei_reg <= 0;
+        else if(~fencei_ready & I_cpu_fencei)
+            fencei_reg <= 1;
+        else if(fencei_ready & fencei_flag)
+            fencei_reg <= 0;
+        else
+            fencei_reg <= fencei_reg;
+    assign fencei_flag = I_cpu_fencei | fencei_reg;
     // axi constant
     assign O_mem_rready = 1;// always enable rdata
     //assign O_mem_bready = 0;// always disable wresp
@@ -246,7 +260,7 @@ module ysyx_22040750_icachectrl #(
         next_state = IDLE;
         case(current_state)
             IDLE, RD_HIT: begin
-                if(I_cpu_fencei)
+                if(fencei_flag)
                     next_state = FENCEI;
                 else if(mmio_flag)
                     next_state = MMIO_AR;

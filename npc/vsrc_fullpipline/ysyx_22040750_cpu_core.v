@@ -153,6 +153,7 @@ module ysyx_22040750_cpu_core(
 	wire timer_intr;// ID
 	// fence.i
 	wire fencei;
+	reg fencei_d;
 	wire ID_EX_fencei;
 	wire EX_MEM_fencei;
 	// wire ID_EX_mtip;
@@ -204,8 +205,13 @@ module ysyx_22040750_cpu_core(
     assign mem_out = EX_MEM_rs2;
 	// fencei
 	assign fencei = dnpc_sel[3];
-	assign O_inst_fencei = fencei;// from IF_ID, halt pc_ready
-	assign O_mem_fencei = EX_MEM_fencei;// from EX_MEM, wb dcache
+	always @(posedge I_sys_clk)
+		if(I_rst)
+			fencei_d <= 0;
+		else
+			fencei_d <= fencei;
+	assign O_inst_fencei = fencei & ~fencei_d;// from IF_ID, halt pc_ready
+	assign O_mem_fencei = EX_MEM_fencei & EX_MEM_valid;// from EX_MEM, wb dcache
     
     ysyx_22040750_npc npc_e(
 		.I_clk(I_sys_clk),
@@ -237,6 +243,7 @@ module ysyx_22040750_cpu_core(
 		.I_inst_valid(I_inst_valid),
 		.I_inst_ready(I_pc_ready),
 		.I_IF_ID_allowin(IF_ID_allowin),
+		.I_fencei(O_inst_fencei),
 		.O_IF_valid(IF_valid),
 		.O_pc(current_pc),
 		.O_inst(current_inst),

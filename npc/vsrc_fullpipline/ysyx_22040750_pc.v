@@ -28,6 +28,7 @@ module ysyx_22040750_pc(
     input I_inst_valid,
     input I_inst_ready,
     input I_IF_ID_allowin,// allow next inst rd
+    input I_fencei,
     output O_IF_valid,
     output reg [31:0] O_pc,
     output [31:0] O_inst,
@@ -66,7 +67,7 @@ module ysyx_22040750_pc(
     assign O_IF_valid = IF_ready_go && IF_valid;
     assign IF_ready_go = I_inst_valid || cache_valid;
     assign IF_allow_in = (!IF_valid) || (IF_ready_go && I_IF_ID_allowin);
-    assign IF_handshake = O_pc_valid && I_inst_ready;
+    assign IF_handshake = O_pc_valid && I_inst_ready && ~I_fencei;
     assign O_inst = cache_valid ? inst_cache : I_inst;
     always @(posedge I_sys_clk)
     	if(I_rst)
