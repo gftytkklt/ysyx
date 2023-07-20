@@ -150,7 +150,8 @@ module ysyx_22040750_cpu_core(
     wire EX_MEM_mem_op, MEM_WB_mem_op;
     wire [31:0] MEM_WB_mem_addr;
 	// timer intr
-	wire timer_intr;// ID
+	wire timer_intr;// final intr
+	wire csr_timer_intr;
 	// fence.i
 	wire fencei;
 	reg fencei_d;
@@ -393,7 +394,6 @@ module ysyx_22040750_cpu_core(
 		.I_csr_addr(csr_addr),
 		.I_csr_wen(csr_wen),
 		.I_csr_intr(csr_intr),
-		// .I_csr_mtip(timer_intr),
 		.I_csr_intr_no(csr_intr_no),
 		.I_csr(csr_forward_data),
 		.I_csr_mret(csr_mret),
@@ -641,10 +641,10 @@ module ysyx_22040750_cpu_core(
 		.I_sys_clk(I_sys_clk),
 		.I_rst(I_rst),
 		.I_mtip(I_mtip),
-		.I_ID_intr(IF_ID_timer_intr),// from IF_ID, timer intr only, merge to csr_intr in decoder
-    	.I_EX_intr(ID_EX_csr_intr),// from ID_EX, timer & ecall
-    	.I_MEM_intr(EX_MEM_csr_intr),// from EX_MEM
-    	.I_WB_intr(MEM_WB_csr_intr),// from MEM_WB
+		// .I_ID_intr(IF_ID_timer_intr),// from IF_ID, timer intr only, merge to csr_intr in decoder
+    	// .I_EX_intr(ID_EX_csr_intr),// from ID_EX, timer & ecall
+    	// .I_MEM_intr(EX_MEM_csr_intr),// from EX_MEM
+    	// .I_WB_intr(MEM_WB_csr_intr),// from MEM_WB
 		.I_MEM_WB_valid(MEM_WB_valid),
 		.I_csr_wen(MEM_WB_csr_wen),
 		.I_csr_intr_wr(MEM_WB_csr_intr),
@@ -658,6 +658,23 @@ module ysyx_22040750_cpu_core(
 		.I_wr_data(MEM_WB_csr),
 		// .I_timer_intr_wb(MEM_WB_mtip),
 		.O_rd_data(csr_rd_data),
-		.O_timer_intr(timer_intr)
+		.O_timer_intr(csr_timer_intr)
 	);
+
+	ysyx_22040750_timerintr timerintr_e(
+    .I_EX_intr(ID_EX_csr_intr),// from ID_EX
+    .I_MEM_intr(EX_MEM_csr_intr),// from EX_MEM
+    .I_WB_intr(MEM_WB_csr_intr),// from MEM_WB
+    .I_EX_csr_wen(ID_EX_csr_wen),
+    .I_EX_csr_addr(ID_EX_csr_addr),
+    .I_EX_csr_data(alu_csr_data),
+    .I_MEM_csr_wen(EX_MEM_csr_wen),
+    .I_MEM_csr_addr(EX_MEM_csr_addr),
+    .I_MEM_csr_data(EX_MEM_csr),
+    .I_WB_csr_wen(MEM_WB_csr_wen),
+    .I_WB_csr_addr(MEM_WB_csr_addr),
+    .I_WB_csr_data(MEM_WB_csr),
+    .I_csr_intr(csr_timer_intr),
+    .O_timer_intr(timer_intr)
+);
 endmodule

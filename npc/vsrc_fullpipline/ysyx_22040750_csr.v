@@ -4,10 +4,10 @@ module ysyx_22040750_csr(
     input I_rst,
     // from clint, gen timer_intr with csr flag
     input I_mtip,
-    input I_ID_intr,
-    input I_EX_intr,// from ID_EX
-    input I_MEM_intr,// from EX_MEM
-    input I_WB_intr,// from MEM_WB
+    // input I_ID_intr,
+    // input I_EX_intr,// from ID_EX
+    // input I_MEM_intr,// from EX_MEM
+    // input I_WB_intr,// from MEM_WB
     input I_MEM_WB_valid,
     input I_csr_wen,
     input I_csr_intr_wr,
@@ -41,7 +41,8 @@ module ysyx_22040750_csr(
     assign mstatus_mie = mstatus[3];
     assign mstatus_mpie = mstatus[7];
     assign O_rd_data = rd_data;
-    assign O_timer_intr = (mip[7] & mie[7] & mstatus_mie) & ~(I_ID_intr | I_EX_intr | I_MEM_intr | I_WB_intr);
+    // assign O_timer_intr = (mip[7] & mie[7] & mstatus_mie) & ~(I_ID_intr | I_EX_intr | I_MEM_intr | I_WB_intr);
+    assign O_timer_intr = (mip[7] & mie[7] & mstatus_mie);
     //reg [63:0] mip, mie, mtime, mtimecmp; clint as mmio p
     always @(posedge I_sys_clk)
         if(I_rst)

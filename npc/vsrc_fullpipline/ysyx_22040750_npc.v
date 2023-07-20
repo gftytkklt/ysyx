@@ -19,7 +19,7 @@ module ysyx_22040750_npc(
     // I_dnpc_sel[1]: jalr
     // I_dnpc_sel[0]: snpc
     // fence.i & jal & typeB_jr addr cal here
-    // dnpc sel in this module: I_dnpc_sel[2:0] = {I_dnpc_sel_orig[4:3,0]}
+
     wire pc_handshake;
     wire [31:0] dnpc_src1,dnpc_src2, dnpc_sum, dnpc;
     reg [31:0] dnpc_reg;
