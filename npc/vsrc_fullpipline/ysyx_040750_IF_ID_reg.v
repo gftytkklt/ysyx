@@ -1,5 +1,4 @@
-`timescale 1ns / 1ps
-// storage PC for PC related calculation
+
 module ysyx_040750_IF_ID_reg(
     input I_sys_clk,
     input I_rst,
@@ -19,6 +18,7 @@ module ysyx_040750_IF_ID_reg(
     output O_IF_ID_input_valid,// data in IF_ID valid
     output O_IF_ID_valid// corresponding to pip1_to_pip2_valid
     );
+    // storage PC for PC related calculation
     reg input_valid;// input data valid
     wire output_valid;// output data valid
     reg ID_tip_reg;

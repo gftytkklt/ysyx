@@ -1,5 +1,3 @@
-`timescale 1ns/1ps
-
 module ysyx_040750_clint(
     input I_clk,
     input I_rst,

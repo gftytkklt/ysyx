@@ -1,24 +1,3 @@
-`timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 2022/05/25 20:46:57
-// Design Name: 
-// Module Name: cpu_top
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// This core is for cpu core top only, for top module with standard interface, use a new top module.
-//////////////////////////////////////////////////////////////////////////////////
-
 module ysyx_040750(
     input clock,
     input reset,

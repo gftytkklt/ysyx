@@ -1,26 +1,3 @@
-`timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 2022/04/12 20:07:52
-// Design Name: 
-// Module Name: decoder
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// control signal is generated in this module!
-// TODO: modify regin_sel to [2:0], add csr typeC impl, 
-//////////////////////////////////////////////////////////////////////////////////
-// `include "global_def.v"
-//import "DPI-C" function void sim_end();
 module ysyx_040750_decoder(
     // input I_sys_clk,
     // input I_rst,

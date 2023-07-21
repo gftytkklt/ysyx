@@ -1,25 +1,3 @@
-`timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 2022/12/01 10:58:43
-// Design Name: 
-// Module Name: ysyx_040750_dcachectrl
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// ctrl sram 0-3 only, 4-7 ctrled by dcachectrl
-//////////////////////////////////////////////////////////////////////////////////
-
-
 module ysyx_040750_dcachectrl #(
     parameter BLOCK_SIZE = 32,
     parameter CACHE_SIZE = 4096,

@@ -1,25 +1,3 @@
-`timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 2022/04/05 10:58:43
-// Design Name: 
-// Module Name: ysyx_040750_axi_crossbar
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// simplified axi crossbar
-// use round-robin arbiter logic
-//////////////////////////////////////////////////////////////////////////////////
-
 module ysyx_040750_axi_crossbar(
     input I_clk,
     input I_rst,

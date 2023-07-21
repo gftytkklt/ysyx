@@ -1,4 +1,3 @@
-`timescale 1ns/1ps
 module ysyx_040750_timerintr(
     // input I_ID_intr,
     input I_EX_intr,// from ID_EX

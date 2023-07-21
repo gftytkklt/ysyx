@@ -1,26 +1,3 @@
-`timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 2022/12/01 10:58:43
-// Design Name: 
-// Module Name: ysyx_040750_booth_mul_serial
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// cen [7:0] for 8 bram, [3:0] for icache, [7:4] for dcache
-// 3-8 decoder produce one-hot cen, {isdcache_op, index[6:5]} -> cen[7:0]
-//////////////////////////////////////////////////////////////////////////////////
-
-
 module ysyx_040750_cache(
     input I_clk,
     input I_rst,
@@ -107,6 +84,8 @@ module ysyx_040750_cache(
     // fence.i
     wire dcache_clean;
     // sram data & ctrl signal
+    // cen [7:0] for 8 bram, [3:0] for icache, [7:4] for dcache
+    // 3-8 decoder produce one-hot cen, {isdcache_op, index[6:5]} -> cen[7:0]
     wire [3:0] icache_cen, icache_wen;
     wire [255:0] icache_way0_rdata, icache_way1_rdata;
     wire [255:0] icache_wdata, icache_wmask;

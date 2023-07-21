@@ -1,4 +1,3 @@
-`timescale 1ns / 1ps
 module ysyx_040750_EX_MEM_reg(
     input I_sys_clk,
     input I_rst,

@@ -1,25 +1,3 @@
-`timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 2022/12/01 10:58:43
-// Design Name: 
-// Module Name: ysyx_040750_booth_mul_serial
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// ctrl sram 0-3 only, 4-7 ctrled by dcachectrl
-//////////////////////////////////////////////////////////////////////////////////
-
-
 module ysyx_040750_icachectrl #(
     parameter BLOCK_SIZE = 32,
     parameter CACHE_SIZE = 4096,
@@ -65,6 +43,7 @@ module ysyx_040750_icachectrl #(
     output [31:0] O_cpu_inst,
     output O_cpu_rvalid
 );
+    // ctrl sram 0-3 only, 4-7 ctrled by dcachectrl
     // addr division
     // cpu IDLE info
     // wire [OFFT_LEN-1:0] offset;

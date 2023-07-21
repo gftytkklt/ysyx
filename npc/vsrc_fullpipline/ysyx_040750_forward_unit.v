@@ -1,4 +1,3 @@
-`timescale 1ns / 1ps
 module ysyx_040750_forward_unit(
     input [63:0] I_ID_rs1_data,// ID_EX out to alu
     input [63:0] I_ID_rs2_data,// ID_EX out to alu

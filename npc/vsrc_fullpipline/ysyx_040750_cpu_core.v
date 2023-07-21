@@ -1,24 +1,3 @@
-`timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 2022/05/25 20:46:57
-// Design Name: 
-// Module Name: cpu_core
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// This core is for cpu core top only, for top module with standard interface, use a new top module.
-//////////////////////////////////////////////////////////////////////////////////
-
 module ysyx_040750_cpu_core(
     input I_sys_clk,
     input I_rst,
@@ -285,9 +264,9 @@ module ysyx_040750_cpu_core(
 		.I_WB_rd_addr(MEM_WB_rd_addr),// 
 		.I_WB_valid(MEM_WB_input_valid),// MEM_WB input valid
 		.I_stall_en(stall_en),// [1] for rs1, [0] for rs2 enable
-		.I_EX_mret(ID_EX_csr_mret),
-		.I_MEM_mret(EX_MEM_csr_mret),
-		.I_WB_mret(MEM_WB_csr_mret),
+		.I_EX_intr(ID_EX_csr_mret | ID_EX_csr_intr),
+		.I_MEM_intr(EX_MEM_csr_mret | EX_MEM_csr_intr),
+		.I_WB_intr(MEM_WB_csr_mret | MEM_WB_csr_intr),
 		.O_ID_stall(IF_ID_stall),
 		.O_EX_stall(ID_EX_stall),
 		.O_MEM_stall(EX_MEM_stall),
