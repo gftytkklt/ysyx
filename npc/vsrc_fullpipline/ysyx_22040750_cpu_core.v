@@ -257,6 +257,7 @@ module ysyx_22040750_cpu_core(
 		.I_pc(current_pc),
 		.I_inst(current_inst),
 		.I_timer_intr(timer_intr),
+		.I_ID_timer_intr(timer_intr & IF_ID_timer_intr),
 		.I_IF_ID_valid(IF_valid),
 		.I_IF_ID_allowout(ID_EX_allowin),
 		.I_IF_ID_stall(IF_ID_stall),
@@ -328,7 +329,7 @@ module ysyx_22040750_cpu_core(
 		// .I_rst(I_rst),
 		.I_inst(IF_ID_inst),
 		.O_imm(imm),
-		.I_timer_intr(IF_ID_timer_intr),
+		.I_timer_intr(IF_ID_timer_intr & timer_intr),
 		// pipline stall
 		//.I_rs1_data(rs1_data),
 		// forward

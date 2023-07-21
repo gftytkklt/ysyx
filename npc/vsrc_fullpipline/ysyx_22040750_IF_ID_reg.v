@@ -5,7 +5,8 @@ module ysyx_22040750_IF_ID_reg(
     input I_rst,
     input [31:0] I_pc,
     input [31:0] I_inst,
-    input I_timer_intr,
+    input I_timer_intr,// sys time intr
+    input I_ID_timer_intr,// ID true timer intr
     input I_IF_ID_valid,// mem data valid
     input I_IF_ID_allowout,// receive ID_EX input en
     input I_IF_ID_stall,
@@ -20,10 +21,20 @@ module ysyx_22040750_IF_ID_reg(
     );
     reg input_valid;// input data valid
     wire output_valid;// output data valid
+    reg ID_tip_reg;
     assign output_valid = ~I_IF_ID_stall;// one cycle decoder
     assign O_IF_ID_input_valid = input_valid;
     assign O_IF_ID_allowin = !input_valid || (output_valid && I_IF_ID_allowout);// no valid input data or output data trans enable
     assign O_IF_ID_valid = input_valid && output_valid;
+    always @(posedge I_sys_clk)
+        if(I_rst)
+            ID_tip_reg <= 0;
+        else if(I_ID_timer_intr && ~(I_IF_ID_valid && O_IF_ID_allowin))
+            ID_tip_reg <= 1;
+        else if(I_IF_ID_valid && O_IF_ID_allowin)
+            ID_tip_reg <= 0;
+        else
+            ID_tip_reg <= ID_tip_reg;
     always @(posedge I_sys_clk)
     	if(I_rst)
     	    input_valid <= 0;
@@ -36,7 +47,7 @@ module ysyx_22040750_IF_ID_reg(
             {O_pc, O_inst} <= {32'h0, 32'h0};
             // if inst jump, induce a bubble
         else if(I_IF_ID_valid && O_IF_ID_allowin)
-            {O_pc, O_inst} <= I_IF_ID_jmp ? {I_pc, 32'h00000013} : {I_pc, I_inst};
+            {O_pc, O_inst} <= (I_IF_ID_jmp | I_ID_timer_intr | ID_tip_reg) ? {I_pc, 32'h00000013} : {I_pc, I_inst};
         else
             {O_pc, O_inst} <= {O_pc, O_inst};
     always @(posedge I_sys_clk)

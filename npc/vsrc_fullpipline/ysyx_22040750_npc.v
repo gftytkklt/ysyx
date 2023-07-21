@@ -33,7 +33,7 @@ module ysyx_22040750_npc(
     assign dnpc_src2 = I_dnpc_sel[1] ? I_rs1_data : I_pc;
     assign dnpc_sum = dnpc_src1 + dnpc_src2;
     assign pc_handshake = I_pc_ready && I_pc_valid;
-    assign store_dnpc = (I_pc_valid && !I_pc_ready && !dnpc_reg_valid) || (I_IF_ID_valid && !pc_handshake && dnpc_sel) || (I_IF_ID_valid && dnpc_sel && (dnpc != O_dnpc));
+    assign store_dnpc = (I_pc_valid && !I_pc_ready && !dnpc_reg_valid) || (I_IF_ID_valid && !pc_handshake && dnpc_sel) || (I_IF_ID_valid && (dnpc_sel | intr_sel) && (dnpc != O_dnpc));
     //assign store_dnpc = (I_pc_valid && !I_pc_ready && !dnpc_reg_valid) || (I_IF_ID_valid && dnpc_sel && (dnpc != O_dnpc));
     // case 2: dnpc is generated, but next reg wb flush valid dnpc
     //assign store_dnpc = (I_pc_valid && !I_pc_ready && !dnpc_reg_valid) || (I_IF_ID_valid && dnpc_sel && !I_pc_valid && !dnpc_reg_valid);
