@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 // storage PC for PC related calculation
-module ysyx_22040750_IF_ID_reg(
+module ysyx_040750_IF_ID_reg(
     input I_sys_clk,
     input I_rst,
     input [31:0] I_pc,
@@ -15,7 +15,7 @@ module ysyx_22040750_IF_ID_reg(
     output reg [31:0] O_pc,
     output reg [31:0] O_inst,
     output reg O_timer_intr,
-    output reg O_bubble_inst_debug,
+    output reg O_IF_ID_bubble_inst,
     output O_IF_ID_input_valid,// data in IF_ID valid
     output O_IF_ID_valid// corresponding to pip1_to_pip2_valid
     );
@@ -59,9 +59,9 @@ module ysyx_22040750_IF_ID_reg(
             O_timer_intr <= O_timer_intr;
     always @(posedge I_sys_clk)
         if(I_rst)
-            O_bubble_inst_debug <= 0;
+            O_IF_ID_bubble_inst <= 0;
         else if(I_IF_ID_valid && O_IF_ID_allowin)
-            O_bubble_inst_debug <= I_IF_ID_jmp;
+            O_IF_ID_bubble_inst <= I_IF_ID_jmp;
         else
-            O_bubble_inst_debug <= O_bubble_inst_debug;
+            O_IF_ID_bubble_inst <= O_IF_ID_bubble_inst;
 endmodule

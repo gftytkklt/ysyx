@@ -1,6 +1,6 @@
 `timescale 1ns/1ps
 
-module ysyx_22040750_clint(
+module ysyx_040750_clint(
     input I_clk,
     input I_rst,
     output O_mtip,
@@ -23,7 +23,7 @@ module ysyx_22040750_clint(
     parameter BASE_ADDR = 'h02000000;
     parameter MTIMECMP_ADDR = 'h4000 + BASE_ADDR;
     parameter MTIME_ADDR = 'hBFF8 + BASE_ADDR;
-    parameter TICKCNT = 12'h01;
+    // parameter TICKCNT = 12'h01;
     reg [63:0] mtime, mtimecmp;
     // reg [11:0] tick_cnt;
     wire [63:0] bitmask;

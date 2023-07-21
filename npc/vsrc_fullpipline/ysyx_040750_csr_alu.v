@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-module ysyx_22040750_csr_alu(
+module ysyx_040750_csr_alu(
     input [63:0] I_csr_data,
     input [63:0] I_rs_data,
     input [4:0] I_uimm,

@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-module ysyx_22040750_stall_unit(
+module ysyx_040750_stall_unit(
     input [4:0] I_rs1_addr,// from ID only
     input [4:0] I_rs2_addr,// from ID only
     input I_ID_valid,// IF_ID input valid
@@ -14,6 +14,11 @@ module ysyx_22040750_stall_unit(
     input I_WB_valid,// MEM_WB input valid
     input [1:0] I_stall_en,// [1] for rs1, [0] for rs2 enable
     output O_ID_stall,
+    // ecall & mret stall case
+    // ecall & mret must finish csr change before next ID
+    input I_EX_mret,
+    input I_MEM_mret,
+    input I_WB_mret,
     // stall signal
     /*output O_EX_stall,
     output O_MEM_stall,
@@ -38,10 +43,11 @@ module ysyx_22040750_stall_unit(
     // forward code
     wire [1:0] EX_stall, MEM_stall, WB_stall;
     // stall cause
-    wire mem_rd, multicycle_alu_op;
+    wire mem_rd, multicycle_alu_op, mret_op;
+    assign mret_op = (I_EX_mret & I_EX_valid) | (I_MEM_mret & I_MEM_valid) | (I_WB_mret & I_WB_valid);
     assign mem_rd = (|O_EX_stall & I_EX_mem_rd_en) | (|O_MEM_stall & I_MEM_mem_rd_en);
     assign multicycle_alu_op = |O_EX_stall & I_EX_alu_multcycle;
-    assign O_ID_stall = I_ID_valid & (mem_rd | multicycle_alu_op);
+    assign O_ID_stall = I_ID_valid & (mem_rd | multicycle_alu_op | mret_op);
     assign EX_stall = {((I_rs1_addr == I_EX_rd_addr) & I_stall_en[1]), ((I_rs2_addr == I_EX_rd_addr) & I_stall_en[0])};
     assign MEM_stall = {((I_rs1_addr == I_MEM_rd_addr) & I_stall_en[1]), ((I_rs2_addr == I_MEM_rd_addr) & I_stall_en[0])};
     assign WB_stall = {((I_rs1_addr == I_WB_rd_addr) & I_stall_en[1]), ((I_rs2_addr == I_WB_rd_addr) & I_stall_en[0])};

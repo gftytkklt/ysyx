@@ -5,7 +5,7 @@
 // 
 // Create Date: 2022/04/05 10:58:43
 // Design Name: 
-// Module Name: ysyx_22040750_axi_crossbar
+// Module Name: ysyx_040750_axi_crossbar
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -20,7 +20,7 @@
 // use round-robin arbiter logic
 //////////////////////////////////////////////////////////////////////////////////
 
-module ysyx_22040750_axi_crossbar(
+module ysyx_040750_axi_crossbar(
     input I_clk,
     input I_rst,
     // to axi bus

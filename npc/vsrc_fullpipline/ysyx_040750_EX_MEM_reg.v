@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-module ysyx_22040750_EX_MEM_reg(
+module ysyx_040750_EX_MEM_reg(
     input I_sys_clk,
     input I_rst,
     input I_EX_MEM_valid,
@@ -48,21 +48,22 @@ module ysyx_22040750_EX_MEM_reg(
     output reg [63:0] O_rs2_data,
     output O_mem_rd_en,
 	output O_mem_wr_en,
-    output reg O_mem_wen,
+    // output reg O_mem_wen,
     output reg [31:0] O_pc,
     output reg O_reg_wen,
     output reg [4:0] O_rd_addr,
     output reg [1:0] O_regin_sel,
     output O_EX_MEM_input_valid,
-	output reg O_fencei,
+	output reg O_fencei
     //output reg [63:0] O_mem_data,
-    input [31:0] I_inst_debug,
-    output reg [31:0] O_inst_debug,
-    input I_bubble_inst_debug,
-    output reg O_bubble_inst_debug
+    // input [31:0] I_inst_debug,
+    // output reg [31:0] O_inst_debug,
+    // input I_bubble_inst_debug,
+    // output reg O_bubble_inst_debug
     );
     //wire mem_rd_en;
     reg mem_rd_en, mem_wr_en;
+	reg mem_wstatus;
     reg input_valid;
     wire output_valid;
 	wire rd_handshake, wr_handshake;
@@ -77,7 +78,7 @@ module ysyx_22040750_EX_MEM_reg(
 	assign O_mem_wr_en = mem_wr_en;
     assign O_EX_MEM_input_valid = input_valid;
     //assign output_valid = (input_valid & ~mem_rd_en) | I_mem_data_rvalid;
-	assign output_valid = (input_valid & ~O_regin_sel[1] & ~O_mem_wen) | I_mem_data_rvalid | I_mem_data_bvalid;
+	assign output_valid = (input_valid & ~O_regin_sel[1] & ~mem_wstatus) | I_mem_data_rvalid | I_mem_data_bvalid;
     /*always @(posedge I_sys_clk)
     	if(I_rst)
 	    output_valid <= 0;
@@ -125,13 +126,13 @@ module ysyx_22040750_EX_MEM_reg(
 			O_alu_out <= 0;
 			//O_mem_addr <= 0;
 			O_rs2_data <= 0;
-			O_mem_wen <= 0;
+			mem_wstatus <= 0;
 			O_reg_wen <= 0;
 			O_rd_addr <= 0;
 			O_regin_sel <= 0;
 			//O_mem_data <= 0;
-			O_inst_debug <= 0;
-			O_bubble_inst_debug <= 0;
+			// O_inst_debug <= 0;
+			// O_bubble_inst_debug <= 0;
 			O_csr_addr <= 0;
 			O_csr_wen <= 0;
 			O_csr_intr <= 0;
@@ -149,13 +150,13 @@ module ysyx_22040750_EX_MEM_reg(
 			O_alu_out <= I_alu_out;
 			//O_mem_addr <= I_mem_addr;
 			O_rs2_data <= I_rs2_data;
-			O_mem_wen <= I_mem_wen;
+			mem_wstatus <= I_mem_wen;
 			O_reg_wen <= I_reg_wen;
 			O_rd_addr <= I_rd_addr;
 			O_regin_sel <= I_regin_sel;
 			//O_mem_data <= I_mem_data;
-			O_inst_debug <= I_inst_debug;
-			O_bubble_inst_debug <= I_bubble_inst_debug;
+			// O_inst_debug <= I_inst_debug;
+			// O_bubble_inst_debug <= I_bubble_inst_debug;
 			O_csr_addr <= I_csr_addr;
 			O_csr_wen <= I_csr_wen;
 			O_csr_intr <= I_csr_intr;
@@ -173,13 +174,13 @@ module ysyx_22040750_EX_MEM_reg(
     	    O_alu_out <= O_alu_out;
     	    //O_mem_addr <= O_mem_addr;
     	    O_rs2_data <= O_rs2_data;
-    	    O_mem_wen <= O_mem_wen;
+    	    mem_wstatus <= mem_wstatus;
     	    O_reg_wen <= O_reg_wen;
     	    O_rd_addr <= O_rd_addr;
     	    O_regin_sel <= O_regin_sel;
     	    //O_mem_data <= O_mem_data;
-    	    O_inst_debug <= O_inst_debug;
-	    	O_bubble_inst_debug <= O_bubble_inst_debug;
+    	    // O_inst_debug <= O_inst_debug;
+	    	// O_bubble_inst_debug <= O_bubble_inst_debug;
 			O_csr_addr <= O_csr_addr;
 			O_csr_wen <= O_csr_wen;
 			O_csr_intr <= O_csr_intr;

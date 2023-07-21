@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-module ysyx_22040750_MEM_WB_reg(
+module ysyx_040750_MEM_WB_reg(
     input I_sys_clk,
     input I_rst,
     input I_MEM_WB_valid,
@@ -41,15 +41,15 @@ module ysyx_22040750_MEM_WB_reg(
     output reg O_reg_wen,
     output reg [4:0] O_rd_addr,
     output reg [1:0] O_regin_sel,
-    output O_MEM_WB_input_valid,
-    input [31:0] I_inst_debug,
-    output reg [31:0] O_inst_debug,
-    input I_bubble_inst_debug,
-    output reg O_bubble_inst_debug,
-    input I_mem_op_debug,
-    output reg O_mem_op_debug,
-    input [31:0] I_mem_addr_debug,
-    output reg [31:0] O_mem_addr_debug
+    output O_MEM_WB_input_valid
+    // input [31:0] I_inst_debug,
+    // output reg [31:0] O_inst_debug,
+    // input I_bubble_inst_debug,
+    // output reg O_bubble_inst_debug,
+    // input I_mem_op_debug,
+    // output reg O_mem_op_debug,
+    // input [31:0] I_mem_addr_debug,
+    // output reg [31:0] O_mem_addr_debug
     );
     // valid case: mem rd or non-mem rd
     // the second case contains reg wb or nop op
@@ -78,8 +78,8 @@ module ysyx_22040750_MEM_WB_reg(
 			O_reg_wen <= 0;
 			O_rd_addr <= 0;
 			O_regin_sel <= 0;
-			O_inst_debug <= 0;
-			O_bubble_inst_debug <= 0;
+			// O_inst_debug <= 0;
+			// O_bubble_inst_debug <= 0;
 			O_csr_addr <= 0;
 			O_csr_wen <= 0;
 			O_csr_intr <= 0;
@@ -87,8 +87,8 @@ module ysyx_22040750_MEM_WB_reg(
 			O_csr_intr_no <= 0;
 			O_csr_mret <= 0;
 			O_csr <= 0;
-			O_mem_op_debug <= 0;
-			O_mem_addr_debug <= 0;
+			// O_mem_op_debug <= 0;
+			// O_mem_addr_debug <= 0;
 			
 		end
 		else if(O_MEM_WB_allowin && I_MEM_WB_valid) begin
@@ -100,8 +100,8 @@ module ysyx_22040750_MEM_WB_reg(
 			O_reg_wen <= I_reg_wen;
 			O_rd_addr <= I_rd_addr;
 			O_regin_sel <= I_regin_sel;
-			O_inst_debug <= I_inst_debug;
-			O_bubble_inst_debug <= I_bubble_inst_debug;
+			// O_inst_debug <= I_inst_debug;
+			// O_bubble_inst_debug <= I_bubble_inst_debug;
 			O_csr_addr <= I_csr_addr;
 			O_csr_wen <= I_csr_wen;
 			O_csr_intr <= I_csr_intr;
@@ -109,8 +109,8 @@ module ysyx_22040750_MEM_WB_reg(
 			O_csr_intr_no <= I_csr_intr_no;
 			O_csr_mret <= I_csr_mret;
 			O_csr <= I_csr;
-			O_mem_op_debug <= I_mem_op_debug;
-			O_mem_addr_debug <= I_mem_addr_debug;
+			// O_mem_op_debug <= I_mem_op_debug;
+			// O_mem_addr_debug <= I_mem_addr_debug;
 		end
 		else begin
 			O_pc <= O_pc;
@@ -121,8 +121,8 @@ module ysyx_22040750_MEM_WB_reg(
 			O_reg_wen <= O_reg_wen;
 			O_rd_addr <= O_rd_addr;
 			O_regin_sel <= O_regin_sel;
-			O_inst_debug <= O_inst_debug;
-			O_bubble_inst_debug <= O_bubble_inst_debug;
+			// O_inst_debug <= O_inst_debug;
+			// O_bubble_inst_debug <= O_bubble_inst_debug;
 			O_csr_addr <= O_csr_addr;
 			O_csr_wen <= O_csr_wen;
 			O_csr_intr <= O_csr_intr;
@@ -130,7 +130,7 @@ module ysyx_22040750_MEM_WB_reg(
 			O_csr_intr_no <= O_csr_intr_no;
 			O_csr_mret <= O_csr_mret;
 			O_csr <= O_csr;
-			O_mem_op_debug <= O_mem_op_debug;
-			O_mem_addr_debug <= O_mem_addr_debug;
+			// O_mem_op_debug <= O_mem_op_debug;
+			// O_mem_addr_debug <= O_mem_addr_debug;
 		end
 endmodule

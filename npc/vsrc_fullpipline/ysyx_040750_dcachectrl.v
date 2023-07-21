@@ -5,7 +5,7 @@
 // 
 // Create Date: 2022/12/01 10:58:43
 // Design Name: 
-// Module Name: ysyx_22040750_dcachectrl
+// Module Name: ysyx_040750_dcachectrl
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module ysyx_22040750_dcachectrl #(
+module ysyx_040750_dcachectrl #(
     parameter BLOCK_SIZE = 32,
     parameter CACHE_SIZE = 4096,
     parameter GROUP_NUM = 2,
@@ -82,12 +82,12 @@ module ysyx_22040750_dcachectrl #(
     output O_cpu_bvalid
 );
     // FSM signal
-    `define FSM_WIDTH 16
-    parameter IDLE = `FSM_WIDTH'h1, RD_HIT = `FSM_WIDTH'h2, RD_MISS = `FSM_WIDTH'h4, RD_RELOAD = `FSM_WIDTH'h8, RD_WB = `FSM_WIDTH'h10, RD_ALLOCATE = `FSM_WIDTH'h20;
-    parameter WR_HIT = `FSM_WIDTH'h40, WR_MISS = `FSM_WIDTH'h80, WR_RELOAD = `FSM_WIDTH'h100, WR_WB = `FSM_WIDTH'h200, WR_ALLOCATE = `FSM_WIDTH'h400;
-    parameter MMIO_AR = `FSM_WIDTH'h800, MMIO_AW = `FSM_WIDTH'h1000, MMIO_RD = `FSM_WIDTH'h2000, MMIO_WR = `FSM_WIDTH'h4000;
-    parameter FENCEI = `FSM_WIDTH'h8000;
-    reg [`FSM_WIDTH-1:0] current_state, next_state;
+    `define ysyx_040750_FSM_WIDTH 16
+    parameter IDLE = `ysyx_040750_FSM_WIDTH'h1, RD_HIT = `ysyx_040750_FSM_WIDTH'h2, RD_MISS = `ysyx_040750_FSM_WIDTH'h4, RD_RELOAD = `ysyx_040750_FSM_WIDTH'h8, RD_WB = `ysyx_040750_FSM_WIDTH'h10, RD_ALLOCATE = `ysyx_040750_FSM_WIDTH'h20;
+    parameter WR_HIT = `ysyx_040750_FSM_WIDTH'h40, WR_MISS = `ysyx_040750_FSM_WIDTH'h80, WR_RELOAD = `ysyx_040750_FSM_WIDTH'h100, WR_WB = `ysyx_040750_FSM_WIDTH'h200, WR_ALLOCATE = `ysyx_040750_FSM_WIDTH'h400;
+    parameter MMIO_AR = `ysyx_040750_FSM_WIDTH'h800, MMIO_AW = `ysyx_040750_FSM_WIDTH'h1000, MMIO_RD = `ysyx_040750_FSM_WIDTH'h2000, MMIO_WR = `ysyx_040750_FSM_WIDTH'h4000;
+    parameter FENCEI = `ysyx_040750_FSM_WIDTH'h8000;
+    reg [`ysyx_040750_FSM_WIDTH-1:0] current_state, next_state;
     wire replace_dirty;
     wire rd_hit, rd_miss, rd_handshake, rd_reload, rd_wb, rd_allocate;
     wire wr_hit, wr_miss, wr_reload, wr_wb, wr_allocate;

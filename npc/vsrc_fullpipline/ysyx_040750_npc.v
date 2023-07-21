@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-module ysyx_22040750_npc(
+module ysyx_040750_npc(
     input I_clk,
     input I_rst,
     input I_pc_valid,// dnpc valid
@@ -38,7 +38,7 @@ module ysyx_22040750_npc(
     // case 2: dnpc is generated, but next reg wb flush valid dnpc
     //assign store_dnpc = (I_pc_valid && !I_pc_ready && !dnpc_reg_valid) || (I_IF_ID_valid && dnpc_sel && !I_pc_valid && !dnpc_reg_valid);
     //assign store_dnpc = (I_IF_ID_valid && (!I_pc_valid || !I_pc_ready)) || (dnpc_reg_valid && I_IF_ID_valid);
-    ysyx_22040750_mux_Nbit_Msel #(32, 3)
+    ysyx_040750_mux_Nbit_Msel #(32, 3)
     nextpc_64bit_3sel (
 	.I_sel_data({I_intr_pc,dnpc_sum,I_snpc}),
 	.I_sel({intr_sel,dnpc_sel,I_dnpc_sel[0]}),

@@ -5,7 +5,7 @@
 // 
 // Create Date: 2022/11/25 18:11:44
 // Design Name: 
-// Module Name: ysyx_22040750_radix4_unit
+// Module Name: ysyx_040750_radix4_unit
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module ysyx_22040750_radix4_unit(
+module ysyx_040750_radix4_unit(
     input [2:0] booth,
     //input [64:0] X,
     input [131:0] X,

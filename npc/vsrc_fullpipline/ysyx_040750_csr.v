@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-module ysyx_22040750_csr(
+module ysyx_040750_csr(
     input I_sys_clk,
     input I_rst,
     // from clint, gen timer_intr with csr flag

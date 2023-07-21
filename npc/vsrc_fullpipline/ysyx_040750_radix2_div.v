@@ -5,7 +5,7 @@
 // 
 // Create Date: 2022/12/02 19:59:45
 // Design Name: 
-// Module Name: ysyx_22040750_radix2_div
+// Module Name: ysyx_040750_radix2_div
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module ysyx_22040750_radix2_div(
+module ysyx_040750_radix2_div(
     input clk,
     input rst,
     // out = dividend / divisor

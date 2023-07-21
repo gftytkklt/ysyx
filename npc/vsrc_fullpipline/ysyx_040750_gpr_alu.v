@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module ysyx_22040750_gpr_alu(
+module ysyx_040750_gpr_alu(
     input I_sys_clk,
     input I_rst,
     input [63:0] I_csr_data,
@@ -119,7 +119,7 @@ module ysyx_22040750_gpr_alu(
     assign div_valid = div_flag & I_multicycle;
 
     // mul / div inst
-    ysyx_22040750_booth_mul_serial booth_mul_serial_e(
+    ysyx_040750_booth_mul_serial booth_mul_serial_e(
     	.clk(I_sys_clk),
     	.rst(I_rst),
     	// .mul1(op1_sext[63:0]),
@@ -132,7 +132,7 @@ module ysyx_22040750_gpr_alu(
     	.P_valid(mul_out_valid),
     	.P({mulh_result, mul_result})
     );
-    ysyx_22040750_radix2_div radix2_div_e(
+    ysyx_040750_radix2_div radix2_div_e(
 		.clk(I_sys_clk),
 		.rst(I_rst),
 		// out = dividend / divisor

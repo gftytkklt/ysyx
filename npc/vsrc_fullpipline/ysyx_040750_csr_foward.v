@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-module ysyx_22040750_csr_foward(
+module ysyx_040750_csr_foward(
     input [63:0] I_csr_ID,
     input [63:0] I_csr_EX,
     input [63:0] I_csr_MEM,

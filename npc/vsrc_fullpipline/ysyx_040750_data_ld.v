@@ -19,7 +19,7 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-module ysyx_22040750_data_ld(
+module ysyx_040750_data_ld(
     input [63:0] I_data_in,
     input [8:0] I_rd_strb,
     input [2:0] I_rd_shamt,

@@ -19,7 +19,7 @@
 // This core is for cpu core top only, for top module with standard interface, use a new top module.
 //////////////////////////////////////////////////////////////////////////////////
 
-module ysyx_22040750(
+module ysyx_040750(
     input clock,
     input reset,
 
@@ -262,7 +262,7 @@ module ysyx_22040750(
     assign io_sram6_addr = daddr;
     assign io_sram5_addr = daddr;
     assign io_sram4_addr = daddr;
-    ysyx_22040750_cpu_core cpu_core_e(
+    ysyx_040750_cpu_core cpu_core_e(
         .I_sys_clk(clock),
         .I_rst(reset),
         .I_mtip(cpu_mtip),
@@ -284,7 +284,7 @@ module ysyx_22040750(
         .O_mem_fencei(mem_fencei)
     );
 
-    ysyx_22040750_cache cache_e(
+    ysyx_040750_cache cache_e(
         .I_clk(clock),
         .I_rst(reset),
         // pc & inst
@@ -372,7 +372,7 @@ module ysyx_22040750(
         //.I_mem_bresp(cache_bresp),
     );
 
-    ysyx_22040750_slave_crossbar slave_crossbar_e(
+    ysyx_040750_slave_crossbar slave_crossbar_e(
         .I_clk(clock),
         .I_rst(reset),
         // interface with cache
@@ -443,7 +443,7 @@ module ysyx_22040750(
         .O_clint_bready(clint_bready)
     );
 
-    ysyx_22040750_clint clint_e(
+    ysyx_040750_clint clint_e(
         .I_clk(clock),
         .I_rst(reset),
         .O_mtip(cpu_mtip),

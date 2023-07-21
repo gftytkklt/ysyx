@@ -5,7 +5,7 @@
 // 
 // Create Date: 2022/12/01 10:58:43
 // Design Name: 
-// Module Name: ysyx_22040750_booth_mul_serial
+// Module Name: ysyx_040750_booth_mul_serial
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -21,7 +21,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module ysyx_22040750_cache(
+module ysyx_040750_cache(
     input I_clk,
     input I_rst,
     // pc & pc valid
@@ -170,7 +170,7 @@ module ysyx_22040750_cache(
     assign axi_dcache_bvalid = I_mem_bvalid;
     assign O_mem_bready = axi_dcache_bready;
     // axi crossbar(simplified for ar & r ch only)
-    ysyx_22040750_axi_crossbar crossbar_e(
+    ysyx_040750_axi_crossbar crossbar_e(
         .I_clk(I_clk),
         .I_rst(I_rst),
         // to axi bus
@@ -208,7 +208,7 @@ module ysyx_22040750_cache(
         .I_ch1_arburst(axi_dcache_arburst)
     );
     // icache
-    ysyx_22040750_icachectrl icache_e(
+    ysyx_040750_icachectrl icache_e(
         .I_clk(I_clk),
         .I_rst(I_rst),
         .I_cpu_addr(I_cpu_pc),
@@ -238,7 +238,7 @@ module ysyx_22040750_cache(
         .O_cpu_rvalid(O_cpu_inst_valid)
     );
     // dcache
-    ysyx_22040750_dcachectrl dcache_e(
+    ysyx_040750_dcachectrl dcache_e(
         .I_clk(I_clk),
         .I_rst(I_rst),
         .I_cpu_addr(I_cpu_addr),

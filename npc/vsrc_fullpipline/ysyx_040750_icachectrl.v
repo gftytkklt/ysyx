@@ -5,7 +5,7 @@
 // 
 // Create Date: 2022/12/01 10:58:43
 // Design Name: 
-// Module Name: ysyx_22040750_booth_mul_serial
+// Module Name: ysyx_040750_booth_mul_serial
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module ysyx_22040750_icachectrl #(
+module ysyx_040750_icachectrl #(
     parameter BLOCK_SIZE = 32,
     parameter CACHE_SIZE = 4096,
     parameter GROUP_NUM = 2,
@@ -103,16 +103,16 @@ module ysyx_22040750_icachectrl #(
     wire fencei_ready, fencei_flag;
     reg fencei_reg;
     // FSM
-    `define IFSM_WIDTH 7
-    parameter IDLE = `IFSM_WIDTH'b000000; 
-    parameter RD_HIT = `IFSM_WIDTH'b000001;
-    parameter RD_MISS = `IFSM_WIDTH'b000010;
-    parameter RD_RELOAD = `IFSM_WIDTH'b000100;
-    parameter RD_ALLOCATE = `IFSM_WIDTH'b001000;
-    parameter MMIO_AR = `IFSM_WIDTH'b010000;
-    parameter MMIO_RD = `IFSM_WIDTH'b100000;
-    parameter FENCEI = `IFSM_WIDTH'b1000000;
-    reg [`IFSM_WIDTH-1:0] current_state, next_state;
+    `define ysyx_040750_IFSM_WIDTH 7
+    parameter IDLE = `ysyx_040750_IFSM_WIDTH'b000000; 
+    parameter RD_HIT = `ysyx_040750_IFSM_WIDTH'b000001;
+    parameter RD_MISS = `ysyx_040750_IFSM_WIDTH'b000010;
+    parameter RD_RELOAD = `ysyx_040750_IFSM_WIDTH'b000100;
+    parameter RD_ALLOCATE = `ysyx_040750_IFSM_WIDTH'b001000;
+    parameter MMIO_AR = `ysyx_040750_IFSM_WIDTH'b010000;
+    parameter MMIO_RD = `ysyx_040750_IFSM_WIDTH'b100000;
+    parameter FENCEI = `ysyx_040750_IFSM_WIDTH'b1000000;
+    reg [`ysyx_040750_IFSM_WIDTH-1:0] current_state, next_state;
     // cache addr cen gen
     reg [3:0] cen_icache; // TODO: add ctrl logic
     // fence.i

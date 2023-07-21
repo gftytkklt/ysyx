@@ -1,5 +1,5 @@
 `timescale 1ns/1ps
-module ysyx_22040750_alu(
+module ysyx_040750_alu(
     input I_sys_clk,
     input I_rst,
     input [63:0] I_op1,
@@ -17,7 +17,7 @@ module ysyx_22040750_alu(
     output [63:0] O_csr_data,
     output O_result_valid
 );
-    ysyx_22040750_gpr_alu gpr_alu_e(
+    ysyx_040750_gpr_alu gpr_alu_e(
     .I_sys_clk(I_sys_clk),
     .I_rst(I_rst),
 		.I_csr_data(I_csr_data),
@@ -33,7 +33,7 @@ module ysyx_22040750_alu(
 		.O_result_valid(O_result_valid)
     );
 
-    ysyx_22040750_csr_alu csr_alu_e(
+    ysyx_040750_csr_alu csr_alu_e(
 		.I_csr_data(I_csr_data),
 		.I_rs_data(I_op1),
 		.I_uimm(I_uimm),

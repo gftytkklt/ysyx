@@ -19,7 +19,7 @@
 // This core is for cpu core top only, for top module with standard interface, use a new top module.
 //////////////////////////////////////////////////////////////////////////////////
 
-module ysyx_22040750_cpu_core(
+module ysyx_040750_cpu_core(
     input I_sys_clk,
     input I_rst,
 	input I_mtip,
@@ -88,8 +88,8 @@ module ysyx_22040750_cpu_core(
     wire ID_EX_valid;
     wire ID_EX_allowin;
     wire [1:0] ID_EX_stall;
-    wire [31:0] ID_EX_inst;
-    wire ID_EX_bubble;
+    // wire [31:0] ID_EX_inst;
+    // wire ID_EX_bubble;
     wire ID_EX_input_valid;
     wire ID_EX_alu_multicycle;
     wire alu_out_valid;
@@ -104,7 +104,7 @@ module ysyx_22040750_cpu_core(
     wire [7:0] EX_MEM_wstrb;
 	wire [31:0] EX_MEM_mem_addr;
     wire [63:0] EX_MEM_alu_out, EX_MEM_rs2, EX_MEM_csr;
-    wire EX_MEM_mem_wen;// indicate mem wr stage, maybe multicycle
+    // wire EX_MEM_mem_wen;// indicate mem wr stage, maybe multicycle
 	wire EX_MEM_mem_rd_en, EX_MEM_mem_wr_en;// actual single cycle valid flag
     wire [31:0] EX_MEM_pc;
     //wire [63:0] EX_MEM_mem_data;
@@ -114,8 +114,8 @@ module ysyx_22040750_cpu_core(
     wire [2:0] EX_MEM_shamt;// mem wr shamt
     wire EX_MEM_allowin;
     wire [1:0] EX_MEM_stall;
-    wire [31:0] EX_MEM_inst;
-    wire EX_MEM_bubble;
+    // wire [31:0] EX_MEM_inst;
+    // wire EX_MEM_bubble;
     wire EX_MEM_input_valid;
     wire [11:0] EX_MEM_csr_addr;
 	wire EX_MEM_csr_wen, EX_MEM_csr_intr, EX_MEM_csr_mret;
@@ -134,8 +134,8 @@ module ysyx_22040750_cpu_core(
     wire [1:0] MEM_WB_regin_sel;
     wire [2:0] MEM_WB_shamt;// mem rd shamt
     wire MEM_WB_allowin;
-    wire [31:0] MEM_WB_inst;
-    wire MEM_WB_bubble;
+    // wire [31:0] MEM_WB_inst;
+    // wire MEM_WB_bubble;
     wire MEM_WB_input_valid;
     wire [1:0] MEM_WB_stall;
     wire [11:0] MEM_WB_csr_addr;
@@ -147,8 +147,8 @@ module ysyx_22040750_cpu_core(
     wire [1:0] stall_en;
     wire [63:0] rs1_forward_data, rs2_forward_data, csr_forward_data;
     // debug
-    wire EX_MEM_mem_op, MEM_WB_mem_op;
-    wire [31:0] MEM_WB_mem_addr;
+    // wire EX_MEM_mem_op, MEM_WB_mem_op;
+    // wire [31:0] MEM_WB_mem_addr;
 	// timer intr
 	wire timer_intr;// final intr
 	wire csr_timer_intr;
@@ -214,7 +214,7 @@ module ysyx_22040750_cpu_core(
 	assign O_inst_fencei = fencei & ~fencei_d;// from IF_ID, halt pc_ready
 	assign O_mem_fencei = EX_MEM_fencei & EX_MEM_valid;// from EX_MEM, wb dcache
     
-    ysyx_22040750_npc npc_e(
+    ysyx_040750_npc npc_e(
 		.I_clk(I_sys_clk),
 		.I_rst(I_rst),
 		.I_pc_valid(O_pc_valid),
@@ -236,7 +236,7 @@ module ysyx_22040750_cpu_core(
     
     //wire inst_ready; //indicate IMEM can receive pc
     //assign inst_ready = 1;
-    ysyx_22040750_pc pc_e(
+    ysyx_040750_pc pc_e(
 		.I_sys_clk(I_sys_clk),
 		.I_rst(I_rst),
 		.I_dnpc(dnpc),
@@ -251,7 +251,7 @@ module ysyx_22040750_cpu_core(
 		.O_pc_valid(O_pc_valid)
     );
     
-    ysyx_22040750_IF_ID_reg IF_ID_reg_e(
+    ysyx_040750_IF_ID_reg IF_ID_reg_e(
 		.I_sys_clk(I_sys_clk),
 		.I_rst(I_rst),
 		.I_pc(current_pc),
@@ -268,10 +268,10 @@ module ysyx_22040750_cpu_core(
 		.O_timer_intr(IF_ID_timer_intr),
 		.O_IF_ID_input_valid(IF_ID_input_valid),
 		.O_IF_ID_valid(IF_ID_valid),
-		.O_bubble_inst_debug(IF_ID_bubble)
+		.O_IF_ID_bubble_inst(IF_ID_bubble)
     );
     
-    ysyx_22040750_stall_unit stall_unit_e(
+    ysyx_040750_stall_unit stall_unit_e(
 		.I_rs1_addr(rs1_addr),// from ID only
 		.I_rs2_addr(rs2_addr),// from ID only
 		.I_ID_valid(IF_ID_input_valid),// IF_ID input valid
@@ -285,13 +285,16 @@ module ysyx_22040750_cpu_core(
 		.I_WB_rd_addr(MEM_WB_rd_addr),// 
 		.I_WB_valid(MEM_WB_input_valid),// MEM_WB input valid
 		.I_stall_en(stall_en),// [1] for rs1, [0] for rs2 enable
+		.I_EX_mret(ID_EX_csr_mret),
+		.I_MEM_mret(EX_MEM_csr_mret),
+		.I_WB_mret(MEM_WB_csr_mret),
 		.O_ID_stall(IF_ID_stall),
 		.O_EX_stall(ID_EX_stall),
 		.O_MEM_stall(EX_MEM_stall),
 		.O_WB_stall(MEM_WB_stall)
 	);
 	
-    ysyx_22040750_forward_unit forward_unit_e(
+    ysyx_040750_forward_unit forward_unit_e(
     	.I_ID_rs1_data(rs1_data),// ID_EX out to alu
     	.I_ID_rs2_data(rs2_data),// ID_EX out to alu
     	.I_EX_data(alu_out),// alu out
@@ -308,7 +311,7 @@ module ysyx_22040750_cpu_core(
     	.O_ID_EX_rs2_data(rs2_forward_data)
 	);
 
-	ysyx_22040750_csr_foward csr_foward_e(
+	ysyx_040750_csr_foward csr_foward_e(
 		.I_csr_ID(csr_rd_data),
 		.I_csr_EX(ID_EX_csr),
 		.I_csr_MEM(EX_MEM_csr),
@@ -324,7 +327,7 @@ module ysyx_22040750_cpu_core(
 		.O_csr_foward_data(csr_forward_data)
 	);
 	
-    ysyx_22040750_decoder decoder_e(
+    ysyx_040750_decoder decoder_e(
 		// .I_sys_clk(I_sys_clk),
 		// .I_rst(I_rst),
 		.I_inst(IF_ID_inst),
@@ -362,7 +365,7 @@ module ysyx_22040750_cpu_core(
 		.O_stall_en(stall_en)
     );
     
-    ysyx_22040750_ID_EX_reg ID_EX_reg_e(
+    ysyx_040750_ID_EX_reg ID_EX_reg_e(
 		// ctrl signal
 		.I_sys_clk(I_sys_clk),
 		.I_rst(I_rst),
@@ -427,28 +430,28 @@ module ysyx_22040750_cpu_core(
 		.I_pc(IF_ID_pc),
 		.O_pc(ID_EX_pc),
 		.O_ID_EX_input_valid(ID_EX_input_valid),
-		.O_alu_multicycle(ID_EX_alu_multicycle),
-		.I_inst_debug(IF_ID_inst),
-		.O_inst_debug(ID_EX_inst),
-		.I_bubble_inst_debug(IF_ID_bubble),
-		.O_bubble_inst_debug(ID_EX_bubble)
+		.O_alu_multicycle(ID_EX_alu_multicycle)
+		// .I_inst_debug(IF_ID_inst),
+		// .O_inst_debug(ID_EX_inst),
+		// .I_bubble_inst_debug(IF_ID_bubble),
+		// .O_bubble_inst_debug(ID_EX_bubble)
     );
     
-    ysyx_22040750_mux_Nbit_Msel #(64, 3)
+    ysyx_040750_mux_Nbit_Msel #(64, 3)
 		alu_op1_64bit_3sel (
 		.I_sel_data({64'b0,{32'b0, ID_EX_pc},ID_EX_rs1}),
 		.I_sel(ID_EX_op1_sel),
 		.O_sel_data(alu_op1)
     );
     
-    ysyx_22040750_mux_Nbit_Msel #(64, 3)
+    ysyx_040750_mux_Nbit_Msel #(64, 3)
 		alu_op2_64bit_3sel (
 		.I_sel_data({64'd4,ID_EX_imm,ID_EX_rs2}),
 		.I_sel(ID_EX_op2_sel),
 		.O_sel_data(alu_op2)
     );
     
-	ysyx_22040750_alu alu_e(
+	ysyx_040750_alu alu_e(
 		.I_sys_clk(I_sys_clk),
 		.I_rst(I_rst),
 		.I_op1(alu_op1),
@@ -467,7 +470,7 @@ module ysyx_22040750_cpu_core(
 		.O_result_valid(alu_out_valid)
 	);
 
-    // ysyx_22040750_gpr_alu gpr_alu_e(
+    // ysyx_040750_gpr_alu gpr_alu_e(
     // 	.I_sys_clk(I_sys_clk),
     // 	.I_rst(I_rst),
 	// 	.I_csr_data(),
@@ -483,7 +486,7 @@ module ysyx_22040750_cpu_core(
 	// 	.O_result_valid(alu_out_valid)
     // );
 
-	// ysyx_22040750_csr_alu csr_alu_e(
+	// ysyx_040750_csr_alu csr_alu_e(
 	// 	.I_csr_data(),
 	// 	.I_rs_data(),
 	// 	.I_uimm(),
@@ -491,7 +494,7 @@ module ysyx_22040750_cpu_core(
 	// 	.O_csr_data()
 	// );
     
-    ysyx_22040750_EX_MEM_reg EX_MEM_reg_e(
+    ysyx_040750_EX_MEM_reg EX_MEM_reg_e(
 		.I_sys_clk(I_sys_clk),
 		.I_rst(I_rst),
 		.I_EX_MEM_valid(ID_EX_valid),
@@ -534,7 +537,7 @@ module ysyx_22040750_cpu_core(
 		.O_wstrb(EX_MEM_wstrb),
 		.O_alu_out(EX_MEM_alu_out),
 		//.O_mem_addr(EX_MEM_mem_addr),
-		.O_mem_wen(EX_MEM_mem_wen),// mem wr stage flag, not actual mem wr valid flag
+		// .O_mem_wen(EX_MEM_mem_wen),// mem wr stage flag, not actual mem wr valid flag
 		.O_mem_rd_en(EX_MEM_mem_rd_en),
 		.O_mem_wr_en(EX_MEM_mem_wr_en),
 		.O_rs2_data(EX_MEM_rs2),
@@ -543,22 +546,22 @@ module ysyx_22040750_cpu_core(
 		.O_rd_addr(EX_MEM_rd_addr),
 		.O_regin_sel(EX_MEM_regin_sel),
 		.O_EX_MEM_input_valid(EX_MEM_input_valid),
-		.O_fencei(EX_MEM_fencei),
-		.I_inst_debug(ID_EX_inst),
-		.O_inst_debug(EX_MEM_inst),
-		.I_bubble_inst_debug(ID_EX_bubble),
-		.O_bubble_inst_debug(EX_MEM_bubble)
+		.O_fencei(EX_MEM_fencei)
+		// .I_inst_debug(ID_EX_inst),
+		// .O_inst_debug(EX_MEM_inst),
+		// .I_bubble_inst_debug(ID_EX_bubble),
+		// .O_bubble_inst_debug(EX_MEM_bubble)
     );
     
     // valid sd data from alu is aligned with EX_MEM_valid
-    ysyx_22040750_data_sd mem_sd_e(
+    ysyx_040750_data_sd mem_sd_e(
 		.I_data_in(mem_out),// EX_MEM_rs2
 		.I_wr_strb(EX_MEM_wstrb),
 		.O_sd_data(O_mem_wr_data)
     );
     
-    assign EX_MEM_mem_op = EX_MEM_regin_sel[1] | EX_MEM_mem_wen;
-    ysyx_22040750_MEM_WB_reg MEM_WB_reg_e(
+    // assign EX_MEM_mem_op = EX_MEM_regin_sel[1] | EX_MEM_mem_wen;
+    ysyx_040750_MEM_WB_reg MEM_WB_reg_e(
 		.I_sys_clk(I_sys_clk),
 		.I_rst(I_rst),
     	.I_MEM_WB_valid(EX_MEM_valid),
@@ -598,33 +601,33 @@ module ysyx_22040750_cpu_core(
     	.O_reg_wen(MEM_WB_reg_wen),
     	.O_rd_addr(MEM_WB_rd_addr),
     	.O_regin_sel(MEM_WB_regin_sel),
-    	.O_MEM_WB_input_valid(MEM_WB_input_valid),
-    	.I_inst_debug(EX_MEM_inst),
-		.O_inst_debug(MEM_WB_inst),
-		.I_bubble_inst_debug(EX_MEM_bubble),
-		.O_bubble_inst_debug(MEM_WB_bubble),
-		.I_mem_op_debug(EX_MEM_mem_op),
-		.O_mem_op_debug(MEM_WB_mem_op),
-		.I_mem_addr_debug(EX_MEM_mem_addr),
-		.O_mem_addr_debug(MEM_WB_mem_addr)
+    	.O_MEM_WB_input_valid(MEM_WB_input_valid)
+    	// .I_inst_debug(EX_MEM_inst),
+		// .O_inst_debug(MEM_WB_inst),
+		// .I_bubble_inst_debug(EX_MEM_bubble),
+		// .O_bubble_inst_debug(MEM_WB_bubble),
+		// .I_mem_op_debug(EX_MEM_mem_op),
+		// .O_mem_op_debug(MEM_WB_mem_op),
+		// .I_mem_addr_debug(EX_MEM_mem_addr),
+		// .O_mem_addr_debug(MEM_WB_mem_addr)
     );
     
     // valid ld data from mem is aligned with MEM_WB_valid
-    ysyx_22040750_data_ld mem_ld_e(
+    ysyx_040750_data_ld mem_ld_e(
 		.I_data_in(MEM_WB_mem_data),
 		.I_rd_strb(MEM_WB_mem_rstrb),
 		.I_rd_shamt(MEM_WB_shamt),// 
 		.O_load_data(mem_in)
     );
     
-    ysyx_22040750_mux_Nbit_Msel #(64, 2)
+    ysyx_040750_mux_Nbit_Msel #(64, 2)
     regin_64bit_2sel (
 		.I_sel_data({mem_in,MEM_WB_alu_out}),
 		.I_sel(MEM_WB_regin_sel),
 		.O_sel_data(wr_data)
     );
     
-    ysyx_22040750_gpr gpr_e(
+    ysyx_040750_gpr gpr_e(
 		.I_sys_clk(I_sys_clk),
 		.I_rst(I_rst),
 		.I_wr_data(wr_data),
@@ -638,7 +641,7 @@ module ysyx_22040750_cpu_core(
 
 	// signal_rd from decoder directly
 	// signal_wr from WB pipeline
-	ysyx_22040750_csr csr_e(
+	ysyx_040750_csr csr_e(
 		.I_sys_clk(I_sys_clk),
 		.I_rst(I_rst),
 		.I_mtip(I_mtip),
@@ -662,19 +665,19 @@ module ysyx_22040750_cpu_core(
 		.O_timer_intr(csr_timer_intr)
 	);
 
-	ysyx_22040750_timerintr timerintr_e(
+	ysyx_040750_timerintr timerintr_e(
     .I_EX_intr(ID_EX_csr_intr),// from ID_EX
     .I_MEM_intr(EX_MEM_csr_intr),// from EX_MEM
     .I_WB_intr(MEM_WB_csr_intr),// from MEM_WB
     .I_EX_csr_wen(ID_EX_csr_wen),
     .I_EX_csr_addr(ID_EX_csr_addr),
-    .I_EX_csr_data(alu_csr_data),
+    .I_EX_csr_data({alu_csr_data[7], alu_csr_data[3]}),
     .I_MEM_csr_wen(EX_MEM_csr_wen),
     .I_MEM_csr_addr(EX_MEM_csr_addr),
-    .I_MEM_csr_data(EX_MEM_csr),
+    .I_MEM_csr_data({EX_MEM_csr[7], EX_MEM_csr[3]}),
     .I_WB_csr_wen(MEM_WB_csr_wen),
     .I_WB_csr_addr(MEM_WB_csr_addr),
-    .I_WB_csr_data(MEM_WB_csr),
+    .I_WB_csr_data({MEM_WB_csr[7], MEM_WB_csr[3]}),
     .I_csr_intr(csr_timer_intr),
     .O_timer_intr(timer_intr)
 );

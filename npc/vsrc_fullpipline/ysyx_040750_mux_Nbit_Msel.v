@@ -21,7 +21,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module ysyx_22040750_mux_Nbit_Msel#(
+module ysyx_040750_mux_Nbit_Msel#(
     parameter N = 64,
     parameter M = 4
     )(

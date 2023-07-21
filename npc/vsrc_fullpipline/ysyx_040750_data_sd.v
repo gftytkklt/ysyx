@@ -19,7 +19,7 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-module ysyx_22040750_data_sd(
+module ysyx_040750_data_sd(
     input [63:0] I_data_in,
     input [7:0] I_wr_strb,
     output [63:0] O_sd_data

@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module ysyx_22040750_gpr(
+module ysyx_040750_gpr(
     input I_sys_clk,
     input I_rst,
     input [63:0] I_wr_data,
@@ -32,9 +32,9 @@ module ysyx_22040750_gpr(
     output [63:0] O_rs2_data
     );
     //export "DPI-C" function check;
-    import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
+    // import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
     reg [63:0] gpr [31:0];
-    initial set_gpr_ptr(gpr);
+    // initial set_gpr_ptr(gpr);
     wire wen [31:0];
     assign wen[0] = 0;
     generate for(genvar i=1;i<32;i=i+1) begin

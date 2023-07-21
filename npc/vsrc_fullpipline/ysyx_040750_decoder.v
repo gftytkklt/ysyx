@@ -21,7 +21,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 // `include "global_def.v"
 //import "DPI-C" function void sim_end();
-module ysyx_22040750_decoder(
+module ysyx_040750_decoder(
     // input I_sys_clk,
     // input I_rst,
     input [31:0] I_inst,

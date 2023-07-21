@@ -5,7 +5,7 @@
 // 
 // Create Date: 2022/12/01 10:58:43
 // Design Name: 
-// Module Name: ysyx_22040750_booth_mul_serial
+// Module Name: ysyx_040750_booth_mul_serial
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module ysyx_22040750_booth_mul_serial(
+module ysyx_040750_booth_mul_serial(
     input clk,
     input rst,
     input [63:0] mul1,
@@ -66,7 +66,7 @@ module ysyx_22040750_booth_mul_serial(
             booth_mul2 <= {booth_mul2[129:0],2'b0};
     assign booth = booth_mul1[2:0];
     // booth mul
-    ysyx_22040750_radix4_unit radix4_unit_e(booth,booth_mul2,partial_sum,partial_c);
+    ysyx_040750_radix4_unit radix4_unit_e(booth,booth_mul2,partial_sum,partial_c);
     // mid sum
     always @(posedge clk)
         if(rst)

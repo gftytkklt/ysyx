@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-module ysyx_22040750_ID_EX_reg(
+module ysyx_040750_ID_EX_reg(
     input I_sys_clk,
     input I_rst,
     input I_ID_EX_valid,// mem data valid
@@ -62,11 +62,11 @@ module ysyx_22040750_ID_EX_reg(
     input [31:0] I_pc,
     output reg [31:0] O_pc,
     output O_ID_EX_input_valid,
-    output reg O_alu_multicycle,
-    input [31:0] I_inst_debug,
-    output reg [31:0] O_inst_debug,
-    input I_bubble_inst_debug,
-    output reg O_bubble_inst_debug
+    output reg O_alu_multicycle
+    // input [31:0] I_inst_debug,
+    // output reg [31:0] O_inst_debug,
+    // input I_bubble_inst_debug,
+    // output reg O_bubble_inst_debug
     );
     reg input_valid;
     wire output_valid;
@@ -105,8 +105,8 @@ module ysyx_22040750_ID_EX_reg(
 			O_alu_op_sel <= 0;
 			O_word_op_mask <= 0;
 			O_pc <= 0;
-			O_inst_debug <= 0;
-			O_bubble_inst_debug <= 0;
+			// O_inst_debug <= 0;
+			// O_bubble_inst_debug <= 0;
 			O_csr <= 0;
 			O_csr_op_sel <= 0;
 			O_csr_imm <= 0;
@@ -134,8 +134,8 @@ module ysyx_22040750_ID_EX_reg(
 			O_alu_op_sel <= I_alu_op_sel;
 			O_word_op_mask <= I_word_op_mask;
 			O_pc <= I_pc;
-			O_inst_debug <= I_inst_debug;
-			O_bubble_inst_debug <= I_bubble_inst_debug;
+			// O_inst_debug <= I_inst_debug;
+			// O_bubble_inst_debug <= I_bubble_inst_debug;
 			O_csr <= I_csr;
 			O_csr_op_sel <= I_csr_op_sel;
 			O_csr_imm <= I_csr_imm;
@@ -163,8 +163,8 @@ module ysyx_22040750_ID_EX_reg(
 			O_alu_op_sel <= O_alu_op_sel;
 			O_word_op_mask <= O_word_op_mask;
 			O_pc <= O_pc;
-			O_inst_debug <= O_inst_debug;
-			O_bubble_inst_debug <= O_bubble_inst_debug;
+			// O_inst_debug <= O_inst_debug;
+			// O_bubble_inst_debug <= O_bubble_inst_debug;
 			O_csr <= O_csr;
 			O_csr_op_sel <= O_csr_op_sel;
 			O_csr_imm <= O_csr_imm;
