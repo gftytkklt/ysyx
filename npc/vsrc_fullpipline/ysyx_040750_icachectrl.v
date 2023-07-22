@@ -60,6 +60,7 @@ module ysyx_040750_icachectrl #(
     genvar i;
     reg [TAG_LEN-1:0] lookup_table [BLOCK_NUM-1:0];
     reg [BLOCK_NUM-1:0] valid_table;
+    wire [BLOCK_NUM-1:0] lookup_table_index;
     wire [TAG_LEN-1:0] way0_tag, way1_tag;
     wire way0_valid, way1_valid;
     wire way0_hit, way1_hit;
@@ -117,24 +118,29 @@ module ysyx_040750_icachectrl #(
     assign O_sram_cen = cen_icache;
     // tag & valid flag impl
     generate for(i=0;i<BLOCK_NUM;i=i+1) begin
-    always @(posedge I_clk)
-        if(I_rst) begin
-            lookup_table[i] <= 0;
-            valid_table[i] <= 0;
+        assign lookup_table_index[i] = (i == {mem_index, way1_replace}) ? 1 : 0;
+        always @(posedge I_clk)
+            if(I_rst) begin
+                lookup_table[i] <= 0;
+                valid_table[i] <= 0;
+            end
+            else if(I_cpu_fencei) begin
+                lookup_table[i] <= 0;
+                valid_table[i] <= 0;
+            end
+            // else if(rd_allocate) begin
+            //     lookup_table[{mem_index, way1_replace}] <= mem_tag;
+            //     valid_table[{mem_index, way1_replace}] <= 1;
+            // end
+            else if(rd_allocate && lookup_table_index[i]) begin
+                lookup_table[i] <= mem_tag;
+                valid_table[i] <= 1;
+            end
+            else begin
+                lookup_table[i] <= lookup_table[i];
+                valid_table[i] <= valid_table[i];
+            end
         end
-        else if(I_cpu_fencei) begin
-            lookup_table[i] <= 0;
-            valid_table[i] <= 0;
-        end
-        else if(rd_allocate) begin
-            lookup_table[{mem_index, way1_replace}] <= mem_tag;
-            valid_table[{mem_index, way1_replace}] <= 1;
-        end
-        else begin
-            lookup_table[i] <= lookup_table[i];
-            valid_table[i] <= valid_table[i];
-        end
-    end
     endgenerate
     // cen impl: rd_hit impl cache rd, I_mem_rvalid impl cache reload
     always @(*)

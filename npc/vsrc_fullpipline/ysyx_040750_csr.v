@@ -50,7 +50,7 @@ module ysyx_040750_csr(
             mip <= {mip[63:8],I_mtip,mip[6:0]};
     always @(posedge I_sys_clk)
         if(I_rst) begin
-            {satp, mie, mtvec, mepc, mcause, mip} <= 'h0;
+            {satp, mie, mtvec, mepc, mcause} <= 'h0;
             mstatus <= 64'ha00001800;
         end
         // these ena signals will not occur at the same time

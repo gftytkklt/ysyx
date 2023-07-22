@@ -92,6 +92,8 @@ module ysyx_040750_dcachectrl #(
     genvar i;
     reg [TAG_LEN-1:0] lookup_table [BLOCK_NUM-1:0];
     reg [BLOCK_NUM-1:0] valid_table, dirty_table;
+    wire [BLOCK_NUM-1:0] lookup_table_index;
+    wire [BLOCK_NUM-1:0] dirty_table_hit_index, dirty_table_miss_index, dirty_table_fencei_index;
     // signals below compare hit & miss(use in IDLE state)
     wire [TAG_LEN-1:0] way0_tag, way1_tag;
     wire way0_valid, way1_valid;
@@ -293,35 +295,51 @@ module ysyx_040750_dcachectrl #(
     assign replace_dirty = (way0_dirty && isway0_op) || (way1_dirty && ~isway0_op);
     // lookup table impl
     generate for(i=0;i<BLOCK_NUM;i=i+1) begin
-    always @(posedge I_clk)
-        if(I_rst) begin
-            lookup_table[i] <= 0;
-            valid_table[i] <= 0;
+        assign lookup_table_index[i] = (i == {mem_index, ~isway0_op}) ? 1 : 0;
+        assign dirty_table_hit_index[i] = (i == {index, way1_hit}) ? 1 : 0;
+        assign dirty_table_miss_index[i] = (i == {mem_index, ~isway0_op}) ? 1 : 0;
+        assign dirty_table_fencei_index[i] = (i == fencei_index) ? 1 : 0;
+        always @(posedge I_clk)
+            if(I_rst) begin
+                lookup_table[i] <= 0;
+                valid_table[i] <= 0;
+            end
+            // else if(rd_allocate || wr_allocate) begin
+            //     lookup_table[{mem_index, ~isway0_op}] <= mem_tag;
+            //     valid_table[{mem_index, ~isway0_op}] <= 1;
+            // end
+            else if((rd_allocate || wr_allocate) && lookup_table_index[i]) begin
+                lookup_table[i] <= mem_tag;
+                valid_table[i] <= 1;
+            end
+            else begin
+                lookup_table[i] <= lookup_table[i];
+                valid_table[i] <= valid_table[i];
+            end
+        always @(posedge I_clk)
+            if(I_rst) begin
+                dirty_table[i] <= 0;
+            end
+            // else if(wr_hit)
+            //     dirty_table[{index, way1_hit}] <= 1;
+            // else if(rd_wb && I_mem_bvalid)
+            //     dirty_table[{mem_index, ~isway0_op}] <= 0;
+            // else if(wr_allocate)
+            //     dirty_table[{mem_index, ~isway0_op}] <= 1;
+            // else if(fencei_process & I_mem_bvalid)
+            //     dirty_table[fencei_index] <= 0;
+            else if(wr_hit && dirty_table_hit_index[i])
+                dirty_table[i] <= 1;
+            else if(rd_wb && I_mem_bvalid && dirty_table_miss_index[i])
+                dirty_table[i] <= 0;
+            else if(wr_allocate && dirty_table_miss_index[i])
+                dirty_table[i] <= 1;
+            else if(fencei_process && I_mem_bvalid && dirty_table_fencei_index[i])
+                dirty_table[i] <= 0;
+            else begin
+                dirty_table[i] <= dirty_table[i];
+            end
         end
-        else if(rd_allocate || wr_allocate) begin
-            lookup_table[{mem_index, ~isway0_op}] <= mem_tag;
-            valid_table[{mem_index, ~isway0_op}] <= 1;
-        end
-        else begin
-            lookup_table[i] <= lookup_table[i];
-            valid_table[i] <= valid_table[i];
-        end
-    always @(posedge I_clk)
-        if(I_rst) begin
-            dirty_table[i] <= 0;
-        end
-        else if(wr_hit)
-            dirty_table[{index, way1_hit}] <= 1;
-        else if(rd_wb && I_mem_bvalid)
-            dirty_table[{mem_index, ~isway0_op}] <= 0;
-        else if(wr_allocate)
-            dirty_table[{mem_index, ~isway0_op}] <= 1;
-        else if(fencei_process & I_mem_bvalid)
-            dirty_table[fencei_index] <= 0;
-        else begin
-            dirty_table[i] <= dirty_table[i];
-        end
-    end
     endgenerate
     // FSM impl
     // wb
