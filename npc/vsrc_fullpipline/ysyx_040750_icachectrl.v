@@ -84,14 +84,14 @@ module ysyx_040750_icachectrl #(
     reg fencei_reg;
     // FSM
     `define ysyx_040750_IFSM_WIDTH 7
-    parameter IDLE = `ysyx_040750_IFSM_WIDTH'b000000; 
-    parameter RD_HIT = `ysyx_040750_IFSM_WIDTH'b000001;
-    parameter RD_MISS = `ysyx_040750_IFSM_WIDTH'b000010;
-    parameter RD_RELOAD = `ysyx_040750_IFSM_WIDTH'b000100;
-    parameter RD_ALLOCATE = `ysyx_040750_IFSM_WIDTH'b001000;
-    parameter MMIO_AR = `ysyx_040750_IFSM_WIDTH'b010000;
-    parameter MMIO_RD = `ysyx_040750_IFSM_WIDTH'b100000;
-    parameter FENCEI = `ysyx_040750_IFSM_WIDTH'b1000000;
+    localparam IDLE = `ysyx_040750_IFSM_WIDTH'b000000; 
+    localparam RD_HIT = `ysyx_040750_IFSM_WIDTH'b000001;
+    localparam RD_MISS = `ysyx_040750_IFSM_WIDTH'b000010;
+    localparam RD_RELOAD = `ysyx_040750_IFSM_WIDTH'b000100;
+    localparam RD_ALLOCATE = `ysyx_040750_IFSM_WIDTH'b001000;
+    localparam MMIO_AR = `ysyx_040750_IFSM_WIDTH'b010000;
+    localparam MMIO_RD = `ysyx_040750_IFSM_WIDTH'b100000;
+    localparam FENCEI = `ysyx_040750_IFSM_WIDTH'b1000000;
     reg [`ysyx_040750_IFSM_WIDTH-1:0] current_state, next_state;
     // cache addr cen gen
     reg [3:0] cen_icache; // TODO: add ctrl logic

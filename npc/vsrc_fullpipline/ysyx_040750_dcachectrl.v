@@ -61,10 +61,10 @@ module ysyx_040750_dcachectrl #(
 );
     // FSM signal
     `define ysyx_040750_FSM_WIDTH 16
-    parameter IDLE = `ysyx_040750_FSM_WIDTH'h1, RD_HIT = `ysyx_040750_FSM_WIDTH'h2, RD_MISS = `ysyx_040750_FSM_WIDTH'h4, RD_RELOAD = `ysyx_040750_FSM_WIDTH'h8, RD_WB = `ysyx_040750_FSM_WIDTH'h10, RD_ALLOCATE = `ysyx_040750_FSM_WIDTH'h20;
-    parameter WR_HIT = `ysyx_040750_FSM_WIDTH'h40, WR_MISS = `ysyx_040750_FSM_WIDTH'h80, WR_RELOAD = `ysyx_040750_FSM_WIDTH'h100, WR_WB = `ysyx_040750_FSM_WIDTH'h200, WR_ALLOCATE = `ysyx_040750_FSM_WIDTH'h400;
-    parameter MMIO_AR = `ysyx_040750_FSM_WIDTH'h800, MMIO_AW = `ysyx_040750_FSM_WIDTH'h1000, MMIO_RD = `ysyx_040750_FSM_WIDTH'h2000, MMIO_WR = `ysyx_040750_FSM_WIDTH'h4000;
-    parameter FENCEI = `ysyx_040750_FSM_WIDTH'h8000;
+    localparam IDLE = `ysyx_040750_FSM_WIDTH'h1, RD_HIT = `ysyx_040750_FSM_WIDTH'h2, RD_MISS = `ysyx_040750_FSM_WIDTH'h4, RD_RELOAD = `ysyx_040750_FSM_WIDTH'h8, RD_WB = `ysyx_040750_FSM_WIDTH'h10, RD_ALLOCATE = `ysyx_040750_FSM_WIDTH'h20;
+    localparam WR_HIT = `ysyx_040750_FSM_WIDTH'h40, WR_MISS = `ysyx_040750_FSM_WIDTH'h80, WR_RELOAD = `ysyx_040750_FSM_WIDTH'h100, WR_WB = `ysyx_040750_FSM_WIDTH'h200, WR_ALLOCATE = `ysyx_040750_FSM_WIDTH'h400;
+    localparam MMIO_AR = `ysyx_040750_FSM_WIDTH'h800, MMIO_AW = `ysyx_040750_FSM_WIDTH'h1000, MMIO_RD = `ysyx_040750_FSM_WIDTH'h2000, MMIO_WR = `ysyx_040750_FSM_WIDTH'h4000;
+    localparam FENCEI = `ysyx_040750_FSM_WIDTH'h8000;
     reg [`ysyx_040750_FSM_WIDTH-1:0] current_state, next_state;
     wire replace_dirty;
     wire rd_hit, rd_miss, rd_handshake, rd_reload, rd_wb, rd_allocate;
@@ -105,7 +105,7 @@ module ysyx_040750_dcachectrl #(
     wire way1_op;
     reg isway0_op;// high indicate way0 op
     // wb fsm
-    parameter WB_IDLE = 4'b0001, WB_HANDSHAKE = 4'b0010, WB_DATA = 4'b0100, WB_BVALID = 4'b1000;
+    localparam WB_IDLE = 4'b0001, WB_HANDSHAKE = 4'b0010, WB_DATA = 4'b0100, WB_BVALID = 4'b1000;
     reg [3:0] wb_state, wb_next_state;
     // axi interface handshake && wdata cnt
     wire mem_ar_req, mem_aw_req;
